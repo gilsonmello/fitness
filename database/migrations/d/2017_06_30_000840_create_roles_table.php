@@ -13,7 +13,6 @@ class CreateRolesTable extends Migration {
      */
     public function up() {
         Schema::create('roles', function (Blueprint $table) {
-            $table->engine = "InnoDB";
             $table->increments('id');
             $table->string('name');
             $table->string('label');
@@ -23,7 +22,6 @@ class CreateRolesTable extends Migration {
 
 
         Schema::create('role_user', function (Blueprint $table) {
-            $table->engine = "InnoDB";
             $table->increments('id');
 
             $table->integer('user_id')->unsigned();
@@ -33,15 +31,17 @@ class CreateRolesTable extends Migration {
             $table->softDeletes();
             
             $table->timestamps();
-            
+        });
+        
+        Schema::table('role_user', function($table) {
             $table->foreign('user_id')
-                    ->on('users')
-                    ->references('id');
+                    ->references('id')
+                    ->on('users');
             
             
             $table->foreign('role_id')
-                    ->on('roles')
-                    ->references('id');
+                    ->references('id')
+                    ->on('roles');
         });
     }
 
