@@ -21,18 +21,24 @@ Route::group(['namespace' => 'Frontend'], function(){
 //Rotas para backend
 Route::group(['namespace' => 'Backend'], function () {
 	Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
+
+		//Rota principal
 		Route::get('/', function () {
-		    return view('welcome');
+			return view('welcome');
 		});
+		//Rota para login administrativo
+		Route::get('/login', ['uses' => 'Auth\LoginController@showLoginForm'])->name('login');
+		//Rotas para as notícias
+		require_once __DIR__.'/Backend/News.php';
+
 		Route::get('/home', 'HomeController@index')->name('home');
 	});
 });
-
+Auth::routes();
 /*Route::get('/', function () {
     return view('welcome');
 });
 */
-Auth::routes();
 
 /*Route::get('/home', 'HomeController@index')->name('home');
 */
