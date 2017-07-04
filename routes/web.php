@@ -13,9 +13,7 @@
 
 //Rotas para frontend
 Route::group(['namespace' => 'Frontend'], function(){
-	Route::get('/', function () {
-	    return view('welcome');
-	});
+	Route::get('/', 'FrontendController@index')->name('frontend.index');
 });
 
 //Rotas para backend
