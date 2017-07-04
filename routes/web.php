@@ -20,21 +20,36 @@ Route::group(['namespace' => 'Frontend'], function(){
 
 //Rotas para backend
 Route::group(['namespace' => 'Backend'], function () {
-	Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
+
+	
+
+	Route::group(['prefix' => 'admin'], function() {
+		require(__DIR__ . "/Backend/AdminAuth.php");
+	});
+
+
+	Route::group(['prefix' => 'admin', 'middleware' => 'access.route:Administrador', 'role' => 'adm'], function(){
+		Route::get('/', function(){
+			return redirect()->route('auth.login');
+		});
+			
+		Route::get('/dashboard', 'HomeController@index')->name('home');
+		
 
 		//Rota principal
-		Route::get('/', function () {
+		/*Route::get('/', function () {
 			return view('welcome');
-		});
+		});*/
+
+		//Auth::routes(['middleware' => 'auth.admin']);
+
 		//Rota para login administrativo
-		Route::get('/login', ['uses' => 'Auth\LoginController@showLoginForm'])->name('login');
+
 		//Rotas para as notícias
 		require_once __DIR__.'/Backend/News.php';
 
-		Route::get('/home', 'HomeController@index')->name('home');
 	});
 });
-Auth::routes();
 /*Route::get('/', function () {
     return view('welcome');
 });

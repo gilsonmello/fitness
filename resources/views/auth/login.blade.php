@@ -8,7 +8,7 @@
         <div class="login-box-body">
             <p class="login-box-msg">Sign in to start your session</p>
 
-            <form method="POST" action="{{ route('login') }}" role="form">
+            <form method="POST" action="{{ route('auth.login') }}" role="form">
                 {{ csrf_field() }}
                 <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }} has-feedback">
                     <input value="{{ old('email') }}" id="email" type="email" class="form-control" name="email" placeholder="Email" required autofocus>
@@ -53,7 +53,7 @@
             </div>
             <!-- /.social-auth-links -->
 
-            <a href="{{ route('password.request') }}">I forgot my password</a><br>
+            <a href="{{ route('auth.password.request') }}">I forgot my password</a><br>
             <a href="register.html" class="text-center">Register a new membership</a>
 
         </div>
