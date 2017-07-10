@@ -1,11 +1,13 @@
 <?php
 
-// Route::group(['namespace' => 'AdminAuth'], function () {
+	// Route::group(['namespace' => 'AdminAuth'], function () {
 	Route::get('/login', 'Auth\LoginController@showLoginForm')->name('auth.login');
 
 	Route::post('/login', 'Auth\LoginController@login');
 
 	Route::post('/logout', 'Auth\LoginController@logout')->name('auth.logout');
+
+	Route::get('/logout', 'Auth\LoginController@getLogout')->name('auth.getLogout');
 
 	Route::post('/password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('auth.password.email');
 

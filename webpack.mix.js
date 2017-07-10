@@ -1,4 +1,4 @@
-const { mix } = require('laravel-mix');
+const mix  = require('laravel-mix');
 
 /*
  |--------------------------------------------------------------------------
@@ -16,44 +16,59 @@ const { mix } = require('laravel-mix');
 //mix.minify('resources/assets/css/backend/bootstrap/css/bootstrap.css');
 
 mix.styles([
-    'resources/assets/bootstrap/css/bootstrap.css'
-], 'public/css/backend/bootstrap.css');
+    'public/bower_components/admin-lte/bootstrap/css/bootstrap.min.css',
+], 'public/backend/css/bootstrap.css');
 
 mix.styles([
-    'resources/assets/dist/css/AdminLTE.css',
-    'resources/assets/dist/css/skins/_all-skins.min.css',
-    'resources/assets/plugins/iCheck/flat/blue.css',
-    'resources/assets/plugins/morris/morris.css',
-    'resources/assets/plugins/jvectormap/jquery-jvectormap-1.2.2.css',
-    'resources/assets/plugins/datepicker/datepicker3.css',
-    'resources/assets/plugins/plugins/daterangepicker/daterangepicker.css',
-    'resources/assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css',
-], 'public/css/backend/app.css');
+    'public/bower_components/admin-lte/dist/css/AdminLTE.min.css',
+    'public/bower_components/admin-lte/plugins/daterangepicker/daterangepicker.css',
+    'public/bower_components/admin-lte/plugins/datepicker/datepicker3.css',
+    'public/bower_components/admin-lte/plugins/iCheck/minimal/_all.css',
+    'public/bower_components/admin-lte/plugins/iCheck/square/_all.css',
+    'public/bower_components/admin-lte/plugins/iCheck/flat/_all.css',
+    'public/bower_components/admin-lte/plugins/iCheck/line/_all.css',
+    'public/bower_components/admin-lte/plugins/iCheck/polaris/polaris.css',
+    'public/bower_components/admin-lte/plugins/iCheck/futurico/futurico.css',
+    'public/bower_components/admin-lte/plugins/iCheck/all.css',
+    'public/bower_components/admin-lte/plugins/colorpicker/bootstrap-colorpicker.min.css',
+    'public/bower_components/admin-lte/plugins/timepicker/bootstrap-timepicker.min.css',
+    'public/bower_components/admin-lte/plugins/select2/select2.min.css',
+    'public/bower_components/admin-lte/dist/css/AdminLTE.min.css',
+    'public/bower_components/admin-lte/dist/css/skins/_all-skins.min.css',
+
+], 'public/backend/css/app.css');
 
 mix.scripts([
-    'resources/assets/plugins/jQuery/jquery-2.2.3.min.js'
-], 'public/js/backend/jquery.js');
+    'public/bower_components/admin-lte/plugins/jQuery/jquery-2.2.3.min.js'
+], 'public/backend/js/jquery.js');
 
 mix.scripts([
-    'resources/assets/bootstrap/js/bootstrap.min.js'
-], 'public/js/backend/bootstrap.js');
+    'public/bower_components/admin-lte/bootstrap/js/bootstrap.min.js'
+], 'public/backend/js/bootstrap.js');
 
 mix.scripts([
-    'resources/assets/plugins/morris/morris.min.js',
-    'resources/assets/plugins/sparkline/jquery.sparkline.min.js',
-    'resources/assets/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js',
-    'resources/assets/plugins/jvectormap/jquery-jvectormap-world-mill-en.js',
-    'resources/assets/plugins/knob/jquery.knob.js',
-    'resources/assets/plugins/daterangepicker/daterangepicker.js',
-    'resources/assets/plugins/datepicker/bootstrap-datepicker.js',
-    'resources/assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js',
-    'resources/assets/plugins/slimScroll/jquery.slimscroll.min.js',
-    'resources/assets/plugins/fastclick/fastclick.js',
-    'resources/assets/dist/js/app.min.js',
-    'resources/assets/dist/js/pages/dashboard.js',
-    'resources/assets/dist/js/demo.js',
-], 'public/js/backend/app.js');
+    'public/bower_components/admin-lte/plugins/select2/select2.full.js',
+    'public/bower_components/admin-lte/plugins/input-mask/jquery.inputmask.js',
 
+    'public/bower_components/admin-lte/plugins/input-mask/jquery.inputmask.date.extensions.js',
+    'public/bower_components/admin-lte/plugins/input-mask/jquery.inputmask.extensions.js',
+    'public/bower_components/admin-lte/plugins/daterangepicker/daterangepicker.js',
+    'public/bower_components/admin-lte/plugins/datepicker/bootstrap-datepicker.js',
+    'public/bower_components/admin-lte/plugins/colorpicker/bootstrap-colorpicker.min.js',
+    'public/bower_components/admin-lte/plugins/timepicker/bootstrap-timepicker.js',
+    'public/bower_components/admin-lte/plugins/slimScroll/jquery.slimscroll.js',
+    'public/bower_components/admin-lte/plugins/iCheck/icheck.min.js',
+    'public/bower_components/admin-lte/plugins/fastclick/fastclick.js',
+    'public/bower_components/admin-lte/dist/js/app.js',
+    'public/bower_components/admin-lte/dist/js/demo.js',
+
+
+
+
+    'resources/assets/backend/js/helpers.js',
+], 'public/backend/js/app.js');
+
+/*
 //Styles para tela de login administrativo
 mix.styles([
     'resources/assets/dist/css/AdminLTE.css',
@@ -64,7 +79,7 @@ mix.styles([
 mix.scripts([
     'resources/assets/plugins/iCheck/icheck.min.js'
 ], 'public/js/backend/login.js');
-
+ */
 
 /*mix.combine([
     'resources/assets/js/backend/plugins/jQuery/jquery-2.2.3.min.js',

@@ -1,5 +1,9 @@
-<?php namespace App\Services\Access;
+<?php 
+
+namespace App\Services\Access;
+
 use App\User;
+
 class Access
 {
 	/**
@@ -46,7 +50,7 @@ class Access
 	public function hasRole($role)
 	{
 		if ($user = $this->user()) {
-			return $user->hasRole($role);
+			return $user->hasAnyRoles($role);
 		}
 
 		return false;
@@ -83,7 +87,7 @@ class Access
 	public function can($permission)
 	{
 		if ($user = $this->user()) {
-			return $user->can($permission);
+			return $user->hasPermission($permission);
 		}
 
 		return false;

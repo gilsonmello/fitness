@@ -6,6 +6,7 @@ use Closure;
 use App\Services\Access\Traits\AccessParams;
 use App\User;
 use App\Permission;
+use Auth;
 
 class hasPermissionTheRoute
 {
@@ -21,10 +22,13 @@ class hasPermissionTheRoute
      */
     public function handle($request, Closure $next, $params = null)
     {
-        //$permissions = Permission::with('roles')->get();
+        if(Auth::guest()) {
+            return redirect()->route('auth.login');
+        }
         $assets = $this->getAssets($request, $params);
-        //if (!access()->canMultiple($assets['permissions'], $assets['needsAll']))
-            //return $this->getRedirectMethodAndGo($request, $params);
+        if (!access()->canMultiple($assets['permissions'], $assets['needsAll']))
+            return $this->getRedirectMethodAndGo($request, $params);
+
         return $next($request);
     }
 }
