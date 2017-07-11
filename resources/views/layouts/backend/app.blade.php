@@ -14,6 +14,7 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <!-- Ionicons -->
     <link href="http://code.ionicframework.com/ionicons/2.0.0/css/ionicons.min.css" rel="stylesheet" type="text/css" />
+
     <!-- Theme style -->
     <link href="{{ mix('backend/css/app.css')}}" rel="stylesheet" type="text/css" />
     <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
@@ -38,12 +39,12 @@
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
-            
+
             @yield('content_header')
 
             <!-- Main content -->
             <section class="content">
-                
+                @include('backend.includes.messages')
                 @yield('content')
                 <!-- Your Page Content Here -->
             </section><!-- /.content -->

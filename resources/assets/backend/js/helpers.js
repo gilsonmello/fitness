@@ -65,4 +65,26 @@ $(function () {
     $(".timepicker").timepicker({
         showInputs: false
     });
+
+
+    $(".textarea").wysihtml5();
+
+    $(function () {
+        $('.data-table').DataTable({
+            rowReorder: {
+                selector: 'td:nth-child(2)'
+            },
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": true,
+            autoWidth: true,
+            responsive: true,
+            scroll: true,
+            scrollX: true,
+            scrollCollapse: true,
+        });
+    });
+
 });

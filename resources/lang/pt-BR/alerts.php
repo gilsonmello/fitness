@@ -331,32 +331,13 @@ return [
         'finish' => 'Atendimento finalizado com sucesso.',
         'message_replied' => 'Atendimento respondido.',
     ],
-    'userstudents' => [
-        'created' => 'Aluno criado com sucesso.',
-        'deleted' => 'Aluno excluído com sucesso.',
-        'updated' => 'Aluno atualizado com sucesso.',
-    ],
-    'userteachers' => [
-        'created' => 'Professor criado com sucesso.',
-        'deleted' => 'Professor excluído com sucesso.',
-        'updated' => 'Professor atualizado com sucesso.',
-    ],
-    'myworkshoptutors' => [
-        'created' => 'Tutor criado com sucesso.',
-        'deleted' => 'Tutor excluído com sucesso.',
-        'updated' => 'Tutor atualizado com sucesso.',
-    ],
-    'webinars' => [
-        'created' => 'Webinar criado com sucesso.',
-        'deleted' => 'Webinar excluído com sucesso.',
-        'updated' => 'Webinar atualizado com sucesso.',
-        'error' => 'Erro ao Criar ou Alterar o Webinar.',
+    'question_group' => [
+        'created' => 'Grupo de questões criado com sucesso.',
+        'updated' => 'Grupo de questões atualizado com sucesso.',
+        'error' => 'Erro ao criar Grupo de questões.',
+        'upated_error' => 'Erro ao atualizar Grupo de questões',
+        'not_find' => 'Grupo de Questões não encontrado'
     ],
     
-    'enrollments' => [
-        'created' => 'Matrícula criada com sucesso.',
-        'updated' => 'Matrícula atualizada com sucesso.',
-        'error' => 'Erro ao criar matrícula.',
-        'upated_error' => 'Erro ao atualizar matrícula'
-    ],
+
 ];

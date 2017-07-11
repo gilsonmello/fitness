@@ -59,7 +59,7 @@
                             <a href="{{ route('backend.questions') }}">{{ trans('strings.questions') }}</a>
                         </li>
                         <li>
-                            <a href="{{ route('backend.question_group') }}">{{  trans('strings.question_group') }}</a>
+                            <a href="{{ route('backend.question_group.index') }}">{{  trans('strings.question_group') }}</a>
                         </li>
                     </ul>
                 </li>

@@ -35,6 +35,8 @@ mix.styles([
     'public/bower_components/admin-lte/plugins/select2/select2.min.css',
     'public/bower_components/admin-lte/dist/css/AdminLTE.min.css',
     'public/bower_components/admin-lte/dist/css/skins/_all-skins.min.css',
+    'public/bower_components/admin-lte/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css',
+    'public/bower_components/admin-lte/plugins/datatables/dataTables.bootstrap.css',
 
 ], 'public/backend/css/app.css');
 
@@ -59,6 +61,9 @@ mix.scripts([
     'public/bower_components/admin-lte/plugins/slimScroll/jquery.slimscroll.js',
     'public/bower_components/admin-lte/plugins/iCheck/icheck.min.js',
     'public/bower_components/admin-lte/plugins/fastclick/fastclick.js',
+    'public/bower_components/admin-lte/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js',
+    'public/bower_components/admin-lte/plugins/datatables/jquery.dataTables.min.js',
+    'public/bower_components/admin-lte/plugins/datatables/dataTables.bootstrap.min.js',
     'public/bower_components/admin-lte/dist/js/app.js',
     'public/bower_components/admin-lte/dist/js/demo.js',
 
