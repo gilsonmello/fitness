@@ -11,7 +11,7 @@
     <!-- Bootstrap 3.3.2 -->
     <link href="{{ mix('backend/css/bootstrap.css') }}" rel="stylesheet" type="text/css" />
     <!-- Font Awesome Icons -->
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    {{-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" /> --}}
     <!-- Ionicons -->
     <link href="http://code.ionicframework.com/ionicons/2.0.0/css/ionicons.min.css" rel="stylesheet" type="text/css" />
 
@@ -62,8 +62,8 @@
     <script src="{{ mix ('backend/js/bootstrap.js') }}" type="text/javascript"></script>
 
     <!-- date-range-picker -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
-
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+ --}}
     <!-- AdminLTE App -->
     <script src="{{ mix ('backend/js/app.js') }}" type="text/javascript"></script>
 

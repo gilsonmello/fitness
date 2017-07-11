@@ -20,6 +20,7 @@ mix.styles([
 ], 'public/backend/css/bootstrap.css');
 
 mix.styles([
+    'public/bower_components/admin-lte/bootstrap/css/font-awesome.min.css',
     'public/bower_components/admin-lte/dist/css/AdminLTE.min.css',
     'public/bower_components/admin-lte/plugins/daterangepicker/daterangepicker.css',
     'public/bower_components/admin-lte/plugins/datepicker/datepicker3.css',
@@ -49,6 +50,8 @@ mix.scripts([
 ], 'public/backend/js/bootstrap.js');
 
 mix.scripts([
+
+    'public/bower_components/admin-lte/plugins/moment/moment.min.js',
     'public/bower_components/admin-lte/plugins/select2/select2.full.js',
     'public/bower_components/admin-lte/plugins/input-mask/jquery.inputmask.js',
 

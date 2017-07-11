@@ -65,16 +65,17 @@
                         </tr>
                         </thead>
                         <tbody>
-                            @forelse($results as $value)
-                            <tr>
-                                <td>{!! $value->title !!}</td>
-                                <td>{!! $value->description !!}</td>
-                                <td>{!! $value->created_at !!}</td>
-                            </tr>
-                            @empty
-                                  Vazio
-                            @endforelse
-
+                            @can('backend.question_group.index', $results)
+                                @forelse($results as $value)
+                                <tr>
+                                    <td>{!! $value->title !!}</td>
+                                    <td>{!! $value->description !!}</td>
+                                    <td>{!! $value->created_at !!}</td>
+                                </tr>
+                                @empty
+                                    Vazio
+                                @endforelse
+                            @endcan
                         </tbody>
                         <tfoot>
                             <tr>

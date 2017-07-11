@@ -154,6 +154,25 @@ class DatabaseSeeder extends Seeder
             'updated_at' => date('Y-m-d H:i:s')
         ]);
 
+        //Seeds question_groups
+        DB::table('question_groups')->insert([
+            'title' => 'Grupo 1',
+            'description' => 'Descrição do grupo 1',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ]);
+        DB::table('question_groups')->insert([
+            'title' => 'Grupo 2',
+            'description' => 'Descrição do grupo 2',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ]);
+        DB::table('question_groups')->insert([
+            'title' => 'Grupo 3',
+            'description' => 'Descrição do grupo 3',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ]);
 
     }
 }

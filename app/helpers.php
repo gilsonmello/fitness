@@ -1,6 +1,6 @@
 <?php 
 
-if (!function_exists('access')) {
+if(!function_exists('access')) {
 	/**
 	 * Access (lol) the Access:: facade as a simple function
 	 */
@@ -9,6 +9,7 @@ if (!function_exists('access')) {
 	}
 
 }
+
 if (!function_exists('getValueSession')) {
 
 	/**
