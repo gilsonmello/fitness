@@ -14,45 +14,40 @@
 //Rotas para frontend
 Route::group(['namespace' => 'Frontend'], function(){
 	Route::get('/', 'FrontendController@index')->name('frontend.index');
+	Route::get('/services', 'ServicesController@index')->name('services.index');
+	Route::get('/services/{slug}', 'ServicesController@view')->name('services.view');
 });
 
 //Rotas para backend
 Route::group(['namespace' => 'Backend'], function () {
 
-	
-
+	//Rota para login administrativo
 	Route::group(['prefix' => 'admin'], function() {
 		require(__DIR__ . "/Backend/AdminAuth.php");
 	});
 
-
 	Route::group([
-		'prefix' => 'admin', 
-		'middleware' => 'access.route', 
-		'role' => 'adm',
-		'permission' => 'view_backend',
-		'with' => 'Você não tem acesso'
-	], function(){
-		
-			Route::get('/', function(){
-				return redirect()->route('auth.login');
-			});
-				
-			Route::get('/dashboard', 'HomeController@index')->name('home');
-			
+		'prefix' => 'admin',
+		'middleware' => 'access.route',
+		'role' => ['admin'],
+		'permission' => 'view_admin',
+		'with' => ['flash_danger', 'You do not have access to do that.'],
+		'redirect' => 'admin/login'
+
+		], function(){
 
 			//Rota principal
-			/*Route::get('/', function () {
-				return view('welcome');
-			});*/
+			Route::get('/', 'DashboardController@index')->name('backend.dashboard');
 
-			//Auth::routes(['middleware' => 'auth.admin']);
+			//Rotas para questions
+			require(__DIR__ . "/Backend/Question.php");
 
-			//Rota para login administrativo
+			//Rotas para question_group
+			require(__DIR__ . "/Backend/QuestionGroup.php");
 
 			//Rotas para as notícias
 			require_once __DIR__.'/Backend/News.php';
-
+				
 	});
 });
 /*Route::get('/', function () {

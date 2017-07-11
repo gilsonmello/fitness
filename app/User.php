@@ -41,9 +41,16 @@ class User extends Authenticatable
                     }
                 }
             }
+        }else if(is_string($permissions)){
+            foreach($this->roles as $role){
+                if($role->permissions->contains('name', $permissions)){
+                    return true;
+                }
+            }
         }else if(is_object($permissions)){
             return $this->hasAnyRoles($permissions->roles);
         }
+        return false;
     }
     
     public function hasAnyRoles($roles){

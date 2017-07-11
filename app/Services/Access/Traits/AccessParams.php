@@ -165,11 +165,6 @@ trait AccessParams {
 		$return = [];
 		$route = $request->route();
 		$actions = $route->getAction();
-		var_dump($param);
-		if($param == 'needsAll'){
-			dd($actions, $param);
-		}
-
 		//Param isn't needed for this request
 		if (! isset($actions[$param])) return false;
 
@@ -182,7 +177,6 @@ trait AccessParams {
 			return array_merge($return, $actions[$param]);
 
 		$return[] = $actions[$param];
-
 		return $return;
 	}
 
