@@ -14,8 +14,8 @@
 //Rotas para frontend
 Route::group(['namespace' => 'Frontend'], function(){
 	Route::get('/', 'FrontendController@index')->name('frontend.index');
-	Route::get('/services', 'ServicesController@index')->name('services.index');
-	Route::get('/services/{slug}', 'ServicesController@view')->name('services.view');
+	/*Route::get('/services', 'ServicesController@index')->name('services.index');
+	Route::get('/services/{slug}', 'ServicesController@view')->name('services.view');*/
 });
 
 //Rotas para backend
@@ -47,6 +47,9 @@ Route::group(['namespace' => 'Backend'], function () {
 
 			//Rotas para as notícias
 			require_once __DIR__.'/Backend/News.php';
+
+			//Rotas para as ipacs
+			require_once __DIR__.'/Backend/Ipac.php';
 				
 	});
 });

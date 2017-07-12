@@ -287,6 +287,8 @@ return [
     'from_email' => 'Email',
     'student_email' => 'E-mail do Aluno',
     'user_email' => 'E-mail',
+    'user_name' => 'Nome do usuário',
+    'solve' => 'Resolver',
     'video' => 'Vídeo',
     'price' => 'Preço',
     'access_time' => 'Dias para acesso',
@@ -428,6 +430,7 @@ return [
     'activity' => 'Atividade',
     'activities' => 'Atividades',
     'answered' => 'Respondido',
+    'answer' => 'Responder',
     'notanswred' => 'Não Respondido',
     'deadline' => 'Prazo Final',
     'deadline_evaluation' => 'Prazo Final Correção',
@@ -469,5 +472,8 @@ return [
     'remember_me' => 'Lembre-me',
     'login_with_facebook' => 'Login com Facebook',
     'I_forgot_my_password' => 'Esqueci a senha',
-    'password' => 'Senha'
+    'password' => 'Senha',
+    'ipacs' => 'Ipacs',
+    'users' => 'Usuários',
+    'evaluations' => 'Avaliações'
 ];

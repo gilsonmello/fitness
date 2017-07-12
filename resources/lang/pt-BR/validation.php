@@ -102,6 +102,8 @@ return [
       |
      */
     'attributes' => [
+        'required_question_group_id' => 'Selecione ao menos 1 Grupo de Questões',
+        'required_user_id' => 'Selecione ao menos 1 Usuário',
         'phone' => 'Telefone',
         'dimensions' => 'Dimensões',
         'release' => 'Lançamento',

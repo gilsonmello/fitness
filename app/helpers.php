@@ -35,5 +35,14 @@ if (!function_exists('getValueSession')) {
 
 		return $value;
 	}
+}
 
+if(!function_exists('active')){
+	function active($condition){
+		$url = isset($_SERVER['REQUEST_URI']) && !empty($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : "";
+		if(strpos($url, $condition, 0) >= 0 && strpos($url, $condition, 0) != FALSE){
+			return "active";
+		}
+		return "";
+	}
 }

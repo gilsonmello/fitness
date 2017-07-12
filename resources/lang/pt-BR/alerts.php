@@ -339,6 +339,15 @@ return [
         'not_find' => 'Grupo de Questões não encontrado',
         'deleted' => 'Grupo de Questões deletado com sucesso'
     ],
+
+    'ipacs' => [
+        'created' => 'Ipac criado com sucesso.',
+        'updated' => 'Ipac atualizado com sucesso.',
+        'error' => 'Erro ao criar Ipac.',
+        'upated_error' => 'Erro ao atualizar Ipac',
+        'not_find' => 'Ipac não encontrado',
+        'deleted' => 'Ipac deletado com sucesso'
+    ],
     
 
 ];

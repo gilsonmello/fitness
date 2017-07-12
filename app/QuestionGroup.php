@@ -34,4 +34,8 @@ class QuestionGroup extends Model
          return $query->orderBy('company_name', 'asc')
          ->get();
      }*/
+
+     public function ipacs(){
+        return $this->hasMany(\App\Ipac::class);
+     }
 }
