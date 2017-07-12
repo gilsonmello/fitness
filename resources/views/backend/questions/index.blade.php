@@ -35,13 +35,13 @@
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
             </div>
         </div>
-        {!! Form::open(array('route' => array('backend.questions'), 'class' => 'form-horizontal', 'method' => 'get'))  !!}
+        {!! Form::open(array('route' => array('backend.questions.index'), 'class' => 'form-horizontal', 'method' => 'get'))  !!}
         <div class="box-body">
             <div class="row">
                 {!! Form::hidden('f_submit', '1'  ) !!}
-                {!! Form::label('f_CouponController_name',  trans('strings.title'), ['class' => 'col-md-2 control-label']) !!}
+                {!! Form::label('QuestionController@index:title',  trans('strings.title'), ['class' => 'col-md-2 control-label']) !!}
                 <div class="col-md-10">
-                    {!! Form::text('f_CouponController_name', null, ['class' => 'form-control']  ) !!}
+                    {!! Form::text('QuestionController@index:title', null, ['class' => 'form-control']  ) !!}
                 </div>
             </div>
         </div>
@@ -49,6 +49,48 @@
             {!! Form::submit( trans('strings.search'), ['class' => 'btn btn-primary btn-xs']) !!}
         </div>
         {!! Form::close() !!}
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <table id="example2" cellspacing="0" class="table table-bordered table-hover data-table">
+                        <thead>
+                        <tr>
+                            <th>{!! trans('strings.title') !!}</th>
+                            <th>{!! trans('strings.description') !!}</th>
+                            <th>{!! trans('strings.created_at') !!}</th>
+                            <th>{!! trans('strings.actions') !!}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @can('backend.questions.index', $questions)
+                        @forelse($questions as $value)
+                            <tr>
+                                <td>{!! $value->title !!}</td>
+                                <td>{!! substr($value->note, 0, 100) !!}</td>
+                                <td>{!! $value->created_at !!}</td>
+                                <th>{!! $value->action_buttons !!}</th>
+                            </tr>
+                        @empty
+                            Vazio
+                        @endforelse
+                        @endcan
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <th>{!! trans('strings.title') !!}</th>
+                            <th>{!! trans('strings.description') !!}</th>
+                            <th>{!! trans('strings.created_at') !!}</th>
+                            <th>{!! trans('strings.actions') !!}</th>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 
 @endsection

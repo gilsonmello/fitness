@@ -30,7 +30,7 @@ Route::group(['namespace' => 'Backend'], function () {
 		'prefix' => 'admin',
 		'middleware' => 'access.route',
 		'role' => ['admin'],
-		'permission' => 'view_admin',
+		'permission' => 'backend.view',
 		'with' => ['flash_danger', 'You do not have access to do that.'],
 		'redirect' => 'admin/login'
 

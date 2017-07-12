@@ -48,7 +48,7 @@
                     <span>Dashboard</span>
                 </a>
             </li>
-            @if (access()->hasPermission('view_admin'))
+            @if (access()->hasPermission('backend.view'))
                 <li class="treeview active">
                     <a href="#">
                         <span>Questões</span> 
@@ -56,7 +56,7 @@
                     </a>
                     <ul class="treeview-menu">
                         <li>
-                            <a href="{{ route('backend.questions') }}">{{ trans('strings.questions') }}</a>
+                            <a href="{{ route('backend.questions.index') }}">{{ trans('strings.questions') }}</a>
                         </li>
                         <li>
                             <a href="{{ route('backend.question_group.index') }}">{{  trans('strings.question_group') }}</a>

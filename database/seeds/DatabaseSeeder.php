@@ -30,7 +30,6 @@ class DatabaseSeeder extends Seeder
 
 
         //Seed roles
-        
         DB::table('roles')->insert([
             'name' => 'adm',
             'label' => 'Administrador',
@@ -125,31 +124,58 @@ class DatabaseSeeder extends Seeder
 
         //Seeds permissions
         DB::table('permissions')->insert([
-            'name' => 'edit_news',
-            'label' => 'Editar Notícias',
+            'name' => 'backend.view',
+            'label' => 'Visualizar Backend',
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s')
         ]);
 
         DB::table('permissions')->insert([
-            'name' => 'delete_news',
-            'label' => 'Deletar Notícias',
+            'name' => 'backend.question_grupo.create',
+            'label' => 'Criar grupo de questões',
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s')
         ]);
 
+        DB::table('permissions')->insert([
+            'name' => 'backend.question_group.index',
+            'label' => 'Listagem de Grupo de Questões',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ]);
+
+        DB::table('permissions')->insert([
+            'name' => 'backend.question_group.update',
+            'label' => 'Editar de Grupo de Questões',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ]);
 
         //Seeds permission_role
         DB::table('permission_role')->insert([
             'permission_id' => 1,
-            'role_id' => 1,
+            'role_id' => 2,
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s')
         ]);
 
         DB::table('permission_role')->insert([
             'permission_id' => 2,
-            'role_id' => 1,
+            'role_id' => 2,
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ]);
+
+        DB::table('permission_role')->insert([
+            'permission_id' => 3,
+            'role_id' => 2,
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ]);
+
+        DB::table('permission_role')->insert([
+            'permission_id' => 4,
+            'role_id' => 2,
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s')
         ]);
@@ -158,18 +184,21 @@ class DatabaseSeeder extends Seeder
         DB::table('question_groups')->insert([
             'title' => 'Grupo 1',
             'description' => 'Descrição do grupo 1',
+            'is_active' => 1,
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s')
         ]);
         DB::table('question_groups')->insert([
             'title' => 'Grupo 2',
             'description' => 'Descrição do grupo 2',
+            'is_active' => 1,
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s')
         ]);
         DB::table('question_groups')->insert([
             'title' => 'Grupo 3',
             'description' => 'Descrição do grupo 3',
+            'is_active' => 1,
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s')
         ]);

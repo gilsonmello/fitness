@@ -69,22 +69,63 @@ $(function () {
 
     $(".textarea").wysihtml5();
 
-    $(function () {
-        $('.data-table').DataTable({
-            rowReorder: {
-                selector: 'td:nth-child(2)'
-            },
-            "paging": true,
-            "lengthChange": false,
-            "searching": false,
-            "ordering": true,
-            "info": true,
-            autoWidth: true,
-            responsive: true,
-            scroll: true,
-            scrollX: true,
-            scrollCollapse: true,
-        });
+
+    $('.data-table').DataTable({
+        rowReorder: {
+            selector: 'td:nth-child(2)'
+        },
+        "paging": true,
+        "lengthChange": false,
+        "searching": false,
+        "ordering": true,
+        "info": true,
+        autoWidth: true,
+        responsive: true,
+        scroll: true,
+        scrollX: true,
+        scrollCollapse: true,
     });
+
+    $('[data-method]').append(function(){
+
+            var method;
+
+            if($(this).attr('data-method') != undefined || $(this).attr('data-method') != ""){
+                method = $(this).attr('data-method');
+            }else{
+                method = "POST";
+            }
+            var typeAlert = $(this).attr('data-alert');
+            var message = $(this).attr('data-message');
+            var name = null;
+            switch (typeAlert) {
+                case 'send_email':
+                    name = "send_email";
+                    break;
+                case 'released_for_certification':
+                    name = "released_for_certification";
+                    break;
+                default:
+                    name = "delete_item";
+                    break;
+            }
+            return "\n" +
+                "<form action='" + $(this).attr('href') + "' method='POST' data-message='" + message + "' name='" + name + "' style='display:none'>\n" +
+                "   <input type='hidden' name='_method' value='" + $(this).attr('data-method') + "'>\n" +
+                "   <input type='hidden' name='_token' value='" + $('meta[name="_token"]').attr('content') + "'>\n" +
+                "</form>\n"
+        })
+        .removeAttr('href')
+        .attr('style', 'cursor:pointer;')
+        .attr('onclick', '$(this).find("form").submit();');
+
+    /*
+     Generic are you sure dialog
+     */
+    $('form[name=delete_item]').submit(function () {
+        return confirm("Tem certeza que deseja excluir esse item?");
+    });
+
+
 
 });

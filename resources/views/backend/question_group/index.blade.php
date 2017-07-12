@@ -35,13 +35,13 @@
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
             </div>
         </div>
-        {!! Form::open(array('route' => array('backend.question_group.index'), 'class' => 'form-horizontal', 'method' => 'get'))  !!}
+        {!! Form::open(['route' => ['backend.question_group.index'], 'class' => 'form-horizontal', 'method' => 'get'])  !!}
         <div class="box-body">
             <div class="row">
-                {!! Form::hidden('f_submit', '1'  ) !!}
-                {!! Form::label('title',  trans('strings.title'), ['class' => 'col-md-2 control-label']) !!}
+                {!! Form::hidden('f_submit', '1') !!}
+                {!! Form::label('QuestionGroupController@index:title',  trans('strings.title'), ['class' => 'col-md-2 control-label']) !!}
                 <div class="col-md-10">
-                    {!! Form::text('title', $title, ['class' => 'form-control']  ) !!}
+                    {!! Form::text('QuestionGroupController@index:title', !is_null($title) && isset($title) ? $title : '', ['class' => 'form-control']  ) !!}
                 </div>
             </div>
         </div>
@@ -62,6 +62,7 @@
                             <th>{!! trans('strings.title') !!}</th>
                             <th>{!! trans('strings.description') !!}</th>
                             <th>{!! trans('strings.created_at') !!}</th>
+                            <th>{!! trans('strings.actions') !!}</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -71,6 +72,7 @@
                                     <td>{!! $value->title !!}</td>
                                     <td>{!! $value->description !!}</td>
                                     <td>{!! $value->created_at !!}</td>
+                                    <th>{!! $value->action_buttons !!}</th>
                                 </tr>
                                 @empty
                                     Vazio
@@ -82,6 +84,7 @@
                                 <th>{!! trans('strings.title') !!}</th>
                                 <th>{!! trans('strings.description') !!}</th>
                                 <th>{!! trans('strings.created_at') !!}</th>
+                                <th>{!! trans('strings.actions') !!}</th>
                             </tr>
                         </tfoot>
                     </table>

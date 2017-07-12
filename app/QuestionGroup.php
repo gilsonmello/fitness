@@ -4,10 +4,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Services\QuestionGroup\Traits\QuestionGroupAttributes;
 
 class QuestionGroup extends Model
 {
-     use SoftDeletes;
+     use SoftDeletes, QuestionGroupAttributes;
 
      public $timestamps = true;
 
@@ -26,6 +27,11 @@ class QuestionGroup extends Model
      protected $guarded = ['id'];
 
      public function questions(){
-        //return $this->belongsToMany();
+        return $this->belongsToMany(\App\Question::class, 'question_group_question', 'question_id', 'question_group_id');
      }
+    /*
+     public function scopeSuppliers($query){
+         return $query->orderBy('company_name', 'asc')
+         ->get();
+     }*/
 }

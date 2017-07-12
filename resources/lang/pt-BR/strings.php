@@ -462,5 +462,7 @@ return [
     'justification_external_payment' => 'Justificativa para pagamento',
     'filter' => 'Filtro',
     'dashboard' => 'Dashboard',
-    'manager' => 'Gerenciar'
+    'manager' => 'Gerenciar',
+    'actions' => 'Ações',
+    'group_question' => 'Grupo de Questão'
 ];

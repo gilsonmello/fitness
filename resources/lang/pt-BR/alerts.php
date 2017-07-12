@@ -336,7 +336,8 @@ return [
         'updated' => 'Grupo de questões atualizado com sucesso.',
         'error' => 'Erro ao criar Grupo de questões.',
         'upated_error' => 'Erro ao atualizar Grupo de questões',
-        'not_find' => 'Grupo de Questões não encontrado'
+        'not_find' => 'Grupo de Questões não encontrado',
+        'deleted' => 'Grupo de Questões deletado com sucesso'
     ],
     
 

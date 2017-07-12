@@ -58,4 +58,39 @@ class QuestionGroupRepository{
         }
         return false;
     }
+
+    /**
+     * @param $request
+     * @return boolean
+     */
+    public function update($id, $request){
+        $data = $request->all();
+        $questionGroup = $this->findOrThrowException($id);
+        $questionGroup->title = $data['title'];
+        $questionGroup->description = isset($data['description']) && !empty($data['description']) ? $data['description'] : NULL;
+        $questionGroup->is_active = isset($data['is_active']) ? 1 : 0;
+        if($questionGroup->save()){
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * @param int $id
+     * @return boolean
+     * @throws GeneralException
+     */
+    public function destroy($id){
+        $questionGroup = $this->findOrThrowException($id);
+        if ($questionGroup->delete())
+            return true;
+        throw new GeneralException("There was a problem deleting this coupon. Please try again.");
+    }
+
+    /**
+     * @return mixed
+     */
+    public function all(){
+        return $this->question_group->all();
+    }
 }

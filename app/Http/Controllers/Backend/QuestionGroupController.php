@@ -23,10 +23,10 @@ class QuestionGroupController extends Controller
 
         $f_submit = $request->input('f_submit', '');
 
-        $title = getValueSession($request, 'title', '', $f_submit, '');
+        $title = getValueSession($request, 'QuestionGroupController@index:title', '', $f_submit, '');
 
         $results = $this->groupRepository->getQuestionGroupPaginated(NULL, $title, 'title', 'asc');
-        
+
         return view('backend.question_group.index', compact('results', 'title'));
     }
 
@@ -35,15 +35,28 @@ class QuestionGroupController extends Controller
     }
 
     public function edit($id = NULL){
-
+        if(!is_null($id)) {
+            $groupQuestion = $this->groupRepository->findOrThrowException($id);
+            return view('backend.question_group.edit', compact('groupQuestion'));
+        }
+        throw new GeneralException('Operação Invalidada');
     }
 
     public function destroy($id = NULL){
-
+        if($this->groupRepository->destroy($id)){
+            return redirect()
+                ->route('backend.question_group.index')
+                ->withFlashSuccess(trans("alerts.question_group.deleted"));
+        }
+        throw new GeneralException('Operação Invalidada');
     }
 
-    public function update(UpdateQuestionGroupRequest $request){
-
+    public function update($id, UpdateQuestionGroupRequest $request){
+        if($this->groupRepository->update($id, $request)){
+            return redirect()
+                ->route('backend.question_group.index', ['page' => $request->session()->get('lastpage', '1')])
+                ->withFlashSuccess(trans("alerts.question_group.updated"));
+        }
     }
 
     public function store(CreateQuestionGroupRequest $request){
