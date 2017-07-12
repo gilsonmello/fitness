@@ -464,5 +464,10 @@ return [
     'dashboard' => 'Dashboard',
     'manager' => 'Gerenciar',
     'actions' => 'Ações',
-    'group_question' => 'Grupo de Questão'
+    'group_question' => 'Grupo de Questão',
+    'login' => 'Login',
+    'remember_me' => 'Lembre-me',
+    'login_with_facebook' => 'Login com Facebook',
+    'I_forgot_my_password' => 'Esqueci a senha',
+    'password' => 'Senha'
 ];

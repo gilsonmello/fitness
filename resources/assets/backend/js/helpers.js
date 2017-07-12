@@ -2,6 +2,25 @@
  * Created by Junnyor on 09/07/2017.
  */
 $(function () {
+
+    function convertToSlug(str){
+        str = str.replace(/^\s+|\s+$/g, ''); // trim
+        str = str.toLowerCase();
+
+        // remove accents, swap ñ for n, etc
+        var from = "ãàáäâẽèéëêìíïîõòóöôùúüûñç·/_,:;";
+        var to = "aaaaaeeeeeiiiiooooouuuunc------";
+        for (var i = 0, l = from.length; i < l; i++) {
+            str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
+        }
+
+        str = str.replace(/[^a-z0-9 -]/g, '') // remove invalid chars
+                .replace(/\s+/g, '-') // collapse whitespace and replace by -
+                .replace(/-+/g, '-'); // collapse dashes
+
+        return str;
+    }
+    
     //Initialize Select2 Elements
     $(".select2").select2();
 
@@ -67,7 +86,11 @@ $(function () {
     });
 
 
-    $(".textarea").wysihtml5();
+    $(".textarea").wysihtml5({
+        toolbar: {
+            html: true,
+        },
+    });
 
 
     $('.data-table').DataTable({
@@ -126,6 +149,6 @@ $(function () {
         return confirm("Tem certeza que deseja excluir esse item?");
     });
 
-
+    $('[data-toggle="tooltip"]').tooltip();
 
 });
