@@ -16,8 +16,7 @@ class CreateQuestionsTable extends Migration
         Schema::create('questions', function (Blueprint $table) {
             $table->engine = "InnoDB";
             $table->increments('id');
-            $table->integer('question_group_id')->unsigned();
-            
+            $table->string('title', 255);
             $table->tinyInteger('answer_type')->default(0);
             $table->string('note');
             $table->tinyInteger('is_active')->default(1);

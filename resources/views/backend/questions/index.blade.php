@@ -38,7 +38,7 @@
         {!! Form::open(array('route' => array('backend.questions.index'), 'class' => 'form-horizontal', 'method' => 'get'))  !!}
         <div class="box-body">
             <div class="row">
-                {!! Form::hidden('f_submit', '1'  ) !!}
+                {!! Form::hidden('f_submit', '1') !!}
                 {!! Form::label('QuestionController@index:title',  trans('strings.title'), ['class' => 'col-md-2 control-label']) !!}
                 <div class="col-md-10">
                     {!! Form::text('QuestionController@index:title', null, ['class' => 'form-control']  ) !!}

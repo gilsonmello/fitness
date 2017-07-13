@@ -21,9 +21,9 @@ class QuestionController extends Controller
     public function index(Request $request){
 
         $request->session()->put('lastpage', $request->only('page')['page']);
-
+        
         $f_submit = $request->input('f_submit', '');
-
+        
         $title = getValueSession($request, 'QuestionController@index:title', '', $f_submit, '');
 
         $questions = $this->question->getQuestionPaginated(NULL, $title);

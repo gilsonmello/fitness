@@ -32,7 +32,7 @@ if (!function_exists('getValueSession')) {
 		}
 
 		$request->session()->put($name, $value);
-
+		
 		return $value;
 	}
 }

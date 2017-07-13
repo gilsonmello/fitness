@@ -76,6 +76,9 @@ class IpacController extends Controller{
     }
 
     public function answer($id){
-
+        $ipac = $this->ipac->findOrThrowException($id);
+        $groupQuestions = $this->questionGroup->all();
+        $users = $this->user->all();
+        return view('backend.ipacs.answer', compact('ipac', 'groupQuestions', 'users'));
     }
 }
