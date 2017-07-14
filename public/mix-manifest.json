@@ -1,24 +1,8 @@
 {
-  "/js/app.js": "/js/app.js",
-  "/css/app.css": "/css/app.css",
-  "/js/backend/backend.js": "/js/backend/backend.4a395e0192a5cf1298316537de8803a1.js",
-  "/mix.js": "/mix.2c859f2861cff8603409.js",
-  "/css/backend/backend.css": "/css/backend/backend.559e9d991542b89bf7c410eef87e6f9f.css",
-  "resources/assets/css/backend/AdminLTE.min.css": "resources/assets/css/backend/AdminLTE.min.369b017375c8c4a0878cc3637cd022a5.css",
-  "resources/assets/css/backend/bootstrap/css/bootstrap.min.css": "resources/assets/css/backend/bootstrap/css/bootstrap.min.2a31dca112f26923b51676cb764c58d5.css",
-  "/css/backend/AdminLTE.css": "/css/backend/AdminLTE.369b017375c8c4a0878cc3637cd022a5.css",
-  "/css/backend/bootstrap.css": "/css/backend/bootstrap.2a31dca112f26923b51676cb764c58d5.css",
-  "/css/backend/app.css": "/css/backend/app.71a401d53d39719f5b5c42de29f787ac.css",
-  "/js/backend/jquery-2.2.3.js": "/js/backend/jquery-2.2.3.33cabfa15c1060aaa3d207c653afb1ee.js",
-  "/js/backend/bootstrap.js": "/js/backend/bootstrap.5869c96cc8f19086aee625d670d741f9.js",
-  "/js/backend/app.js": "/js/backend/app.c97edde005d18d707bcf8f3185de7201.js",
-  "/js/backend/login.css": "/js/backend/login.7168c30f395b48e3274d7ac674f539f9.css",
-  "/js/backend/login.js": "/js/backend/login.8011794c92c6e1476cc7c5811c5c2095.js",
-  "/css/backend/login.css": "/css/backend/login.e65d4deac3745043932173ae9a1168d8.css",
-  "/js/backend/jquery.js": "/js/backend/jquery.33cabfa15c1060aaa3d207c653afb1ee.js",
-  "/backend/js/app.js": "/backend/js/app.29652506ca193ac55f32c73e0d7635c9.js",
+  "/mix.js": "/mix.c79696d3c0ad1e414cde.js",
+  "/backend/css/bootstrap.css": "/backend/css/bootstrap.ec3bb52a00e176a7181d454dffaea219.css",
+  "/backend/css/app.css": "/backend/css/app.b60b7262101a6c480270921930ae2d59.css",
   "/backend/js/jquery.js": "/backend/js/jquery.33cabfa15c1060aaa3d207c653afb1ee.js",
   "/backend/js/bootstrap.js": "/backend/js/bootstrap.5869c96cc8f19086aee625d670d741f9.js",
-  "/backend/css/bootstrap.css": "/backend/css/bootstrap.ec3bb52a00e176a7181d454dffaea219.css",
-  "/backend/css/app.css": "/backend/css/app.b60b7262101a6c480270921930ae2d59.css"
+  "/backend/js/app.js": "/backend/js/app.29652506ca193ac55f32c73e0d7635c9.js"
 }
