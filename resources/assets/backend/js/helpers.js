@@ -24,6 +24,14 @@ $(function () {
     //Initialize Select2 Elements
     $(".select2").select2();
 
+
+
+    $(".textarea").wysihtml5({
+        toolbar: {
+            html: true,
+        },
+    });
+
     //Datemask dd/mm/yyyy
     $("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
     //Datemask2 mm/dd/yyyy
@@ -63,7 +71,12 @@ $(function () {
     $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
         checkboxClass: 'icheckbox_minimal-blue',
         radioClass: 'iradio_minimal-blue'
+    }).on('ifChanged', function(e) {
+        // Get the field name
+        var field = $(this).attr('name');
+        alert(field);
     });
+
     //Red color scheme for iCheck
     $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
         checkboxClass: 'icheckbox_minimal-red',
@@ -73,6 +86,18 @@ $(function () {
     $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
         checkboxClass: 'icheckbox_flat-green',
         radioClass: 'iradio_flat-green'
+    }).on('ifClicked', function(e) {
+        // Get the field name
+        var field = $(this);
+        if(field.attr('class').indexOf('answer-yes-click') >= 0){
+            field.parent().parent().parent().find('.answer-yes').css({
+                'display': 'block'
+            });
+        }else{
+            field.parent().parent().parent().find('.answer-yes').css({
+                'display': 'none'
+            });
+        }
     });
 
     //Colorpicker
@@ -85,12 +110,6 @@ $(function () {
         showInputs: false
     });
 
-
-    $(".textarea").wysihtml5({
-        toolbar: {
-            html: true,
-        },
-    });
 
 
     $('.data-table').DataTable({
@@ -151,4 +170,7 @@ $(function () {
 
     $('[data-toggle="tooltip"]').tooltip();
 
+    $('.answer-yes').css({
+        'display': 'none'
+    });
 });

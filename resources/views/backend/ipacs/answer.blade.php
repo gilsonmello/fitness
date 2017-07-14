@@ -29,40 +29,65 @@
 @section('content')
     
     @can('backend.ipacs.create')
-    {!! Form::open(['route' => ['backend.ipacs.answer', $ipac->id], 'class' => 'form-horizontal', 'role' => 'form', 'method' => 'put']) !!}
-            <hr>
-            <div class="row">
-                <div class="col-xs-12 col-sm-2 col-md-2 col-lg-1">
-                    {!! Form::label('user_id', trans('strings.name'), []) !!}
-                </div>
-                <div class="col-xs-12 col-sm-10 col-md-10 col-lg-11 pull-right">
-                    {!! Form::text('user_id', $ipac->user->name, ['readonly' => 'readonly', 'class' => 'form-control', 'placeholder' => trans('strings.title')]) !!}
+    {!! Form::open(['route' => ['backend.ipacs.ipac_answer', $ipac->id], 'class' => 'form-horizontal', 'role' => 'form', 'method' => 'POST']) !!}
+        <hr>
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class=" text-center">
+                    PAR Q*
+                    <br>
+                    Physical Activity Readiness Questionnarie
+                </h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse">
+                        <i class="fa fa-minus"></i></button>
                 </div>
             </div>
-            <br>
-            <?php dd($ipac->questionGroup->questions);?>
-            @foreach($ipac->questionGroup->questions as $questions)
+            <div class="box-body">
                 <div class="row">
-                    <div class="col-xs-12 col-sm-2 col-md-2 col-lg-1">
-                        {!! Form::label('question_group_id', trans('strings.question_group'), []) !!}
-                    </div>
-                    <div class="col-xs-12 col-sm-10 col-md-10 col-lg-11 pull-right">
-                        {!! Form::text('user_id', $questions->description, ['readonly' => 'readonly', 'class' => 'form-control', 'placeholder' => trans('strings.title')]) !!}
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <em><h4>Este questionário tem objetivo de identificar a necessidade de avaliação clínica antes do início da atividade física. Caso você marque mais de um sim, é aconselhável a realização da avaliação clínica. Contudo, qualquer pessoa pode participar de uma atividade física de esforço moderado, respeitando as restrições médicas.</h4></em>
                     </div>
                 </div>
-            @endforeach
-            <br>
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <div class="pull-left">
-                        <a href="{{route('backend.ipacs.index')}}" class="btn btn-danger">{{ trans('strings.cancel_button') }}</a>
-                    </div>
-                    <div class="pull-right">
-                        <input type="submit" class="btn btn-success" value="{{ trans('strings.save_button') }}" />
+
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <h4>Por favor, assinale “sim” ou “não” as seguintes perguntas:</h4>
                     </div>
                 </div>
+                <br>
+                <?php $count = 1; ?>
+                @foreach($ipac->questionGroup->questions as $question)
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <h5>{!! $count.') '. strip_tags($question->note) !!}</h5>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            {!! Form::radio('question_id_'.$question->id.'[answer_'.$question->id.']', '1', false, ['class' => 'flat-red answer-yes-click']) !!}  {!! Form::label('answer_'.$question->id.'', trans('strings.yes')) !!}
+                            {!! Form::radio('question_id_'.$question->id.'[answer_'.$question->id.']', '0', true, ['class' => 'flat-red']) !!}  {!! Form::label('answer_'.$question->id.'', trans('strings.no')) !!}
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 answer-yes">
+                            <br>
+                            {!! Form::textarea('question_id_'.$question->id.'[option_answer_'.$question->id.']', NULL, ['style' => 'width: 100%','class' => 'form-control textarea', 'placeholder' => trans('strings.description')]) !!}
+                        </div>
+                    </div>
+                    <br>
+                    <?php $count++; ?>
+                @endforeach
+                <br>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="pull-left">
+                            <a href="{{ route('backend.ipacs.index') }}" class="btn btn-danger">{{ trans('strings.cancel_button') }}</a>
+                        </div>
+                        <div class="pull-right">
+                            <input type="submit" class="btn btn-success" value="{{ trans('strings.save_button') }}" />
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
             </div>
-            <div class="clearfix"></div>
+        </div>
         {!! Form::close() !!}
     @endcan
 @endsection

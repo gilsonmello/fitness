@@ -27,7 +27,7 @@ class QuestionGroup extends Model
      protected $guarded = ['id'];
 
      public function questions(){
-        return $this->belongsToMany(\App\Question::class, 'question_group_question', 'question_id', 'question_group_id');
+        return $this->belongsToMany(\App\Question::class, 'question_group_question', 'question_group_id', 'question_id');
      }
     /*
      public function scopeSuppliers($query){

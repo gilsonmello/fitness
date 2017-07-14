@@ -436,4 +436,8 @@ return [
         'edit' => 'Editar Matrícula'
     ],
     'add_userrepresentatives_coupon' => 'Adicionar Cupom',
+
+    'ipacs' => [
+        'create' => 'Criar IPAC',
+    ],
 ];

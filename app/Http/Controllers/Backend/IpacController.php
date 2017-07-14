@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Backend\Ipac\CreateIpacRequest;
 use App\Http\Requests\Backend\Ipac\UpdateIpacRequest;
+use App\Http\Requests\Backend\Ipac\CreateIpacAnswerRequest;
 use App\Repositories\Backend\Ipac\IpacRepository;
 use App\Repositories\Backend\QuestionGroup\QuestionGroupRepository;
 use App\Repositories\Backend\User\UserRepository;
@@ -80,5 +81,13 @@ class IpacController extends Controller{
         $groupQuestions = $this->questionGroup->all();
         $users = $this->user->all();
         return view('backend.ipacs.answer', compact('ipac', 'groupQuestions', 'users'));
+    }
+
+    public function ipacAnswer($id, CreateIpacAnswerRequest $request){
+        if($this->ipac->createIpacAnswer($id, $request)){
+            return redirect()->route('backend.ipacs.index', ['page' => $request->session()->get('lastpage', '1')])
+                ->withFlashSuccess(trans('alerts.ipacs.answer'))
+                ->withInput();
+        }
     }
 }

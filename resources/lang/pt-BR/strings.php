@@ -431,6 +431,7 @@ return [
     'activities' => 'Atividades',
     'answered' => 'Respondido',
     'answer' => 'Responder',
+    'poker_chip' => 'Ficha técnica',
     'notanswred' => 'Não Respondido',
     'deadline' => 'Prazo Final',
     'deadline_evaluation' => 'Prazo Final Correção',

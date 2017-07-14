@@ -21,3 +21,4 @@ Route::resource('ipacs', 'IpacController', [
 ]);
 
 Route::get('/ipacs/{id}/answer', 'IpacController@answer')->name('backend.ipacs.answer');
+Route::post('/ipacs/{id}/ipac_answer', 'IpacController@ipacAnswer')->name('backend.ipacs.ipac_answer');

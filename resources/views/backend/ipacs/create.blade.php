@@ -28,7 +28,7 @@
 
 @section('content')
     
-    @can('backend.question_group.create')
+    @can('backend.ipacs.create')
         {!! Form::open(['route' => 'backend.ipacs.store', 'class' => 'form-horizontal', 'role' => 'form', 'method' => 'post']) !!}
             {!! csrf_field() !!}
             <hr>
@@ -63,7 +63,5 @@
             <div class="clearfix"></div>
 
         {!! Form::close() !!}
-
-
     @endcan
 @endsection
