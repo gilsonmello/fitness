@@ -33,4 +33,8 @@ class Ipac extends Model
     public function user(){
         return $this->belongsTo(\App\User::class);
     }
+
+    public function ipacAnswers(){
+        return $this->hasMany(\App\IpacAnswer::class);
+    }
 }

@@ -5,7 +5,6 @@
  * Date: 12/07/2017
  * Time: 18:18
  */
-
 Route::resource('ipacs', 'IpacController', [
     'except' => [
         'show'
@@ -19,6 +18,7 @@ Route::resource('ipacs', 'IpacController', [
         'destroy' => 'backend.ipacs.destroy',
     ]
 ]);
-
 Route::get('/ipacs/{id}/answer', 'IpacController@answer')->name('backend.ipacs.answer');
+Route::get('/ipacs/{id}/ipac_answers', 'IpacController@ipacAnswers')
+->name('backend.ipacs.ipac_answers');
 Route::post('/ipacs/{id}/ipac_answer', 'IpacController@ipacAnswer')->name('backend.ipacs.ipac_answer');

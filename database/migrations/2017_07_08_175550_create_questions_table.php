@@ -17,7 +17,6 @@ class CreateQuestionsTable extends Migration
             $table->engine = "InnoDB";
             $table->increments('id');
             $table->string('title', 255);
-            $table->tinyInteger('answer_type')->default(0);
             $table->string('note');
             $table->tinyInteger('is_active')->default(1);
 

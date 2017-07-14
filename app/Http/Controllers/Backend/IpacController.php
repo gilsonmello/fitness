@@ -90,4 +90,8 @@ class IpacController extends Controller{
                 ->withInput();
         }
     }
+    public function ipacAnswers($id){
+        $ipac = $this->ipac->findOrThrowException($id);
+        return view('backend.ipacs.ipac_answers', compact('ipac'));
+    }
 }

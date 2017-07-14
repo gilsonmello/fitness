@@ -24,7 +24,11 @@ trait IpacAttributes{
     }
 
      public function getSolveButtonAttribute(){
-         return '<a href="'.route('backend.ipacs.answer', $this->id).'"  class="btn btn-xs btn-info"><i class="fa fa-check" data-toggle="tooltip" data-placement="top" title="' . trans('strings.answer') . '"></i></a>';
+        if(count($this->ipacAnswers) > 0){
+            return '<a href="'.route('backend.ipacs.ipac_answers', $this->id).'"  class="btn btn-xs btn-success"><i class="fa fa-bars" data-toggle="tooltip" data-placement="top" title="' . trans('strings.ipac_answers') . '"></i></a>';
+        }else{
+            return '<a href="'.route('backend.ipacs.answer', $this->id).'"  class="btn btn-xs btn-info"><i class="fa fa-check" data-toggle="tooltip" data-placement="top" title="' . trans('strings.ipac_answer') . '"></i></a>';
+        }
     }
 
     public function getStartDateAttribute($start_date) {

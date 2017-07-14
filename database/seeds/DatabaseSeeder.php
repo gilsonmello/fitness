@@ -180,28 +180,126 @@ class DatabaseSeeder extends Seeder
             'updated_at' => date('Y-m-d H:i:s')
         ]);
 
-        //Seeds question_groups
-        DB::table('question_groups')->insert([
-            'title' => 'Grupo 1',
-            'description' => 'Descrição do grupo 1',
-            'is_active' => 1,
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s')
-        ]);
-        DB::table('question_groups')->insert([
-            'title' => 'Grupo 2',
-            'description' => 'Descrição do grupo 2',
-            'is_active' => 1,
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s')
-        ]);
-        DB::table('question_groups')->insert([
-            'title' => 'Grupo 3',
-            'description' => 'Descrição do grupo 3',
+        //Seeds questions
+        DB::table('questions')->insert([
+            'title' => 'Alguma vez seu médico disse',
+            'note' => '<p>Alguma vez seu médico disse que você possui algum problema de coração e recomendou que você só praticasse atividade física sob prescrição médica?</p>',
             'is_active' => 1,
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s')
         ]);
 
+        DB::table('questions')->insert([
+            'title' => 'Você sente dor no peito causada pela',
+            'note' => '<p>Você sente dor no peito causada pela prática de atividade física?</p>',
+            'is_active' => 1,
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ]);
+
+        DB::table('questions')->insert([
+            'title' => 'Você sentiu dor no peito no último mês?',
+            'note' => '<p>Você sentiu dor no peito no último mês?</p>',
+            'is_active' => 1,
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ]);
+
+        DB::table('questions')->insert([
+            'title' => 'Você tende a perder a consciência',
+            'note' => '<p>Você tende a perder a consciência ou cair como resultado do treinamento?</p>',
+            'is_active' => 1,
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ]);
+
+        DB::table('questions')->insert([
+            'title' => 'Você tem algum problema ósseo ou muscular',
+            'note' => '<p>Você tem algum problema ósseo ou muscular que poderia ser agravado com a prática de atividades físicas?</p>',
+            'is_active' => 1,
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ]);
+
+        DB::table('questions')->insert([
+            'title' => 'Seu médico já recomendou o uso de medicamentos',
+            'note' => '<p>Seu médico já recomendou o uso de medicamentos para controle de sua pressão arterial ou condição cardiovascular?</p>',
+            'is_active' => 1,
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ]);
+
+        DB::table('questions')->insert([
+            'title' => 'Você tem consciência, através de sua própria experiência',
+            'note' => '<p>Você tem consciência, através de sua própria experiência e/ou de aconselhamento médico, de alguma outra razão física que impeça a realização de atividades físicas?</p>',
+            'is_active' => 1,
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ]);
+
+        DB::table('questions')->insert([
+            'title' => 'Gostaria de comentar algum outro problema de saúde',
+            'note' => '<p>Gostaria de comentar algum outro problema de saúde seja de ordem física ou psicológica que impeça a sua participação na atividade proposta?</p>',
+            'is_active' => 1,
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ]);
+
+        //Seeds question_groups
+        DB::table('question_groups')->insert([
+            'title' => 'IPAC',
+            'description' => 'IPAC',
+            'is_active' => 1,
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ]);
+        
+        //Seeds question_groups
+        DB::table('question_group_question')->insert([
+            'question_id' => 1,
+            'question_group_id' => 1,
+        ]);
+
+        //Seeds question_groups
+        DB::table('question_group_question')->insert([
+            'question_id' => 2,
+            'question_group_id' => 1,
+        ]);
+
+        //Seeds question_groups
+        DB::table('question_group_question')->insert([
+            'question_id' => 3,
+            'question_group_id' => 1,
+        ]);
+
+        //Seeds question_groups
+        DB::table('question_group_question')->insert([
+            'question_id' => 4,
+            'question_group_id' => 1,
+        ]);
+
+        //Seeds question_groups
+        DB::table('question_group_question')->insert([
+            'question_id' => 5,
+            'question_group_id' => 1,
+        ]);
+
+        //Seeds question_groups
+        DB::table('question_group_question')->insert([
+            'question_id' => 6,
+            'question_group_id' => 1,
+        ]);
+
+        //Seeds question_groups
+        DB::table('question_group_question')->insert([
+            'question_id' => 7,
+            'question_group_id' => 1,
+        ]);
+
+        //Seeds question_groups
+        DB::table('question_group_question')->insert([
+            'question_id' => 8,
+            'question_group_id' => 1,
+        ]);
     }
 }

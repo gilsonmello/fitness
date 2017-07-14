@@ -11,6 +11,8 @@ return [
       | found in a intuitive way.
       |
      */
+    'ipac_answer' => 'Responder IPAC',
+    'ipac_answers' => 'Respostas do IPAC',
     'export_to_csv' => 'Exportar para CSV',
     'count_execution' => 'Execuções',
     'campaign' => 'Campanha',
