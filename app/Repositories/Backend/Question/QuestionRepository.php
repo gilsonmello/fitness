@@ -47,7 +47,7 @@ class QuestionRepository{
     }
 
     public function all(){
-        return $this->question->all();
+        return $this->question->all()->where('is_active', '=', 1);
     }
 
     /**
@@ -61,7 +61,10 @@ class QuestionRepository{
         if(!is_null($per_page)){
             return $this->question->where('title', 'like', '%'.$title.'%')->orderBy($order_by, $sort)->paginate($per_page);
         }
-        return $this->question->where('title', 'like', '%'.$title.'%')->orderBy($order_by, $sort)->get();
+        return $this->question
+            ->where('title', 'like', '%'.$title.'%')
+            ->where('is_active', '=', 1)
+            ->orderBy($order_by, $sort)->get();
     }
 
     /**

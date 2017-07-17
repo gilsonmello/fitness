@@ -347,7 +347,8 @@ return [
         'upated_error' => 'Erro ao atualizar Ipac',
         'not_find' => 'Ipac não encontrado',
         'deleted' => 'Ipac deletado com sucesso',
-        'answer' => 'Respostas para o IPAC criadas com sucesso.'
+        'answer' => 'Respostas para o IPAC criadas com sucesso.',
+        'updated_ipac_answers' => 'Resposta para o IPAC atualizadas com sucesso'
     ],
     
 

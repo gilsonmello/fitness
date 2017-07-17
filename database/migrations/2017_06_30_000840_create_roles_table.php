@@ -17,6 +17,7 @@ class CreateRolesTable extends Migration {
             $table->increments('id');
             $table->string('name');
             $table->string('label');
+            $table->tinyInteger('is_active')->default(1);
             $table->timestamps();
             $table->softDeletes();
         });

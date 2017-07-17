@@ -11,9 +11,21 @@ use App\IpacAnswer;
  */
 class IpacRepository{
 
+    /**
+     * @var Ipac
+     */
     protected $ipac;
+
+    /**
+     * @var IpacAnswer
+     */
     protected $ipacAnswer;
 
+    /**
+     * IpacRepository constructor.
+     * @param Ipac $ipac
+     * @param IpacAnswer $ipacAnswer
+     */
     public function __construct(Ipac $ipac, IpacAnswer $ipacAnswer)
     {
         $this->ipac = $ipac;
@@ -26,13 +38,17 @@ class IpacRepository{
      * @throws GeneralException
      */
     public function findOrThrowException($id) {
-        $ipac = $this->ipac->withTrashed()->find($id);
+        $ipac = $this->ipac->find($id);
         if(!is_null($ipac)){
             return $ipac;
         }
         throw new GeneralException('That question does not exist.');
     }
 
+    /**
+     * @param $request
+     * @return bool
+     */
     public function create($request){
         $data = $request->all();
         $this->ipac->user_id = $data['user_id'];
@@ -43,8 +59,11 @@ class IpacRepository{
         return false;
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
     public function all(){
-        return $this->ipac->all();
+        return Ipac::all()->where('is_active', '=', 1);
     }
 
     /**
@@ -59,7 +78,10 @@ class IpacRepository{
         if(!is_null($per_page)){
             return $this->ipac->orderBy($order_by, $sort)->paginate($per_page);
         }
-        return $this->ipac->orderBy($order_by, $sort)->get();
+        return $this->ipac
+            ->where('is_active', '=', 1)
+            ->orderBy($order_by, $sort)
+            ->get();
     }
 
     /**
@@ -97,7 +119,7 @@ class IpacRepository{
      * @param int $request
      * @return boolean
      */
-    public function createIpacAnswer($id, $request){
+    public function createIpacAnswers($id, $request){
         $data = $request->all();
         $ipac = $this->findOrThrowException($id);
         $saved = false;
@@ -120,6 +142,51 @@ class IpacRepository{
             return true;
         }
         return false;
+    }
+
+    /**
+     * Função para cadastrar respostas do IPAC
+     * @param int $id
+     * @param int $request
+     * @return boolean
+     */
+    public function updateIpacAnswers($id, $request){
+        //Pegando todos os dados da requisição
+        $data = $request->all();
+        //Fazendo busca do IPAC
+        $ipac = $this->findOrThrowException($id);
+        //Variável para controlar se foi feito a atualização corretamente
+        $saved = true;
+        foreach($data as $key => $value){
+            if($saved) {
+                if (strpos($key, "question") !== FALSE) {
+                    //Pegando o id da questão
+                    $question_id = explode('_', $key)[count(explode('_', $key)) - 1];
+                    //Fazendo busca da resposta
+                    $answer = IpacAnswer::where('question_id', '=', $question_id)
+                        ->where('ipac_id', '=', $ipac->id)
+                        ->first();
+                    $answer->ipac_id = $ipac->id;
+                    $answer->user_id = $ipac->user->id;
+                    $answer->question_group_id = $ipac->questionGroup->id;
+                    $answer->question_id = $question_id;
+                    $answer->answer = $value['answer_' . $question_id];
+                    $answer->option_answer = $value['option_answer_' . $question_id];
+                    //Verifica se salvou os dados corretamente, se sim, continua no loop, se não para o loop
+                    if ($answer->save()) {
+                        $saved = true;
+                    }else{
+                        $saved = false;
+                        break;
+                    }
+                }
+            }
+        }
+        //Se todos os dados foram salvos corretamente, retorno true, se não, retorno false
+        if($saved){
+            return $saved;
+        }
+        return $saved;
     }
 
 }

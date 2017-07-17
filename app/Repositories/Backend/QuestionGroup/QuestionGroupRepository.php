@@ -41,7 +41,10 @@ class QuestionGroupRepository{
         if(!is_null($per_page)){
             return $this->question_group->where('title', 'like', '%'.$title.'%')->orderBy($order_by, $sort)->paginate($per_page);
         }
-        return $this->question_group->where('title', 'like', '%'.$title.'%')->orderBy($order_by, $sort)->get();
+        return $this->question_group
+            ->where('title', 'like', '%'.$title.'%')
+            ->where('is_active', '=', 1)
+            ->orderBy($order_by, $sort)->get();
     }
 
     /**
@@ -91,6 +94,6 @@ class QuestionGroupRepository{
      * @return mixed
      */
     public function all(){
-        return $this->question_group->all();
+        return QuestionGroup::all()->where('is_active', '=', 1);
     }
 }

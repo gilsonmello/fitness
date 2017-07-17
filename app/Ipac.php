@@ -12,6 +12,7 @@ class Ipac extends Model
 
     public $timestamps = true;
 
+
     /**
      * The database table used by the model.
      *
@@ -26,14 +27,23 @@ class Ipac extends Model
      */
     protected $guarded = ['id'];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function questionGroup(){
         return $this->belongsTo(\App\QuestionGroup::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function user(){
         return $this->belongsTo(\App\User::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function ipacAnswers(){
         return $this->hasMany(\App\IpacAnswer::class);
     }

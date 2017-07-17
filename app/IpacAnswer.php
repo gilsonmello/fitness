@@ -9,6 +9,9 @@ class IpacAnswer extends Model
 {
     use SoftDeletes;
 
+    /**
+     * @var bool
+     */
     public $timestamps = true;
 
     /**
@@ -24,8 +27,33 @@ class IpacAnswer extends Model
      * @var array
      */
     protected $guarded = ['id'];
-    
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function ipac(){
         return $this->belongsTo(\App\Ipac::class);
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function questionGroup(){
+        return $this->belongsTo(\App\QuestionGroup::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function question(){
+        return $this->belongsTo(\App\Question::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user(){
+        return $this->belongsTo(\App\User::class);
+    }
+
 }

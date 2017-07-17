@@ -29,7 +29,7 @@
 @section('content')
     
     @can('backend.ipacs.create')
-    {!! Form::open(['route' => ['backend.ipacs.ipac_answer', $ipac->id], 'class' => 'form-horizontal', 'role' => 'form', 'method' => 'POST']) !!}
+    {!! Form::open(['route' => ['backend.ipacs.create_ipac_answers', $ipac->id], 'class' => 'form-horizontal', 'role' => 'form', 'method' => 'POST']) !!}
         <hr>
         <div class="box">
             <div class="box-header with-border">

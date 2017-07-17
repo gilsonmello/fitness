@@ -47,7 +47,9 @@ class UserRepository{
     }
 
     public function all(){
-        return $this->user->all();
+        return $this->user
+            ->all()
+            ->where('is_active', '=', 1);
     }
 
     /**
@@ -59,9 +61,15 @@ class UserRepository{
      */
     public function getQuestionPaginated($per_page = NULL, $title = '', $order_by = 'id', $sort = 'asc') {
         if(!is_null($per_page)){
-            return $this->question->where('title', 'like', '%'.$title.'%')->orderBy($order_by, $sort)->paginate($per_page);
+            return $this->question
+                ->where('title', 'like', '%'.$title.'%')
+                ->orderBy($order_by, $sort)
+                ->paginate($per_page);
         }
-        return $this->question->where('title', 'like', '%'.$title.'%')->orderBy($order_by, $sort)->get();
+        return $this->question
+            ->where('title', 'like', '%'.$title.'%')
+            ->where('is_active', '=', 1)
+            ->orderBy($order_by, $sort)->get();
     }
 
     /**

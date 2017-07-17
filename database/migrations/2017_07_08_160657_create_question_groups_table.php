@@ -15,17 +15,12 @@ class CreateQuestionGroupsTable extends Migration
     {
         Schema::create('question_groups', function (Blueprint $table) {
             $table->engine = "InnoDB";
-            
             $table->increments('id');
-
             $table->string('title');
             $table->string('description')->nullable();
-
-            $table->tinyInteger('is_active')->default(0);
-
+            $table->tinyInteger('is_active')->default(1);
             $table->timestamps();
             $table->softDeletes();
-
         });
     }
 

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateIpacsTable extends Migration
+class CreateTestsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,19 +13,24 @@ class CreateIpacsTable extends Migration
      */
     public function up()
     {
-        Schema::create('ipacs', function (Blueprint $table) {
+        Schema::create('tests', function (Blueprint $table) {
             $table->engine = "InnoDB";
             $table->increments('id');
-            $table->integer('question_group_id')->unsigned();
+            $table->string('name');
+            $table->longText('description')->nullable();
             $table->integer('user_id')->unsigned();
-            $table->tinyInteger('is_active')->default(1);
+            $table->integer('protocol_id')->unsigned();
+            $table->integer('body_composition_id')->unsigned();
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('question_group_id')
-                ->on('question_groups')
-                ->references('id');
             $table->foreign('user_id')
                 ->on('users')
+                ->references('id');
+            $table->foreign('protocol_id')
+                ->on('protocols')
+                ->references('id');
+            $table->foreign('body_composition_id')
+                ->on('body_compositions')
                 ->references('id');
         });
     }
@@ -37,6 +42,6 @@ class CreateIpacsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ipacs');
+        Schema::dropIfExists('tests');
     }
 }

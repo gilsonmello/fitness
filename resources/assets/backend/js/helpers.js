@@ -173,4 +173,9 @@ $(function () {
     $('.answer-yes').css({
         'display': 'none'
     });
+
+    $('.editor-active').css({
+        'display': 'block'
+    });
+
 });

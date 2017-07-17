@@ -38,4 +38,8 @@ class QuestionGroup extends Model
      public function ipacs(){
         return $this->hasMany(\App\Ipac::class);
      }
+
+     public function scopeAll($query){
+        return $query->where('is_active', '=', 1);
+     }
 }

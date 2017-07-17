@@ -5,6 +5,8 @@
  * Date: 12/07/2017
  * Time: 18:18
  */
+
+//Rota padrão
 Route::resource('ipacs', 'IpacController', [
     'except' => [
         'show'
@@ -18,7 +20,18 @@ Route::resource('ipacs', 'IpacController', [
         'destroy' => 'backend.ipacs.destroy',
     ]
 ]);
+
+//Rota para mostrar a tela de respostas do IPAC
 Route::get('/ipacs/{id}/answer', 'IpacController@answer')->name('backend.ipacs.answer');
-Route::get('/ipacs/{id}/ipac_answers', 'IpacController@ipacAnswers')
-->name('backend.ipacs.ipac_answers');
-Route::post('/ipacs/{id}/ipac_answer', 'IpacController@ipacAnswer')->name('backend.ipacs.ipac_answer');
+
+//Rota para listar as respostas do IPAC
+Route::get('/ipacs/{id}/ipac_answers', 'IpacController@indexIpacAnswers')
+    ->name('backend.ipacs.ipac_answers');
+
+//Rota para cadastar respostas do IPAC
+Route::post('/ipacs/{id}/create_ipac_answers', 'IpacController@createIpacAnswers')
+    ->name('backend.ipacs.create_ipac_answers');
+
+//Rota para atualiazar as respostas do IPAC
+Route::put('/ipacs/{id}/update_ipac_answers', 'IpacController@updateIpacAnswers')
+    ->name('backend.ipacs.update_ipac_answers');

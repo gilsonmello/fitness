@@ -29,7 +29,7 @@
 @section('content')
     
     @can('backend.ipacs.create')
-    {!! Form::open(['route' => ['backend.ipacs.ipac_answer', $ipac->id], 'class' => 'form-horizontal', 'role' => 'form', 'method' => 'POST']) !!}
+    {!! Form::open(['route' => ['backend.ipacs.update_ipac_answers', $ipac->id], 'class' => 'form-horizontal', 'role' => 'form', 'method' => 'PUT']) !!}
         <hr>
         <div class="box">
             <div class="box-header with-border">
@@ -57,22 +57,26 @@
                 </div>
                 <br>
                 <?php $count = 1; ?>
-                @foreach($ipac->questionGroup->questions as $question)
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                            <h5>{!! $count.') '. strip_tags($question->note) !!}</h5>
+                @foreach($ipac->ipacAnswers as $value)
+                    @if(!is_null($value->question))
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                <h5>{!! $count.') '. strip_tags($value->question->note) !!}</h5>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                {!! Form::radio('question_id_'.$value->question->id.'[answer_'.$value->question->id.']', '1', !is_null($value->option_answer) ? true : false, ['class' => 'flat-red answer-yes-click']) !!}
+                                {!! Form::label('answer_'.$value->question->id.'', trans('strings.yes')) !!}
+                                {!! Form::radio('question_id_'.$value->question->id.'[answer_'.$value->question->id.']', '0', is_null($value->option_answer) ? true : false, ['class' => 'flat-red']) !!}
+                                {!! Form::label('answer_'.$value->question->id.'', trans('strings.no')) !!}
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 answer-yes {{ !is_null($value->option_answer) ? "editor-active" : "" }}">
+                                <br>
+                                {!! Form::textarea('question_id_'.$value->question->id.'[option_answer_'.$value->question->id.']', $value->option_answer, ['style' => 'width: 100%','class' => 'form-control textarea', 'placeholder' => trans('strings.description')]) !!}
+                            </div>
                         </div>
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                            {!! Form::radio('question_id_'.$question->id.'[answer_'.$question->id.']', '1', false, ['class' => 'flat-red answer-yes-click']) !!}  {!! Form::label('answer_'.$question->id.'', trans('strings.yes')) !!}
-                            {!! Form::radio('question_id_'.$question->id.'[answer_'.$question->id.']', '0', true, ['class' => 'flat-red']) !!}  {!! Form::label('answer_'.$question->id.'', trans('strings.no')) !!}
-                        </div>
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 answer-yes">
-                            <br>
-                            {!! Form::textarea('question_id_'.$question->id.'[option_answer_'.$question->id.']', NULL, ['style' => 'width: 100%','class' => 'form-control textarea', 'placeholder' => trans('strings.description')]) !!}
-                        </div>
-                    </div>
-                    <br>
-                    <?php $count++; ?>
+                        <br>
+                        <?php $count++; ?>
+                    @endif
                 @endforeach
                 <br>
                 <div class="row">

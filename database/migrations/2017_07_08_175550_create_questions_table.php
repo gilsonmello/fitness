@@ -16,10 +16,8 @@ class CreateQuestionsTable extends Migration
         Schema::create('questions', function (Blueprint $table) {
             $table->engine = "InnoDB";
             $table->increments('id');
-            $table->string('title', 255);
             $table->string('note');
             $table->tinyInteger('is_active')->default(1);
-
             $table->timestamps();
             $table->softDeletes();
         });
@@ -27,15 +25,11 @@ class CreateQuestionsTable extends Migration
         Schema::create('question_group_question', function (Blueprint $table) {
             $table->engine = "InnoDB";
             $table->increments('id');
-
             $table->integer('question_id')->unsigned();
-
             $table->integer('question_group_id')->unsigned();
-            
             $table->foreign('question_id')
                     ->on('questions')
                     ->references('id');
-            
             $table->foreign('question_group_id')
                     ->on('question_groups')
                     ->references('id');
