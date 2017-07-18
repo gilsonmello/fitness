@@ -11,6 +11,8 @@ use App\Repositories\Backend\Parq\ParqRepository;
 use App\Repositories\Backend\QuestionGroup\QuestionGroupRepository;
 use App\Repositories\Backend\User\UserRepository;
 use App\ParqAnswer;
+use App\User;
+use Auth;
 
 class ParqController extends Controller{
 
@@ -46,8 +48,7 @@ class ParqController extends Controller{
      * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index(Request $request){
-
+    public function index(Request $request, Auth $user){
         $request->session()->put('lastpage', $request->only('page')['page']);
 
         $f_submit = $request->input('f_submit', '');
