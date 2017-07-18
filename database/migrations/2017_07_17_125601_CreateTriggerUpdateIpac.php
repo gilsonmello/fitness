@@ -14,18 +14,18 @@ class CreateTriggerUpdateIpac extends Migration
     public function up()
     {
         DB::unprepared('
-            CREATE TRIGGER trigger_update_ipac
-                AFTER UPDATE ON ipacs
+            CREATE TRIGGER trigger_update_parq
+                AFTER UPDATE ON parqs
                 FOR EACH ROW
                 BEGIN
                     IF IFNULL(NEW.deleted_at, 1) <> 1 THEN
-                        UPDATE ipac_answers 
-                        SET ipac_answers.deleted_at = NEW.deleted_at
-                        WHERE ipac_answers.ipac_id = OLD.id;
+                        UPDATE parq_answers 
+                        SET parq_answers.deleted_at = NEW.deleted_at
+                        WHERE parq_answers.parq_id = OLD.id;
                     ELSEIF IFNULL(NEW.deleted_at, 1) = 1 THEN
-                        UPDATE ipac_answers 
-                        SET ipac_answers.deleted_at = NEW.deleted_at
-                        WHERE ipac_answers.ipac_id = OLD.id;
+                        UPDATE parq_answers 
+                        SET parq_answers.deleted_at = NEW.deleted_at
+                        WHERE parq_answers.parq_id = OLD.id;
                     END IF;
                 END;
         ');
@@ -38,6 +38,6 @@ class CreateTriggerUpdateIpac extends Migration
      */
     public function down()
     {
-        DB::unprepared('DROP TRIGGER trigger_update_ipac');
+        DB::unprepared('DROP TRIGGER trigger_update_parq');
     }
 }

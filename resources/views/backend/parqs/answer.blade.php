@@ -7,7 +7,7 @@
     <section class="content-header">
         <h1>
             {{ trans('strings.manager') }}
-            <small>{{ trans('strings.ipacs.answer') }}</small>
+            <small>{{ trans('strings.parqs.answer') }}</small>
         </h1>
         <ol class="breadcrumb">
             <li>
@@ -17,19 +17,19 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('backend.ipacs.index') }}">
-                    {{ trans('menus.ipacs.index') }}
+                <a href="{{ route('backend.parqs.index') }}">
+                    {{ trans('menus.parqs.index') }}
                 </a>
             </li>
-            <li class="active">{{ trans('menus.ipacs.answer') }}</li>
+            <li class="active">{{ trans('menus.parqs.answer') }}</li>
         </ol>
     </section>
 @endsection
 
 @section('content')
     
-    @can('backend.ipacs.create')
-    {!! Form::open(['route' => ['backend.ipacs.create_ipac_answers', $ipac->id], 'class' => 'form-horizontal', 'role' => 'form', 'method' => 'POST']) !!}
+    @can('backend.parqs.create')
+    {!! Form::open(['route' => ['backend.parqs.create_ipac_answers', $ipac->id], 'class' => 'form-horizontal', 'role' => 'form', 'method' => 'POST']) !!}
         <hr>
         <div class="box">
             <div class="box-header with-border">
@@ -78,7 +78,7 @@
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <div class="pull-left">
-                            <a href="{{ route('backend.ipacs.index') }}" class="btn btn-danger">{{ trans('strings.cancel_button') }}</a>
+                            <a href="{{ route('backend.parqs.index') }}" class="btn btn-danger">{{ trans('strings.cancel_button') }}</a>
                         </div>
                         <div class="pull-right">
                             <input type="submit" class="btn btn-success" value="{{ trans('strings.save_button') }}" />

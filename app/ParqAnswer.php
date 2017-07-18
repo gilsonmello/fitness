@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class IpacAnswer extends Model
+class ParqAnswer extends Model
 {
     use SoftDeletes;
 
@@ -19,7 +19,7 @@ class IpacAnswer extends Model
      *
      * @var string
      */
-    protected $table = 'ipac_answers';
+    protected $table = 'parq_answers';
 
     /**
      * The attributes that are not mass assignable.
@@ -31,8 +31,8 @@ class IpacAnswer extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function ipac(){
-        return $this->belongsTo(\App\Ipac::class);
+    public function parq(){
+        return $this->belongsTo(\App\Parq::class);
     }
 
     /**

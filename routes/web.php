@@ -49,7 +49,7 @@ Route::group(['namespace' => 'Backend'], function () {
 			require_once __DIR__.'/Backend/News.php';
 
 			//Rotas para as ipacs
-			require_once __DIR__.'/Backend/Ipac.php';
+			require_once __DIR__.'/Backend/Parq.php';
 				
 	});
 });

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateIpacAnswersTable extends Migration
+class CreateParqAnswersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateIpacAnswersTable extends Migration
      */
     public function up()
     {
-        Schema::create('ipac_answers', function (Blueprint $table) {
+        Schema::create('parq_answers', function (Blueprint $table) {
             $table->engine = "InnoDB";
             $table->increments('id');
-            $table->integer('ipac_id')->unsigned();
+            $table->integer('parq_id')->unsigned();
             $table->integer('user_id')->unsigned();
             $table->integer('question_group_id')->unsigned();
             $table->integer('question_id')->unsigned();
@@ -24,8 +24,8 @@ class CreateIpacAnswersTable extends Migration
             $table->longText('option_answer')->nullable();
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('ipac_id')
-                ->on('ipacs')
+            $table->foreign('parq_id')
+                ->on('parqs')
                 ->references('id');
             $table->foreign('user_id')
                 ->on('users')
@@ -46,6 +46,6 @@ class CreateIpacAnswersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ipac_answers');
+        Schema::dropIfExists('parq_answers');
     }
 }

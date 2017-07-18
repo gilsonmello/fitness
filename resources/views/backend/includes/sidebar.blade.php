@@ -74,7 +74,7 @@
                             <a href="{{ route('backend.questions.index') }}">{{ trans('strings.evaluations') }}</a>
                         </li>
                         <li class="{{ active('admin/ipacs') }}">
-                            <a href="{{ route('backend.ipacs.index') }}">{{  trans('strings.ipacs') }}</a>
+                            <a href="{{ route('backend.parqs.index') }}">{{  trans('strings.ipacs') }}</a>
                         </li>
                     </ul>
                 </li>

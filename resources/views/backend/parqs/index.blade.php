@@ -8,7 +8,7 @@
         </h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> {{ trans('strings.dashboard') }}</a></li>
-            <li class="active">{{ trans('menus.questions.index') }}</li>
+            <li class="active">{{ trans('menus.parqs.index') }}</li>
         </ol>
 </section>
 @endsection
@@ -19,8 +19,8 @@
 
 
     <div class="pull-right" style="margin-bottom:10px">
-        <a href="{{ route('backend.ipacs.create') }}" class="btn btn-primary btn-xs">
-            {{ trans('menus.ipacs.create') }}
+        <a href="{{ route('backend.parqs.create') }}" class="btn btn-primary btn-xs">
+            {{ trans('menus.parqs.create') }}
         </a>
         {{--<a href="{{route('admin.coupons.import')}}" class="btn btn-primary btn-xs">--}}
         {{--{{ trans('menus.import_coupon') }}--}}
@@ -35,13 +35,13 @@
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
             </div>
         </div>
-        {!! Form::open(['route' => ['backend.ipacs.index'], 'class' => 'form-horizontal', 'method' => 'get'])  !!}
+        {!! Form::open(['route' => ['backend.parqs.index'], 'class' => 'form-horizontal', 'method' => 'get'])  !!}
         <div class="box-body">
             <div class="row">
                 {!! Form::hidden('f_submit', '1') !!}
-                {!! Form::label('IpacController@index:title',  trans('strings.title'), ['class' => 'col-md-2 control-label']) !!}
+                {!! Form::label('ParqController@index:title',  trans('strings.title'), ['class' => 'col-md-2 control-label']) !!}
                 <div class="col-md-10">
-                    {!! Form::text('IpacController@index:title', null, ['class' => 'form-control']  ) !!}
+                    {!! Form::text('ParqController@index:title', null, ['class' => 'form-control']  ) !!}
                 </div>
             </div>
         </div>
@@ -66,8 +66,8 @@
                         </tr>
                         </thead>
                         <tbody>
-                            @can('backend.ipacs.index', $ipacs)
-                                @forelse($ipacs as $value)
+                            @can('backend.parqs.index', $parqs)
+                                @forelse($parqs as $value)
                                 <tr>
                                     <td>{!! $value->questionGroup->title !!}</td>
                                     <td>{!! $value->user->name !!}</td>

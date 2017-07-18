@@ -4,20 +4,20 @@ namespace App\Http\Controllers\Backend;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Backend\Ipac\CreateIpacRequest;
-use App\Http\Requests\Backend\Ipac\UpdateIpacRequest;
-use App\Http\Requests\Backend\Ipac\CreateIpacAnswerRequest;
-use App\Repositories\Backend\Ipac\IpacRepository;
+use App\Http\Requests\Backend\Parq\CreateParqRequest;
+use App\Http\Requests\Backend\Parq\UpdateParqRequest;
+use App\Http\Requests\Backend\Parq\CreateParqAnswerRequest;
+use App\Repositories\Backend\Parq\ParqRepository;
 use App\Repositories\Backend\QuestionGroup\QuestionGroupRepository;
 use App\Repositories\Backend\User\UserRepository;
-use App\IpacAnswer;
+use App\ParqAnswer;
 
-class IpacController extends Controller{
+class ParqController extends Controller{
 
     /**
      * @var IpacRepository
      */
-    protected $ipac;
+    protected $parq;
 
     /**
      * @var QuestionGroupRepository
@@ -36,9 +36,9 @@ class IpacController extends Controller{
      * @param IpacRepository $ipac
      * @param QuestionGroupRepository $questionGroup
      */
-    public function __construct(UserRepository $user, IpacRepository $ipac, QuestionGroupRepository $questionGroup){
+    public function __construct(UserRepository $user, ParqRepository $parq, QuestionGroupRepository $questionGroup){
         $this->user = $user;
-        $this->ipac = $ipac;
+        $this->parq = $parq;
         $this->questionGroup = $questionGroup;
     }
 
@@ -53,8 +53,8 @@ class IpacController extends Controller{
         $f_submit = $request->input('f_submit', '');
 
         //$title = getValueSession($request, 'IpacController@index:title', '', $f_submit, '');
-        $ipacs = $this->ipac->getIpacPaginated(NULL);
-        return view('backend.ipacs.index', compact('title', 'ipacs'));
+        $parqs = $this->parq->getParqPaginated(NULL);
+        return view('backend.parqs.index', compact('title', 'parqs'));
     }
 
     /**
@@ -63,19 +63,19 @@ class IpacController extends Controller{
     public function create(){
         $questionGroup = $this->questionGroup->all();
         $users = $this->user->all();
-        return view('backend.ipacs.create', compact('questionGroup', 'users'));
+        return view('backend.parqs.create', compact('questionGroup', 'users'));
     }
 
     /**
      * @param CreateIpacRequest $request
      * @return mixed
      */
-    public function store(CreateIpacRequest $request){
-        if($this->ipac->create($request)){
+    public function store(CreateParqRequest $request){
+        if($this->parq->create($request)){
             return redirect()
-                ->route('backend.ipacs.index', ['page' => $request->session()->get('lastpage', '1')])
+                ->route('backend.parqs.index', ['page' => $request->session()->get('lastpage', '1')])
                 ->withInput()
-                ->withFlashSuccess(trans('alerts.ipacs.created'));
+                ->withFlashSuccess(trans('alerts.parqs.created'));
         }
     }
 
@@ -86,10 +86,10 @@ class IpacController extends Controller{
      * @throws \App\Exceptions\GeneralException
      */
     public function destroy($id){
-        if($this->ipac->destroy($id)){
+        if($this->parq->destroy($id)){
             return redirect()
-                ->route('backend.ipacs.index')
-                ->withFlashSuccess(trans("alerts.ipacs.deleted"));
+                ->route('backend.parqs.index')
+                ->withFlashSuccess(trans("alerts.parqs.deleted"));
         }
         throw new GeneralException('Operação Invalidada');
     }
@@ -102,8 +102,8 @@ class IpacController extends Controller{
     public function edit($id){
         $groupQuestions = $this->questionGroup->all();
         $users = $this->user->all();
-        $ipac = $this->ipac->findOrThrowException($id);
-        return view('backend.ipacs.edit', compact('ipac', 'groupQuestions', 'users'));
+        $parq = $this->parq->findOrThrowException($id);
+        return view('backend.parqs.edit', compact('parq', 'groupQuestions', 'users'));
     }
 
     /**
@@ -111,10 +111,10 @@ class IpacController extends Controller{
      * @param UpdateIpacRequest $request
      * @return mixed
      */
-    public function update($id, UpdateIpacRequest $request){
-        if($this->ipac->update($id, $request)){
-            return redirect()->route('backend.ipacs.index', ['page' => $request->session()->get('lastpage', '1')])
-                ->withFlashSuccess(trans('alerts.ipacs.updated'))
+    public function update($id, UpdateParqRequest $request){
+        if($this->parq->update($id, $request)){
+            return redirect()->route('backend.parqs.index', ['page' => $request->session()->get('lastpage', '1')])
+                ->withFlashSuccess(trans('alerts.parqs.updated'))
                 ->withInput();
         }
     }
@@ -126,10 +126,10 @@ class IpacController extends Controller{
      * @throws \App\Exceptions\GeneralException
      */
     public function answer($id){
-        $ipac = $this->ipac->findOrThrowException($id);
+        $ipac = $this->parq->findOrThrowException($id);
         $groupQuestions = $this->questionGroup->all();
         $users = $this->user->all();
-        return view('backend.ipacs.answer', compact('ipac', 'groupQuestions', 'users'));
+        return view('backend.parqs.answer', compact('ipac', 'groupQuestions', 'users'));
     }
 
     /**
@@ -138,10 +138,10 @@ class IpacController extends Controller{
      * @param CreateIpacAnswerRequest $request
      * @return mixed
      */
-    public function createIpacAnswers($id, CreateIpacAnswerRequest $request){
-        if($this->ipac->createIpacAnswers($id, $request)){
-            return redirect()->route('backend.ipacs.index', ['page' => $request->session()->get('lastpage', '1')])
-                ->withFlashSuccess(trans('alerts.ipacs.answer'))
+    public function createIpacAnswers($id, CreateParqAnswerRequest $request){
+        if($this->parq->createParqAnswers($id, $request)){
+            return redirect()->route('backend.parqs.index', ['page' => $request->session()->get('lastpage', '1')])
+                ->withFlashSuccess(trans('alerts.parqs.answer'))
                 ->withInput();
         }
     }
@@ -153,8 +153,8 @@ class IpacController extends Controller{
      * @throws \App\Exceptions\GeneralException
      */
     public function indexIpacAnswers($id){
-        $ipac = $this->ipac->findOrThrowException($id);
-        return view('backend.ipacs.ipac_answers', compact('ipac'));
+        $parq = $this->parq->findOrThrowException($id);
+        return view('backend.parqs.index_parq_answers', compact('parq'));
     }
 
     /**
@@ -163,10 +163,10 @@ class IpacController extends Controller{
      * @param CreateIpacAnswerRequest $request
      * @return mixed
      */
-    public function updateIpacAnswers($id, CreateIpacAnswerRequest $request){
-        if($this->ipac->updateIpacAnswers($id, $request)){
-            return redirect()->route('backend.ipacs.index', ['page' => $request->session()->get('lastpage', '1')])
-                ->withFlashSuccess(trans('alerts.ipacs.updated_ipac_answers'))
+    public function updateIpacAnswers($id, CreateParqAnswerRequest $request){
+        if($this->parq->updateIpacAnswers($id, $request)){
+            return redirect()->route('backend.parqs.index', ['page' => $request->session()->get('lastpage', '1')])
+                ->withFlashSuccess(trans('alerts.parqs.updated_ipac_answers'))
                 ->withInput();
         }
     }

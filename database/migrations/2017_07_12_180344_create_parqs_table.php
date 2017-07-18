@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateIpacsTable extends Migration
+class CreateParqsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateIpacsTable extends Migration
      */
     public function up()
     {
-        Schema::create('ipacs', function (Blueprint $table) {
+        Schema::create('parqs', function (Blueprint $table) {
             $table->engine = "InnoDB";
             $table->increments('id');
             $table->integer('question_group_id')->unsigned();
@@ -37,6 +37,6 @@ class CreateIpacsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ipacs');
+        Schema::dropIfExists('parqs');
     }
 }

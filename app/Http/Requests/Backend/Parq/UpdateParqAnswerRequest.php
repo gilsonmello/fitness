@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Backend\Ipac;
+namespace App\Http\Requests\Backend\Parq;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateIpacAnswerRequest extends FormRequest
+class UpdateParqAnswerRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

@@ -28,8 +28,8 @@
 
 @section('content')
     
-    @can('backend.ipacs.create')
-        {!! Form::open(['route' => 'backend.ipacs.store', 'class' => 'form-horizontal', 'role' => 'form', 'method' => 'post']) !!}
+    @can('backend.parqs.create')
+        {!! Form::open(['route' => 'backend.parqs.store', 'class' => 'form-horizontal', 'role' => 'form', 'method' => 'post']) !!}
             {!! csrf_field() !!}
             <hr>
             <div class="row">
@@ -53,7 +53,7 @@
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <div class="pull-left">
-                        <a href="{{route('backend.ipacs.index')}}" class="btn btn-danger">{{ trans('strings.cancel_button') }}</a>
+                        <a href="{{route('backend.parqs.index')}}" class="btn btn-danger">{{ trans('strings.cancel_button') }}</a>
                     </div>
                     <div class="pull-right">
                         <input type="submit" class="btn btn-success" value="{{ trans('strings.save_button') }}" />

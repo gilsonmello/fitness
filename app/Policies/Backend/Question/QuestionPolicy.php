@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Policies;
+namespace App\Policies\Backend\Question;
 
 use App\User;
 use App\Question;

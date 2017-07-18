@@ -239,8 +239,8 @@ class DatabaseSeeder extends Seeder
 
         //Seeds question_groups
         DB::table('question_groups')->insert([
-            'title' => 'IPAC',
-            'description' => 'IPAC',
+            'title' => "Par'q",
+            'description' => "Par'q",
             'is_active' => 1,
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s')

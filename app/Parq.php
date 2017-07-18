@@ -4,11 +4,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Services\Ipac\Traits\IpacAttributes;
+use App\Services\Parq\Traits\ParqAttributes;
 
-class Ipac extends Model
+class Parq extends Model
 {
-    use SoftDeletes, IpacAttributes;
+    use SoftDeletes, ParqAttributes;
 
     public $timestamps = true;
 
@@ -18,7 +18,7 @@ class Ipac extends Model
      *
      * @var string
      */
-    protected $table = 'ipacs';
+    protected $table = 'parqs';
 
     /**
      * The attributes that are not mass assignable.
@@ -44,7 +44,7 @@ class Ipac extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function ipacAnswers(){
-        return $this->hasMany(\App\IpacAnswer::class);
+    public function parqAnswers(){
+        return $this->hasMany(\App\ParqAnswer::class);
     }
 }
