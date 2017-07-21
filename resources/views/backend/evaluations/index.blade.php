@@ -111,23 +111,32 @@
                         <div class="tab-content" style="padding: 10px;">
                             <div class="tab-pane active" id="tab_peso_e_altura">
                                 <br>
-                                <div class="row">
-                                    <div class="col-xs-12 col-sm-3 col-md-2 col-lg-2">
-                                        {!! Form::label('peso', trans('strings.peso'), ['class' => '']) !!}
+                                <form class="form-horizontal">
+                                    <div class="form-group">
+                                        <label for="weight" class="col-xs-12 col-sm-2 col-md-1 col-lg-1">
+                                            {{ trans('strings.weight') }}
+                                        </label>
+                                        
+                                        <div class="col-xs-12 col-sm-10 col-md-11 col-lg-11">
+                                            <div class="input-group">
+                                                {!! Form::text('weight', null, ['class' => 'form-control cm', 'placeholder' => trans('strings.weight')]) !!}
+                                                <span class="input-group-addon" id="">cm</span>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="col-xs-12 col-sm-9 col-md-10 col-lg-10 pull-right">
-                                        {!! Form::text('peso', null, ['class' => 'form-control', 'placeholder' => trans('strings.peso'). ' CM']) !!}
+                                    <br>
+                                    <div class="form-group">
+                                        <label for="weight" class="col-xs-12 col-sm-2 col-md-1 col-lg-1">
+                                            {{ trans('strings.height') }}
+                                        </label>
+                                        <div class="col-xs-12 col-sm-10 col-md-11 col-lg-11">
+                                            <div class="input-group">
+                                                {!! Form::text('height', null, ['class' => 'form-control cm', 'placeholder' => trans('strings.height')]) !!}
+                                                <span class="input-group-addon" id="">cm</span>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                                <br>
-                                <div class="row">
-                                    <div class="col-xs-12 col-sm-3 col-md-2 col-lg-2">
-                                        {!! Form::label('altura', trans('strings.altura'), ['class' => '']) !!}
-                                    </div>
-                                    <div class="col-xs-12 col-sm-9 col-md-10 col-lg-10 pull-right">
-                                        {!! Form::text('altura', null, ['class' => 'form-control', 'placeholder' => trans('strings.altura'). ' CM']) !!}
-                                    </div>
-                                </div>
+                                </form>
                             </div>
                             <div class="tab-pane" id="tab_perimetros_circuferencias">
                                 <br>
