@@ -46,3 +46,35 @@ if(!function_exists('active')){
 		return "";
 	}
 }
+
+if (!function_exists('format_datebr')) {
+	/**
+	 * Helper to return a Carbon object from a date timestamp
+	 *
+	 * @param $date
+	 * @return mixed
+	 */
+	function format_datebr($date) {
+		if ($date == null)
+			return "";
+		else
+			return Carbon\Carbon::parse($date)->format('d/m/Y');
+	}
+}
+
+if (!function_exists('format_datetimebr')) {
+
+	/**
+	 * Helper to return a Carbon object from a datetime timestamp
+	 *
+	 * @param $datetime
+	 * @return mixed
+	 */
+	function format_datetimebr($datetime) {
+		if ($datetime == null)
+			return "";
+		else
+			return Carbon\Carbon::parse($datetime)->format('d/m/Y H:i');
+	}
+
+}

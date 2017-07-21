@@ -66,15 +66,19 @@
 
                 <li class="treeview {{ active('admin/evaluations') }} {{ active('admin/ipacs') }}">
                     <a href="#">
-                        <span>{{ trans('strings.evaluations') }}</span>
+                        <span>Avaliação Física</span>
                         <i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
                         <li class="{{ active('admin/evaluations') }}">
-                            <a href="{{ route('backend.questions.index') }}">{{ trans('strings.evaluations') }}</a>
+                            <a href="{{ route('backend.evaluations.index') }}">{{ trans('strings.evaluations') }}</a>
                         </li>
                         <li class="{{ active('admin/ipacs') }}">
                             <a href="{{ route('backend.parqs.index') }}">{{  trans('strings.ipacs') }}</a>
+                        </li>
+
+                        <li class="{{ active('admin/protocols') }}">
+                            <a href="{{ route('backend.protocols.index') }}">{{  trans('strings.protocols') }}</a>
                         </li>
                     </ul>
                 </li>

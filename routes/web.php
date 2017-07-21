@@ -50,6 +50,12 @@ Route::group(['namespace' => 'Backend'], function () {
 
 			//Rotas para as ipacs
 			require_once __DIR__.'/Backend/Parq.php';
+
+			//Rotas para os protocolos
+			require_once __DIR__.'/Backend/Protocol.php';
+
+			//Rotas para os protocolos
+			require_once __DIR__.'/Backend/Evaluation.php';
 				
 	});
 });
