@@ -350,6 +350,16 @@ return [
         'answer' => 'Respostas para o IPAC criadas com sucesso.',
         'updated_ipac_answers' => 'Resposta para o IPAC atualizadas com sucesso'
     ],
+
+    'evaluations' => [
+        'created' => 'Avaliação criada com sucesso.',
+        'updated' => 'Avaliação atualizada com sucesso.',
+        'error' => 'Erro ao criar avaliação com sucesso.',
+        'upated_error' => 'Erro ao atualizar avaliação.',
+        'not_find' => 'Avaliação não encontrada.',
+        'deleted' => 'Avaliação deletada com sucesso',
+        'deleted_error' => 'Erro ao deletadar avaliação.',
+    ]
     
 
 ];

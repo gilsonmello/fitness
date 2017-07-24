@@ -75,8 +75,8 @@ $(function () {
         radioClass: 'iradio_minimal-blue'
     }).on('ifChanged', function(e) {
         // Get the field name
-        var field = $(this).attr('name');
-        alert(field);
+        //var field = $(this).attr('name');
+        //alert(field);
     });
 
     //Red color scheme for iCheck
@@ -92,6 +92,7 @@ $(function () {
         // Get the field name
         var field = $(this);
         if(field.attr('class').indexOf('answer-yes-click') >= 0){
+            window.console.log(field.parent().parent().parent());
             field.parent().parent().parent().find('.answer-yes').css({
                 'display': 'block'
             });
@@ -179,5 +180,222 @@ $(function () {
     $('.editor-active').css({
         'display': 'block'
     });
+
+
+    $('#update_weight_and_height').submit(function(e){
+        e.preventDefault();
+        var form = $(this);
+        swal({
+            title: "Você realmente deseja atualizar os dados?",
+            type: "info",
+            cancelButtonText: "Cancelar",
+            showCancelButton: true,
+            confirmButtonColor: "#00a65a",
+            confirmButtonText: "Salvar",
+            closeOnConfirm: false,
+            showLoaderOnConfirm: true,
+        },function(){
+            $.ajax({
+                url: form.attr('action'),
+                method: 'POST',
+                dataType: 'Json',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                },
+                data: form.serialize(),
+                success: function(data){
+                    window.console.log(data);
+                    swal("Atualizado!", "", "success");
+                }
+            });
+        });
+    });
+
+    $('#update_antropometria').submit(function(e){
+        e.preventDefault();
+        var form = $(this);
+        swal({
+            title: "Você realmente deseja atualizar os dados?",
+            type: "info",
+            showCancelButton: true,
+            cancelButtonText: "Cancelar",
+            confirmButtonColor: "#00a65a",
+            confirmButtonText: "Salvar",
+            closeOnConfirm: false,
+            showLoaderOnConfirm: true,
+        },function(){
+            $.ajax({
+                url: form.attr('action'),
+                method: 'POST',
+                dataType: 'Json',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                },
+                data: form.serialize(),
+                success: function(data){
+                    window.console.log(data);
+                    swal("Atualizado!", "", "success");
+                }
+            });
+        });
+    });
+
+    $('#update_bioempedancia').submit(function(e){
+        e.preventDefault();
+        var form = $(this);
+        swal({
+            title: "Você realmente deseja atualizar os dados?",
+            type: "info",
+            showCancelButton: true,
+            cancelButtonText: "Cancelar",
+            confirmButtonColor: "#00a65a",
+            confirmButtonText: "Salvar",
+            closeOnConfirm: false,
+            showLoaderOnConfirm: true,
+        },function(){
+            $.ajax({
+                url: form.attr('action'),
+                method: 'POST',
+                dataType: 'Json',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                },
+                data: form.serialize(),
+                success: function(data){
+                    window.console.log(data);
+                    swal("Atualizado!", "", "success");
+                }
+            });
+        });
+    });
+
+    $('#update_parq').submit(function(e){
+        e.preventDefault();
+        var form = $(this);
+        swal({
+            title: "Você realmente deseja atualizar os dados?",
+            type: "info",
+            showCancelButton: true,
+            cancelButtonText: "Cancelar",
+            confirmButtonColor: "#00a65a",
+            confirmButtonText: "Salvar",
+            closeOnConfirm: false,
+            showLoaderOnConfirm: true,
+        },function(){
+            $.ajax({
+                url: form.attr('action'),
+                method: 'POST',
+                dataType: 'Json',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                },
+                data: form.serialize(),
+                success: function(data){
+                    window.console.log(data);
+                    swal("Atualizado!", "", "success");
+                }
+            });
+        });
+    });
+
+    $('#update_pregras_cutaneas').submit(function(e){
+        e.preventDefault();
+        var form = $(this);
+        swal({
+            title: "Você realmente deseja atualizar os dados?",
+            type: "info",
+            showCancelButton: true,
+            cancelButtonText: "Cancelar",
+            confirmButtonColor: "#00a65a",
+            confirmButtonText: "Salvar",
+            closeOnConfirm: false,
+            showLoaderOnConfirm: true,
+        },function(){
+            $.ajax({
+                url: form.attr('action'),
+                method: 'POST',
+                dataType: 'Json',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                },
+                data: form.serialize(),
+                success: function(data){
+                    window.console.log(data);
+                    swal("Atualizado!", "", "success");
+                }
+            });
+        });
+    });
+
+    var teste;
+    $('#update_analise_postural_anterior').submit(function(e){
+        e.preventDefault();
+        var form = $(this);
+        swal({
+            title: "Você realmente deseja atualizar os dados?",
+            type: "info",
+            showCancelButton: true,
+            cancelButtonText: "Cancelar",
+            confirmButtonColor: "#00a65a",
+            confirmButtonText: "Salvar",
+            closeOnConfirm: false,
+            showLoaderOnConfirm: true,
+        },function(){
+            $.ajax({
+                url: form.attr('action'),
+                method: 'POST',
+                dataType: 'Json',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                },
+                data: form.serialize(),
+                success: function(data){
+                    window.console.log(data);
+                    swal("Atualizado!", "", "success");
+                }
+            });
+        });
+    });
+
+    var arquivo = $('#img_a');
+    $('#img_a').on('change', function(event){
+        var data = new FormData();
+        data.append('img', $(this)[0].files[0]);
+        $.ajax({
+            contentType: false, // evitar que o jQuery realize o set do 'content-type' para 'application/x-www-form-urlencoded'.
+            processData: false,
+            url: update_analise_postural_anterior+'?_token='+token+'',
+            data: data,
+            type: "POST",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            },
+            success: function(data){
+                window.console.log(data);
+            }
+        });
+        return false;
+    });
+
+    /*$(function () {
+
+        //Imagem de Ánlise Postural Anterior
+        $("#fileuploader").uploadFile({
+            url: update_analise_postural_anterior+'?_token='+token+'',
+            fileName: "myfile",
+            multiple:false,
+            dragDrop:false,
+            maxFileCount:1,
+            showPreview:true,
+            previewHeight: "300px",
+            previewWidth: "500px",
+            showDelete: true,
+            statusBarWidth: 600/!*,
+            returnType: "json",
+            deleteCallback: function (data, pd) {
+                window.console.log(data, pd);
+            }*!/
+        });
+    });*/
 
 });

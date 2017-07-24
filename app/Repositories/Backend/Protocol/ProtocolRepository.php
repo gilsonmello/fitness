@@ -65,7 +65,7 @@ class ProtocolRepository{
      * @param string $sort
      * @return mixed
      */
-    public function getPaginated($per_page = NULL, $title = '', $order_by = 'id', $sort = 'asc') {
+    public function getPaginated($per_page = NULL, $title = '', $formula, $order_by = 'id', $sort = 'asc') {
 
         if(!is_null($per_page)){
             return $this->protocol->orderBy($order_by, $sort)->paginate($per_page);

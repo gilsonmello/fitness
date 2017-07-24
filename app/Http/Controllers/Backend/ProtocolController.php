@@ -22,8 +22,9 @@ class ProtocolController extends Controller
         $f_submit = $request->input('f_submit', '');
 
         $name = getValueSession($request, 'ProtocolController@index:name', '', $f_submit, '');
+        $formula = getValueSession($request, 'ProtocolController@index:formula', '', $f_submit, '');
 
-        $protocols = $this->protocolRepository->getPaginated(NULL, $name);
+        $protocols = $this->protocolRepository->getPaginated(NULL, $name, $formula);
         return view('backend.protocols.index', compact('protocols'));
     }
 

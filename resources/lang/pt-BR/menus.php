@@ -440,4 +440,10 @@ return [
     'ipacs' => [
         'create' => 'Criar IPAC',
     ],
+
+    'evaluations' => [
+        'create' => 'Criar Avaliação',
+        'index' => 'Avaliações',
+        'edit' => 'Editar Avaliação'
+    ]
 ];
