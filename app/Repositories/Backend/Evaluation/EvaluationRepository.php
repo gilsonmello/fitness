@@ -211,15 +211,17 @@ class EvaluationRepository{
         $data = $request->all();
         $evaluation = $this->evaluation->find($id);
         if(!is_null($evaluation->analisePosturalAnterior)){
-
             $this->analisePosturalAnterior->where('evaluation_id', $evaluation->id)
                 ->update([
                     'img' => $result
                 ]);
         }
+        $imgs = '';
+        foreach($result['dimensions'] as $key => $value){
+            $imgs .= $value['filename'].';';
+        }
         $this->analisePosturalAnterior->evaluation_id = $evaluation->id;
-        $this->analisePosturalAnterior->img = $result;
-
+        $this->analisePosturalAnterior->img = !empty($imgs) ? $imgs : NULL;
         if($this->analisePosturalAnterior->save()){
             return true;
         }

@@ -77,6 +77,14 @@
     <script src="http://hayageek.github.io/jQuery-Upload-File/4.0.10/jquery.uploadfile.min.js"></script>
     <!-- AdminLTE App -->
     <script src="{{ mix ('backend/js/app.js') }}" type="text/javascript"></script>
+    <script src="http://malsup.github.io/min/jquery.form.min.js" type="text/javascript"></script>
+
+
+    <script type="text/javascript">
+        $(function(){
+
+        });
+    </script>
 
 
     <!-- Optionally, you can add Slimscroll and FastClick plugins.

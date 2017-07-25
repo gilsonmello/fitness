@@ -134,22 +134,10 @@ class EvaluationController extends Controller
     public function sendImgAnalisePosturalAnterior($id, Request $request){
         if($request->hasFile('img')) {
             $evaluation = $this->evaluationRepository->findOrThrowException($id);
-            if(!is_null($evaluation->analisePosturalAnterior)){
-                if(!is_null($evaluation->analisePosturalAnterior->img)){
-                    $name = sha1($evaluation->user->email);
-
-
-                }
-            }
-
-
-            $name = sha1($evaluation->user->email);
-            $result = Imageupload::upload($request->file('img'), $name, '/analise_postural_anterior/1');
-
-            if ($this->evaluationRepository->updateImgAnalisePosturalAnterior($id, $request, $result['filename'])) {
+            $result = Imageupload::upload($request->file('img'), 'hash', '/analise_postural_anterior/'.$evaluation->id);
+            if ($this->evaluationRepository->updateImgAnalisePosturalAnterior($id, $request, $result)) {
                 return die(json_encode('true'));
             }
-
         }
         return die(json_encode('false'));
     }

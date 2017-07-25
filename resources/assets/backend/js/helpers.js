@@ -357,7 +357,7 @@ $(function () {
         });
     });
 
-    var arquivo = $('#img_a');
+   /* var arquivo = $('#img_a');
     $('#img_a').on('change', function(event){
         var data = new FormData();
         data.append('img', $(this)[0].files[0]);
@@ -375,6 +375,34 @@ $(function () {
             }
         });
         return false;
+    });*/
+
+    $('.desactive').hide();
+    $('#img_a').on('change', function(event){
+        var action = $('#send_img_analise_postural_anterior').attr('action');
+        $('#send_img_analise_postural_anterior').ajaxForm({
+            uploadProgress: function(event, position, total, percentComplete){
+                var tam_file = total/1000000;
+                if(tam_file <= 50){
+                    $('#send_img_analise_postural_anterior .progress').css('display', 'block').addClass('active').removeAttr('desactive');
+                    $('#send_img_analise_postural_anterior .progress-bar').css({
+                        'width' : percentComplete+'%'
+                    });
+                    $('#send_img_analise_postural_anterior .progress-bar span').html(percentComplete+'%');
+                }else{
+                    location.href('/');
+                }
+            },
+            success: function(data){
+
+            },
+            error: function(){
+
+            },
+            dataType: 'Json',
+            url: action,
+            resetForm: true,
+        }).submit();
     });
 
     /*$(function () {

@@ -38,7 +38,7 @@ class CreateAnalisePosturaisTable extends Migration
             $table->tinyInteger('admi')->nullable();
             $table->tinyInteger('ape')->nullable();
             $table->tinyInteger('aas')->nullable();
-            $table->string('img')->nullable();
+            $table->text('img')->nullable();
             $table->longText('obs')->nullable();
             $table->timestamps();
             $table->softDeletes();
@@ -60,7 +60,7 @@ class CreateAnalisePosturaisTable extends Migration
             $table->tinyInteger('leact')->nullable();
             $table->tinyInteger('lell')->nullable();
             $table->tinyInteger('leas')->nullable();
-            $table->string('img')->nullable();
+            $table->text('img')->nullable();
             $table->longText('obs')->nullable();
             $table->timestamps();
             $table->softDeletes();
@@ -82,7 +82,7 @@ class CreateAnalisePosturaisTable extends Migration
             $table->tinyInteger('ldact')->nullable();
             $table->tinyInteger('ldll')->nullable();
             $table->tinyInteger('ldas')->nullable();
-            $table->string('img')->nullable();
+            $table->text('img')->nullable();
             $table->longText('obs')->nullable();
             $table->timestamps();
             $table->softDeletes();
@@ -106,7 +106,7 @@ class CreateAnalisePosturaisTable extends Migration
             $table->tinyInteger('pdqd')->nullable();
             $table->tinyInteger('prmp')->nullable();
             $table->tinyInteger('pas')->nullable();
-            $table->string('img')->nullable();
+            $table->text('img')->nullable();
             $table->longText('obs')->nullable();
             $table->timestamps();
             $table->softDeletes();

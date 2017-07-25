@@ -806,24 +806,7 @@
                                                 {!! Form::textarea('obs', null, ['class' => 'form-control textarea', 'placeholder' => trans('strings.obs'). ' CM']) !!}
                                             </div>
                                         </div>
-                                        <br>
-                                        <div class="row">
-                                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                                <label for="exampleInputFile">Imagem</label>
-                                            </div>
-                                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                                <input type="file" name="img" id="img_a" accept="image/jpeg,image/png,image/gif,image/bmp">
-                                                <p class="help-block">Example block-level help text here.</p>
-                                            </div>
-                                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="visualizar">
-                                            </div>
-                                        </div>
-                                        <br>
-                                        <div class="row">
-                                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                                <div id="img"></div>
-                                            </div>
-                                        </div>
+
                                         <br>
                                         <div class="row">
                                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -832,8 +815,55 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="clearfix"></div>
                                         {!! Form::close() !!}
+                                        {!! Form::open(['route' => ['backend.evaluations.send_img_analise_postural_anterior', $evaluation->id], 'files' => true, 'class' => 'form-horizontal', 'role' => 'form', 'method' => 'post', 'id' => 'send_img_analise_postural_anterior']) !!}
+                                            <div class="row">
+                                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+                                                    <input type="file" name="img" id="img_a" accept="image/jpeg,image/png,image/gif,image/bmp">
+                                                    <br>
+                                                    <div class="progress desactive">
+                                                        <div class="progress-bar progress-bar-primary progress-bar-striped" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" style="">
+                                                            <span class="sr-only"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="visualizar">
+                                                    <img src="{{ $evaluation-> }}">
+                                                </div>
+                                            </div>
+                                        {!! Form::close() !!}{{--
+                                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 porcentagem" id="">
+                                                <span class="valor"><p></p></span>
+                                            </div>
+                                            <style type="text/css">
+                                                .porcentagem{
+                                                    width: 570px;
+                                                    padding: 5px;
+                                                    background: #fff;
+                                                    border: 1px solid #069;
+                                                }
+                                                .porcentagem .valor{
+                                                    float: left;
+                                                    display: block;
+                                                    background: #069;
+                                                }
+                                                .porcentagem .valor p{
+                                                    font: 15px tahoma, arial, helvetica;
+                                                    color: #fff;
+                                                    text-shadow: #000 0 1px 0;
+                                                    margin: 5px;
+
+                                                }
+                                            </style>
+                                        <br>
+                                        <div class="row">
+                                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                                <div id="img"></div>
+                                            </div>
+                                        </div>
+                                        <div class="clearfix"></div>--}}
 
                                     </div>
 
