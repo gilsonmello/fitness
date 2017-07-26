@@ -328,9 +328,9 @@ $(function () {
     });
 
     var teste;
-    $('#update_analise_postural_anterior').submit(function(e){
+    $('#btn-update_analise_postural_anterior').on('click', function(e){
         e.preventDefault();
-        var form = $(this);
+        var form = $('#update_analise_postural_anterior');
         swal({
             title: "Você realmente deseja atualizar os dados?",
             type: "info",
@@ -378,11 +378,64 @@ $(function () {
     });*/
 
     $('.desactive').hide();
-    $('#img_a').on('change', function(event){
+
+    if(window.FormData){
+        var formData = new FormData();
+    }
+
+    var img_a = document.getElementById('img_a');
+    var action = $('#send_img_analise_postural_anterior').attr('action');
+    img_a.addEventListener('change', function(e){
+        var file, form = $('#send_img_analise_postural_anterior');
+        file = this.files[0];
+        if(!!file.type.match(/image.*/)){
+            if(window.FileReader){
+                var reader = new FileReader();
+                reader.onprogress = function(e){
+                };
+                reader.onloadend = function(e){
+                    $('#send_img_analise_postural_anterior #visualizar #img-reader').attr('src', e.target.result);
+                };
+
+                reader.readAsDataURL(file);
+
+                var data = new FormData();
+                data.append('img', file);
+
+                form.ajaxForm({
+                    url: action,
+                    type: "POST",
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                    },
+                    beforeSend: function(){
+                        $('#tab_analise_postural_anterior input[type="submit"]').hide();
+                        $('#tab_analise_postural_anterior img.desactive').show();
+                    },
+                    success: function(data){
+                        $('#tab_analise_postural_anterior input[type="submit"]').show();
+                        $('#tab_analise_postural_anterior img.desactive').hide();
+                    },
+                    uploadProgress: function(event, position, total, percentComplete){
+                        window.console.log(event, position, total, percentComplete);
+                    },
+                    resetForm: true,
+                    dataType: 'Json'
+                }).submit();
+
+            }
+        }
+    }, false);
+   /* $('#img_a').on('change', function(e){
+        window.console.log($(this).files);
+        e.preventDefault();
+    });*/
+    /*$('#img_a').on('change', function(event){
         var action = $('#send_img_analise_postural_anterior').attr('action');
         $('#send_img_analise_postural_anterior').ajaxForm({
             uploadProgress: function(event, position, total, percentComplete){
                 var tam_file = total/1000000;
+                window.console.log(event, position, total, percentComplete);
                 if(tam_file <= 50){
                     $('#send_img_analise_postural_anterior .progress').css('display', 'block').addClass('active').removeAttr('desactive');
                     $('#send_img_analise_postural_anterior .progress-bar').css({
@@ -403,7 +456,7 @@ $(function () {
             url: action,
             resetForm: true,
         }).submit();
-    });
+    });*/
 
     /*$(function () {
 

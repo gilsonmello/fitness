@@ -106,7 +106,7 @@ class CreateAnalisePosturaisTable extends Migration
             $table->tinyInteger('pdqd')->nullable();
             $table->tinyInteger('prmp')->nullable();
             $table->tinyInteger('pas')->nullable();
-            $table->text('img')->nullable();
+            $table->longText('img')->nullable();
             $table->longText('obs')->nullable();
             $table->timestamps();
             $table->softDeletes();

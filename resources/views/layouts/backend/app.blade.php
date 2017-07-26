@@ -18,7 +18,6 @@
 
     <!-- Theme style -->
     <link href="{{ mix('backend/css/app.css')}}" rel="stylesheet" type="text/css" />
-    <link href="http://hayageek.github.io/jQuery-Upload-File/4.0.10/uploadfile.css" rel="stylesheet" type="text/css" >
     <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
           page. However, you can choose any other skin. Make sure you
           apply the skin class to the body tag so the changes take effect.
@@ -74,7 +73,6 @@
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
  --}}
 
-    <script src="http://hayageek.github.io/jQuery-Upload-File/4.0.10/jquery.uploadfile.min.js"></script>
     <!-- AdminLTE App -->
     <script src="{{ mix ('backend/js/app.js') }}" type="text/javascript"></script>
     <script src="http://malsup.github.io/min/jquery.form.min.js" type="text/javascript"></script>

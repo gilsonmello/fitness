@@ -78,3 +78,71 @@ if (!function_exists('format_datetimebr')) {
 	}
 
 }
+
+
+
+if (!function_exists('imageurl')) {
+
+	/**
+	 * @param $entity
+	 * @param $id
+	 * @param $photo
+	 * @param int $size
+	 * @param string $alternate
+	 * @return mixed|string
+	 * @throws Exception
+	 */
+	function imageurl($entity, $photo, $size = 0, $square = false) {
+
+		if ($size === 0) {
+			$size = '';
+		} else {
+			if ($square) {
+				$size = '_square' . $size;
+			} else {
+				$size = '_size' . $size;
+			}
+		}
+		$photo = explode(';', $photo);
+
+		foreach($photo as $value){
+			if(strpos($value, $size)){
+				$photo = $value;
+				continue;
+			}
+		}
+
+		$photo = '/uploads/images/' . $entity  . '/' . $photo;
+
+		//O getimagesize funciona melhor que o file_exists nesse caso. O @ � usado para a fun��o retornar false ao inv�s
+		//de atirar um erro.
+		return $photo;
+	}
+
+}
+
+if (!function_exists('img_sizes')) {
+
+	/**
+	 * @param $path
+	 * @param $img
+	 * @return array
+	 */
+	function img_sizes($path, $img) {
+		if (!preg_match('/\.(gif|jpg|jpeg|tiff|png)$/', $img))
+			return NULL;
+
+		list($img_name, $img_extension) = explode('.', $img);
+
+		$dimensions = Config::get('imageupload.dimensions');
+
+		$sources = [];
+		$sources['original'] = $path . '/' . $img;
+		foreach ($dimensions as $key => $dimension) {
+			$sources[$key] = $path . '/' . $img_name . '_' . $key . '.' . $img_extension;
+		}
+
+		return $sources;
+	}
+
+}

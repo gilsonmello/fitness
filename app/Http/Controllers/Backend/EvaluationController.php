@@ -126,19 +126,27 @@ class EvaluationController extends Controller
     }
 
     public function updateAnalisePosturalAnterior($id, UpdateAnalisePosturalAnteriorRequest $request){
-        if($request->hasFile('img')){
-
+        if($this->evaluationRepository->updateAnalisePosturalAnterior($id, $request)){
+            return die(json_encode('true'));
         }
+        return die(json_encode('false'));
     }
 
     public function sendImgAnalisePosturalAnterior($id, Request $request){
         if($request->hasFile('img')) {
             $evaluation = $this->evaluationRepository->findOrThrowException($id);
-            $result = Imageupload::upload($request->file('img'), 'hash', '/analise_postural_anterior/'.$evaluation->id);
+            $result = Imageupload::upload($request->file('img'), 'hash', '/tmp/'.$evaluation->id);
             if ($this->evaluationRepository->updateImgAnalisePosturalAnterior($id, $request, $result)) {
                 return die(json_encode('true'));
             }
         }
         return die(json_encode('false'));
+    }
+
+    public function oi(){
+        $image = \DB::table('files')->where('id', 1)->first();
+        $file= $image->your_file_path;
+        $filename = public_path().'/uploads_folder/'.$file;
+        \File::delete($filename);
     }
 }

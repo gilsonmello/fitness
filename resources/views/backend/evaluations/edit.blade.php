@@ -799,41 +799,45 @@
                                         </div>
                                         <br>
                                         <div class="row">
-                                            <div class="col-xs-12 col-sm-3 col-md-2 col-lg-2">
+                                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2">
                                                 {!! Form::label('obs', trans('strings.obs'), ['class' => '']) !!}
                                             </div>
-                                            <div class="col-xs-12 col-sm-9 col-md-10 col-lg-10 pull-right">
-                                                {!! Form::textarea('obs', null, ['class' => 'form-control textarea', 'placeholder' => trans('strings.obs'). ' CM']) !!}
-                                            </div>
-                                        </div>
-
-                                        <br>
-                                        <div class="row">
-                                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                                <div class="pull-right">
-                                                    <input type="submit" class="btn btn-success" value="{{ trans('strings.save_button') }}" />
-                                                </div>
+                                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-10 pull-right">
+                                                {!! Form::textarea('obs', null, ['width' => '100%', 'class' => 'form-control textarea', 'placeholder' => trans('strings.obs'). ' CM']) !!}
                                             </div>
                                         </div>
                                         {!! Form::close() !!}
+                                        <br>
+                                        <br>
                                         {!! Form::open(['route' => ['backend.evaluations.send_img_analise_postural_anterior', $evaluation->id], 'files' => true, 'class' => 'form-horizontal', 'role' => 'form', 'method' => 'post', 'id' => 'send_img_analise_postural_anterior']) !!}
+
                                             <div class="row">
-                                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+                                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-5" style="margin-bottom: 10px;">
                                                     <input type="file" name="img" id="img_a" accept="image/jpeg,image/png,image/gif,image/bmp">
-                                                    <br>
+                                                    {{--<br>
                                                     <div class="progress desactive">
                                                         <div class="progress-bar progress-bar-primary progress-bar-striped" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" style="">
                                                             <span class="sr-only"></span>
                                                         </div>
-                                                    </div>
+                                                    </div>--}}
+                                                </div>
+                                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-7" id="visualizar">
+                                                    <img src="{{imageurl('analise_postural_anterior', $evaluation->analisePosturalAnterior->img, 400, true)}}" id="img-reader" style="width: 100%; height: 380px;">
                                                 </div>
                                             </div>
-                                            <div class="row">
-                                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="visualizar">
-                                                    <img src="{{ $evaluation-> }}">
+                                            <br>
+                                        {!! Form::close() !!}
+
+
+                                        <br>
+                                        <div class="row btn-desactive">
+                                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                                <div class="pull-right">
+                                                    <img src="{!!asset('img')!!}/loading.gif" class="desactive">
+                                                    <input type="submit" class="btn btn-success" id="btn-update_analise_postural_anterior" value="{{ trans('strings.save_button') }}" />
                                                 </div>
                                             </div>
-                                        {!! Form::close() !!}{{--
+                                        </div>{{--
                                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 porcentagem" id="">
                                                 <span class="valor"><p></p></span>
                                             </div>

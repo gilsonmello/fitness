@@ -6,6 +6,7 @@ use App\Evaluation;
 use App\Parq;
 use App\PregasCutanea;
 use App\AnalisePosturalAnterior;
+use File;
 
 /**
  * Class QuestionRepository
@@ -207,22 +208,85 @@ class EvaluationRepository{
         return false;
     }
 
+    public function updateAnalisePosturalAnterior($id, $request){
+        $data = $request->all();
+        $evaluation = $this->evaluation->find($id);
+        if(!is_null($evaluation->analisePosturalAnterior)){
+
+            $tmp_imgs = explode(';', $evaluation->analisePosturalAnterior->tmp_img);
+
+            //Movendo a tmp criada para a pasta correta
+            foreach($tmp_imgs as $img){
+                if(File::exists(public_path().'/uploads/images/tmp/'.$img)){
+                    File::move(public_path().'/uploads/images/tmp/'.$img, public_path().'/uploads/images/analise_postural_anterior/'.$img);
+                }
+            }
+
+            //Deletando as imagens originais
+            $to_delete = explode(';', $evaluation->analisePosturalAnterior->img);
+            foreach($to_delete as $img){
+                if(File::exists(public_path().'/uploads/images/analise_postural_anterior/'.$img)){
+                    File::delete(public_path().'/uploads/images/analise_postural_anterior/'.$img);
+                }
+            }
+
+            //Salvando nova imagem com o tmp atual
+            $this->analisePosturalAnterior->where('evaluation_id', $evaluation->id)
+                ->update([
+                    'img' => $evaluation->analisePosturalAnterior->tmp_img
+                ]);
+            return true;
+        }
+    }
+
     public function updateImgAnalisePosturalAnterior($id, $request, $result){
         $data = $request->all();
         $evaluation = $this->evaluation->find($id);
         if(!is_null($evaluation->analisePosturalAnterior)){
+
+            //Variável que irá ter todas as imagens que foram feitas upload
+            $imgs = $result['filename'].';';
+            foreach($result['dimensions'] as $key => $value){
+                $imgs .= $value['filename'].';';
+            }
+            //Remove o último ;
+            $imgs = substr($imgs, 0, -1);
+
+            //Variável que deletará todas as imagens da pasta temporária
+            $tmp_imgs = explode(';', $evaluation->analisePosturalAnterior->tmp_img);
+
+            //Deletando os tmps atuais
+            foreach($tmp_imgs as $img){
+                if(File::exists(public_path().'/uploads/images/tmp/'.$img)){
+                    File::Delete(public_path().'/uploads/images/tmp/'.$img);
+                }
+            }
+
+            //Salvando nova imagem
             $this->analisePosturalAnterior->where('evaluation_id', $evaluation->id)
                 ->update([
-                    'img' => $result
+                    'tmp_img' => $imgs
                 ]);
+            return true;
         }
-        $imgs = '';
+
+        //Pegando todas as imagens que foram feitas upload
+        $imgs = $result['filename'].';';
         foreach($result['dimensions'] as $key => $value){
             $imgs .= $value['filename'].';';
         }
+        //Remove o último ;
+        $imgs = substr($imgs, 0, -1);
+
+        //Variável que contém as imagens a serem deletadas da pasta temporária
+        $imgs_to_delete = explode(';', $imgs);
+
         $this->analisePosturalAnterior->evaluation_id = $evaluation->id;
-        $this->analisePosturalAnterior->img = !empty($imgs) ? $imgs : NULL;
+        $this->analisePosturalAnterior->tmp_img = !empty($imgs) ? $imgs : NULL;
+
+        //Se salvar, movo as imagens para a pasta analise_postural_anterior
         if($this->analisePosturalAnterior->save()){
+
             return true;
         }
         return false;
