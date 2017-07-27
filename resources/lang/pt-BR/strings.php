@@ -11,6 +11,7 @@ return [
       | found in a intuitive way.
       |
      */
+    'image' => 'Imagem',
 	'birth_date' => 'Data de Nascimento',
 	'age' => 'Idade',
 	'biceps' => 'Bíceps',

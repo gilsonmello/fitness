@@ -1,4 +1,4 @@
-<div class="tab-pane active" id="tab_analise_postural_posterior">
+<div class="tab-pane" id="tab_analise_postural_posterior">
     {!! Form::open(['route' => ['backend.evaluations.update_analise_postural_anterior', $evaluation->id], 'files' => true, 'class' => 'form-horizontal', 'role' => 'form', 'method' => 'post', 'id' => 'update_analise_postural_anterior']) !!}
     <br>
     <div class="row">
