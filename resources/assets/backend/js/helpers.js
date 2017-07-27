@@ -379,15 +379,65 @@ $(function () {
 
     $('.desactive').hide();
 
-    if(window.FormData){
-        var formData = new FormData();
-    }
+    var img_a_p_l_e = document.getElementById('img_a_p_l_e');
+    img_a_p_l_e.addEventListener('change', function(e){
+
+        var file;
+        var form = $('#send_img_analise_postural_lateral_esquerda');
+        var action = $('#send_img_analise_postural_lateral_esquerda').attr('action');
+
+        file = this.files[0];
+
+        if(!!file.type.match(/image.*/)){
+            if(window.FileReader){
+                var reader = new FileReader();
+                reader.onprogress = function(e){
+                };
+                reader.onloadend = function(e){
+                    $('#send_img_analise_postural_lateral_esquerda #visualizar #img-reader').attr('src', e.target.result);
+                };
+
+                reader.readAsDataURL(file);
+            }
+        }
+
+        form.ajaxForm({
+            url: action,
+            type: "POST",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            },
+            uploadProgress: function(event, position, total, percentComplete){
+                $('#send_img_analise_postural_lateral_esquerda .progress').css('display', 'block').addClass('active').removeAttr('desactive');
+                $('#send_img_analise_postural_lateral_esquerda .progress-bar').css({
+                    'width' : percentComplete+'%'
+                });
+            },
+            beforeSend: function(){
+                $('#send_img_analise_postural_lateral_esquerda input[type="submit"]').hide();
+                $('#send_img_analise_postural_lateral_esquerda img.desactive').show();
+            },
+            success: function(data){
+                $('#send_img_analise_postural_lateral_esquerda .progress').css('display', 'none').addClass('desactive').removeAttr('active');
+                $('#send_img_analise_postural_lateral_esquerda .progress-bar').css({
+                    'width' : 0+'%'
+                });
+                $('#send_img_analise_postural_lateral_esquerda input[type="submit"]').show();
+                $('#send_img_analise_postural_lateral_esquerda img.desactive').hide();
+            },
+            resetForm: true,
+            dataType: 'Json'
+        }).submit();
+
+    }, false);
 
     var img_a = document.getElementById('img_a');
     var action = $('#send_img_analise_postural_anterior').attr('action');
     img_a.addEventListener('change', function(e){
         var file, form = $('#send_img_analise_postural_anterior');
+
         file = this.files[0];
+
         if(!!file.type.match(/image.*/)){
             if(window.FileReader){
                 var reader = new FileReader();
@@ -398,34 +448,51 @@ $(function () {
                 };
 
                 reader.readAsDataURL(file);
-
-                var data = new FormData();
-                data.append('img', file);
-
-                form.ajaxForm({
-                    url: action,
-                    type: "POST",
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-                    },
-                    beforeSend: function(){
-                        $('#tab_analise_postural_anterior input[type="submit"]').hide();
-                        $('#tab_analise_postural_anterior img.desactive').show();
-                    },
-                    success: function(data){
-                        $('#tab_analise_postural_anterior input[type="submit"]').show();
-                        $('#tab_analise_postural_anterior img.desactive').hide();
-                    },
-                    uploadProgress: function(event, position, total, percentComplete){
-                        window.console.log(event, position, total, percentComplete);
-                    },
-                    resetForm: true,
-                    dataType: 'Json'
-                }).submit();
-
             }
         }
+
+        form.ajaxForm({
+            url: action,
+            type: "POST",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            },
+            uploadProgress: function(event, position, total, percentComplete){
+                $('#send_img_analise_postural_anterior .progress').css('display', 'block').addClass('active').removeAttr('desactive');
+                $('#send_img_analise_postural_anterior .progress-bar').css({
+                    'width' : percentComplete+'%'
+                });
+            },
+            beforeSend: function(){
+                $('#tab_analise_postural_anterior input[type="submit"]').hide();
+                $('#tab_analise_postural_anterior img.desactive').show();
+            },
+            success: function(data){
+                $('#send_img_analise_postural_anterior .progress').css('display', 'none').addClass('desactive').removeAttr('active');
+                $('#send_img_analise_postural_anterior .progress-bar').css({
+                    'width' : 0+'%'
+                });
+                $('#tab_analise_postural_anterior input[type="submit"]').show();
+                $('#tab_analise_postural_anterior img.desactive').hide();
+            },
+            resetForm: true,
+            dataType: 'Json'
+        }).submit();
+
     }, false);
+
+
+
+
+
+
+
+
+
+
+
+
+
    /* $('#img_a').on('change', function(e){
         window.console.log($(this).files);
         e.preventDefault();

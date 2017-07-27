@@ -36,6 +36,7 @@ Route::post('evaluations/{id}/update_bioempedancia', 'EvaluationController@updat
 Route::post('evaluations/{id}/update_pregras_cutaneas', 'EvaluationController@updatePregrasCutaneas')->name('backend.evaluations.update_pregras_cutaneas');
 Route::post('evaluations/{id}/update_analise_postural_anterior', 'EvaluationController@updateAnalisePosturalAnterior')->name('backend.evaluations.update_analise_postural_anterior');
 Route::post('evaluations/{id}/send_img_analise_postural_anterior', 'EvaluationController@sendImgAnalisePosturalAnterior')->name('backend.evaluations.send_img_analise_postural_anterior');
+Route::post('evaluations/{id}/send_img_analise_postural_lateral_esquerda', 'EvaluationController@sendImgAnalisePosturalLateralEsquerda')->name('backend.evaluations.send_img_analise_postural_lateral_esquerda');
 
 
 

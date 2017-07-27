@@ -93,7 +93,9 @@ if (!function_exists('imageurl')) {
 	 * @throws Exception
 	 */
 	function imageurl($entity, $photo, $size = 0, $square = false) {
-
+		if(is_null($photo)){
+			return "";
+		}
 		if ($size === 0) {
 			$size = '';
 		} else {
