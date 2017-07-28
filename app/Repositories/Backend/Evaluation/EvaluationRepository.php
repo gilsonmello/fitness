@@ -7,6 +7,11 @@ use App\Parq;
 use App\PregasCutanea;
 use App\AnalisePosturalAnterior;
 use App\AnalisePosturalLateralEsquerda;
+use App\AnalisePosturalLateralDireita;
+use App\AnalisePosturalPosterior;
+use App\EvaluationAttribute;
+use App\Antropometria;
+use App\Bioempedancia;
 use File;
 
 /**
@@ -27,14 +32,19 @@ class EvaluationRepository{
 
     protected $analisePosturalLateralEsquerda;
 
-    public function __construct(PregasCutanea $pregasCutanea, Parq $par, Question $question, Evaluation $evaluation, AnalisePosturalAnterior $analisePosturalAnterior, AnalisePosturalLateralEsquerda $analisePosturalLateralEsquerda)
+    public function __construct(PregasCutanea $pregasCutanea, Parq $par, Question $question, Evaluation $evaluation)
     {
         $this->question = $question;
         $this->evaluation = $evaluation;
         $this->parq = $par;
         $this->pregasCutanea = $pregasCutanea;
-        $this->analisePosturalAnterior = $analisePosturalAnterior;
-        $this->analisePosturalLateralEsquerda = $analisePosturalLateralEsquerda;
+        $this->analisePosturalAnterior = new AnalisePosturalAnterior;
+        $this->analisePosturalLateralEsquerda = new AnalisePosturalLateralEsquerda;
+        $this->analisePosturalLateralDireita = new AnalisePosturalLateralDireita;
+        $this->analisePosturalPosterior = new AnalisePosturalPosterior;
+        $this->evaluationAttribute = new EvaluationAttribute;
+        $this->bioempedancia = new Bioempedancia;
+        $this->antropometria = new Antropometria;
     }
 
     /**
@@ -110,6 +120,72 @@ class EvaluationRepository{
             return true;
         }
         throw new GeneralException("There was a problem deleting this evaluation. Please try again.");
+    }
+
+
+
+    /**
+     * @param $id
+     * @param $request
+     * @return bool
+     */
+    public function updateWeightAndHeight($id, $request){
+        $data = $request->all();
+        $evaluation = $this->evaluation->find($id);
+        $save = $this->evaluationAttribute->where('evaluation_id', '=', $evaluation->id)
+            ->update([
+                'weight' => isset($data['weight']) && !empty($data['weight']) ? $data['weight'] : NULL,
+                'height' => isset($data['height']) && !empty($data['height']) ? $data['height'] : NULL,
+            ]);
+        if($save){
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * @param $id
+     * @param $request
+     * @return bool
+     */
+    public function updatePerimetrosCircunferencias($id, $request){
+        $data = $request->all();
+        $evaluation = $this->evaluation->find($id);
+        $save = $this->antropometria->where('evaluation_id', '=', $evaluation->id)
+            ->update([
+                'right_arm' => isset($data['right_arm']) && !empty($data['right_arm']) ? $data['right_arm'] : NULL,
+                'left_arm' => isset($data['left_arm']) && !empty($data['left_arm']) ? $data['left_arm'] : NULL,
+                'tummy' => isset($data['tummy']) && !empty($data['tummy']) ? $data['tummy'] : NULL,
+                'hip' => isset($data['hip']) && !empty($data['hip']) ? $data['hip'] : NULL,
+                'coxa_proximal' => isset($data['coxa_proximal']) && !empty($data['coxa_proximal']) ? $data['coxa_proximal'] : NULL,
+                'coxa_medial' => isset($data['coxa_medial']) && !empty($data['coxa_medial']) ? $data['coxa_medial'] : NULL,
+                'coxa_distal' => isset($data['coxa_distal']) && !empty($data['coxa_distal']) ? $data['coxa_distal'] : NULL,
+                'right_leg' => isset($data['right_leg']) && !empty($data['right_leg']) ? $data['right_leg'] : NULL,
+                'left_leg' => isset($data['left_leg']) && !empty($data['left_leg']) ? $data['left_leg'] : NULL,
+                'forearm' => isset($data['forearm']) && !empty($data['forearm']) ? $data['forearm'] : NULL,
+                'chest' => isset($data['chest']) && !empty($data['chest']) ? $data['forearm'] : NULL,
+                'waist' => isset($data['waist']) && !empty($data['waist']) ? $data['waist'] : NULL,
+            ]);
+        if($save){
+            return true;
+        }
+        return false;
+    }
+    public function updateBioempedancia($id, $request){
+        $data = $request->all();
+        $evaluation = $this->evaluation->find($id);
+        $save = $this->bioempedancia->where('evaluation_id', '=', $evaluation->id)
+            ->update([
+                'fat' => isset($data['fat']) && !empty($data['fat']) ? $data['fat'] : NULL,
+                'muscle_mass' => isset($data['muscle_mass']) && !empty($data['muscle_mass']) ? $data['muscle_mass'] : NULL,
+                'body_water' => isset($data['body_water']) && !empty($data['body_water']) ? $data['body_water'] : NULL,
+                'osseous_weight' => isset($data['osseous_weight']) && !empty($data['osseous_weight']) ? $data['osseous_weight'] : NULL,
+                'imc' => isset($data['imc']) && !empty($data['imc']) ? $data['imc'] : NULL,
+            ]);
+        if($save){
+            return true;
+        }
+        return false;
     }
 
     public function updateParq($id, $request){
@@ -222,15 +298,17 @@ class EvaluationRepository{
             //Movendo a tmp criada para a pasta correta
             foreach($tmp_imgs as $img){
                 if(File::exists(public_path().'/uploads/images/tmp/'.$img)){
-                    File::move(public_path().'/uploads/images/tmp/'.$img, public_path().'/uploads/images/analise_postural_anterior/'.$img);
+                    File::move(public_path().'/uploads/images/tmp/'.$img, public_path().'/uploads/images/analise_postural/'.$img);
                 }
             }
 
             //Deletando as imagens originais
-            $to_delete = explode(';', $evaluation->analisePosturalAnterior->img);
-            foreach($to_delete as $img){
-                if(File::exists(public_path().'/uploads/images/analise_postural_anterior/'.$img)){
-                    File::delete(public_path().'/uploads/images/analise_postural_anterior/'.$img);
+            if($evaluation->analisePosturalAnterior->tmp_img != $evaluation->analisePosturalAnterior->img) {
+                $to_delete = explode(';', $evaluation->analisePosturalAnterior->img);
+                foreach ($to_delete as $img) {
+                    if (File::exists(public_path() . '/uploads/images/analise_postural/' . $img)) {
+                        File::delete(public_path() . '/uploads/images/analise_postural/' . $img);
+                    }
                 }
             }
 
@@ -262,36 +340,7 @@ class EvaluationRepository{
                 ]);
             return true;
         }
-
-        $this->analisePosturalAnterior->evaluation_id = $evaluation->id;
-        $this->analisePosturalAnterior->arlcd = isset($data['arlcd']) && !empty($data['arlcd']) ? $data['arlcd'] : NULL;
-        $this->analisePosturalAnterior->arlce = isset($data['arlce']) && !empty($data['arlce']) ? $data['arlce'] : NULL;
-        $this->analisePosturalAnterior->ailcd = isset($data['ailcd']) && !empty($data['ailcd']) ? $data['ailcd'] : NULL;
-        $this->analisePosturalAnterior->ailce = isset($data['ailce']) && !empty($data['ailce']) ? $data['ailce'] : NULL;
-        $this->analisePosturalAnterior->aeod = isset($data['aeod']) && !empty($data['aeod']) ? $data['aeod'] : NULL;
-        $this->analisePosturalAnterior->aeoe = isset($data['aeoe']) && !empty($data['aeoe']) ? $data['aeoe'] : NULL;
-        $this->analisePosturalAnterior->armpd = isset($data['armpd']) && !empty($data['armpd']) ? $data['armpd'] : NULL;
-        $this->analisePosturalAnterior->armpe = isset($data['armpe']) && !empty($data['armpe']) ? $data['armpe'] : NULL;
-        $this->analisePosturalAnterior->admp = isset($data['admp']) && !empty($data['admp']) ? $data['admp'] : NULL;
-        $this->analisePosturalAnterior->adq = isset($data['adq']) && !empty($data['adq']) ? $data['adq'] : NULL;
-        $this->analisePosturalAnterior->aami = isset($data['aami']) && !empty($data['aami']) ? $data['aami'] : NULL;
-        $this->analisePosturalAnterior->ajvaro = isset($data['ajvaro']) && !empty($data['ajvaro']) ? $data['ajvaro'] : NULL;
-        $this->analisePosturalAnterior->ajvalgo = isset($data['ajvalgo']) && !empty($data['ajvalgo']) ? $data['ajvalgo'] : NULL;
-        $this->analisePosturalAnterior->arijde = isset($data['arijde']) && !empty($data['arijde']) ? $data['arijde'] : NULL;
-        $this->analisePosturalAnterior->apede = isset($data['apede']) && !empty($data['apede']) ? $data['apede'] : NULL;
-        $this->analisePosturalAnterior->apide = isset($data['apide']) && !empty($data['apide']) ? $data['apide'] : NULL;
-        $this->analisePosturalAnterior->apabdutode = isset($data['apabdutode']) && !empty($data['apabdutode']) ? $data['apabdutode'] : NULL;
-        $this->analisePosturalAnterior->admi = isset($data['admi']) && !empty($data['admi']) ? $data['admi'] : NULL;
-        $this->analisePosturalAnterior->ape = isset($data['ape']) && !empty($data['ape']) ? $data['ape'] : NULL;
-        $this->analisePosturalAnterior->aas = isset($data['aas']) && !empty($data['aas']) ? $data['aas'] : NULL;
-        $this->analisePosturalAnterior->obs = isset($data['obs']) && !empty($data['obs']) ? $data['obs'] : NULL;
-        //Se salvar, movo as imagens para a pasta analise_postural_anterior
-        if($this->analisePosturalAnterior->save()){
-
-            return true;
-        }
         return false;
-
     }
 
     public function updateImgAnalisePosturalAnterior($id, $request, $result){
@@ -324,30 +373,17 @@ class EvaluationRepository{
                 ]);
             return true;
         }
-
-        //Pegando todas as imagens que foram feitas upload
-        $imgs = $result['filename'].';';
-        foreach($result['dimensions'] as $key => $value){
-            $imgs .= $value['filename'].';';
-        }
-        //Remove o último ;
-        $imgs = substr($imgs, 0, -1);
-
-        //Variável que contém as imagens a serem deletadas da pasta temporária
-        $imgs_to_delete = explode(';', $imgs);
-
-        $this->analisePosturalAnterior->evaluation_id = $evaluation->id;
-        $this->analisePosturalAnterior->tmp_img = !empty($imgs) ? $imgs : NULL;
-
-        //Se salvar, movo as imagens para a pasta analise_postural_anterior
-        if($this->analisePosturalAnterior->save()){
-            return true;
-        }
         return false;
     }
 
+    /**
+     * Função que envia a imagem para a pasta tmp
+     * @param $id
+     * @param $request
+     * @param array $result
+     * @return bool
+     */
     public function sendImgAnalisePosturalLateralEsquerda($id, $request, $result){
-        $data = $request->all();
         $evaluation = $this->evaluation->find($id);
         if(!is_null($evaluation->analisePosturalLateralEsquerda)){
 
@@ -376,8 +412,64 @@ class EvaluationRepository{
                 ]);
             return true;
         }
+        return false;
+    }
 
-        //Pegando todas as imagens que foram feitas upload
+    public function updateAnalisePosturalLateralEsquerda($id, $request){
+        $data = $request->all();
+        $evaluation = $this->evaluation->find($id);
+        if(!is_null($evaluation->analisePosturalLateralEsquerda)){
+
+            $tmp_imgs = explode(';', $evaluation->analisePosturalLateralEsquerda->tmp_img);
+
+            //Movendo a tmp criada para a pasta correta
+            foreach($tmp_imgs as $img){
+                if(File::exists(public_path().'/uploads/images/tmp/'.$img)){
+                    File::move(public_path().'/uploads/images/tmp/'.$img, public_path().'/uploads/images/analise_postural/'.$img);
+                }
+            }
+
+            //Deletando as imagens originais
+            if($evaluation->analisePosturalLateralEsquerda->tmp_img != $evaluation->analisePosturalLateralEsquerda->img) {
+                $to_delete = explode(';', $evaluation->analisePosturalLateralEsquerda->img);
+                foreach ($to_delete as $img) {
+                    if (File::exists(public_path() . '/uploads/images/analise_postural/' . $img)) {
+                        File::delete(public_path() . '/uploads/images/analise_postural/' . $img);
+                    }
+                }
+            }
+
+            //Salvando nova imagem com o tmp atual
+            $this->analisePosturalLateralEsquerda->where('evaluation_id', $evaluation->id)
+                ->update([
+                    'lehc' => isset($data['lehc']) && !empty($data['lehc']) ? $data['lehc'] : NULL,
+                    'leht' => isset($data['leht']) && !empty($data['leht']) ? $data['leht'] : NULL,
+                    'lehl' => isset($data['lehl']) && !empty($data['lehl']) ? $data['lehl'] : NULL,
+                    'lecp' => isset($data['lecp']) && !empty($data['lecp']) ? $data['lecp'] : NULL,
+                    'legr' => isset($data['legr']) && !empty($data['legr']) ? $data['legr'] : NULL,
+                    'legf' => isset($data['legf']) && !empty($data['legf']) ? $data['legf'] : NULL,
+                    'leact' => isset($data['leact']) && !empty($data['leact']) ? $data['leact'] : NULL,
+                    'lell' => isset($data['lell']) && !empty($data['lell']) ? $data['lell'] : NULL,
+                    'leas' => isset($data['leas']) && !empty($data['leas']) ? $data['leas'] : NULL,
+                    'obs' => isset($data['obs']) && !empty($data['obs']) ? $data['obs'] : NULL,
+                    'img' => $evaluation->analisePosturalLateralEsquerda->tmp_img
+                ]);
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Função que envia a imagem para a pasta tmp
+     * @param $id
+     * @param $request
+     * @param array $result
+     * @return bool
+     */
+    public function sendImgAnalisePosturalLateralDireita($id, $request, $result){
+        $evaluation = $this->evaluation->find($id);
+
+        //Variável que irá ter todas as imagens que foram feitas upload
         $imgs = $result['filename'].';';
         foreach($result['dimensions'] as $key => $value){
             $imgs .= $value['filename'].';';
@@ -385,18 +477,148 @@ class EvaluationRepository{
         //Remove o último ;
         $imgs = substr($imgs, 0, -1);
 
-        //Variável que contém as imagens a serem deletadas da pasta temporária
-        $imgs_to_delete = explode(';', $imgs);
+        //Variável que deletará todas as imagens da pasta temporária
+        $tmp_imgs = explode(';', $evaluation->analisePosturalLateralDireita->tmp_img);
 
-        $this->analisePosturalLateralEsquerda->evaluation_id = $evaluation->id;
-        $this->analisePosturalLateralEsquerda->tmp_img = !empty($imgs) ? $imgs : NULL;
-
-        //Se salvar, movo as imagens para a pasta analise_postural_anterior
-        if($this->analisePosturalLateralEsquerda->save()){
-            return true;
+        //Deletando os tmps atuais
+        foreach($tmp_imgs as $img){
+            if(File::exists(public_path().'/uploads/images/tmp/'.$img)){
+                File::Delete(public_path().'/uploads/images/tmp/'.$img);
+            }
         }
-        return false;
+
+        //Salvando nova imagem
+        $this->analisePosturalLateralDireita->where('evaluation_id', $evaluation->id)
+            ->update([
+                'tmp_img' => $imgs
+            ]);
+        return true;
+
     }
+
+    public function updateAnalisePosturalLateralDireita($id, $request){
+        $data = $request->all();
+        $evaluation = $this->evaluation->find($id);
+
+        $tmp_imgs = explode(';', $evaluation->analisePosturalLateralDireita->tmp_img);
+
+        //Movendo a tmp criada para a pasta correta
+        foreach($tmp_imgs as $img){
+            if(File::exists(public_path().'/uploads/images/tmp/'.$img)){
+                File::move(public_path().'/uploads/images/tmp/'.$img, public_path().'/uploads/images/analise_postural/'.$img);
+            }
+        }
+
+        //Deletando as imagens originais
+        if($evaluation->analisePosturalLateralDireita->tmp_img != $evaluation->analisePosturalLateralDireita->img) {
+            $to_delete = explode(';', $evaluation->analisePosturalLateralDireita->img);
+            foreach ($to_delete as $img) {
+                if (File::exists(public_path() . '/uploads/images/analise_postural/' . $img)) {
+                    File::delete(public_path() . '/uploads/images/analise_postural/' . $img);
+                }
+            }
+        }
+
+        //Salvando nova imagem com o tmp atual
+        $this->analisePosturalLateralDireita->where('evaluation_id', $evaluation->id)
+            ->update([
+                'ldhc' => isset($data['ldhc']) && !empty($data['ldhc']) ? $data['ldhc'] : NULL,
+                'ldht' => isset($data['ldht']) && !empty($data['ldht']) ? $data['ldht'] : NULL,
+                'ldhl' => isset($data['ldhl']) && !empty($data['ldhl']) ? $data['ldhl'] : NULL,
+                'ldcp' => isset($data['ldcp']) && !empty($data['ldcp']) ? $data['ldcp'] : NULL,
+                'ldgr' => isset($data['ldgr']) && !empty($data['ldgr']) ? $data['ldgr'] : NULL,
+                'ldgf' => isset($data['ldgf']) && !empty($data['ldgf']) ? $data['ldgf'] : NULL,
+                'ldact' => isset($data['ldact']) && !empty($data['ldact']) ? $data['ldact'] : NULL,
+                'ldll' => isset($data['ldll']) && !empty($data['ldll']) ? $data['ldll'] : NULL,
+                'ldas' => isset($data['ldas']) && !empty($data['ldas']) ? $data['ldas'] : NULL,
+                'obs' => isset($data['obs']) && !empty($data['obs']) ? $data['obs'] : NULL,
+                'img' => $evaluation->analisePosturalLateralDireita->tmp_img
+            ]);
+        return true;
+
+    }
+
+    public function updateAnalisePosturalPosterior($id, $request){
+        $data = $request->all();
+        $evaluation = $this->evaluation->find($id);
+
+        $tmp_imgs = explode(';', $evaluation->analisePosturalPosterior->tmp_img);
+
+        //Movendo a tmp criada para a pasta correta
+        foreach($tmp_imgs as $img){
+            if(File::exists(public_path().'/uploads/images/tmp/'.$img)){
+                File::move(public_path().'/uploads/images/tmp/'.$img, public_path().'/uploads/images/analise_postural/'.$img);
+            }
+        }
+
+        //Deletando as imagens originais somente se houve alguma mudança de imagem
+        if($evaluation->analisePosturalPosterior->tmp_img != $evaluation->analisePosturalPosterior->img){
+            $to_delete = explode(';', $evaluation->analisePosturalPosterior->img);
+            foreach($to_delete as $img){
+                if(File::exists(public_path().'/uploads/images/analise_postural/'.$img)){
+                    File::delete(public_path().'/uploads/images/analise_postural/'.$img);
+                }
+            }
+        }
+
+        //Salvando nova imagem com o tmp atual
+        $this->analisePosturalPosterior->where('evaluation_id', $evaluation->id)
+            ->update([
+                'pec' => isset($data['pec']) && !empty($data['pec']) ? $data['pec'] : NULL,
+                'pet' => isset($data['pet']) && !empty($data['pet']) ? $data['pet'] : NULL,
+                'pel' => isset($data['pel']) && !empty($data['pel']) ? $data['pel'] : NULL,
+                'pde' => isset($data['pde']) && !empty($data['pde']) ? $data['pde'] : NULL,
+                'peabduzidas' => isset($data['peabduzidas']) && !empty($data['peabduzidas']) ? $data['peabduzidas'] : NULL,
+                'peaduzidas' => isset($data['peaduzidas']) && !empty($data['peaduzidas']) ? $data['peaduzidas'] : NULL,
+                'pdda' => isset($data['pdda']) && !empty($data['pdda']) ? $data['pdda'] : NULL,
+                'pdq' => isset($data['pdq']) && !empty($data['pdq']) ? $data['pdq'] : NULL,
+                'pdpd' => isset($data['pdpd']) && !empty($data['pdpd']) ? $data['pdpd'] : NULL,
+                'prmp' => isset($data['prmp']) && !empty($data['prmp']) ? $data['prmp'] : NULL,
+                'pas' => isset($data['pas']) && !empty($data['pas']) ? $data['pas'] : NULL,
+                'obs' => isset($data['obs']) && !empty($data['obs']) ? $data['obs'] : NULL,
+                'img' => $evaluation->analisePosturalPosterior->tmp_img
+            ]);
+        return true;
+
+    }
+
+    /**
+     * Função que envia a imagem para a pasta tmp
+     * @param $id
+     * @param $request
+     * @param array $result
+     * @return bool
+     */
+    public function sendImgAnalisePosturalPosterior($id, $request, $result){
+        $evaluation = $this->evaluation->find($id);
+
+        //Variável que irá ter todas as imagens que foram feitas upload
+        $imgs = $result['filename'].';';
+        foreach($result['dimensions'] as $key => $value){
+            $imgs .= $value['filename'].';';
+        }
+        //Remove o último ;
+        $imgs = substr($imgs, 0, -1);
+
+        //Variável que deletará todas as imagens da pasta temporária
+        $tmp_imgs = explode(';', $evaluation->analisePosturalPosterior->tmp_img);
+
+        //Deletando os tmps atuais
+        foreach($tmp_imgs as $img){
+            if(File::exists(public_path().'/uploads/images/tmp/'.$img)){
+                File::Delete(public_path().'/uploads/images/tmp/'.$img);
+            }
+        }
+
+        //Salvando nova imagem
+        $this->analisePosturalPosterior->where('evaluation_id', $evaluation->id)
+            ->update([
+                'tmp_img' => $imgs
+            ]);
+        return true;
+
+    }
+
 
 
 }

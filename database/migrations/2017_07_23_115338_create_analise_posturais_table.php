@@ -106,7 +106,7 @@ class CreateAnalisePosturaisTable extends Migration
             $table->binary('peaduzidas')->nullable();
             $table->binary('pdda')->nullable();
             $table->binary('pdq')->nullable();
-            $table->binary('pdqd')->nullable();
+            $table->binary('pdpd')->nullable();
             $table->binary('prmp')->nullable();
             $table->binary('pas')->nullable();
             $table->longText('img')->nullable();

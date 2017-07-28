@@ -34,6 +34,6 @@ class CreateEvaluationAttributesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_attributes');
+        Schema::dropIfExists('evaluation_attributes');
     }
 }

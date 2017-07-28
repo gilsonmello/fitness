@@ -1,0 +1,101 @@
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateTriggerEvaluation extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        DB::unprepared('
+            CREATE TRIGGER trigger_create_evaluations
+                AFTER INSERT ON evaluations
+                FOR EACH ROW
+                BEGIN
+                    INSERT INTO parqs (
+                        question_1,
+                        question_2,
+                        question_3,
+                        question_4,
+                        question_5,
+                        question_6,
+                        question_7,
+                        question_8,
+                        evaluation_id,
+                        created_at,
+                        updated_at
+                    )
+
+                    VALUES(
+                        1,
+                        1,
+                        1,
+                        1,
+                        1,
+                        1,
+                        1,
+                        1,
+                        NEW.id,
+                        NOW(),
+                        NOW()
+                    );
+                    INSERT INTO antropometrias (evaluation_id, created_at, updated_at) VALUES(
+                        NEW.id,
+                        NOW(),
+                        NOW()
+                    );
+                    INSERT INTO pregas_cutaneas (evaluation_id, created_at, updated_at) VALUES(
+                        NEW.id,
+                        NOW(),
+                        NOW()
+                    );
+                    INSERT INTO evaluation_attributes (evaluation_id, created_at, updated_at) VALUES(
+                        NEW.id,
+                        NOW(),
+                        NOW()
+                    );
+                    INSERT INTO bioempedancias (evaluation_id, created_at, updated_at) VALUES(
+                        NEW.id,
+                        NOW(),
+                        NOW()
+                    );
+                    INSERT INTO analise_posturais_anterior (evaluation_id, created_at, updated_at) VALUES(
+                        NEW.id,
+                        NOW(),
+                        NOW()
+                    );
+                    INSERT INTO analise_posturais_lateral_direita (evaluation_id, created_at, updated_at) VALUES(
+                        NEW.id,
+                        NOW(),
+                        NOW()
+                    );
+                    INSERT INTO analise_posturais_lateral_esquerda (evaluation_id, created_at, updated_at) VALUES(
+                        NEW.id,
+                        NOW(),
+                        NOW()
+                    );
+                    INSERT INTO analise_posturais_posterior (evaluation_id, created_at, updated_at) VALUES(
+                        NEW.id,
+                        NOW(),
+                        NOW()
+                    );
+                END;
+        ');
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        DB::unprepared('DROP TRIGGER trigger_create_evaluations');
+    }
+}

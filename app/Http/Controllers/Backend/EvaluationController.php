@@ -12,6 +12,8 @@ use App\Repositories\Backend\Evaluation\EvaluationRepository;
 use App\Http\Requests\Backend\Evaluation\UpdateParqRequest;
 use App\Http\Requests\Backend\Evaluation\UpdatePregrasCutaneaRequest;
 use App\Http\Requests\Backend\Evaluation\UpdateAnalisePosturalAnteriorRequest;
+use App\Http\Requests\Backend\Evaluation\UpdateAnalisePosturalLateralEsquerdaRequest;
+use App\Http\Requests\Backend\Evaluation\UpdateAnalisePosturalPosterior;
 use App\Http\Requests\Backend\Evaluation\CreateEvaluationRequest;
 use App\Services\UploadService\UploadService;
 use Illuminate\Contracts\Filesystem\Filesystem;
@@ -21,29 +23,29 @@ use Imageupload;
 class EvaluationController extends Controller
 {
     /**
-     * @var UserRepository
-     */
-    protected $userRepository;
-
-    protected $evaluationRepository;
-
-    /**
      * EvaluationController constructor.
-     * @param UserRepository $userRepository
-     * @param EvaluationRepository $evaluationRepository
+     * @param Filesystem $filesystem
      */
-    public function __construct(UserRepository $userRepository, EvaluationRepository $evaluationRepository,  UploadService $uploadService, Filesystem $filesystem){
-        $this->userRepository = $userRepository;
-        $this->evaluationRepository = $evaluationRepository;
-        $this->uploadService = $uploadService;
+    public function __construct(Filesystem $filesystem){
+        $this->userRepository = new UserRepository;
+        $this->evaluationRepository = new EvaluationRepository;
+        $this->uploadService = new UploadService;
         $this->filesystem = $filesystem;
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function create(){
         $users = $this->userRepository->all();
         return view('backend.evaluations.create', compact('users'));
     }
 
+    /**
+     * @param $id
+     * @return mixed
+     * @throws \App\Exceptions\GeneralException
+     */
     public function destroy($id){
         if($this->evaluationRepository->destroy($id)){
             return redirect()
@@ -55,6 +57,10 @@ class EvaluationController extends Controller
             ->withFlashSuccess(trans('alerts.evaluations.deleted_error'));
     }
 
+    /**
+     * @param CreateEvaluationRequest $request
+     * @return mixed
+     */
     public function store(CreateEvaluationRequest $request){
         if($this->evaluationRepository->create($request)){
             return redirect()
@@ -66,6 +72,11 @@ class EvaluationController extends Controller
             ->withFlashSuccess(trans('alerts.evaluations.error'));
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \App\Exceptions\GeneralException
+     */
     public function edit($id){
         $evaluation = $this->evaluationRepository->findOrThrowException($id);
         return view('backend.evaluations.edit', compact('evaluation'));
@@ -83,13 +94,12 @@ class EvaluationController extends Controller
     /**
      * @param $id
      * @param UpdateWeightAndHeightRequest $request
-     * @return boolean
      */
     public function updateWeightAndHeight($id, UpdateWeightAndHeightRequest $request){
-        if($this->userRepository->updateWeightAndHeight($id, $request)){
-            die(json_encode("true"));
+        if($this->evaluationRepository->updateWeightAndHeight($id, $request)){
+            return die(json_encode("true"));
         }
-        die(json_encode("false"));
+        return die(json_encode("false"));
     }
 
     /**
@@ -97,34 +107,52 @@ class EvaluationController extends Controller
      * @param UpdateAntropometriaRequest $request
      * @return boolean
      */
-    public function updateAntropometria($id, UpdateAntropometriaRequest $request){
-        if($this->userRepository->updateAntropometria($id, $request)){
-            die(json_encode("true"));
+    public function updatePerimetrosCircunferencias($id, UpdateAntropometriaRequest $request){
+        if($this->evaluationRepository->updatePerimetrosCircunferencias($id, $request)){
+            return die(json_encode("true"));
         }
-        die(json_encode("false"));
+        return die(json_encode("false"));
     }
 
+    /**
+     * @param $id
+     * @param UpdateBioempedanciaRequest $request
+     */
     public function updateBioempedancia($id, UpdateBioempedanciaRequest $request){
-        if($this->userRepository->updateBioempedancia($id, $request)){
-            die(json_encode("true"));
+        if($this->evaluationRepository->updateBioempedancia($id, $request)){
+            return die(json_encode("true"));
         }
-        die(json_encode("false"));
+        return die(json_encode("false"));
     }
 
+    /**
+     * @param $id
+     * @param UpdateParqRequest $request
+     * @return boolean
+     */
     public function updateParq($id, UpdateParqRequest $request){
         if($this->evaluationRepository->updateParq($id, $request)){
-            die(json_encode("true"));
+            return die(json_encode("true"));
         }
-        die(json_encode("false"));
+        return die(json_encode("false"));
     }
 
+    /**
+     * @param $id
+     * @param UpdatePregrasCutaneaRequest $request
+     * @return boolean
+     */
     public function updatePregrasCutaneas($id, UpdatePregrasCutaneaRequest $request){
         if($this->evaluationRepository->updatePregrasCutaneas($id, $request)){
-            die(json_encode("true"));
+            return die(json_encode("true"));
         }
-        die(json_encode("false"));
+        return die(json_encode('false'));
     }
 
+    /**
+     * @param $id
+     * @param UpdateAnalisePosturalAnteriorRequest $request
+     */
     public function updateAnalisePosturalAnterior($id, UpdateAnalisePosturalAnteriorRequest $request){
         if($this->evaluationRepository->updateAnalisePosturalAnterior($id, $request)){
             return die(json_encode('true'));
@@ -132,6 +160,44 @@ class EvaluationController extends Controller
         return die(json_encode('false'));
     }
 
+    /**
+     * @param $id
+     * @param UpdateAnalisePosturalLateralEsquerdaRequest $request
+     */
+    public function updateAnalisePosturalLateralEsquerda($id, UpdateAnalisePosturalLateralEsquerdaRequest $request){
+        if($this->evaluationRepository->updateAnalisePosturalLateralEsquerda($id, $request)){
+            return die(json_encode('true'));
+        }
+        return die(json_encode('false'));
+    }
+
+    /**
+     * @param $id
+     * @param UpdateAnalisePosturalLateralEsquerdaRequest $request
+     */
+    public function updateAnalisePosturalLateralDireita($id, UpdateAnalisePosturalLateralEsquerdaRequest $request){
+        if($this->evaluationRepository->updateAnalisePosturalLateralDireita($id, $request)){
+            return die(json_encode('true'));
+        }
+        return die(json_encode('false'));
+    }
+
+    /**
+     * @param $id
+     * @param UpdateAnalisePosturalPosterior $request
+     */
+    public function updateAnalisePosturalPosterior($id, UpdateAnalisePosturalPosterior $request){
+        if($this->evaluationRepository->updateAnalisePosturalPosterior($id, $request)){
+            return die(json_encode('true'));
+        }
+        return die(json_encode('false'));
+    }
+
+    /**
+     * @param $id
+     * @param Request $request
+     * @throws \App\Exceptions\GeneralException
+     */
     public function sendImgAnalisePosturalAnterior($id, Request $request){
         if($request->hasFile('img')) {
             $evaluation = $this->evaluationRepository->findOrThrowException($id);
@@ -143,11 +209,48 @@ class EvaluationController extends Controller
         return die(json_encode('false'));
     }
 
+    /**
+     * @param $id
+     * @param Request $request
+     * @throws \App\Exceptions\GeneralException
+     */
     public function sendImgAnalisePosturalLateralEsquerda($id, Request $request){
         if($request->hasFile('img')) {
             $evaluation = $this->evaluationRepository->findOrThrowException($id);
             $result = Imageupload::upload($request->file('img'), 'hash', '/tmp/'.$evaluation->id);
             if ($this->evaluationRepository->sendImgAnalisePosturalLateralEsquerda($id, $request, $result)) {
+                return die(json_encode('true'));
+            }
+        }
+        return die(json_encode('false'));
+    }
+
+    /**
+     * @param $id
+     * @param Request $request
+     * @throws \App\Exceptions\GeneralException
+     */
+    public function sendImgAnalisePosturalLateralDireita($id, Request $request){
+        if($request->hasFile('img')) {
+            $evaluation = $this->evaluationRepository->findOrThrowException($id);
+            $result = Imageupload::upload($request->file('img'), 'hash', '/tmp/'.$evaluation->id);
+            if ($this->evaluationRepository->sendImgAnalisePosturalLateralDireita($id, $request, $result)) {
+                return die(json_encode('true'));
+            }
+        }
+        return die(json_encode('false'));
+    }
+
+    /**
+     * @param $id
+     * @param Request $request
+     * @throws \App\Exceptions\GeneralException
+     */
+    public function sendImgAnalisePosturalPosterior($id, Request $request){
+        if($request->hasFile('img')) {
+            $evaluation = $this->evaluationRepository->findOrThrowException($id);
+            $result = Imageupload::upload($request->file('img'), 'hash', '/tmp/'.$evaluation->id);
+            if ($this->evaluationRepository->sendImgAnalisePosturalPosterior($id, $request, $result)) {
                 return die(json_encode('true'));
             }
         }

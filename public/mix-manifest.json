@@ -1,8 +1,8 @@
 {
-  "/mix.js": "/mix.c79696d3c0ad1e414cde.js",
-  "/backend/css/bootstrap.css": "/backend/css/bootstrap.5057f321f0dc85cd8da94a0c5f67a8f4.css",
-  "/backend/css/app.css": "/backend/css/app.3f7f460978d7ef5c4747f864d3867c87.css",
-  "/backend/js/jquery.js": "/backend/js/jquery.0139f8274e94c9a4a35b8ede4fa4d89a.js",
-  "/backend/js/bootstrap.js": "/backend/js/bootstrap.04c84852e9937b142ac73c285b895b85.js",
-  "/backend/js/app.js": "/backend/js/app.b7a87a3dd712282a3c0fab2d7e609b35.js"
+  "/mix.js": "/mix.js",
+  "/backend/css/bootstrap.css": "/backend/css/bootstrap.css",
+  "/backend/css/app.css": "/backend/css/app.css",
+  "/backend/js/jquery.js": "/backend/js/jquery.js",
+  "/backend/js/bootstrap.js": "/backend/js/bootstrap.js",
+  "/backend/js/app.js": "/backend/js/app.js"
 }

@@ -3,6 +3,9 @@
  */
 $(function () {
 
+
+    $('.desactive').hide();
+
     function convertToSlug(str){
         str = str.replace(/^\s+|\s+$/g, ''); // trim
         str = str.toLowerCase();
@@ -211,7 +214,7 @@ $(function () {
         });
     });
 
-    $('#update_antropometria').submit(function(e){
+    $('#update_perimetros_circunferencias').submit(function(e){
         e.preventDefault();
         var form = $(this);
         swal({
@@ -327,10 +330,101 @@ $(function () {
         });
     });
 
-    var teste;
-    $('#btn-update_analise_postural_anterior').on('click', function(e){
+
+    //Click do botão que irá submeter o form update_analise_postural_anterior
+    $('#btn_update_analise_postural_anterior').on('click', function(e){
         e.preventDefault();
         var form = $('#update_analise_postural_anterior');
+        swal({
+            title: "Você realmente deseja atualizar os dados?",
+            type: "info",
+            showCancelButton: true,
+            cancelButtonText: "Cancelar",
+            confirmButtonColor: "#00a65a",
+            confirmButtonText: "Salvar",
+            closeOnConfirm: false,
+            showLoaderOnConfirm: true,
+        },function(){
+            $.ajax({
+                url: form.attr('action'),
+                method: 'POST',
+                dataType: 'Json',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                },
+                data: form.serialize(),
+                success: function(data){
+                    window.console.log(data);
+                    swal("Atualizado!", "", "success");
+                }
+            });
+        });
+    });
+
+    //Click do botão que irá submeter o form update_analise_postural_lateral_esquerda
+    $('#btn_update_analise_postural_lateral_esquerda').on('click', function(e){
+        e.preventDefault();
+        var form = $('#update_analise_postural_lateral_esquerda');
+        swal({
+            title: "Você realmente deseja atualizar os dados?",
+            type: "info",
+            showCancelButton: true,
+            cancelButtonText: "Cancelar",
+            confirmButtonColor: "#00a65a",
+            confirmButtonText: "Salvar",
+            closeOnConfirm: false,
+            showLoaderOnConfirm: true,
+        },function(){
+            $.ajax({
+                url: form.attr('action'),
+                method: 'POST',
+                dataType: 'Json',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                },
+                data: form.serialize(),
+                success: function(data){
+                    window.console.log(data);
+                    swal("Atualizado!", "", "success");
+                }
+            });
+        });
+    });
+
+    //Click do botão que irá submeter o form update_analise_postural_lateral_esquerda
+    $('#btn_update_analise_postural_lateral_direita').on('click', function(e){
+        e.preventDefault();
+        var form = $('#update_analise_postural_lateral_direita');
+        swal({
+            title: "Você realmente deseja atualizar os dados?",
+            type: "info",
+            showCancelButton: true,
+            cancelButtonText: "Cancelar",
+            confirmButtonColor: "#00a65a",
+            confirmButtonText: "Salvar",
+            closeOnConfirm: false,
+            showLoaderOnConfirm: true,
+        },function(){
+            $.ajax({
+                url: form.attr('action'),
+                method: 'POST',
+                dataType: 'Json',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                },
+                data: form.serialize(),
+                success: function(data){
+                    window.console.log(data);
+                    swal("Atualizado!", "", "success");
+                }
+            });
+        });
+    });
+
+    //Click do botão que irá submeter o form update_analise_postural_lateral_esquerda
+    $('#btn_update_analise_postural_posterior').on('click', function(e){
+        e.preventDefault();
+        var form = $('#update_analise_postural_posterior');
         swal({
             title: "Você realmente deseja atualizar os dados?",
             type: "info",
@@ -377,14 +471,70 @@ $(function () {
         return false;
     });*/
 
-    $('.desactive').hide();
 
-    var img_a_p_l_e = document.getElementById('img_a_p_l_e');
-    img_a_p_l_e.addEventListener('change', function(e){
+
+    //Escuta o input que carrega a imagem da Análise Postural Anterior
+    $('#btn_img_analise_postural_anterior').on('change', function(e){
+        e.preventDefault();
+
+        var file, form = $('#send_img_analise_postural_anterior');
+
+        var action = $('#send_img_analise_postural_anterior').attr('action');
+        var tab = $('#tab_analise_postural_anterior');
+
+        file = this.files[0];
+
+        form.ajaxForm({
+            url: action,
+            type: "POST",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            },
+            uploadProgress: function(event, position, total, percentComplete){
+                form.find('.progress').css('display', 'block').addClass('active').removeAttr('desactive');
+                form.find('.progress-bar').css({
+                    'width' : percentComplete+'%'
+                });
+            },
+            beforeSend: function(){
+                tab.find('input[type="submit"]').hide();
+                tab.find('img.desactive').show();
+            },
+            success: function(data){
+                form.find('.progress').css('display', 'none').addClass('desactive').removeAttr('active');
+                form.find('.progress-bar').css({
+                    'width' : 0+'%'
+                });
+                tab.find('input[type="submit"]').show();
+                tab.find('img.desactive').hide();
+            },
+            resetForm: true,
+            dataType: 'Json'
+        }).submit();
+
+
+        //Fazendo upload da imagem para o navegador
+        if(!!file.type.match(/image.*/)){
+            if(window.FileReader){
+                var reader = new FileReader();
+                reader.onprogress = function(e){
+                };
+                reader.onloadend = function(e){
+                    form.find('#visualizar').find('#img-reader').attr('src', e.target.result);
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+    });
+
+    $('#btn_img_analise_postural_lateral_esquerda').on('change', function(e){
+        e.preventDefault();
 
         var file;
         var form = $('#send_img_analise_postural_lateral_esquerda');
         var action = $('#send_img_analise_postural_lateral_esquerda').attr('action');
+        var tab = $('#tab_analise_postural_lateral_esquerda');
 
         file = this.files[0];
 
@@ -395,153 +545,152 @@ $(function () {
                 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
             },
             uploadProgress: function(event, position, total, percentComplete){
-                $('#send_img_analise_postural_lateral_esquerda .progress').css('display', 'block').addClass('active').removeAttr('desactive');
-                $('#send_img_analise_postural_lateral_esquerda .progress-bar').css({
+                form.find('.progress').css('display', 'block').addClass('active').removeAttr('desactive');
+                form.find('.progress-bar').css({
                     'width' : percentComplete+'%'
                 });
             },
             beforeSend: function(){
-                $('#send_img_analise_postural_lateral_esquerda input[type="submit"]').hide();
-                $('#send_img_analise_postural_lateral_esquerda img.desactive').show();
+                tab.find('input[type="submit"]').hide();
+                tab.find('img.desactive').show();
             },
             success: function(data){
-                if(!!file.type.match(/image.*/)){
-                    if(window.FileReader){
-                        var reader = new FileReader();
-                        reader.onprogress = function(e){
-                        };
-                        reader.onloadend = function(e){
-                            $('#send_img_analise_postural_lateral_esquerda #visualizar #img-reader').attr('src', e.target.result);
-                        };
-
-                        reader.readAsDataURL(file);
-                    }
-                }
-                $('#send_img_analise_postural_lateral_esquerda .progress').css('display', 'none').addClass('desactive').removeAttr('active');
-                $('#send_img_analise_postural_lateral_esquerda .progress-bar').css({
+                form.find('.progress').css('display', 'none').addClass('desactive').removeAttr('active');
+                form.find('.progress-bar').css({
                     'width' : 0+'%'
                 });
-                $('#send_img_analise_postural_lateral_esquerda input[type="submit"]').show();
-                $('#send_img_analise_postural_lateral_esquerda img.desactive').hide();
+                tab.find('input[type="submit"]').show();
+                tab.find('img.desactive').hide();
             },
             resetForm: true,
             dataType: 'Json'
         }).submit();
 
-    }, false);
 
-    var img_a = document.getElementById('img_a');
-    var action = $('#send_img_analise_postural_anterior').attr('action');
-    img_a.addEventListener('change', function(e){
-        var file, form = $('#send_img_analise_postural_anterior');
+        //Fazendo upload da imagem para o navegador
+        if(!!file.type.match(/image.*/)){
+            if(window.FileReader){
+                var reader = new FileReader();
+                reader.onprogress = function(e){
+                };
+                reader.onloadend = function(e){
+                    form.find('#visualizar').find('#img-reader').attr('src', e.target.result);
+                };
+                reader.readAsDataURL(file);
+            }
+        }
 
-        file = this.files[0];
+    });
 
-        form.ajaxForm({
-            url: action,
-            type: "POST",
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-            },
-            uploadProgress: function(event, position, total, percentComplete){
-                $('#send_img_analise_postural_anterior .progress').css('display', 'block').addClass('active').removeAttr('desactive');
-                $('#send_img_analise_postural_anterior .progress-bar').css({
-                    'width' : percentComplete+'%'
-                });
-            },
-            beforeSend: function(){
-                $('#tab_analise_postural_anterior input[type="submit"]').hide();
-                $('#tab_analise_postural_anterior img.desactive').show();
-            },
-            success: function(data){
-                if(!!file.type.match(/image.*/)){
-                    if(window.FileReader){
-                        var reader = new FileReader();
-                        reader.onprogress = function(e){
-                        };
-                        reader.onloadend = function(e){
-                            $('#send_img_analise_postural_anterior #visualizar #img-reader').attr('src', e.target.result);
-                        };
-
-                        reader.readAsDataURL(file);
-                    }
-                }
-                $('#send_img_analise_postural_anterior .progress').css('display', 'none').addClass('desactive').removeAttr('active');
-                $('#send_img_analise_postural_anterior .progress-bar').css({
-                    'width' : 0+'%'
-                });
-                $('#tab_analise_postural_anterior input[type="submit"]').show();
-                $('#tab_analise_postural_anterior img.desactive').hide();
-            },
-            resetForm: true,
-            dataType: 'Json'
-        }).submit();
-
-    }, false);
-
-
-
-
-
-
-
-
-
-
-
-
-
-   /* $('#img_a').on('change', function(e){
-        window.console.log($(this).files);
+    $('#btn_img_analise_postural_lateral_direita').on('change', function(e){
         e.preventDefault();
-    });*/
-    /*$('#img_a').on('change', function(event){
-        var action = $('#send_img_analise_postural_anterior').attr('action');
-        $('#send_img_analise_postural_anterior').ajaxForm({
+
+        var file;
+        var form = $('#send_img_analise_postural_lateral_direita');
+        var action = $('#send_img_analise_postural_lateral_direita').attr('action');
+        var tab = $('#tab_analise_postural_lateral_direita');
+
+        file = this.files[0];
+
+        form.ajaxForm({
+            url: action,
+            type: "POST",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            },
             uploadProgress: function(event, position, total, percentComplete){
-                var tam_file = total/1000000;
-                window.console.log(event, position, total, percentComplete);
-                if(tam_file <= 50){
-                    $('#send_img_analise_postural_anterior .progress').css('display', 'block').addClass('active').removeAttr('desactive');
-                    $('#send_img_analise_postural_anterior .progress-bar').css({
-                        'width' : percentComplete+'%'
-                    });
-                    $('#send_img_analise_postural_anterior .progress-bar span').html(percentComplete+'%');
-                }else{
-                    location.href('/');
-                }
+                form.find('.progress').css('display', 'block').addClass('active').removeAttr('desactive');
+                form.find('.progress-bar').css({
+                    'width' : percentComplete+'%'
+                });
+            },
+            beforeSend: function(){
+                tab.find('input[type="submit"]').hide();
+                tab.find('img.desactive').show();
             },
             success: function(data){
-
+                form.find('.progress').css('display', 'none').addClass('desactive').removeAttr('active');
+                form.find('.progress-bar').css({
+                    'width' : 0+'%'
+                });
+                tab.find('input[type="submit"]').show();
+                tab.find('img.desactive').hide();
             },
-            error: function(){
-
-            },
-            dataType: 'Json',
-            url: action,
             resetForm: true,
+            dataType: 'Json'
         }).submit();
-    });*/
 
-    /*$(function () {
 
-        //Imagem de Ánlise Postural Anterior
-        $("#fileuploader").uploadFile({
-            url: update_analise_postural_anterior+'?_token='+token+'',
-            fileName: "myfile",
-            multiple:false,
-            dragDrop:false,
-            maxFileCount:1,
-            showPreview:true,
-            previewHeight: "300px",
-            previewWidth: "500px",
-            showDelete: true,
-            statusBarWidth: 600/!*,
-            returnType: "json",
-            deleteCallback: function (data, pd) {
-                window.console.log(data, pd);
-            }*!/
-        });
-    });*/
+        //Fazendo upload da imagem para o navegador
+        if(!!file.type.match(/image.*/)){
+            if(window.FileReader){
+                var reader = new FileReader();
+                reader.onprogress = function(e){
+                };
+                reader.onloadend = function(e){
+                    form.find('#visualizar').find('#img-reader').attr('src', e.target.result);
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+    });
+
+    $('#btn_img_analise_postural_posterior').on('change', function(e){
+        e.preventDefault();
+
+        var file;
+        var form = $('#send_img_analise_postural_posterior');
+        var action = $('#send_img_analise_postural_posterior').attr('action');
+        var tab = $('#tab_analise_postural_posterior');
+
+        file = this.files[0];
+
+        form.ajaxForm({
+            url: action,
+            type: "POST",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            },
+            uploadProgress: function(event, position, total, percentComplete){
+                form.find('.progress').css('display', 'block').addClass('active').removeAttr('desactive');
+                form.find('.progress-bar').css({
+                    'width' : percentComplete+'%'
+                });
+            },
+            beforeSend: function(){
+                tab.find('input[type="submit"]').hide();
+                tab.find('img.desactive').show();
+            },
+            success: function(data){
+                form.find('.progress').css('display', 'none').addClass('desactive').removeAttr('active');
+                form.find('.progress-bar').css({
+                    'width' : 0+'%'
+                });
+                tab.find('input[type="submit"]').show();
+                tab.find('img.desactive').hide();
+            },
+            resetForm: true,
+            dataType: 'Json'
+        }).submit();
+
+
+        //Fazendo upload da imagem para o navegador
+        if(!!file.type.match(/image.*/)){
+            if(window.FileReader){
+                var reader = new FileReader();
+                reader.onprogress = function(e){
+                };
+                reader.onloadend = function(e){
+                    form.find('#visualizar').find('#img-reader').attr('src', e.target.result);
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+    });
+
+
+
 
 });

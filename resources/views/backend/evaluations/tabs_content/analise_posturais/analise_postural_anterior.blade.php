@@ -12,7 +12,7 @@
             <input type="checkbox" {{ !is_null($evaluation->analisePosturalAnterior) && $evaluation->analisePosturalAnterior->ailcd == 1 ? "checked" : ""}} id="ailcd" name="ailcd" value="1" class="minimal" />
             <label for="ailcd">Inclinação Lateral Cervical Dir.</label>
             <br><br>
-            <input type="checkbox" {{ !is_null($evaluation->analisePosturalAnterior) && $evaluation->analisePosturalAnterior->ailce == 1 ? $evaluation->analisePosturalAnterior->ailce : "checked" }} id="ailce" name="ailce" value="1" class="minimal" />
+            <input type="checkbox" {{ !is_null($evaluation->analisePosturalAnterior) && $evaluation->analisePosturalAnterior->ailce == 1 ? "checked" : "" }} id="ailce" name="ailce" value="1" class="minimal" />
             <label for="ailce">Inclinação Lateral Cervical Esq.</label>
             <br><br>
             <input type="checkbox" {{ !is_null($evaluation->analisePosturalAnterior) && $evaluation->analisePosturalAnterior->aeod == 1 ? "checked" : "" }} id="aeod" name="aeod" value="1" class="minimal" />
@@ -83,7 +83,7 @@
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4" style="margin-bottom: 10px;">
             {!! Form::label('image', trans('strings.image'), ['class' => '']) !!}
-            <input type="file" name="img" id="img_a" accept="image/jpeg,image/png,image/gif,image/bmp">
+            <input type="file" name="img" id="btn_img_analise_postural_anterior" accept="image/jpeg,image/png,image/gif,image/bmp">
             <br>
             <div class="progress desactive">
                 <div class="progress-bar progress-bar-primary progress-bar-striped" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" style="">
@@ -92,7 +92,7 @@
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8" id="visualizar">
-            <img src="{{imageurl('analise_postural_anterior', !is_null($evaluation->analisePosturalAnterior) ? $evaluation->analisePosturalAnterior->img : NULL, 400, true)}}" id="img-reader" style="width: 100%; height: 380px;">
+            <img src="{{imageurl('analise_postural', !is_null($evaluation->analisePosturalAnterior) ? $evaluation->analisePosturalAnterior->img : NULL, 400, true)}}" id="img-reader" style="width: 100%; height: 380px;">
         </div>
     </div>
     <br>
@@ -102,7 +102,7 @@
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="pull-right">
                 <img src="{!!asset('img')!!}/loading.gif" class="desactive">
-                <input type="submit" class="btn btn-success" id="btn-update_analise_postural_anterior" value="{{ trans('strings.save_button') }}" />
+                <input type="submit" class="btn btn-success" id="btn_update_analise_postural_anterior" value="{{ trans('strings.save_button') }}" />
             </div>
         </div>
     </div>

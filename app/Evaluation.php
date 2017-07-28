@@ -58,4 +58,12 @@ class Evaluation extends Model
         return $this->hasOne(\App\AnalisePosturalLateralEsquerda::class);
     }
 
+    public function analisePosturalLateralDireita(){
+        return $this->hasOne(\App\AnalisePosturalLateralDireita::class);
+    }
+
+    public function analisePosturalPosterior(){
+        return $this->hasOne(\App\AnalisePosturalPosterior::class);
+    }
+
 }

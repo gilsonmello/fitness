@@ -118,18 +118,30 @@
 
                     {{-- Tab Resistência --}}
                     <div class="tab-pane" id="bioempedancia">
-                        @include('backend.evaluations.tabs_content.bioempedancia.bioempedancia')
+                        <div class="nav-tabs-custom">
+                            <div class="tab-content">
+                                @include('backend.evaluations.tabs_content.bioempedancia.bioempedancia')
+                            </div>
+                        </div>
                     </div>
                     {{-- Fim Tab Resistência--}}
 
                     <div class="tab-pane" id="parq">
-                        @include('backend.evaluations.tabs_content.parq.parq')
+                        <div class="nav-tabs-custom">
+                            <div class="tab-content">
+                                @include('backend.evaluations.tabs_content.parq.parq')
+                            </div>
+                        </div>
                     </div>
                     {{-- Fim do conteúdo tab PAR'Q --}}
 
                     {{-- Conteúdo Tab Pregras Cutaneas --}}
                     <div class="tab-pane" id="pregas_cutaneas">
-                        @include('backend.evaluations.tabs_content.pregras_cutaneas.pregras_cutaneas')
+                        <div class="nav-tabs-custom">
+                            <div class="tab-content">
+                                @include('backend.evaluations.tabs_content.pregras_cutaneas.pregras_cutaneas')
+                            </div>
+                        </div>
                     </div>{{-- Fim do Conteúdo Tab Pregras Cutaneas --}}
 
                     {{-- Conteúdo Tab Análise Postural --}}
