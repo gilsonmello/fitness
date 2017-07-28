@@ -60,7 +60,7 @@
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8" id="visualizar">
-            <img src="{{imageurl('analise_postural', !is_null($evaluation->analisePosturalLateralEsquerda->img) ? $evaluation->analisePosturalLateralEsquerda->img : NULL, 400, true)}}" id="img-reader" style="width: 100%; height: 380px;">
+            <img src="{{imageurl('analise_postural', !is_null($evaluation->analisePosturalLateralEsquerda->img) ? $evaluation->analisePosturalLateralEsquerda->img : NULL, 400, true)}}" class="desactive" id="img-reader" style="width: 100%; height: 380px;">
         </div>
     </div>
     <br>

@@ -26,10 +26,10 @@ class EvaluationController extends Controller
      * EvaluationController constructor.
      * @param Filesystem $filesystem
      */
-    public function __construct(Filesystem $filesystem){
+    public function __construct(Filesystem $filesystem, UploadService $uploadService){
         $this->userRepository = new UserRepository;
         $this->evaluationRepository = new EvaluationRepository;
-        $this->uploadService = new UploadService;
+        $this->uploadService = $uploadService;
         $this->filesystem = $filesystem;
     }
 
@@ -202,6 +202,7 @@ class EvaluationController extends Controller
         if($request->hasFile('img')) {
             $evaluation = $this->evaluationRepository->findOrThrowException($id);
             $result = Imageupload::upload($request->file('img'), 'hash', '/tmp/'.$evaluation->id);
+            dd($result);
             if ($this->evaluationRepository->updateImgAnalisePosturalAnterior($id, $request, $result)) {
                 return die(json_encode('true'));
             }

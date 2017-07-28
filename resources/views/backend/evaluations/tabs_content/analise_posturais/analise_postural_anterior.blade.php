@@ -92,7 +92,16 @@
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8" id="visualizar">
-            <img src="{{imageurl('analise_postural', !is_null($evaluation->analisePosturalAnterior) ? $evaluation->analisePosturalAnterior->img : NULL, 400, true)}}" id="img-reader" style="width: 100%; height: 380px;">
+        <?php imageurl('analise_postural', $evaluation->analisePosturalAnterior->img, 0, true);?>
+            @if(!is_null($evaluation->analisePosturalAnterior->img))
+                @if(imageurl('analise_postural', $evaluation->analisePosturalAnterior->img, 400, true) != "")
+                <img src="{{imageurl('analise_postural', $evaluation->analisePosturalAnterior->img, 400, true)}}" id="img-reader" style="width: 100%; height: 380px;">
+                @else
+                    <img src="{{imageurl('analise_postural', $evaluation->analisePosturalAnterior->img, 0, true)}}" id="img-reader" style="width: 100%; height: 380px;">
+                @endif
+            @else
+                <img src="" id="img-reader" class="desactive" style="width: 100%; height: 380px;">
+            @endif
         </div>
     </div>
     <br>

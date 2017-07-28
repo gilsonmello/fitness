@@ -23,13 +23,13 @@ class UserRepository{
 
     protected $evaluation;
 
-    public function __construct(User $user, EvaluationAttribute $evaluationAttribute, Antropometria $antropometria, Bioempedancia $bioempedancia, Evaluation $evaluation)
+    public function __construct()
     {
-        $this->user = $user;
-        $this->evaluationAttribute = $evaluationAttribute;
-        $this->antropometria = $antropometria;
-        $this->bioempedancia = $bioempedancia;
-        $this->evaluation = $evaluation;
+        $this->user = new User;
+        $this->evaluationAttribute = new EvaluationAttribute;
+        $this->antropometria = new Antropometria;
+        $this->bioempedancia = new Bioempedancia;
+        $this->evaluation = new Evaluation;
     }
 
     /**

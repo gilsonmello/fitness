@@ -27,9 +27,6 @@
 @endsection
 
 @section('content')
-    <script>
-        var evaluation_id = '{{$evaluation->id}}';
-    </script>
     <div class="box box-primary">
         <div class="box-header with-border">
             <h3 class="box-title">Dados do Aluno</h3>

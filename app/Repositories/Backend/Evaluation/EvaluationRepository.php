@@ -20,24 +20,11 @@ use File;
  */
 class EvaluationRepository{
 
-    protected $question;
 
-    protected $evaluation;
-
-    protected $par;
-
-    protected $pregasCutanea;
-
-    protected $analisePosturalAnterior;
-
-    protected $analisePosturalLateralEsquerda;
-
-    public function __construct(PregasCutanea $pregasCutanea, Parq $par, Question $question, Evaluation $evaluation)
-    {
-        $this->question = $question;
-        $this->evaluation = $evaluation;
-        $this->parq = $par;
-        $this->pregasCutanea = $pregasCutanea;
+    public function __construct(){
+        $this->evaluation = new Evaluation;
+        $this->parq = new Parq;
+        $this->pregasCutanea = new PregasCutanea;
         $this->analisePosturalAnterior = new AnalisePosturalAnterior;
         $this->analisePosturalLateralEsquerda = new AnalisePosturalLateralEsquerda;
         $this->analisePosturalLateralDireita = new AnalisePosturalLateralDireita;
@@ -85,7 +72,7 @@ class EvaluationRepository{
         if(!is_null($per_page)){
             return $this->evaluation->where('title', 'like', '%'.$title.'%')->orderBy($order_by, $sort)->paginate($per_page);
         }
-        return $this->question
+        return $this->evaluation
             ->where('title', 'like', '%'.$title.'%')
             ->where('is_active', '=', 1)
             ->orderBy($order_by, $sort)->get();
@@ -96,17 +83,7 @@ class EvaluationRepository{
      * @return boolean
      */
     public function update($id, $request){
-        $data = $request->all();
-        $question = $this->findOrThrowException($id);
-        $question->title = $data['title'];
-        $question->note = isset($data['note']) && !empty($data['note']) ? $data['note'] : NULL;
-        $question->is_active = isset($data['is_active']) ? 1 : 0;
-        if($question->save()){
-            if(isset($data['group_question']) && count($data['group_question']) > 0 ){
-                $question->questionGroup()->sync($data['group_question']);
-            }
-            return true;
-        }
+        
         return false;
     }
     /**

@@ -507,6 +507,7 @@ $(function () {
                 });
                 tab.find('input[type="submit"]').show();
                 tab.find('img.desactive').hide();
+                form.find('#img-reader').show();
             },
             resetForm: true,
             dataType: 'Json'
@@ -561,6 +562,7 @@ $(function () {
                 });
                 tab.find('input[type="submit"]').show();
                 tab.find('img.desactive').hide();
+                form.find('#img-reader').show();
             },
             resetForm: true,
             dataType: 'Json'
@@ -615,6 +617,7 @@ $(function () {
                 });
                 tab.find('input[type="submit"]').show();
                 tab.find('img.desactive').hide();
+                form.find('#img-reader').show();
             },
             resetForm: true,
             dataType: 'Json'
@@ -669,6 +672,7 @@ $(function () {
                 });
                 tab.find('input[type="submit"]').show();
                 tab.find('img.desactive').hide();
+                form.find('#img-reader').show();
             },
             resetForm: true,
             dataType: 'Json'

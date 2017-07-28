@@ -93,6 +93,7 @@ if (!function_exists('imageurl')) {
 	 * @throws Exception
 	 */
 	function imageurl($entity, $photo, $size = 0, $square = false) {
+		
 		if(is_null($photo)){
 			return "";
 		}
@@ -107,18 +108,25 @@ if (!function_exists('imageurl')) {
 		}
 		$photo = explode(';', $photo);
 
-		foreach($photo as $value){
-			if(strpos($value, $size)){
-				$photo = $value;
-				continue;
+		
+		if(is_array($photo)){
+			foreach($photo as $value){
+				if(strpos($value, $size)){
+					$photo = $value;
+					continue;
+				}
 			}
 		}
+		
 
 		$photo = '/uploads/images/' . $entity  . '/' . $photo;
 
 		//O getimagesize funciona melhor que o file_exists nesse caso. O @ � usado para a fun��o retornar false ao inv�s
 		//de atirar um erro.
-		return $photo;
+		if(file_exists($photo)){
+			return $photo;
+		}
+		return "";
 	}
 
 }
