@@ -85,6 +85,16 @@ class CreateTriggerEvaluation extends Migration
                         NOW(),
                         NOW()
                     );
+                    INSERT INTO riscos_coronarios (evaluation_id, created_at, updated_at) VALUES(
+                        NEW.id,
+                        NOW(),
+                        NOW()
+                    );
+                    INSERT INTO anamneses (evaluation_id, created_at, updated_at) VALUES(
+                        NEW.id,
+                        NOW(),
+                        NOW()
+                    );
                 END;
         ');
     }

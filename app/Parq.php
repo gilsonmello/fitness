@@ -6,12 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Services\Parq\Traits\ParqAttributes;
 
+/**
+ * Class Parq
+ * @package App
+ */
 class Parq extends Model
 {
     use SoftDeletes, ParqAttributes;
 
+    /**
+     * @var bool
+     */
     public $timestamps = true;
-
 
     /**
      * The database table used by the model.

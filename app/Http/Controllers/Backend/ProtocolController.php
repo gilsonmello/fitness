@@ -6,16 +6,25 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\Backend\Protocol\ProtocolRepository;
 use App\Http\Requests\Backend\Protocol\CreateProtocolRequest;
+use App\Http\Requests\Backend\Protocol\UpdateProtocolRequest;
 
-
+/**
+ * Class ProtocolController
+ * @package App\Http\Controllers\Backend
+ */
 class ProtocolController extends Controller
 {
-    protected $protocolRepository;
-
-    public function __construct(ProtocolRepository $protocolRepository){
-        $this->protocolRepository = $protocolRepository;
+    /**
+     * ProtocolController constructor.
+     */
+    public function __construct(){
+        $this->protocolRepository = new ProtocolRepository;
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index(Request $request){
         $request->session()->put('lastpage', $request->only('page')['page']);
 
@@ -25,13 +34,20 @@ class ProtocolController extends Controller
         $formula = getValueSession($request, 'ProtocolController@index:formula', '', $f_submit, '');
 
         $protocols = $this->protocolRepository->getPaginated(NULL, $name, $formula);
-        return view('backend.protocols.index', compact('protocols'));
+        return view('backend.protocols.index', compact('protocols', 'name', 'formula'));
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function create(){
         return view('backend.protocols.create');
     }
 
+    /**
+     * @param CreateProtocolRequest $request
+     * @return mixed
+     */
     public function store(CreateProtocolRequest $request){
         if($this->protocolRepository->create($request)){
             return redirect()->route('backend.protocols.index')
@@ -40,4 +56,39 @@ class ProtocolController extends Controller
         }
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \App\Exceptions\GeneralException
+     */
+    public function edit($id){
+        $protocol = $this->protocolRepository->findOrThrowException($id);
+        return view('backend.protocols.edit', compact('protocol'));
+    }
+
+    /**
+     * @param $id
+     * @param UpdateProtocolRequest $request
+     * @return mixed
+     */
+    public function update($id, UpdateProtocolRequest $request){
+        if($this->protocolRepository->update($id, $request)){
+            return redirect()->route('backend.protocols.index')
+                ->withFlashSuccess(trans('alerts.protocols.updated'));
+        }
+        return redirect()
+            ->route('backend.protocols.edit')
+            ->withInput()
+            ->withFlashSuccess(trans('alerts.protocols.edit_error'));
+    }
+
+    public function destroy($id){
+        if($this->protocolRepository->destroy($id)){
+            return redirect()->route('backend.protocols.index')
+                ->withFlashSuccess(trans('alerts.protocols.deleted'));
+        }
+        return redirect()
+            ->route('backend.protocols.index')
+            ->withFlashSuccess(trans('alerts.protocols.delete_error'));
+    }
 }

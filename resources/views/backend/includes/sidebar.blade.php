@@ -76,7 +76,18 @@
                         <li class="{{ active('admin/ipacs') }}">
                             <a href="{{ route('backend.parqs.index') }}">{{  trans('strings.ipacs') }}</a>
                         </li>
+                    </ul>
+                </li>
 
+                <li class="treeview {{ active('admin/tests') }} {{ active('admin/tests') }}">
+                    <a href="#">
+                        <span>Testes</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li class="{{ active('admin/tests') }}">
+                            <a href="{{ route('backend.tests.index') }}">{{ trans('strings.tests') }}</a>
+                        </li>
                         <li class="{{ active('admin/protocols') }}">
                             <a href="{{ route('backend.protocols.index') }}">{{  trans('strings.protocols') }}</a>
                         </li>

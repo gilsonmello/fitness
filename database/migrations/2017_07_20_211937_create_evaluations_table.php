@@ -17,7 +17,7 @@ class CreateEvaluationsTable extends Migration
             $table->engine = "InnoDB";
             $table->increments('id');
             $table->integer('user_id')->unsigned();
-            $table->tinyInteger('is_active')->default(1);
+            $table->binary('is_active');
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('user_id')

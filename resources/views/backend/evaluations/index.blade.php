@@ -65,17 +65,15 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @can('backend.questions.index', $evaluations)
-                                @forelse($evaluations as $value)
-                                    <tr>
-                                        <td>{!! $value->user->name !!}</td>
-                                        <td>{!! format_datetimebr($value->created_at) !!}</td>
-                                        <td>{!! $value->action_buttons !!}</td>
-                                    </tr>
-                                @empty
-                                    Vazio
-                                @endforelse
-                            @endcan
+                            @forelse($evaluations as $value)
+                                <tr>
+                                    <td>{!! $value->user->name !!}</td>
+                                    <td>{!! format_datetimebr($value->created_at) !!}</td>
+                                    <td>{!! $value->action_buttons !!}</td>
+                                </tr>
+                            @empty
+                                Vazio
+                            @endforelse
                         </tbody>
                         <tfoot>
                             <tr>

@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="_token" content="{{ csrf_token() }}" />
-    <title>AdminLTE 2 | Dashboard</title>
+    <title>@yield('title')</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <!-- Bootstrap 3.3.2 -->
     <link href="{{ mix('backend/css/bootstrap.css') }}" rel="stylesheet" type="text/css" />
@@ -24,19 +24,9 @@
     -->{{--
     <link href="{{ asset('/bower_components/admin-lte/dist/css/skins/skin-blue.min.css')}}" rel="stylesheet" type="text/css" />--}}
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-
-    <![endif]-->
-
 
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-
-    <script>
-        var token = '{!! csrf_token() !!}';
-    </script>
 </head>
 <body class="skin-blue">
     <div class="wrapper">

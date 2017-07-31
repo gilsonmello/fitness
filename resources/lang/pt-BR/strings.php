@@ -11,6 +11,8 @@ return [
       | found in a intuitive way.
       |
      */
+	'protocol' => 'Protocolo',
+	'formula' => 'Formula',
     'image' => 'Imagem',
 	'birth_date' => 'Data de Nascimento',
 	'age' => 'Idade',

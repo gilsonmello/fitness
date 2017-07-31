@@ -13,3 +13,9 @@
 <li>
     <a href="#analise_postural" data-toggle="tab">Análise Postural</a>
 </li>
+<li>
+    <a href="#risco_coronario" data-toggle="tab">Risco Coronário</a>
+</li>
+<li>
+    <a href="#anamnese" data-toggle="tab">Anamnese</a>
+</li>

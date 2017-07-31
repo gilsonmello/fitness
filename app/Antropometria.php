@@ -5,12 +5,18 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * Class Antropometria
+ * @package App
+ */
 class Antropometria extends Model
 {
     use SoftDeletes;
 
+    /**
+     * @var bool
+     */
     public $timestamps = true;
-
 
     /**
      * The database table used by the model.
@@ -26,8 +32,11 @@ class Antropometria extends Model
      */
     protected $guarded = ['id'];
 
-    public function user(){
-        return $this->hasOne(\App\User::class);
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function evaluation(){
+        return $this->hasOne(\App\Evaluation::class);
     }
 
 }

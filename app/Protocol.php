@@ -10,6 +10,9 @@ class Protocol extends Model
 {
     use SoftDeletes, ProtocolAttributes;
 
+    /**
+     * @var bool
+     */
     public $timestamps = true;
 
     /**

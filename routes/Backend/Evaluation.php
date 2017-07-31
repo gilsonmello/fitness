@@ -55,6 +55,9 @@ Route::post('evaluations/{id}/update_analise_postural_lateral_direita', 'Evaluat
 Route::post('evaluations/{id}/update_analise_postural_posterior', 'EvaluationController@updateAnalisePosturalPosterior')
     ->name('backend.evaluations.update_analise_postural_posterior');
 
+Route::post('evaluations/{id}/update_riscos_coronarios', 'EvaluationController@updateRiscoCoronario')
+    ->name('backend.evaluations.update_riscos_coronarios');
+
 Route::post('evaluations/{id}/send_img_analise_postural_anterior', 'EvaluationController@sendImgAnalisePosturalAnterior')
     ->name('backend.evaluations.send_img_analise_postural_anterior');
 
@@ -66,6 +69,7 @@ Route::post('evaluations/{id}/send_img_analise_postural_lateral_direita', 'Evalu
 
 Route::post('evaluations/{id}/send_img_analise_postural_posterior', 'EvaluationController@sendImgAnalisePosturalPosterior')
     ->name('backend.evaluations.send_img_analise_postural_posterior');
+
 
 
 

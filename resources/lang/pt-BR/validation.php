@@ -131,6 +131,7 @@ return [
         'courses_id' => 'Curso',
         'beginOfCourse' => 'Previsão de Ínicio',
         'name' => 'Nome',
+        'formula' => 'Formula',
         'name-and-surname' => 'Nome e Sobrenome',
         'coupon_name' => 'Nome do Cupom',
         'question_limit' => 'Número máximo de vezes que o cupom poderá ser utilizado.',

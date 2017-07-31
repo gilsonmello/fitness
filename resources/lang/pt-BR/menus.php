@@ -445,5 +445,11 @@ return [
         'create' => 'Criar Avaliação',
         'index' => 'Avaliações',
         'edit' => 'Editar Avaliação'
-    ]
+    ],
+
+    'protocols' => [
+        'create' => 'Criar Protocolo',
+        'index' => 'Protocolos',
+        'edit' => 'Editar Protocolo'
+    ],
 ];

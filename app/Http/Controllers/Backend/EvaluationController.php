@@ -14,17 +14,23 @@ use App\Http\Requests\Backend\Evaluation\UpdatePregrasCutaneaRequest;
 use App\Http\Requests\Backend\Evaluation\UpdateAnalisePosturalAnteriorRequest;
 use App\Http\Requests\Backend\Evaluation\UpdateAnalisePosturalLateralEsquerdaRequest;
 use App\Http\Requests\Backend\Evaluation\UpdateAnalisePosturalPosterior;
+use App\Http\Requests\Backend\Evaluation\UpdateRiscoCoronarioRequest;
 use App\Http\Requests\Backend\Evaluation\CreateEvaluationRequest;
 use App\Services\UploadService\UploadService;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Auth;
 use Imageupload;
 
+/**
+ * Class EvaluationController
+ * @package App\Http\Controllers\Backend
+ */
 class EvaluationController extends Controller
 {
     /**
      * EvaluationController constructor.
      * @param Filesystem $filesystem
+     * @param UploadService $uploadService
      */
     public function __construct(Filesystem $filesystem, UploadService $uploadService){
         $this->userRepository = new UserRepository;
@@ -202,8 +208,7 @@ class EvaluationController extends Controller
         if($request->hasFile('img')) {
             $evaluation = $this->evaluationRepository->findOrThrowException($id);
             $result = Imageupload::upload($request->file('img'), 'hash', '/tmp/'.$evaluation->id);
-            dd($result);
-            if ($this->evaluationRepository->updateImgAnalisePosturalAnterior($id, $request, $result)) {
+            if ($this->evaluationRepository->sendImgAnalisePosturalAnterior($id, $request, $result)) {
                 return die(json_encode('true'));
             }
         }
@@ -254,6 +259,18 @@ class EvaluationController extends Controller
             if ($this->evaluationRepository->sendImgAnalisePosturalPosterior($id, $request, $result)) {
                 return die(json_encode('true'));
             }
+        }
+        return die(json_encode('false'));
+    }
+
+    /**
+     * @param $id
+     * @param UpdateRiscoCoronarioRequest $request
+     * @return json
+     */
+    public function updateRiscoCoronario($id, UpdateRiscoCoronarioRequest $request){
+        if($this->evaluationRepository->updateRiscoCoronario($id, $request)){
+            return die(json_encode('true'));
         }
         return die(json_encode('false'));
     }

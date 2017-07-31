@@ -1,6 +1,7 @@
 <div class="tab-pane" id="tab_analise_postural_lateral_direita">
 
     {!! Form::open(['route' => ['backend.evaluations.update_analise_postural_lateral_direita', $evaluation->id], 'files' => true, 'class' => 'form-horizontal', 'role' => 'form', 'method' => 'post', 'id' => 'update_analise_postural_lateral_direita']) !!}
+    {!! Form::hidden('uploaded_image', '0') !!}
     <br>
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
@@ -60,7 +61,17 @@
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8" id="visualizar">
-            <img src="{{imageurl('analise_postural', !is_null($evaluation->analisePosturalLateralDireita) ? $evaluation->analisePosturalLateralDireita->img : NULL, 400, true)}}" class="desactive" id="img-reader" style="width: 100%; height: 380px;">
+            @if(!is_null($evaluation->analisePosturalLateralDireita->img))
+                @if(imageurl('analise_postural', $evaluation->analisePosturalLateralDireita->img, 400, true) != "")
+                    <img src="{{imageurl('analise_postural', $evaluation->analisePosturalLateralDireita->img, 400, true)}}" id="img-reader" style="width: 100%; height: 380px;">
+                @elseif(imageurl('analise_postural', $evaluation->analisePosturalLateralDireita->img, 0, true) != "")
+                    <img src="{{imageurl('analise_postural', $evaluation->analisePosturalLateralDireita->img, 0, true)}}" id="img-reader" style="width: 100%; height: 380px;">
+                @else
+                    <img src="" id="img-reader" class="desactive" style="width: 100%; height: 380px;">
+                @endif
+            @else
+                <img src="" id="img-reader" class="desactive" style="width: 100%; height: 380px;">
+            @endif
         </div>
     </div>
     <br>

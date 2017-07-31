@@ -11,17 +11,11 @@ use App\Exceptions\GeneralException;
 class ProtocolRepository{
 
     /**
-     * @var parq
+     * ProtocolRepository constructor.
      */
-    protected $protocol;
-
-
-    /**
-     * @param Protocol $protocol
-     */
-    public function __construct(Protocol $protocol)
+    public function __construct()
     {
-        $this->protocol = $protocol;
+        $this->protocol = new Protocol;
     }
 
     /**
@@ -44,7 +38,9 @@ class ProtocolRepository{
     public function create($request){
         $data = $request->all();
         $this->protocol->name = $data['name'];
+        $this->protocol->formula = $data['formula'];
         $this->protocol->description = !is_null($data['description']) ? $data['description'] : NULL;
+        $this->protocol->is_active =  isset($data['is_active']) ? $data['is_active'] : 0;
         if($this->protocol->save()){
             return true;
         }
@@ -84,8 +80,10 @@ class ProtocolRepository{
     public function update($id, $request){
         $data = $request->all();
         $protocol = $this->findOrThrowException($id);
-        $protocol->user_id = $data['user_id'];
-        $protocol->question_group_id = $data['question_group_id'];
+        $protocol->name = $data['name'];
+        $protocol->formula = $data['formula'];
+        $protocol->description = !is_null($data['description']) ? $data['description'] : NULL;
+        $protocol->is_active =  isset($data['is_active']) ? $data['is_active'] : 0;
         if($protocol->save()){
             return true;
         }
@@ -105,80 +103,5 @@ class ProtocolRepository{
         throw new GeneralException("There was a problem deleting this parq. Please try again.");
     }
 
-    /**
-     * Função para cadastrar respostas do parq
-     * @param int $id
-     * @param int $request
-     * @return boolean
-     */
-    public function createParqAnswers($id, $request){
-        $data = $request->all();
-        $parq = $this->findOrThrowException($id);
-        $saved = false;
-        foreach($data as $key => $value){
-            if(strpos($key, "question") !== FALSE){
-                $question_id = explode('_', $key)[count(explode('_', $key)) - 1];
-                $this->parqAnswer->parq_id = $parq->id;
-                $this->parqAnswer->user_id = $parq->user->id;
-                $this->parqAnswer->question_group_id = $parq->questionGroup->id;
-                $this->parqAnswer->question_id = $question_id;
-                $this->parqAnswer->answer = $value['answer_'.$question_id];
-                $this->parqAnswer->option_answer = $value['option_answer_'.$question_id] ;
-                if($this->parqAnswer->save()){
-                    $saved = true;
-                    $this->parqAnswer = new ParqAnswer();
-                }
-            }
-        }
-        if($saved){
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * Função para cadastrar respostas do parq
-     * @param int $id
-     * @param int $request
-     * @return boolean
-     */
-    public function updateIpacAnswers($id, $request){
-        //Pegando todos os dados da requisição
-        $data = $request->all();
-        //Fazendo busca do parq
-        $parq = $this->findOrThrowException($id);
-        //Variável para controlar se foi feito a atualização corretamente
-        $saved = true;
-        foreach($data as $key => $value){
-            if($saved) {
-                if (strpos($key, "question") !== FALSE) {
-                    //Pegando o id da questão
-                    $question_id = explode('_', $key)[count(explode('_', $key)) - 1];
-                    //Fazendo busca da resposta
-                    $answer = parqAnswer::where('question_id', '=', $question_id)
-                        ->where('parq_id', '=', $parq->id)
-                        ->first();
-                    $answer->parq_id = $parq->id;
-                    $answer->user_id = $parq->user->id;
-                    $answer->question_group_id = $parq->questionGroup->id;
-                    $answer->question_id = $question_id;
-                    $answer->answer = $value['answer_' . $question_id];
-                    $answer->option_answer = $value['option_answer_' . $question_id];
-                    //Verifica se salvou os dados corretamente, se sim, continua no loop, se não para o loop
-                    if ($answer->save()) {
-                        $saved = true;
-                    }else{
-                        $saved = false;
-                        break;
-                    }
-                }
-            }
-        }
-        //Se todos os dados foram salvos corretamente, retorno true, se não, retorno false
-        if($saved){
-            return $saved;
-        }
-        return $saved;
-    }
 
 }

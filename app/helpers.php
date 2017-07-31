@@ -106,24 +106,24 @@ if (!function_exists('imageurl')) {
 				$size = '_size' . $size;
 			}
 		}
-		$photo = explode(';', $photo);
 
-		
-		if(is_array($photo)){
+		if(!empty($size)){
+			$photo = explode(';', $photo);
 			foreach($photo as $value){
 				if(strpos($value, $size)){
 					$photo = $value;
 					continue;
 				}
 			}
+		}else{
+			$photo = explode(';', $photo)[0];
 		}
-		
 
 		$photo = '/uploads/images/' . $entity  . '/' . $photo;
 
 		//O getimagesize funciona melhor que o file_exists nesse caso. O @ � usado para a fun��o retornar false ao inv�s
 		//de atirar um erro.
-		if(file_exists($photo)){
+		if(file_exists(public_path().''.$photo)){
 			return $photo;
 		}
 		return "";

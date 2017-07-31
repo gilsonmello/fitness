@@ -5,10 +5,17 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * Class PregasCutanea
+ * @package App
+ */
 class PregasCutanea extends Model
 {
     use SoftDeletes;
 
+    /**
+     * @var bool
+     */
     public $timestamps = true;
 
     /**
@@ -25,7 +32,10 @@ class PregasCutanea extends Model
      */
     protected $guarded = ['id'];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
     public function evaluation(){
-        $this->hasOne(\App\Evaluation::class);
+        return $this->hasOne(\App\Evaluation::class);
     }
 }

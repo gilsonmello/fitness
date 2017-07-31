@@ -159,7 +159,27 @@
                             </div>
                         </div>
                     </div>
-                    {{-- Fim Conteúdo das Tabs secundárias de análise postural --}}
+
+                    {{-- Conteúdo Tab Risco Coronário --}}
+                    <div class="tab-pane" id="risco_coronario">
+                        <div class="nav-tabs-custom">
+                            {{-- Conteúdo Tabs secundárias Análise Postural --}}
+                            <div class="tab-content">
+                                @include('backend.evaluations.tabs_content.riscos_coronarios.riscos_coronarios')
+                            </div>
+                        </div>
+                    </div>{{-- Fim Conteúdo da Tab Risco Coronáriol --}}
+
+                    {{-- Conteúdo Tab Risco Coronário --}}
+                    <div class="tab-pane" id="anamnese">
+                        <div class="nav-tabs-custom">
+                            {{-- Conteúdo Tabs secundárias Análise Postural --}}
+                            <div class="tab-content">
+                                @include('backend.evaluations.tabs_content.anamneses.anamneses')
+                            </div>
+                        </div>
+                    </div>{{-- Fim Conteúdo da Tab Risco Coronáriol --}}
+
                 </div>
                 <!-- /.tab-content -->
             </div>

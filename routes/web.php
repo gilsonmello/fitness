@@ -56,6 +56,9 @@ Route::group(['namespace' => 'Backend'], function () {
 
 			//Rotas para os protocolos
 			require_once __DIR__.'/Backend/Evaluation.php';
+
+			//Rotas para os protocolos
+			require_once __DIR__.'/Backend/Test.php';
 				
 	});
 });

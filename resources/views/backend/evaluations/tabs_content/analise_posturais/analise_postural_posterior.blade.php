@@ -1,5 +1,6 @@
 <div class="tab-pane" id="tab_analise_postural_posterior">
     {!! Form::open(['route' => ['backend.evaluations.update_analise_postural_posterior', $evaluation->id], 'files' => true, 'class' => 'form-horizontal', 'role' => 'form', 'method' => 'post', 'id' => 'update_analise_postural_posterior']) !!}
+    {!! Form::hidden('uploaded_image', '0') !!}
     <br>
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
@@ -54,7 +55,7 @@
 
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4" style="margin-bottom: 10px;">
-            {!! Form::label('imaage', trans('strings.imaage'), ['class' => '']) !!}
+            {!! Form::label('image', trans('strings.image'), ['class' => '']) !!}
             <input type="file" name="img" id="btn_img_analise_postural_posterior" accept="image/jpeg,image/png,image/gif,image/bmp">
             <br>
             <div class="progress desactive">
@@ -64,7 +65,17 @@
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8" id="visualizar">
-            <img src="{{imageurl('analise_postural', !is_null($evaluation->analisePosturalPosterior) ? $evaluation->analisePosturalPosterior->img : NULL, 400, true)}}" class="desactive" id="img-reader" style="width: 100%; height: 380px;">
+            @if(!is_null($evaluation->analisePosturalPosterior->img))
+                @if(imageurl('analise_postural', $evaluation->analisePosturalPosterior->img, 400, true) != "")
+                    <img src="{{imageurl('analise_postural', $evaluation->analisePosturalPosterior->img, 400, true)}}" id="img-reader" style="width: 100%; height: 380px;">
+                @elseif(imageurl('analise_postural', $evaluation->analisePosturalPosterior->img, 0, true) != "")
+                    <img src="{{imageurl('analise_postural', $evaluation->analisePosturalPosterior->img, 0, true)}}" id="img-reader" style="width: 100%; height: 380px;">
+                @else
+                    <img src="" id="img-reader" class="desactive" style="width: 100%; height: 380px;">
+                @endif
+            @else
+                <img src="" id="img-reader" class="desactive" style="width: 100%; height: 380px;">
+            @endif
         </div>
     </div>
     <br>
