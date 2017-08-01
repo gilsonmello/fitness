@@ -18,6 +18,7 @@ class CreatePermissionsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('label');
+            $table->boolean('is_active')->default(1);
             $table->timestamps();
             $table->softDeletes();
         });

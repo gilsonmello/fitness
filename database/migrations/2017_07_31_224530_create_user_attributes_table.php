@@ -20,6 +20,7 @@ class CreateUserAttributesTable extends Migration
             $table->date('birth_date')->nullable();
             $table->string('cpf', 14)->nullable();
             $table->string('rg', 13)->nullable();
+            $table->boolean('is_active')->default(1);
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('user_id')

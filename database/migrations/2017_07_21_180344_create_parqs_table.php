@@ -43,6 +43,7 @@ class CreateParqsTable extends Migration
             $table->binary('question_8');
             $table->longText('option_answer_8')->nullable();
 
+            $table->boolean('is_active')->default(1);
             $table->timestamps();
             $table->softDeletes();
 

@@ -19,22 +19,9 @@ class CreateProtocolsTable extends Migration
             $table->string('name');
             $table->string('formula');
             $table->longText('description')->nullable();
-            $table->binary('is_active')->nullable();
+            $table->boolean('is_active')->default(1);
             $table->timestamps();
             $table->softDeletes();
-        });
-
-        Schema::create('test_protocol', function (Blueprint $table) {
-            $table->engine = "InnoDB";
-            $table->increments('id');
-            $table->integer('test_id')->unsigned();
-            $table->integer('protocol_id')->unsigned();
-            $table->foreign('test_id')
-                ->on('tests')
-                ->references('id');
-            $table->foreign('protocol_id')
-                ->on('protocols')
-                ->references('id');
         });
     }
 
@@ -45,7 +32,6 @@ class CreateProtocolsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('test_protocol');
         Schema::dropIfExists('protocols');
     }
 }
