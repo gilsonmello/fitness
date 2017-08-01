@@ -363,4 +363,55 @@ $(function () {
         '#tab_analise_postural_posterior'
     );
 
+    $(".protocol").select2().on('select2:select', function (e) {
+        var args = e.params.data;
+        $.ajax({
+            method: 'GET',
+            url: '/admin/tests/protocols/'+args.id+'/find_protocol',
+            success: function(data){
+                var html = '<div class="row" id="'+args.text+'" style="display: none;">';
+                    html += '<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">';
+                        html += '<h4>'+data.name+'.: '+data.formula+'</h4>';
+                            html += '<input type="hidden" name="protocol_id" value="'+data.id+'">';
+                            html += '<h5>Resultado</h5>';
+                            html += '<input name="result" type="text" class="form-control">';
+                    html += '</div>';
+                html += '</div>';
+                html = $(html);
+                html.hide();
+                $('#save-frequencia-cardiaca-maxima').append(html);
+                html.fadeIn('slow');
+            },
+            dataType: 'Json',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            }
+        });
+
+        /*var test = "<div class=\"row\" id=\"karnovem\" style=\"display: none;\">";
+        test += "<div class=\"col-xs-12 col-sm-12 col-md-12 col-lg-12\">";
+
+        test += "<div class=\"form-group\">";
+        test += "<label>Karnovem</label><br>";
+
+        test += "<label>Resultado</label>";
+        test += "<input type=\"text\" class=\"form-control\">";
+        test += "</div></div></div>";
+
+        test = $(test);
+
+        test.hide();
+
+        $('#form-test-frequencia-cardiaca').append(test);
+
+        test.fadeIn('slow');*/
+
+    }).on('select2:unselect', function(e){
+        var args = e.params.data;
+        $('#'+args.text).fadeOut('slow').promise().done(function(){
+            $(this).remove();
+        });
+    });
+
+
 });

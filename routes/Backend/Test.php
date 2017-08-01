@@ -20,5 +20,12 @@ Route::resource('tests', 'TestController', [
         'destroy' => 'backend.tests.destroy',
     ]
 ]);
+
 Route::post('tests/{id}/update_frequencia_cardiaca', 'TestController@updateFrequenciaCardiaca')
 ->name('backend.tests.update_frequencia_cardiaca');
+
+Route::post('tests/protocols/{id}/save_frequencia_cardiaca_maxima', 'TestController@saveFrequenciaCardiacaMaxima')
+    ->name('backend.tests.save_frequencia_cardiaca_maxima');
+
+Route::get('tests/protocols/{id}/find_protocol', 'TestController@findProtocol')
+    ->name('backend.tests.find_protocol');

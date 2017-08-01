@@ -3,17 +3,23 @@
     <div class="box-header with-border">
         <h3 class="box-title" style="display: block" data-widget="collapse">Máxima</h3>
         {{--<div class="box-tools pull-right">
-            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            <button id="add-test-frequencia-cardiaca" type="button" class="btn btn-box-tool">
+                <i class="fa fa-plus"></i>
+                Adicionar Teste
+            </button>
         </div>--}}
     </div>
     <div class="box-body">
         <div class="row">
-            <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
-                <h5 class="">
-                    <label for="name" class="">Nome.: </label>
-                    Oi
-                </h5>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="form-group">
+                    {!! Form::label('protocol', trans('strings.protocol'), []) !!}
+                    {!! Form::select('protocol', $protocols->pluck('name', 'id')->all(), null, ['id' => 'protocol', 'witdh' => '100%', 'class' => 'protocol form-control', 'data-placeholder' => trans('strings.protocol'), 'multiple' => 'multiple']) !!}
+                </div>
             </div>
         </div>
+        {!! Form::open(['route' =>['backend.tests.save_frequencia_cardiaca_maxima', $test->id], 'id' => 'save-frequencia-cardiaca-maxima', 'role' => 'form', 'method' => 'post']) !!}
+
+        {!! Form::close() !!}
     </div>
 </div>

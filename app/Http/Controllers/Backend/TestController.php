@@ -52,6 +52,23 @@ class TestController extends Controller
     }
 
     public function edit($id){
-        return view('backend.tests.edit');
+        $test = $this->testRepository->findOrThrowException($id);
+        $protocols = $this->testRepository->getProtocols();
+        return view('backend.tests.edit', compact('test', 'protocols'));
+    }
+
+    public function findProtocol($id){
+        $protocol = $this->testRepository->getProtocol($id);
+        return die(
+            json_encode([
+                'id' => $protocol->id,
+                'name' => $protocol->name,
+                'formula' => $protocol->formula
+            ])
+        );
+    }
+
+    public function saveFrequenciaCardiacaMaxima(){
+
     }
 }

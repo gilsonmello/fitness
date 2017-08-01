@@ -4,12 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Services\Backend\Test\Traits\TestAttributes;
 
-class Test extends Model
+class MinimumHeartRate extends Model
 {
-    use SoftDeletes, TestAttributes;
+    use SoftDeletes;
 
+    /**
+     * @var bool
+     */
     public $timestamps = true;
 
     /**
@@ -17,7 +19,7 @@ class Test extends Model
      *
      * @var string
      */
-    protected $table = 'tests';
+    protected $table = 'minimum_heart_rates';
 
     /**
      * The attributes that are not mass assignable.
@@ -26,11 +28,11 @@ class Test extends Model
      */
     protected $guarded = ['id'];
 
-    public function user(){
-        return $this->belongsTo(\App\User::class);
+    public function protocol(){
+        return $this->belongsTo(\App\Protocol::class);
     }
 
-    public function maximumHeartRate(){
-        return $this->hasMany(\App\MaximumHeartRate::class);
+    public function test(){
+        return $this->belongsTo(\App\Test::class);
     }
 }

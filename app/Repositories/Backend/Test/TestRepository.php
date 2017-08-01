@@ -3,6 +3,7 @@ namespace App\Repositories\Backend\Test;
 
 use App\Test;
 use App\Exceptions\GeneralException;
+use App\Protocol;
 
 /**
  * Class QuestionRepository
@@ -16,6 +17,7 @@ class TestRepository{
     public function __construct()
     {
         $this->test = new Test;
+        $this->protocol = new Protocol;
     }
 
     /**
@@ -49,7 +51,27 @@ class TestRepository{
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
     public function all(){
-        return test::all()->where('is_active', '=', 1);
+        return Test::where('is_active', '=', 1);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
+    public function getProtocols(){
+        return $this->protocol->where('is_active', '=', 1)->orderBy('name', 'asc');
+    }
+
+    /**
+     * @param $id
+     * @return mixed
+     * @throws GeneralException
+     */
+    public function getProtocol($id){
+        $protocol = $this->protocol->find($id);
+        if(!is_null($protocol)){
+            return $this->protocol->find($id);
+        }
+        throw new GeneralException("That test does not exist.");
     }
 
     /**
