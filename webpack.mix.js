@@ -39,6 +39,7 @@ mix.styles([
     'public/bower_components/admin-lte/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css',
     'public/bower_components/admin-lte/plugins/datatables/dataTables.bootstrap.css',
     'public/bower_components/external-plugins/sweetalert-master/dist/sweetalert.css',
+    'public/bower_components/external-plugins/jquery-validate/jquery.validate.css',
 
 ], 'public/backend/css/app.css');
 
@@ -69,6 +70,7 @@ mix.scripts([
     'public/bower_components/admin-lte/plugins/datatables/jquery.dataTables.min.js',
     'public/bower_components/admin-lte/plugins/datatables/dataTables.bootstrap.min.js',
     'public/bower_components/external-plugins/sweetalert-master/dist/sweetalert.min.js',
+    'public/bower_components/external-plugins/jquery-validate/jquery.validate.min.js',
     'public/bower_components/admin-lte/dist/js/app.js',
     'public/bower_components/admin-lte/dist/js/demo.js',
 

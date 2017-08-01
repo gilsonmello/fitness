@@ -51,7 +51,7 @@ class TestRepository{
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
     public function all(){
-        return Test::where('is_active', '=', 1);
+        return Test::where('is_active', '=', 1)->get();
     }
 
     /**

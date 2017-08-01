@@ -377,10 +377,24 @@ $(function () {
                             html += '<input name="result" type="text" class="form-control">';
                     html += '</div>';
                 html += '</div>';
+                
+
+                var btn = document.querySelector('#btn-save-frequencia-cardiaca-maxima');
+                if(btn == undefined || btn == null){
+                    html += '<br><div class="row" id="btn-save-frequencia-cardiaca-maxima">';
+                        html += '<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">';
+                            html += '<div class="pull-right">';
+                                html += '<input type="submit" class="btn btn-xs btn-primary" value="Salvar" />';
+                            html += '</div>';
+                        html += '</div>';
+                    html += '</div>';
+                }
+
                 html = $(html);
                 html.hide();
                 $('#save-frequencia-cardiaca-maxima').append(html);
                 html.fadeIn('slow');
+
             },
             dataType: 'Json',
             headers: {
@@ -412,6 +426,38 @@ $(function () {
             $(this).remove();
         });
     });
+
+
+    /*$('#save-frequencia-cardiaca-maxima').on('submit', function(e){
+        e.stopPropagation();
+        e.preventDefault();
+        $.ajax({
+            url: $(this).attr('action'),
+            headers: {
+            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            },
+            beforeSend: function(){
+            },
+            success: function(data){
+            },
+            dataType: 'Json'
+        });
+
+    });*/
+
+    $('#save-frequencia-cardiaca-maxima').ajaxForm({
+        url: $(this).attr('action'),
+        type: "POST",
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+        },
+        beforeSend: function(){
+        },
+        success: function(data){
+        },
+        resetForm: true,
+        dataType: 'Json'
+    }).submit();
 
 
 });

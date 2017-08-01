@@ -1,0 +1,16 @@
+#conteudo {
+  background-color: #ccc;
+  width: 50%;
+}
+
+#msg {
+  color:red;
+}
+
+.error{
+  background-color: red;
+}
+
+.ok {
+  color: green;
+}

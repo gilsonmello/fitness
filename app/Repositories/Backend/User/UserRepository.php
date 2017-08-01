@@ -70,8 +70,7 @@ class UserRepository{
      */
     public function all(){
         return $this->user
-            ->all()
-            ->where('is_active', '=', 1);
+            ->all();
     }
 
     /**
