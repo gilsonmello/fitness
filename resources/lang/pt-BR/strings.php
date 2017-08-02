@@ -11,6 +11,9 @@ return [
       | found in a intuitive way.
       |
      */
+	'test' => 'Teste',
+	'tests' => 'Testes',
+	'protocols' => 'Protocolos',
 	'protocol' => 'Protocolo',
 	'formula' => 'Formula',
     'image' => 'Imagem',

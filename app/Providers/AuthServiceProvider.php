@@ -29,6 +29,11 @@ class AuthServiceProvider extends ServiceProvider
     public function boot(GateContract $gate)
     {
         $this->registerPolicies();
+
+        /*Gate::define('edit-auth', function($user, $id) {
+            return $user->id == $id;
+        });*/
+
         /*$permissions = Permission::with('roles')->get();
         foreach($permissions as $permission){
             $gate->define($permission->name, function(User $user) use ($permission){

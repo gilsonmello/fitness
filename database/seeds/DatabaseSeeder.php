@@ -15,7 +15,10 @@ class DatabaseSeeder extends Seeder
         DB::table('users')->insert([
             'name' => 'Junior de Melo',
             'email' => 'junnyorr.sirnandes@gmail.com',
-            'password' => bcrypt('123456'),
+            'birth_date' => '1994-12-31',
+            'cpf' => '073.011.215-20',
+            'rg' => '13.610.029-56',
+            'password' => bcrypt('123'),
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s')
         ]);
@@ -183,6 +186,12 @@ class DatabaseSeeder extends Seeder
         DB::table('evaluations')->insert([
             'user_id' => 1,
             'is_active' => 1,
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ]);
+
+        DB::table('tests')->insert([
+            'user_id' => 1,
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s')
         ]);

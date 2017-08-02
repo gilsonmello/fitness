@@ -20,14 +20,14 @@
         </div>
         {!! Form::open(['route' =>['backend.tests.save_frequencia_cardiaca_maxima', $test->id], 'id' => 'save-frequencia-cardiaca-maxima', 'role' => 'form', 'method' => 'post']) !!}
 
-            {{-- <div class="row" id="btn-save-frequencia-cardiaca-maxima">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <div class="pull-right">
-                        <input type="submit" class="btn btn-xs btn-primary" value="{{ trans('strings.save_button') }}" />
+                 {{--<div class="row" id="btn-save-frequencia-cardiaca-maxima">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="pull-right">
+                            <input type="submit" class="btn btn-xs btn-primary" value="{{ trans('strings.save_button') }}" />
+                        </div>
                     </div>
                 </div>
-            </div> --}}
-            <div class="clearfix"></div>
+                <div class="clearfix"></div>--}}
         {!! Form::close() !!}
     </div>
 </div>

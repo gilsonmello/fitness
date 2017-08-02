@@ -20,6 +20,10 @@ class CreateUsersTable extends Migration
             $table->string('email');
             $table->string('password');
             $table->rememberToken();
+            $table->date('birth_date')->nullable();
+            $table->string('cpf', 14)->nullable();
+            $table->string('rg', 13)->nullable();
+            $table->boolean('is_active')->default(1);
             $table->timestamps();
             $table->softDeletes();
         });

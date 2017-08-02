@@ -1,6 +1,6 @@
 @extends('layouts.backend.app')
 
-@section ('title', trans('menus.protocols.protocols') . ' | ' . trans('menus.protocols.create'))
+@section ('title', trans('menus.protocols.index') . ' | ' . trans('menus.protocols.create'))
 
 @section('content_header')
     <!-- Content Header (Page header) -->

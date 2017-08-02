@@ -15473,6 +15473,13 @@ $(function () {
 
     //Datemask dd/mm/yyyy
     $("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
+
+
+    $(".rg").inputmask("99.999.999-99", {"placeholder": "99.999.999-99"});
+    $(".cpf").inputmask("999.999.999-99", {"placeholder": "999.999.999-99"});
+
+    $(".birth_date").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
+
     //Datemask2 mm/dd/yyyy
     $("#datemask2").inputmask("mm/dd/yyyy", {"placeholder": "mm/dd/yyyy"});
     //Money Euro
@@ -15800,13 +15807,16 @@ $(function () {
             success: function(data){
                 var html = '<div class="row" id="'+args.text+'" style="display: none;">';
                     html += '<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">';
-                        html += '<h4>'+data.name+'.: '+data.formula+'</h4>';
-                            html += '<input type="hidden" name="protocol_id" value="'+data.id+'">';
+                        html += '<div class="form-group">';
+                            html += '<h4>'+data.name+'.: '+data.formula+'</h4>';
+                            html += '<input type="hidden" name="protocol[]" value="'+data.id+'">';
                             html += '<h5>Resultado</h5>';
-                            html += '<input name="result" type="text" class="form-control">';
+                            html += '<input name="protocol[]" type="text" class="form-control">';
+                        html += '</div>';
                     html += '</div>';
                 html += '</div>';
-                
+
+
 
                 var btn = document.querySelector('#btn-save-frequencia-cardiaca-maxima');
                 if(btn == undefined || btn == null){
@@ -15817,11 +15827,15 @@ $(function () {
                             html += '</div>';
                         html += '</div>';
                     html += '</div>';
+                    html = $(html);
+                    html.hide();
+                    $('#save-frequencia-cardiaca-maxima').append(html);
+                }else{
+                    html = $(html);
+                    html.hide();
+                    $(html).insertBefore('#btn-save-frequencia-cardiaca-maxima');
                 }
 
-                html = $(html);
-                html.hide();
-                $('#save-frequencia-cardiaca-maxima').append(html);
                 html.fadeIn('slow');
 
             },
@@ -15874,7 +15888,100 @@ $(function () {
 
     });*/
 
-    $('#save-frequencia-cardiaca-maxima').ajaxForm({
+    function serialize(form) {
+        if (!form || form.nodeName !== "FORM") {
+            return;
+        }
+        var i, j, q = [];
+        for (i = form.elements.length - 1; i >= 0; i = i - 1) {
+            window.console.log(i);
+            if (form.elements[i].name === "") {
+                continue;
+            }
+            switch (form.elements[i].nodeName) {
+                case 'INPUT':
+                    switch (form.elements[i].type) {
+                        case 'text':
+                        case 'hidden':
+                        case 'password':
+                        case 'button':
+                        case 'reset':
+                        case 'submit':
+                            q.push(form.elements[i].name + "=" + encodeURIComponent(form.elements[i].value));
+                            break;
+                        case 'checkbox':
+                        case 'radio':
+                            if (form.elements[i].checked) {
+                                q.push(form.elements[i].name + "=" + encodeURIComponent(form.elements[i].value));
+                            }
+                            break;
+                    }
+                    break;
+                case 'file':
+                    break;
+                case 'TEXTAREA':
+                    q.push(form.elements[i].name + "=" + encodeURIComponent(form.elements[i].value));
+                    break;
+                case 'SELECT':
+                    switch (form.elements[i].type) {
+                        case 'select-one':
+                            q.push(form.elements[i].name + "=" + encodeURIComponent(form.elements[i].value));
+                            break;
+                        case 'select-multiple':
+                            for (j = form.elements[i].options.length - 1; j >= 0; j = j - 1) {
+                                if (form.elements[i].options[j].selected) {
+                                    q.push(form.elements[i].name + "=" + encodeURIComponent(form.elements[i].options[j].value));
+                                }
+                            }
+                            break;
+                    }
+                    break;
+                case 'BUTTON':
+                    switch (form.elements[i].type) {
+                        case 'reset':
+                        case 'submit':
+                        case 'button':
+                            q.push(form.elements[i].name + "=" + encodeURIComponent(form.elements[i].value));
+                            break;
+                    }
+                    break;
+            }
+        }
+        return q.join("&");
+    }
+
+    document.getElementById('save-frequencia-cardiaca-maxima').addEventListener('submit', function(e) {
+        e.preventDefault();
+        var data = serialize(this);
+        var action = document.querySelector('#'+this.getAttribute('id')).getAttribute('action');
+        swal({
+            title: "Você realmente deseja atualizar os dados?",
+            type: "info",
+            showCancelButton: true,
+            cancelButtonText: "Cancelar",
+            confirmButtonColor: "#00a65a",
+            confirmButtonText: "Salvar",
+            closeOnConfirm: false,
+            showLoaderOnConfirm: true,
+        }, function () {
+            $.ajax({
+                url: action,
+                method: 'POST',
+                dataType: 'Json',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                },
+                data: data,
+                success: function(data){
+                    window.console.log(data);
+                    swal("Atualizado!", "", "success");
+                }
+            });
+
+        });
+    }, false);
+
+    /*$('#save-frequencia-cardiaca-maxima').ajaxForm({
         url: $(this).attr('action'),
         type: "POST",
         headers: {
@@ -15886,7 +15993,7 @@ $(function () {
         },
         resetForm: true,
         dataType: 'Json'
-    }).submit();
+    }).submit();*/
 
 
 });

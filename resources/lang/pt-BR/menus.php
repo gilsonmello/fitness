@@ -435,6 +435,7 @@ return [
         'total' => 'Total de Matrículas',
         'edit' => 'Editar Matrícula'
     ],
+
     'add_userrepresentatives_coupon' => 'Adicionar Cupom',
 
     'ipacs' => [
@@ -451,5 +452,11 @@ return [
         'create' => 'Criar Protocolo',
         'index' => 'Protocolos',
         'edit' => 'Editar Protocolo'
+    ],
+
+    'tests' => [
+        'create' => 'Criar Teste',
+        'index' => 'Testes',
+        'edit' => 'Editar Teste'
     ],
 ];

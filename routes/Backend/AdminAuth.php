@@ -21,6 +21,10 @@
 
 	Route::get('/password/register', 'Auth\RegisterController@showRegistrationForm')->name('auth.register');
 
+	Route::get('/auth/{id}/edit', 'Auth\AuthController@edit')->name('backend.auth.edit');
+
+	Route::put('/auth/{id}/update', 'Auth\AuthController@update')->name('backend.auth.update');
+
 	// Route::group(['middleware' => 'guest'], function () {
 	// 	get('auth/login/{provider}', ['as' => 'auth.provider', 'uses' => 'AdminAuthController@loginThirdParty']);
 	// 	get('account/confirm/{token}', ['as' => 'account.confirm', 'uses' => 'AdminAuthController@confirmAccount']);

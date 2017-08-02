@@ -47,6 +47,76 @@ if(!function_exists('active')){
 	}
 }
 
+if (!function_exists('format_with_mask')) {
+
+	/**
+	 * Helper to return a Carbon object from a date timestamp
+	 * and a custom format
+	 *
+	 * @param $date
+	 * @param $format
+	 * @return mixed
+	 */
+	function format_with_mask($date) {
+		if ($date == NULL) {
+			return NULL;
+		}else{
+			return implode('-', array_reverse(explode('/', $date)));
+		}
+	}
+
+}
+
+if (!function_exists('format_without_mask')) {
+
+	/**
+	 * Helper to return a Carbon object from a date timestamp
+	 * and a custom format
+	 *
+	 * @param $date
+	 * @param $format
+	 * @return mixed
+	 */
+	function format_without_mask($date) {
+		if ($date == NULL) {
+			return NULL;
+		}else{
+			return implode('/', array_reverse(explode('-', $date)));
+		}
+	}
+
+}
+
+
+if (!function_exists('format')) {
+
+	/**
+	 * Helper to return a Carbon object from a date timestamp
+	 * and a custom format
+	 *
+	 * @param $date
+	 * @param $format
+	 * @return mixed
+	 */
+	function format($date, $format) {
+		if ($date == null)
+			return "";
+		else
+			return Carbon\Carbon::parse($date)->format($format);
+	}
+
+}
+
+if(!function_exists('birth_date')){
+	function birth_date($date){
+		$date = explode('-', $date);
+		$date = Carbon\Carbon::create($date[0], $date[1], $date[2]);
+		$age = $date->diff(Carbon\Carbon::now())->y;
+		//$age = $date->diff(Carbon\Carbon::now())->format('%y Year, %m Months and %d Days');
+		return $age;
+	}
+}
+
 if (!function_exists('format_datebr')) {
 	/**
 	 * Helper to return a Carbon object from a date timestamp

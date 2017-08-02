@@ -73,10 +73,6 @@ class User extends Authenticatable
 
     }
 
-    public function userAttribute(){
-        return $this->hasOne(\App\UserAttribute::class);
-    }
-
     public function antropometria(){
         return $this->hasOne(\App\Antropometria::class);
     }

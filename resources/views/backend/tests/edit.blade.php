@@ -1,6 +1,6 @@
 @extends('layouts.backend.app')
 
-@section ('title', trans('menus.coupon_management') . ' | ' . trans('menus.create_coupon'))
+@section ('title', trans('menus.tests.index') . ' | ' . trans('menus.tests.edit'))
 
 @section('content_header')
     <!-- Content Header (Page header) -->

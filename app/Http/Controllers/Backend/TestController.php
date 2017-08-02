@@ -68,7 +68,7 @@ class TestController extends Controller
         );
     }
 
-    public function saveFrequenciaCardiacaMaxima(){
-
+    public function saveFrequenciaCardiacaMaxima($id, Request $request){
+        dd($request->all());
     }
 }
