@@ -29,8 +29,8 @@ class Protocol extends Model
      */
     protected $guarded = ['id'];
 
-    public function maximumHeartRates(){
-        return $this->belongsToMany(\App\MaximumHeartRate::class);
+    public function maximumHeartRate(){
+        return $this->hasOne(\App\MaximumHeartRate::class);
     }
 
 }

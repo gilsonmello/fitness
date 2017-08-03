@@ -190,6 +190,13 @@ class DatabaseSeeder extends Seeder
             'updated_at' => date('Y-m-d H:i:s')
         ]);
 
+        DB::table('protocols')->insert([
+            'name' => 'Karnovem',
+            'formula' => '220-idade',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ]);
+
         DB::table('tests')->insert([
             'user_id' => 1,
             'created_at' => date('Y-m-d H:i:s'),

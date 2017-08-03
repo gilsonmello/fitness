@@ -54,7 +54,12 @@ class TestController extends Controller
     public function edit($id){
         $test = $this->testRepository->findOrThrowException($id);
         $protocols = $this->testRepository->getProtocols();
-        return view('backend.tests.edit', compact('test', 'protocols'));
+        $maximumHeartRates = $this->testRepository->getMaximumHeartRate($id);
+        $protocols_id = [];
+        foreach($maximumHeartRates as $maximumHeartRate){
+            $protocols_id[] = $maximumHeartRate->protocol->id;
+        }
+        return view('backend.tests.edit', compact('test', 'protocols', 'maximumHeartRate', 'protocols_id'));
     }
 
     public function findProtocol($id){
@@ -69,6 +74,16 @@ class TestController extends Controller
     }
 
     public function saveFrequenciaCardiacaMaxima($id, Request $request){
-        dd($request->all());
+        if($this->testRepository->saveFrequenciaCardiacaMaxima($id, $request)){
+            return die(json_encode('true'));
+        }
+        return die(json_encode('false'));
+    }
+
+    public function destroyFrequenciaCardiacaMaxima($teste_id, $protocol_id){
+        if($this->testRepository->destroyFrequenciaCardiacaMaxima($teste_id, $protocol_id)){
+            return die(json_encode('true'));
+        }
+        return die(json_encode('false'));
     }
 }

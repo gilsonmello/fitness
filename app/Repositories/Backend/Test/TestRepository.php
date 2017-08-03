@@ -4,6 +4,7 @@ namespace App\Repositories\Backend\Test;
 use App\Test;
 use App\Exceptions\GeneralException;
 use App\Protocol;
+use App\MaximumHeartRate;
 
 /**
  * Class QuestionRepository
@@ -18,6 +19,7 @@ class TestRepository{
     {
         $this->test = new Test;
         $this->protocol = new Protocol;
+        $this->maximumHeartRate = new MaximumHeartRate;
     }
 
     /**
@@ -59,6 +61,20 @@ class TestRepository{
      */
     public function getProtocols(){
         return $this->protocol->where('is_active', '=', 1)->orderBy('name', 'asc');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
+    public function getMaximumHeartRate($id){
+        return $this->maximumHeartRate->where('test_id', '=', $id)->get();
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
+    public function getProtocolsOfTest($id){
+        return $this->maximumHeartRate->where('test_id', '=', $id)->get();
     }
 
     /**
@@ -121,6 +137,71 @@ class TestRepository{
             return true;
         }
         throw new GeneralException("There was a problem deleting this parq. Please try again.");
+    }
+
+    public function saveFrequenciaCardiacaMaxima($id, $request){
+        $data = $request->all();
+        if(count($data) > 1){
+            unset($data['_token']);
+            $test = $this->findOrThrowException($id);
+            if(count($test->maximumHeartRate) > 0){
+                foreach($data as $key => $value){
+                    $maximumHeartRate = $this->maximumHeartRate->where('protocol_id', '=', $value['id'])
+                            ->where('test_id', '=', $test->id)
+                            ->get()
+                            ->first();
+                    //Se já existir uma frequencia cardiaca cadastrada para o teste e o protocolo
+                    if(!is_null($maximumHeartRate)){
+                        $save = $this->maximumHeartRate->where('test_id', '=', $test->id)
+                            ->where('protocol_id', '=', $value['id'])
+                            ->update([
+                                'result' => $value['result'],
+                            ]);
+                        if(!$save){
+                            return false;
+                        }
+                    }else{
+                        //Se não existir, crio um novo teste de frequencia cardiaca maxima
+                        $this->maximumHeartRate->test_id = $test->id;
+                        $this->maximumHeartRate->result = $value['result'];
+                        $this->maximumHeartRate->protocol_id = $value['id'];
+                        if (!$this->maximumHeartRate->save()) {
+                            return false;
+                        }
+                        $this->maximumHeartRate = new MaximumHeartRate;
+                    }
+                }
+                return true;
+            }else{
+                foreach($data as $key => $value) {
+                    $this->maximumHeartRate->test_id = $test->id;
+                    $this->maximumHeartRate->result = $value['result'];
+                    $this->maximumHeartRate->protocol_id = $value['id'];
+                    if (!$this->maximumHeartRate->save()) {
+                        return false;
+                    }
+                    $this->maximumHeartRate = new MaximumHeartRate;
+                }
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function destroyFrequenciaCardiacaMaxima($teste_id, $protocol_id){
+        $test = $this->findOrThrowException($teste_id);
+        $protocol = $this->protocol->find($protocol_id);
+        $maximumHeartRate = $this->maximumHeartRate
+            ->where('test_id', '=', $test->id)
+            ->where('protocol_id', '=', $protocol->id)
+            ->get()
+            ->first();
+        if (!is_null($maximumHeartRate)) {
+            if($maximumHeartRate->delete()){
+                return true;
+            }
+        }
+        return false;
     }
 
 

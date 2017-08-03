@@ -15809,33 +15809,21 @@ $(function () {
                     html += '<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">';
                         html += '<div class="form-group">';
                             html += '<h4>'+data.name+'.: '+data.formula+'</h4>';
-                            html += '<input type="hidden" name="protocol[]" value="'+data.id+'">';
+                            html += '<input type="hidden" name="protocol_'+data.id+'[id]" value="'+data.id+'">';
                             html += '<h5>Resultado</h5>';
-                            html += '<input name="protocol[]" type="text" class="form-control">';
+                            html += '<input name="protocol_'+data.id+'[result]" type="text" class="number form-control">';
                         html += '</div>';
                     html += '</div>';
                 html += '</div>';
 
+                html = $(html);
+                html.hide();
 
-
-                var btn = document.querySelector('#btn-save-frequencia-cardiaca-maxima');
-                if(btn == undefined || btn == null){
-                    html += '<br><div class="row" id="btn-save-frequencia-cardiaca-maxima">';
-                        html += '<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">';
-                            html += '<div class="pull-right">';
-                                html += '<input type="submit" class="btn btn-xs btn-primary" value="Salvar" />';
-                            html += '</div>';
-                        html += '</div>';
-                    html += '</div>';
-                    html = $(html);
-                    html.hide();
-                    $('#save-frequencia-cardiaca-maxima').append(html);
-                }else{
-                    html = $(html);
-                    html.hide();
-                    $(html).insertBefore('#btn-save-frequencia-cardiaca-maxima');
-                }
-
+                $('#btn-save-frequencia-cardiaca-maxima').fadeIn('slow').removeClass('desactive');
+                $(html).insertBefore('#btn-save-frequencia-cardiaca-maxima');
+                $('.number').inputmask("[9]99.99", {
+                    "placeholder": ""
+                });
                 html.fadeIn('slow');
 
             },
@@ -15865,9 +15853,25 @@ $(function () {
 
     }).on('select2:unselect', function(e){
         var args = e.params.data;
-        $('#'+args.text).fadeOut('slow').promise().done(function(){
-            $(this).remove();
+        window.console.log(e.params);
+        $.ajax({
+            method: 'DELETE',
+            url: '/admin/tests/'+test_id+'/protocols/'+args.id+'/destroy_frequencia_cardiaca_maxima',
+            success: function(data) {
+                $('#'+args.text).fadeOut('slow').promise().done(function(){
+                    $(this).remove();
+                    var rows = $('#save-frequencia-cardiaca-maxima .row').length;
+                    if(rows == 1){
+                        $('#btn-save-frequencia-cardiaca-maxima').fadeOut('slow').addClass('desactive');
+                    }
+                });
+            },
+            dataType: 'Json',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            }
         });
+
     });
 
 
@@ -15894,7 +15898,6 @@ $(function () {
         }
         var i, j, q = [];
         for (i = form.elements.length - 1; i >= 0; i = i - 1) {
-            window.console.log(i);
             if (form.elements[i].name === "") {
                 continue;
             }
@@ -15950,36 +15953,39 @@ $(function () {
         return q.join("&");
     }
 
-    document.getElementById('save-frequencia-cardiaca-maxima').addEventListener('submit', function(e) {
-        e.preventDefault();
-        var data = serialize(this);
-        var action = document.querySelector('#'+this.getAttribute('id')).getAttribute('action');
-        swal({
-            title: "Você realmente deseja atualizar os dados?",
-            type: "info",
-            showCancelButton: true,
-            cancelButtonText: "Cancelar",
-            confirmButtonColor: "#00a65a",
-            confirmButtonText: "Salvar",
-            closeOnConfirm: false,
-            showLoaderOnConfirm: true,
-        }, function () {
-            $.ajax({
-                url: action,
-                method: 'POST',
-                dataType: 'Json',
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-                },
-                data: data,
-                success: function(data){
-                    window.console.log(data);
-                    swal("Atualizado!", "", "success");
-                }
-            });
+    var el = document.getElementById('save-frequencia-cardiaca-maxima');
+    if(el != undefined || el != null) {
+        el.addEventListener('submit', function (e) {
+            e.preventDefault();
+            var data = serialize(this);
+            var action = document.querySelector('#' + this.getAttribute('id')).getAttribute('action');
+            swal({
+                title: "Você realmente deseja atualizar os dados?",
+                type: "info",
+                showCancelButton: true,
+                cancelButtonText: "Cancelar",
+                confirmButtonColor: "#00a65a",
+                confirmButtonText: "Salvar",
+                closeOnConfirm: false,
+                showLoaderOnConfirm: true
+            }, function () {
+                $.ajax({
+                    url: action,
+                    method: 'POST',
+                    dataType: 'Json',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                    },
+                    data: data,
+                    success: function (data) {
+                        window.console.log(data);
+                        swal("Atualizado!", "", "success");
+                    }
+                });
 
-        });
-    }, false);
+            });
+        }, false);
+    }
 
     /*$('#save-frequencia-cardiaca-maxima').ajaxForm({
         url: $(this).attr('action'),

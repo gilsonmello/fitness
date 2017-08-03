@@ -14,20 +14,28 @@
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <div class="form-group">
                     {!! Form::label('protocol', trans('strings.protocol'), []) !!}
-                    {!! Form::select('protocol', $protocols->pluck('name', 'id')->all(), null, ['id' => 'protocol', 'witdh' => '100%', 'class' => 'protocol form-control', 'data-placeholder' => trans('strings.protocol'), 'multiple' => 'multiple']) !!}
+                    {!! Form::select('protocol', $protocols->pluck('name', 'id')->all(), $protocols_id, ['id' => 'protocol', 'witdh' => '100%', 'class' => 'protocol form-control', 'data-placeholder' => trans('strings.protocol'), 'multiple' => 'multiple']) !!}
                 </div>
             </div>
         </div>
         {!! Form::open(['route' =>['backend.tests.save_frequencia_cardiaca_maxima', $test->id], 'id' => 'save-frequencia-cardiaca-maxima', 'role' => 'form', 'method' => 'post']) !!}
-
-                 {{--<div class="row" id="btn-save-frequencia-cardiaca-maxima">
+                @if(count($test->maximumHeartRate) > 0)
+                    @foreach($test->maximumHeartRate as $maximumHeartRate)
+                        {{$maximumHeartRate->protocol->name}}
+                        {{$maximumHeartRate->result}}
+                    @endforeach
+                @endif
+                 <div class="row desactive" id="btn-save-frequencia-cardiaca-maxima">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <div class="pull-right">
                             <input type="submit" class="btn btn-xs btn-primary" value="{{ trans('strings.save_button') }}" />
                         </div>
                     </div>
                 </div>
-                <div class="clearfix"></div>--}}
+                <div class="clearfix"></div>
         {!! Form::close() !!}
     </div>
+    <script type="text/javascript">
+        var test_id = '{{$test->id}}';
+    </script>
 </div>

@@ -28,8 +28,8 @@ class MaximumHeartRate extends Model
      */
     protected $guarded = ['id'];
 
-    public function protocols(){
-        return $this->belongsToMany(\App\Protocol::class);
+    public function protocol(){
+        return $this->belongsTo(\App\Protocol::class);
     }
 
     public function test(){
