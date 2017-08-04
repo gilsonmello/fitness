@@ -65,11 +65,16 @@
 
     <!-- AdminLTE App -->
     <script src="{{ mix ('backend/js/app.js') }}" type="text/javascript"></script>
+    <script src="{{ mix ('backend/js/main.js') }}" type="text/javascript"></script>
     <script src="http://malsup.github.io/min/jquery.form.min.js" type="text/javascript"></script>
 
-    <script>
+    <script type="text/javascript">
+        $(window).on("load", function() {
+            $('.select2').css({
+                'width': '100%'
+            });
+        });
     </script>
-
 
     <!-- Optionally, you can add Slimscroll and FastClick plugins.
     Both of these plugins are recommended to enhance the

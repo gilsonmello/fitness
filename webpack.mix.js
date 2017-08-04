@@ -74,11 +74,13 @@ mix.scripts([
     'public/bower_components/admin-lte/dist/js/app.js',
     'public/bower_components/admin-lte/dist/js/demo.js',
 
-
-
-
     'resources/assets/backend/js/helpers.js',
 ], 'public/backend/js/app.js');
+
+mix.scripts([
+    'resources/assets/backend/js/frequencia_cardiaca/maximum-heart-rate.js',
+    'resources/assets/backend/js/frequencia_cardiaca/minimum-heart-rate.js',
+], 'public/backend/js/main.js');
 
 /*
 //Styles para tela de login administrativo

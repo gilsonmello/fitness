@@ -1,6 +1,7 @@
 <?php
 namespace App\Repositories\Backend\Test;
 
+use App\MinimumHeartRate;
 use App\Test;
 use App\Exceptions\GeneralException;
 use App\Protocol;
@@ -20,6 +21,7 @@ class TestRepository{
         $this->test = new Test;
         $this->protocol = new Protocol;
         $this->maximumHeartRate = new MaximumHeartRate;
+        $this->minimumHeartRate = new MinimumHeartRate;
     }
 
     /**
@@ -73,6 +75,13 @@ class TestRepository{
     /**
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
+    public function getMinimumHeartRate($id){
+        return $this->minimumHeartRate->where('test_id', '=', $id)->get();
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
     public function getProtocolsOfTest($id){
         return $this->maximumHeartRate->where('test_id', '=', $id)->get();
     }
@@ -82,7 +91,7 @@ class TestRepository{
      * @return mixed
      * @throws GeneralException
      */
-    public function getProtocol($id){
+    public function findProtocol($id){
         $protocol = $this->protocol->find($id);
         if(!is_null($protocol)){
             return $this->protocol->find($id);
@@ -198,6 +207,78 @@ class TestRepository{
             ->first();
         if (!is_null($maximumHeartRate)) {
             if($maximumHeartRate->delete()){
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    public function saveMinimumHeartRate($id, $request){
+        $data = $request->all();
+        if(count($data) > 1){
+            unset($data['_token']);
+            $test = $this->findOrThrowException($id);
+            if(count($test->minimumHeartRate) > 0){
+                foreach($data as $key => $value){
+                    $minimumHeartRates = $this->minimumHeartRate->where('protocol_id', '=', $value['id'])
+                        ->where('test_id', '=', $test->id)
+                        ->get()
+                        ->first();
+                    //Se já existir uma frequencia cardiaca cadastrada para o teste e o protocolo
+                    if(!is_null($minimumHeartRates)){
+                        $save = $this->minimumHeartRate->where('test_id', '=', $test->id)
+                            ->where('protocol_id', '=', $value['id'])
+                            ->update([
+                                'result' => $value['result'],
+                            ]);
+                        if(!$save){
+                            return false;
+                        }
+                    }else{
+                        //Se não existir, crio um novo teste de frequencia cardiaca maxima
+                        $this->minimumHeartRate->test_id = $test->id;
+                        $this->minimumHeartRate->result = $value['result'];
+                        $this->minimumHeartRate->protocol_id = $value['id'];
+                        if (!$this->minimumHeartRate->save()) {
+                            return false;
+                        }
+                        $this->minimumHeartRate = new MinimumHeartRate;
+                    }
+                }
+                return true;
+            }else{
+                foreach($data as $key => $value) {
+                    $this->minimumHeartRate->test_id = $test->id;
+                    $this->minimumHeartRate->result = $value['result'];
+                    $this->minimumHeartRate->protocol_id = $value['id'];
+                    if (!$this->minimumHeartRate->save()) {
+                        return false;
+                    }
+                    $this->minimumHeartRate = new MinimumHeartRate;
+                }
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * @param $test_id
+     * @param $protocol_id
+     * @return bool
+     * @throws GeneralException
+     */
+    public function destroyMinimumHeartRate($test_id, $protocol_id){
+        $test = $this->findOrThrowException($test_id);
+        $protocol = $this->protocol->find($protocol_id);
+        $minimumHeartRate = $this->minimumHeartRate
+            ->where('test_id', '=', $test->id)
+            ->where('protocol_id', '=', $protocol->id)
+            ->get()
+            ->first();
+        if (!is_null($minimumHeartRate)) {
+            if($minimumHeartRate->delete()){
                 return true;
             }
         }

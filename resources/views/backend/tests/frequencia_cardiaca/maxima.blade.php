@@ -14,18 +14,28 @@
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <div class="form-group">
                     {!! Form::label('protocol', trans('strings.protocol'), []) !!}
-                    {!! Form::select('protocol', $protocols->pluck('name', 'id')->all(), $protocols_id, ['id' => 'protocol', 'witdh' => '100%', 'class' => 'protocol form-control', 'data-placeholder' => trans('strings.protocol'), 'multiple' => 'multiple']) !!}
+                    {!! Form::select('protocol', $protocols->pluck('name', 'id')->all(), $protocols_id['maximumHeartRate'], ['id' => 'protocol_maximum_heart_rate', 'witdh' => '100%', 'class' => 'form-control', 'data-placeholder' => trans('strings.protocol'), 'multiple' => 'multiple']) !!}
                 </div>
             </div>
         </div>
-        {!! Form::open(['route' =>['backend.tests.save_frequencia_cardiaca_maxima', $test->id], 'id' => 'save-frequencia-cardiaca-maxima', 'role' => 'form', 'method' => 'post']) !!}
+        {!! Form::open(['route' =>['backend.tests.save_frequencia_cardiaca_maxima', $test->id], 'id' => 'save_frequencia_cardiaca_maxima', 'role' => 'form', 'method' => 'post']) !!}
+                <?php $desactive = 'desactive';?>
                 @if(count($test->maximumHeartRate) > 0)
+                    <?php $desactive = '';?>
                     @foreach($test->maximumHeartRate as $maximumHeartRate)
-                        {{$maximumHeartRate->protocol->name}}
-                        {{$maximumHeartRate->result}}
+                        <div class="row" id="{{$maximumHeartRate->protocol->name}}">
+                           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                <div class="form-group">
+                                    <h4>{{$maximumHeartRate->protocol->name}}.: {{$maximumHeartRate->protocol->formula}}</h4>
+                                    <input type="hidden" name="protocol_{{$maximumHeartRate->protocol->id}}[id]" value="{{$maximumHeartRate->protocol->id}}">
+                                    <h5>Resultado</h5>
+                                    <input name="protocol_{{$maximumHeartRate->protocol->id}}[result]" value="{{$maximumHeartRate->result}}" type="text" class="number maximum-heart-rate form-control">
+                                </div>
+                            </div>
+                        </div>
                     @endforeach
                 @endif
-                 <div class="row desactive" id="btn-save-frequencia-cardiaca-maxima">
+                 <div class="row {{$desactive}}" id="btn_save_frequencia_cardiaca_maxima">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <div class="pull-right">
                             <input type="submit" class="btn btn-xs btn-primary" value="{{ trans('strings.save_button') }}" />
@@ -35,7 +45,4 @@
                 <div class="clearfix"></div>
         {!! Form::close() !!}
     </div>
-    <script type="text/javascript">
-        var test_id = '{{$test->id}}';
-    </script>
 </div>

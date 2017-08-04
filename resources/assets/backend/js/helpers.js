@@ -1,40 +1,94 @@
 /**
  * Created by Junnyor on 09/07/2017.
  */
+function serialize(form) {
+    if (!form || form.nodeName !== "FORM") {
+        return;
+    }
+    var i, j, q = [];
+    for (i = form.elements.length - 1; i >= 0; i = i - 1) {
+        if (form.elements[i].name === "") {
+            continue;
+        }
+        switch (form.elements[i].nodeName) {
+            case 'INPUT':
+                switch (form.elements[i].type) {
+                    case 'text':
+                    case 'hidden':
+                    case 'password':
+                    case 'button':
+                    case 'reset':
+                    case 'submit':
+                        q.push(form.elements[i].name + "=" + encodeURIComponent(form.elements[i].value));
+                        break;
+                    case 'checkbox':
+                    case 'radio':
+                        if (form.elements[i].checked) {
+                            q.push(form.elements[i].name + "=" + encodeURIComponent(form.elements[i].value));
+                        }
+                        break;
+                }
+                break;
+            case 'file':
+                break;
+            case 'TEXTAREA':
+                q.push(form.elements[i].name + "=" + encodeURIComponent(form.elements[i].value));
+                break;
+            case 'SELECT':
+                switch (form.elements[i].type) {
+                    case 'select-one':
+                        q.push(form.elements[i].name + "=" + encodeURIComponent(form.elements[i].value));
+                        break;
+                    case 'select-multiple':
+                        for (j = form.elements[i].options.length - 1; j >= 0; j = j - 1) {
+                            if (form.elements[i].options[j].selected) {
+                                q.push(form.elements[i].name + "=" + encodeURIComponent(form.elements[i].options[j].value));
+                            }
+                        }
+                        break;
+                }
+                break;
+            case 'BUTTON':
+                switch (form.elements[i].type) {
+                    case 'reset':
+                    case 'submit':
+                    case 'button':
+                        q.push(form.elements[i].name + "=" + encodeURIComponent(form.elements[i].value));
+                        break;
+                }
+                break;
+        }
+    }
+    return q.join("&");
+}
+
+function convertToSlug(str){
+    str = str.replace(/^\s+|\s+$/g, ''); // trim
+    str = str.toLowerCase();
+
+    // remove accents, swap ñ for n, etc
+    var from = "ãàáäâẽèéëêìíïîõòóöôùúüûñç·/_,:;";
+    var to = "aaaaaeeeeeiiiiooooouuuunc------";
+    for (var i = 0, l = from.length; i < l; i++) {
+        str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
+    }
+
+    str = str.replace(/[^a-z0-9 -]/g, '') // remove invalid chars
+        .replace(/\s+/g, '-') // collapse whitespace and replace by -
+        .replace(/-+/g, '-'); // collapse dashes
+
+    return str;
+}
+
 $(function () {
-
-
     $('.desactive').hide();
 
-    $('.select2').css({
-        'width': '100%'
-    });
     $('.textarea').css({
         'width': '100%'
     });
 
-    function convertToSlug(str){
-        str = str.replace(/^\s+|\s+$/g, ''); // trim
-        str = str.toLowerCase();
-
-        // remove accents, swap ñ for n, etc
-        var from = "ãàáäâẽèéëêìíïîõòóöôùúüûñç·/_,:;";
-        var to = "aaaaaeeeeeiiiiooooouuuunc------";
-        for (var i = 0, l = from.length; i < l; i++) {
-            str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
-        }
-
-        str = str.replace(/[^a-z0-9 -]/g, '') // remove invalid chars
-                .replace(/\s+/g, '-') // collapse whitespace and replace by -
-                .replace(/-+/g, '-'); // collapse dashes
-
-        return str;
-    }
-    
     //Initialize Select2 Elements
     $(".select2").select2();
-
-
 
     $(".textarea").wysihtml5({
         toolbar: {
@@ -370,161 +424,8 @@ $(function () {
         '#tab_analise_postural_posterior'
     );
 
-    $(".protocol").select2().on('select2:select', function (e) {
-        var args = e.params.data;
-        $.ajax({
-            method: 'GET',
-            url: '/admin/tests/protocols/'+args.id+'/find_protocol',
-            success: function(data){
-                var html = '<div class="row" id="'+args.text+'" style="display: none;">';
-                    html += '<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">';
-                        html += '<div class="form-group">';
-                            html += '<h4>'+data.name+'.: '+data.formula+'</h4>';
-                            html += '<input type="hidden" name="protocol_'+data.id+'[id]" value="'+data.id+'">';
-                            html += '<h5>Resultado</h5>';
-                            html += '<input name="protocol_'+data.id+'[result]" type="text" class="number form-control">';
-                        html += '</div>';
-                    html += '</div>';
-                html += '</div>';
 
-                html = $(html);
-                html.hide();
-
-                $('#btn-save-frequencia-cardiaca-maxima').fadeIn('slow').removeClass('desactive');
-                $(html).insertBefore('#btn-save-frequencia-cardiaca-maxima');
-                $('.number').inputmask("[9]99.99", {
-                    "placeholder": ""
-                });
-                html.fadeIn('slow');
-
-            },
-            dataType: 'Json',
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-            }
-        });
-
-        /*var test = "<div class=\"row\" id=\"karnovem\" style=\"display: none;\">";
-        test += "<div class=\"col-xs-12 col-sm-12 col-md-12 col-lg-12\">";
-
-        test += "<div class=\"form-group\">";
-        test += "<label>Karnovem</label><br>";
-
-        test += "<label>Resultado</label>";
-        test += "<input type=\"text\" class=\"form-control\">";
-        test += "</div></div></div>";
-
-        test = $(test);
-
-        test.hide();
-
-        $('#form-test-frequencia-cardiaca').append(test);
-
-        test.fadeIn('slow');*/
-
-    }).on('select2:unselect', function(e){
-        var args = e.params.data;
-        window.console.log(e.params);
-        $.ajax({
-            method: 'DELETE',
-            url: '/admin/tests/'+test_id+'/protocols/'+args.id+'/destroy_frequencia_cardiaca_maxima',
-            success: function(data) {
-                $('#'+args.text).fadeOut('slow').promise().done(function(){
-                    $(this).remove();
-                    var rows = $('#save-frequencia-cardiaca-maxima .row').length;
-                    if(rows == 1){
-                        $('#btn-save-frequencia-cardiaca-maxima').fadeOut('slow').addClass('desactive');
-                    }
-                });
-            },
-            dataType: 'Json',
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-            }
-        });
-
-    });
-
-
-    /*$('#save-frequencia-cardiaca-maxima').on('submit', function(e){
-        e.stopPropagation();
-        e.preventDefault();
-        $.ajax({
-            url: $(this).attr('action'),
-            headers: {
-            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-            },
-            beforeSend: function(){
-            },
-            success: function(data){
-            },
-            dataType: 'Json'
-        });
-
-    });*/
-
-    function serialize(form) {
-        if (!form || form.nodeName !== "FORM") {
-            return;
-        }
-        var i, j, q = [];
-        for (i = form.elements.length - 1; i >= 0; i = i - 1) {
-            if (form.elements[i].name === "") {
-                continue;
-            }
-            switch (form.elements[i].nodeName) {
-                case 'INPUT':
-                    switch (form.elements[i].type) {
-                        case 'text':
-                        case 'hidden':
-                        case 'password':
-                        case 'button':
-                        case 'reset':
-                        case 'submit':
-                            q.push(form.elements[i].name + "=" + encodeURIComponent(form.elements[i].value));
-                            break;
-                        case 'checkbox':
-                        case 'radio':
-                            if (form.elements[i].checked) {
-                                q.push(form.elements[i].name + "=" + encodeURIComponent(form.elements[i].value));
-                            }
-                            break;
-                    }
-                    break;
-                case 'file':
-                    break;
-                case 'TEXTAREA':
-                    q.push(form.elements[i].name + "=" + encodeURIComponent(form.elements[i].value));
-                    break;
-                case 'SELECT':
-                    switch (form.elements[i].type) {
-                        case 'select-one':
-                            q.push(form.elements[i].name + "=" + encodeURIComponent(form.elements[i].value));
-                            break;
-                        case 'select-multiple':
-                            for (j = form.elements[i].options.length - 1; j >= 0; j = j - 1) {
-                                if (form.elements[i].options[j].selected) {
-                                    q.push(form.elements[i].name + "=" + encodeURIComponent(form.elements[i].options[j].value));
-                                }
-                            }
-                            break;
-                    }
-                    break;
-                case 'BUTTON':
-                    switch (form.elements[i].type) {
-                        case 'reset':
-                        case 'submit':
-                        case 'button':
-                            q.push(form.elements[i].name + "=" + encodeURIComponent(form.elements[i].value));
-                            break;
-                    }
-                    break;
-            }
-        }
-        return q.join("&");
-    }
-
-    var el = document.getElementById('save-frequencia-cardiaca-maxima');
+    /*var el = document.getElementById('save-frequencia-cardiaca-maxima');
     if(el != undefined || el != null) {
         el.addEventListener('submit', function (e) {
             e.preventDefault();
@@ -549,28 +450,19 @@ $(function () {
                     },
                     data: data,
                     success: function (data) {
-                        window.console.log(data);
-                        swal("Atualizado!", "", "success");
+                        if(data == 'true')
+                            swal("Atualizado!", "", "success");
+                        else
+                            swal("Oops...", "Something went wrong!", "error");
+                    },
+                    error: function(data){
+                        swal("Oops...", "Something went wrong!", "error");
                     }
                 });
 
             });
         }, false);
-    }
-
-    /*$('#save-frequencia-cardiaca-maxima').ajaxForm({
-        url: $(this).attr('action'),
-        type: "POST",
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-        },
-        beforeSend: function(){
-        },
-        success: function(data){
-        },
-        resetForm: true,
-        dataType: 'Json'
-    }).submit();*/
+    }*/
 
 
 });

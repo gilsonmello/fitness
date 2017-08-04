@@ -22,7 +22,7 @@ Route::resource('tests', 'TestController', [
 ]);
 
 Route::post('tests/{id}/update_frequencia_cardiaca', 'TestController@updateFrequenciaCardiaca')
-->name('backend.tests.update_frequencia_cardiaca');
+    ->name('backend.tests.update_frequencia_cardiaca');
 
 Route::post('tests/protocols/{id}/save_frequencia_cardiaca_maxima', 'TestController@saveFrequenciaCardiacaMaxima')
     ->name('backend.tests.save_frequencia_cardiaca_maxima');
@@ -32,3 +32,11 @@ Route::delete('tests/{test_id}/protocols/{id}/destroy_frequencia_cardiaca_maxima
 
 Route::get('tests/protocols/{id}/find_protocol', 'TestController@findProtocol')
     ->name('backend.tests.find_protocol');
+
+Route::post('tests/protocols/{id}/save_minimum_heart_rate', 'TestController@saveMinimumHeartRate')
+    ->name('backend.tests.save_minimum_heart_rate');
+
+Route::delete('tests/{test_id}/protocols/{id}/destroy_minimum_heart_rate', 'TestController@destroyMinimumHeartRate')
+    ->name('backend.tests.destroy_minimum_heart_rate');
+
+
