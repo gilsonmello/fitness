@@ -39,10 +39,39 @@ if (!function_exists('getValueSession')) {
 
 if(!function_exists('active')){
 	function active($condition){
+
 		$url = isset($_SERVER['REQUEST_URI']) && !empty($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : "";
-		if(strpos($url, $condition, 0) >= 0 && strpos($url, $condition, 0) != FALSE){
+		$url = explode('/', $url);
+		$root = $url[0];
+		$domain = $url[1];
+		$action = '';
+
+		if(isset($url[2])){
+			if(!empty($url[2])){
+				$action = $url[2];
+			}
+		}
+
+		//$uri = $root.''.$domain.'/'.$action;
+		if($condition === $domain && empty($action)){
 			return "active";
 		}
+
+		$uri = $domain.'/';
+		for($i = 2; $i < count($url); $i++){
+			$uri .= $url[$i];
+			if($uri === $condition){
+				return "active";
+			}
+			$uri .= '/';
+		}
+		/*$t = '';
+		foreach($url as $key => $value){
+			$t .= $value.'/';
+			if(strpos($t, $condition) !== FALSE){
+				return "active";
+			}
+		}*/
 		return "";
 	}
 }

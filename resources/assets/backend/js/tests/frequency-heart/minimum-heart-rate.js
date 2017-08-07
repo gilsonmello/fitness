@@ -3,37 +3,39 @@
  */
 $(function(){
 
-    var form = $('#save_frequencia_cardiaca_maxima');
-    var btn = $('#btn_save_frequencia_cardiaca_maxima');
-    //Código para seleção de procolos
-    $("#protocol_maximum_heart_rate").select2().on('select2:select', function (e) {
+    var form = $("#save_minimum_heart_rate");
+    var btn = $('#btn_save_minimum_heart_rate');
+    var row = $('#save_minimum_heart_rate').find('.row-input');
+    $("#protocol_minimum_heart_rate").select2().on('select2:select', function (e) {
         var args = e.params.data;
         $.ajax({
             method: 'GET',
             url: '/admin/tests/protocols/'+args.id+'/find_protocol',
             success: function(data){
-                var html = '<div class="row" id="'+args.text+'" style="display: none;">';
-                html += '<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">';
+                var html = '<div class="col-xs-12 col-sm-12 col-md-12 col-lg-6" id="'+args.text+'" style="display: none;">';
                 html += '<div class="form-group">';
-                html += '<h4>'+data.name+'.: '+data.formula+'</h4>';
+                html += '<label for="protocol_'+data.id+'[result]">'+data.name+'.: '+data.formula+'</label>';
                 html += '<input type="hidden" name="protocol_'+data.id+'[id]" value="'+data.id+'">';
-                html += '<h5>Resultado</h5>';
-                html += '<input name="protocol_'+data.id+'[result]" type="text" class="number maximum-heart-rate form-control">';
-                html += '</div>';
+                html += '<br><label>Resultado</label>';
+                html += '<input name="protocol_'+data.id+'[result]" type="text" class="number minimum_heart_rate form-control">';
                 html += '</div>';
                 html += '</div>';
 
                 html = $(html);
                 html.hide();
 
+
                 btn.fadeIn('slow').removeClass('desactive');
-                $(html).insertBefore(btn);
+
+                row.append(html);
+
                 $('.number').inputmask("[9]99.99", {
                     "placeholder": ""
                 });
+
                 html.fadeIn('slow');
 
-                html.find('.maximum-heart-rate').rules("add", {
+                html.find('.minimum_heart_rate').rules("add", {
                     required: true,
                     number: true,
                     minlength: true,
@@ -53,12 +55,14 @@ $(function(){
         var args = e.params.data;
         $.ajax({
             method: 'DELETE',
-            url: '/admin/tests/'+test_id+'/protocols/'+args.id+'/destroy_frequencia_cardiaca_maxima',
+            url: '/admin/tests/'+test_id+'/protocols/'+args.id+'/destroy_minimum_heart_rate',
             success: function(data) {
-                    form.find('#'+args.text).fadeOut('slow').promise().done(function(){
+                if(data == 'true')
+                    swal("Removido!", "", "success");
+                form.find('#'+args.text).fadeOut('slow').promise().done(function(){
                     $(this).remove();
-                    var rows = form.find('.row').length;
-                    if(rows == 1){
+                    var rows = form.find('.col-lg-6').length;
+                    if(rows == 0){
                         btn.fadeOut('slow').addClass('desactive');
                     }
                 });
@@ -71,10 +75,12 @@ $(function(){
 
     });
 
-   form.validate({
-        submitHandler: function(frm){
-            var data = serialize(frm);
-            var action = form.attr('action');
+
+
+    form.validate({
+        submitHandler: function(form){
+            var data = serialize(form);
+            var action = document.querySelector('#' + form.getAttribute('id')).getAttribute('action');
             swal({
                 title: "Você realmente deseja atualizar os dados?",
                 type: "info",
@@ -108,9 +114,7 @@ $(function(){
         }
     });
 
-
-    //Implementando validações para os inputs do formulário
-    $(".maximum-heart-rate").each(function (item) {
+    $(".minimum_heart_rate").each(function (item) {
         $(this).rules("add", {
             required: true,
             number: true,
@@ -126,5 +130,4 @@ $(function(){
             "placeholder": ""
         });
     });
-
 });

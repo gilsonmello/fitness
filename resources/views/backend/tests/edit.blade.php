@@ -79,4 +79,8 @@
         </div><!-- /.col -->
     </div>
     <!-- /.row -->
+
+    <script type="text/javascript">
+        var test_id = '{{$test->id}}';
+    </script>
 @endsection

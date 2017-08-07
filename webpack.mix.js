@@ -78,8 +78,8 @@ mix.scripts([
 ], 'public/backend/js/app.js');
 
 mix.scripts([
-    'resources/assets/backend/js/frequencia_cardiaca/maximum-heart-rate.js',
-    'resources/assets/backend/js/frequencia_cardiaca/minimum-heart-rate.js',
+    'resources/assets/backend/js/tests/frequency-heart/frequency-heart.js',
+    'resources/assets/backend/js/tests/maximum-vo2/maximum-vo2.js',
 ], 'public/backend/js/main.js');
 
 /*

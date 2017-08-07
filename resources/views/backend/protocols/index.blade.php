@@ -8,7 +8,7 @@
         <small>{{ trans('strings.protocols') }}</small>
     </h1>
     <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> {{ trans('strings.dashboard') }}</a></li>
+        <li><a href="{{route('backend.dashboard')}}"><i class="fa fa-dashboard"></i> {{ trans('strings.dashboard') }}</a></li>
         <li class="active">{{ trans('menus.protocols.index') }}</li>
     </ol>
 </section>

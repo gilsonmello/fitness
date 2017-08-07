@@ -37,4 +37,16 @@ class Test extends Model
     public function minimumHeartRate(){
         return $this->hasMany(\App\MinimumHeartRate::class);
     }
+
+    public function reserveHeartRate(){
+        return $this->hasMany(\App\ReserveHeartRate::class);
+    }
+
+    public function maximumVo2(){
+        return $this->hasMany(\App\MaximumVo2::class);
+    }
+
+    public function trainingVo2(){
+        return $this->hasMany(\App\TrainingVo2::class);
+    }
 }

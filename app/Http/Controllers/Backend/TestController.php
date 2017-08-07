@@ -74,12 +74,14 @@ class TestController extends Controller
      * @throws \App\Exceptions\GeneralException
      */
     public function edit($id){
+
         $test = $this->testRepository->findOrThrowException($id);
+
         $protocols = $this->testRepository->getProtocols();
-        $maximumHeartRates = $this->testRepository->getMaximumHeartRate($id);
 
         $protocols_id = [];
 
+        $maximumHeartRates = $this->testRepository->getMaximumHeartRate($id);
         if(count($maximumHeartRates) > 0) {
             foreach ($maximumHeartRates as $maximumHeartRate) {
                 $protocols_id['maximumHeartRate'][] = $maximumHeartRate->protocol->id;
@@ -89,7 +91,6 @@ class TestController extends Controller
         }
 
         $minimumHeartRates = $this->testRepository->getMinimumHeartRate($id);
-
         if(count($minimumHeartRates) > 0) {
             foreach ($minimumHeartRates as $minimumHeartRate) {
                 $protocols_id['minimumHeartRate'][] = $minimumHeartRate->protocol->id;
@@ -98,9 +99,40 @@ class TestController extends Controller
             $protocols_id['minimumHeartRate'][] = NULL;
         }
 
+        $reserveHeartRates = $this->testRepository->getReserveHeartRate($id);
+        if(count($reserveHeartRates) > 0) {
+            foreach ($reserveHeartRates as $reserveHeartRate) {
+                $protocols_id['reserveHeartRate'][] = $reserveHeartRate->protocol->id;
+            }
+        }else{
+            $protocols_id['reserveHeartRate'][] = NULL;
+        }
 
 
-        return view('backend.tests.edit', compact('test', 'protocols', 'protocols_id', 'maximumHeartRate', 'minimumHeartRates'));
+        $maximumVo2 = $this->testRepository->getMaximumVo2($id);
+        if(count($maximumVo2) > 0) {
+            foreach ($maximumVo2 as $value) {
+                $protocols_id['maximumVo2'][] = $value->protocol->id;
+            }
+        }else{
+            $protocols_id['maximumVo2'][] = NULL;
+        }
+
+        $trainingVo2 = $this->testRepository->getTrainingVo2($id);
+        if(count($trainingVo2) > 0) {
+            foreach ($trainingVo2 as $value) {
+                $protocols_id['trainingVo2'][] = $value->protocol->id;
+            }
+        }else{
+            $protocols_id['trainingVo2'][] = NULL;
+        }
+
+
+        return view('backend.tests.edit', compact(
+            'test',
+            'protocols',
+            'protocols_id'
+        ));
     }
 
 
@@ -123,8 +155,8 @@ class TestController extends Controller
      * @param $id
      * @param Request $request
      */
-    public function saveFrequenciaCardiacaMaxima($id, Request $request){
-        if($this->testRepository->saveFrequenciaCardiacaMaxima($id, $request)){
+    public function saveMaximumHeartRate($id, Request $request){
+        if($this->testRepository->saveMaximumHeartRate($id, $request)){
             return die(json_encode('true'));
         }
         return die(json_encode('false'));
@@ -134,8 +166,8 @@ class TestController extends Controller
      * @param $test_id
      * @param $protocol_id
      */
-    public function destroyFrequenciaCardiacaMaxima($test_id, $protocol_id){
-        if($this->testRepository->destroyFrequenciaCardiacaMaxima($test_id, $protocol_id)){
+    public function destroyMaximumHeartRate($test_id, $protocol_id){
+        if($this->testRepository->destroyMaximumHeartRate($test_id, $protocol_id)){
             return die(json_encode('true'));
         }
         return die(json_encode('false'));
@@ -158,6 +190,72 @@ class TestController extends Controller
      */
     public function destroyMinimumHeartRate($test_id, $protocol_id){
         if($this->testRepository->destroyMinimumHeartRate($test_id, $protocol_id)){
+            return die(json_encode('true'));
+        }
+        return die(json_encode('false'));
+    }
+
+    /**
+     * @param $id
+     * @param Request $request
+     */
+    public function saveReserveHeartRate($id, Request $request){
+        if($this->testRepository->saveReserveHeartRate($id, $request)){
+            return die(json_encode('true'));
+        }
+        return die(json_encode('false'));
+    }
+
+    /**
+     * @param $test_id
+     * @param $protocol_id
+     */
+    public function destroyReserveHeartRate($test_id, $protocol_id){
+        if($this->testRepository->destroyReserveHeartRate($test_id, $protocol_id)){
+            return die(json_encode('true'));
+        }
+        return die(json_encode('false'));
+    }
+
+    /**
+     * @param $id
+     * @param Request $request
+     */
+    public function saveMaximumVo2($id, Request $request){
+        if($this->testRepository->saveMaximumVo2($id, $request)){
+            return die(json_encode('true'));
+        }
+        return die(json_encode('false'));
+    }
+
+    /**
+     * @param $test_id
+     * @param $protocol_id
+     */
+    public function destroyMaximumVo2($test_id, $protocol_id){
+        if($this->testRepository->destroyMaximumVo2($test_id, $protocol_id)){
+            return die(json_encode('true'));
+        }
+        return die(json_encode('false'));
+    }
+
+    /**
+     * @param $id
+     * @param Request $request
+     */
+    public function saveTrainingVo2($id, Request $request){
+        if($this->testRepository->saveTrainingVo2($id, $request)){
+            return die(json_encode('true'));
+        }
+        return die(json_encode('false'));
+    }
+
+    /**
+     * @param $test_id
+     * @param $protocol_id
+     */
+    public function destroyTrainingVo2($test_id, $protocol_id){
+        if($this->testRepository->destroyTrainingVo2($test_id, $protocol_id)){
             return die(json_encode('true'));
         }
         return die(json_encode('false'));

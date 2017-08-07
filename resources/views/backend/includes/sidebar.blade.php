@@ -27,73 +27,53 @@
                 </span>
             </div>
         </form>
-        <!-- /.search form -->
-
         <!-- Sidebar Menu -->
         <ul class="sidebar-menu">
-            <li class="header">HEADER</li>
-            <!-- Optionally, you can add icons to the links -->
-            <li class="active">
-                <a href="#">
-                    <span>Link</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <span>Another Link</span>
-                </a>
-            </li>
-            <li>
+            <li class="{{ active('admin') }}">
                 <a href="{{ route('backend.dashboard') }}">
                     <span>Dashboard</span>
                 </a>
             </li>
             @if (access()->hasPermission('backend.view'))
-                <li class="treeview {{ active('admin/questions') }} {{ active('admin/question_group') }}">
-                    <a href="#">
-                        <span>Questões</span> 
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li class="{{ active('admin/questions') }}">
-                            <a href="{{ route('backend.questions.index') }}">{{ trans('strings.questions') }}</a>
-                        </li>
-                        <li class="{{ active('admin/question_group') }}">
-                            <a href="{{ route('backend.question_group.index') }}">{{  trans('strings.question_group') }}</a>
-                        </li>
-                    </ul>
-                </li>
+                    <li class="treeview {{ active('admin/evaluations') }}">
+                        <a href="#">
+                            <span>Avaliação Física</span>
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li class="{{ active('admin/evaluations') }}">
+                                <a href="{{ route('backend.evaluations.index') }}">{{ trans('strings.evaluations') }}</a>
+                            </li>
+                        </ul>
+                    </li>
 
-                <li class="treeview {{ active('admin/evaluations') }} {{ active('admin/ipacs') }}">
-                    <a href="#">
-                        <span>Avaliação Física</span>
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li class="{{ active('admin/evaluations') }}">
-                            <a href="{{ route('backend.evaluations.index') }}">{{ trans('strings.evaluations') }}</a>
-                        </li>
-                        <li class="{{ active('admin/ipacs') }}">
-                            <a href="{{ route('backend.parqs.index') }}">{{  trans('strings.ipacs') }}</a>
-                        </li>
-                    </ul>
-                </li>
+                    <li class="treeview {{ active('admin/tests') }} {{ active('admin/protocols') }}">
+                        <a href="#">
+                            <span>Testes</span>
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li class="{{ active('admin/tests') }}">
+                                <a href="{{ route('backend.tests.index') }}">{{ trans('strings.tests') }}</a>
+                            </li>
+                            <li class="{{ active('admin/protocols') }}">
+                                <a href="{{ route('backend.protocols.index') }}">{{  trans('strings.protocols') }}</a>
+                            </li>
+                        </ul>
+                    </li>
 
-                <li class="treeview {{ active('admin/tests') }} {{ active('admin/tests') }}">
-                    <a href="#">
-                        <span>Testes</span>
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li class="{{ active('admin/tests') }}">
-                            <a href="{{ route('backend.tests.index') }}">{{ trans('strings.tests') }}</a>
-                        </li>
-                        <li class="{{ active('admin/protocols') }}">
-                            <a href="{{ route('backend.protocols.index') }}">{{  trans('strings.protocols') }}</a>
-                        </li>
-                    </ul>
-                </li>
-            @endif
+                    <li class="treeview">
+                        <a href="#">
+                            <span>Relatórios</span>
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li class="#">
+                                <a href="#">{{ trans('strings.users') }}</a>
+                            </li>
+                        </ul>
+                    </li>
+                @endif
         </ul><!-- /.sidebar-menu -->
     </section>
     <!-- /.sidebar -->

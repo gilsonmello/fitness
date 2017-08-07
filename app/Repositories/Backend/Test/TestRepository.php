@@ -6,6 +6,9 @@ use App\Test;
 use App\Exceptions\GeneralException;
 use App\Protocol;
 use App\MaximumHeartRate;
+use App\ReserveHeartRate;
+use App\MaximumVo2;
+use App\TrainingVo2;
 
 /**
  * Class QuestionRepository
@@ -22,6 +25,9 @@ class TestRepository{
         $this->protocol = new Protocol;
         $this->maximumHeartRate = new MaximumHeartRate;
         $this->minimumHeartRate = new MinimumHeartRate;
+        $this->reserveHeartRate = new ReserveHeartRate;
+        $this->maximumVo2 = new MaximumVo2;
+        $this->trainingVo2 = new TrainingVo2;
     }
 
     /**
@@ -77,6 +83,27 @@ class TestRepository{
      */
     public function getMinimumHeartRate($id){
         return $this->minimumHeartRate->where('test_id', '=', $id)->get();
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
+    public function getReserveHeartRate($id){
+        return $this->reserveHeartRate->where('test_id', '=', $id)->get();
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
+    public function getMaximumVo2($id){
+        return $this->maximumVo2->where('test_id', '=', $id)->get();
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
+    public function getTrainingVo2($id){
+        return $this->trainingVo2->where('test_id', '=', $id)->get();
     }
 
     /**
@@ -148,7 +175,7 @@ class TestRepository{
         throw new GeneralException("There was a problem deleting this parq. Please try again.");
     }
 
-    public function saveFrequenciaCardiacaMaxima($id, $request){
+    public function saveMaximumHeartRate($id, $request){
         $data = $request->all();
         if(count($data) > 1){
             unset($data['_token']);
@@ -197,7 +224,7 @@ class TestRepository{
         return false;
     }
 
-    public function destroyFrequenciaCardiacaMaxima($teste_id, $protocol_id){
+    public function destroyMaximumHeartRate($teste_id, $protocol_id){
         $test = $this->findOrThrowException($teste_id);
         $protocol = $this->protocol->find($protocol_id);
         $maximumHeartRate = $this->maximumHeartRate
@@ -215,19 +242,118 @@ class TestRepository{
 
 
     public function saveMinimumHeartRate($id, $request){
+
+        //Todos os dados da requisição
+        $data = $request->all();
+
+        //Removendo o token do array
+        unset($data['_token']);
+
+        //Buscando o teste
+        $test = $this->findOrThrowException($id);
+
+        //Se já existir um teste de frequencia cardiaca mínima, tentará atualizar os já existentes
+        //Se não, irá criar todos os testes feito
+        if(count($test->minimumHeartRate) > 0){
+
+            //Loop em todos os dados informados no formulário
+            foreach($data as $key => $value){
+
+                //Busco o teste de frequencia cardíaca mínima
+                $minimumHeartRates = $this->minimumHeartRate->where('protocol_id', '=', $value['id'])
+                    ->where('test_id', '=', $test->id)
+                    ->get()
+                    ->first();
+
+                //Se já existir um teste de frequencia cardiaca mínima cadastrada para o teste e o protocolo
+                //Se não existir, crio um novo teste de frequencia cardiaca mínima
+                if(!is_null($minimumHeartRates)){
+                    //Tento atualizar o registro já existente
+                    $save = $minimumHeartRates->update([
+                            'result' => $value['result'],
+                        ]);
+                    //Se não atualizar retorno falso
+                    if(!$save){
+                        return false;
+                    }
+                }else{
+                    $this->minimumHeartRate->test_id = $test->id;
+                    $this->minimumHeartRate->result = $value['result'];
+                    $this->minimumHeartRate->protocol_id = $value['id'];
+                    //Se não salvar, retorno falso
+                    if (!$this->minimumHeartRate->save()) {
+                        return false;
+                    }
+                    $this->minimumHeartRate = new MinimumHeartRate;
+                }
+            }
+            //Se todos os dados foram salvos e atualizados, retorno true
+            return true;
+        }else{
+
+            //Loop em todos os dados informados no formulário
+            foreach($data as $key => $value) {
+
+                $this->minimumHeartRate->test_id = $test->id;
+                $this->minimumHeartRate->result = $value['result'];
+                $this->minimumHeartRate->protocol_id = $value['id'];
+
+                //Se não salvar, retorno falso
+                if (!$this->minimumHeartRate->save()) {
+                    return false;
+                }
+
+                $this->minimumHeartRate = new MinimumHeartRate;
+
+            }
+            //Se todos os dados foram salvos e atualizados, retorno true
+            return true;
+        }
+    }
+
+    /**
+     * @param $test_id
+     * @param $protocol_id
+     * @return bool
+     * @throws GeneralException
+     */
+    public function destroyMinimumHeartRate($test_id, $protocol_id){
+        $test = $this->findOrThrowException($test_id);
+        $protocol = $this->protocol->find($protocol_id);
+        $minimumHeartRate= $this->minimumHeartRate
+            ->where('test_id', '=', $test->id)
+            ->where('protocol_id', '=', $protocol->id)
+            ->get()
+            ->first();
+        if (!is_null($minimumHeartRate)) {
+            if($minimumHeartRate->delete()){
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    /**
+     * @param $id
+     * @param $request
+     * @return bool
+     * @throws GeneralException
+     */
+    public function saveReserveHeartRate($id, $request){
         $data = $request->all();
         if(count($data) > 1){
             unset($data['_token']);
             $test = $this->findOrThrowException($id);
-            if(count($test->minimumHeartRate) > 0){
+            if(count($test->reserveHeartRate) > 0){
                 foreach($data as $key => $value){
-                    $minimumHeartRates = $this->minimumHeartRate->where('protocol_id', '=', $value['id'])
+                    $reserveHeartRates = $this->reserveHeartRate->where('protocol_id', '=', $value['id'])
                         ->where('test_id', '=', $test->id)
                         ->get()
                         ->first();
                     //Se já existir uma frequencia cardiaca cadastrada para o teste e o protocolo
-                    if(!is_null($minimumHeartRates)){
-                        $save = $this->minimumHeartRate->where('test_id', '=', $test->id)
+                    if(!is_null($reserveHeartRates)){
+                        $save = $this->reserveHeartRate->where('test_id', '=', $test->id)
                             ->where('protocol_id', '=', $value['id'])
                             ->update([
                                 'result' => $value['result'],
@@ -237,25 +363,25 @@ class TestRepository{
                         }
                     }else{
                         //Se não existir, crio um novo teste de frequencia cardiaca maxima
-                        $this->minimumHeartRate->test_id = $test->id;
-                        $this->minimumHeartRate->result = $value['result'];
-                        $this->minimumHeartRate->protocol_id = $value['id'];
-                        if (!$this->minimumHeartRate->save()) {
+                        $this->reserveHeartRate->test_id = $test->id;
+                        $this->reserveHeartRate->result = $value['result'];
+                        $this->reserveHeartRate->protocol_id = $value['id'];
+                        if (!$this->reserveHeartRate->save()) {
                             return false;
                         }
-                        $this->minimumHeartRate = new MinimumHeartRate;
+                        $this->reserveHeartRate = new ReserveHeartRate;
                     }
                 }
                 return true;
             }else{
                 foreach($data as $key => $value) {
-                    $this->minimumHeartRate->test_id = $test->id;
-                    $this->minimumHeartRate->result = $value['result'];
-                    $this->minimumHeartRate->protocol_id = $value['id'];
-                    if (!$this->minimumHeartRate->save()) {
+                    $this->reserveHeartRate->test_id = $test->id;
+                    $this->reserveHeartRate->result = $value['result'];
+                    $this->reserveHeartRate->protocol_id = $value['id'];
+                    if (!$this->reserveHeartRate->save()) {
                         return false;
                     }
-                    $this->minimumHeartRate = new MinimumHeartRate;
+                    $this->reserveHeartRate = new ReserveHeartRate;
                 }
                 return true;
             }
@@ -269,21 +395,192 @@ class TestRepository{
      * @return bool
      * @throws GeneralException
      */
-    public function destroyMinimumHeartRate($test_id, $protocol_id){
+    public function destroyReserveHeartRate($test_id, $protocol_id){
         $test = $this->findOrThrowException($test_id);
         $protocol = $this->protocol->find($protocol_id);
-        $minimumHeartRate = $this->minimumHeartRate
+        $reserveHeartRate = $this->reserveHeartRate
             ->where('test_id', '=', $test->id)
             ->where('protocol_id', '=', $protocol->id)
             ->get()
             ->first();
-        if (!is_null($minimumHeartRate)) {
-            if($minimumHeartRate->delete()){
+        if (!is_null($reserveHeartRate)) {
+            if($reserveHeartRate->delete()){
                 return true;
             }
         }
         return false;
     }
+
+    /**
+     * @param $id
+     * @param $request
+     * @return bool
+     * @throws GeneralException
+     */
+    public function saveMaximumVo2($id, $request){
+        $data = $request->all();
+        if(count($data) > 1){
+            unset($data['_token']);
+            $test = $this->findOrThrowException($id);
+            if(count($test->maximumVo2) > 0){
+                foreach($data as $key => $value){
+                    $maximumVo2 = $this->maximumVo2->where('protocol_id', '=', $value['id'])
+                        ->where('test_id', '=', $test->id)
+                        ->get()
+                        ->first();
+                    //Se já existir uma frequencia cardiaca cadastrada para o teste e o protocolo
+                    if(!is_null($maximumVo2)){
+                        $save = $this->maximumVo2->where('test_id', '=', $test->id)
+                            ->where('protocol_id', '=', $value['id'])
+                            ->update([
+                                'result' => $value['result'],
+                            ]);
+                        if(!$save){
+                            return false;
+                        }
+                    }else{
+                        //Se não existir, crio um novo teste de frequencia cardiaca maxima
+                        $this->maximumVo2->test_id = $test->id;
+                        $this->maximumVo2->result = $value['result'];
+                        $this->maximumVo2->protocol_id = $value['id'];
+                        if (!$this->maximumVo2->save()) {
+                            return false;
+                        }
+                        $this->maximumVo2 = new MaximumVo2;
+                    }
+                }
+                return true;
+            }else{
+                foreach($data as $key => $value) {
+                    $this->maximumVo2->test_id = $test->id;
+                    $this->maximumVo2->result = $value['result'];
+                    $this->maximumVo2->protocol_id = $value['id'];
+                    if (!$this->maximumVo2->save()) {
+                        return false;
+                    }
+                    $this->maximumVo2 = new MaximumVo2;
+                }
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * @param $test_id
+     * @param $protocol_id
+     * @return bool
+     * @throws GeneralException
+     */
+    public function destroyMaximumVo2($test_id, $protocol_id){
+        $test = $this->findOrThrowException($test_id);
+        $protocol = $this->protocol->find($protocol_id);
+        $maximumVo2 = $this->maximumVo2
+            ->where('test_id', '=', $test->id)
+            ->where('protocol_id', '=', $protocol->id)
+            ->get()
+            ->first();
+        if (!is_null($maximumVo2)) {
+            if($maximumVo2->delete()){
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    public function saveTrainingVo2($id, $request){
+
+        //Todos os dados da requisição
+        $data = $request->all();
+
+        //Removendo o token do array
+        unset($data['_token']);
+
+        //Buscando o teste
+        $test = $this->findOrThrowException($id);
+
+        //Se já existir um teste de frequencia cardiaca mínima, tentará atualizar os já existentes
+        //Se não, irá criar todos os testes feito
+        if(count($test->trainingVo2) > 0){
+
+            //Loop em todos os dados informados no formulário
+            foreach($data as $key => $value){
+
+                //Busco o teste de frequencia cardíaca mínima
+                $trainingVo2 = $this->trainingVo2->where('protocol_id', '=', $value['id'])
+                    ->where('test_id', '=', $test->id)
+                    ->get()
+                    ->first();
+
+                //Se já existir um teste de frequencia cardiaca mínima cadastrada para o teste e o protocolo
+                //Se não existir, crio um novo teste de frequencia cardiaca mínima
+                if(!is_null($trainingVo2)){
+                    //Tento atualizar o registro já existente
+                    $save = $trainingVo2->update([
+                        'result' => $value['result'],
+                    ]);
+                    //Se não atualizar retorno falso
+                    if(!$save){
+                        return false;
+                    }
+                }else{
+                    $this->trainingVo2->test_id = $test->id;
+                    $this->trainingVo2->result = $value['result'];
+                    $this->trainingVo2->protocol_id = $value['id'];
+                    //Se não salvar, retorno falso
+                    if (!$this->trainingVo2->save()) {
+                        return false;
+                    }
+                    $this->trainingVo2 = new TrainingVo2;
+                }
+            }
+            //Se todos os dados foram salvos e atualizados, retorno true
+            return true;
+        }else{
+
+            //Loop em todos os dados informados no formulário
+            foreach($data as $key => $value) {
+
+                $this->trainingVo2->test_id = $test->id;
+                $this->trainingVo2->result = $value['result'];
+                $this->trainingVo2->protocol_id = $value['id'];
+
+                //Se não salvar, retorno falso
+                if (!$this->trainingVo2->save()) {
+                    return false;
+                }
+
+                $this->trainingVo2 = new TrainingVo2;
+
+            }
+            //Se todos os dados foram salvos e atualizados, retorno true
+            return true;
+        }
+    }
+
+    /**
+     * @param $test_id
+     * @param $protocol_id
+     * @return bool
+     * @throws GeneralException
+     */
+    public function destroyTrainingVo2($test_id, $protocol_id){
+        $test = $this->findOrThrowException($test_id);
+        $protocol = $this->protocol->find($protocol_id);
+        $trainingVo2= $this->trainingVo2
+            ->where('test_id', '=', $test->id)
+            ->where('protocol_id', '=', $protocol->id)
+            ->get()
+            ->first();
+        if (!is_null($trainingVo2)) {
+            if($trainingVo2->delete()){
+                return true;
+            }
+        }
+        return false;
+    }
+
 
 
 }
