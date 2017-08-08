@@ -96,14 +96,18 @@ function tests(param){
 
         $.ajax({
             method: 'GET',
-            url: '/admin/tests/protocols/'+args.id+'/find_protocol',
+            url: '/admin/tests/'+test_id+'/protocols/'+args.id+'/find_protocol',
             success: function(data){
+                var result = '';
+                if(data.result != ''){
+                    result = data.result;
+                }
                 var html = '<div class="col-xs-12 col-sm-12 col-md-12 col-lg-6" id="'+args.text+'" style="display: none;">';
                 html += '<div class="form-group">';
                 html += '<label for="protocol_'+data.id+'[result]">'+data.name+'.: '+data.formula+'</label>';
                 html += '<input type="hidden" name="protocol_'+data.id+'[id]" value="'+data.id+'">';
                 html += '<br><label>Resultado</label>';
-                html += '<input id="protocol_'+data.id+'[result]" name="protocol_'+data.id+'[result]" type="text" class="number '+classInputText+' form-control">';
+                html += '<input id="protocol_'+data.id+'[result]" value="'+result+'" name="protocol_'+data.id+'[result]" type="text" class="number '+classInputText+' form-control">';
                 html += '</div>';
                 html += '</div>';
                 html = $(html);

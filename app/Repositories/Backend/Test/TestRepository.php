@@ -9,6 +9,7 @@ use App\MaximumHeartRate;
 use App\ReserveHeartRate;
 use App\MaximumVo2;
 use App\TrainingVo2;
+use App\User;
 
 /**
  * Class QuestionRepository
@@ -28,6 +29,7 @@ class TestRepository{
         $this->reserveHeartRate = new ReserveHeartRate;
         $this->maximumVo2 = new MaximumVo2;
         $this->trainingVo2 = new TrainingVo2;
+        $this->user = new User;
     }
 
     /**
@@ -118,8 +120,50 @@ class TestRepository{
      * @return mixed
      * @throws GeneralException
      */
-    public function findProtocol($id){
+    public function findProtocol($test_id, $id){
         $protocol = $this->protocol->find($id);
+        $test = $this->findOrThrowException($test_id);
+        if(!is_null($protocol)){
+            //Procurando na tabela de usuários
+            foreach($this->user->getTableColumns() as $tableUser){
+                if(strpos($protocol->formula, $tableUser) !== FALSE){
+                    $birth_date = $this->user->select(''.$tableUser.'')->where('id', '=', $test->user->id)->get()->first();
+                    $protocol->formula = str_replace($tableUser, $birth_date->{$tableUser}, $protocol->formula);
+                    $protocol->result = !empty(eval('return '.$protocol->formula.';')) ? eval('return '.$protocol->formula.';') : NULL;
+                    $protocol->result = number_format($protocol->result, 2, '.', '');
+                    if($protocol->result != NULL){
+                        return $protocol;
+                    }
+                }
+            }
+
+           /* //Procurando na tabela de usuários
+            foreach($this->trainingVo2->getTableColumns() as $tableTrainingVo2){
+                dd($this->trainingVo2->getTableColumns());
+                if(strpos($protocol->formula, $tableTrainingVo2) !== FALSE){
+                    $birth_date = $this->user->select(''.$tableTrainingVo2.'')->where('id', '=', $test->user->id)->get()->first();
+                    $protocol->formula = str_replace($tableTrainingVo2, $birth_date->{$tableTrainingVo2}, $protocol->formula);
+                    $protocol->result = !empty(eval('return '.$protocol->formula.';')) ? eval('return '.$protocol->formula.';') : NULL;
+                    $protocol->result = number_format($protocol->result, 2, '.', '');
+                    if($protocol->result != NULL){
+                        return $protocol;
+                    }
+                }
+            }*/
+
+            return $this->protocol->find($id);
+        }
+        throw new GeneralException("That test does not exist.");
+    }
+
+    /**
+     * @param $id
+     * @return mixed
+     * @throws GeneralException
+     */
+    public function findProtocolMaximumVo2($test_id, $id){
+        $protocol = $this->protocol->find($id);
+        $test = $this->findOrThrowException($test_id);
         if(!is_null($protocol)){
             return $this->protocol->find($id);
         }

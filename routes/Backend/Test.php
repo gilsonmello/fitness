@@ -30,7 +30,7 @@ Route::post('tests/protocols/{id}/save_maximum_heart_rate', 'TestController@save
 Route::delete('tests/{test_id}/protocols/{id}/destroy_maximum_heart_rate', 'TestController@destroyMaximumHeartRate')
     ->name('backend.tests.destroy_maximum_heart_rate');
 
-Route::get('tests/protocols/{id}/find_protocol', 'TestController@findProtocol')
+Route::get('tests/{test_id}/protocols/{id}/find_protocol', 'TestController@findProtocol')
     ->name('backend.tests.find_protocol');
 
 Route::post('tests/protocols/{id}/save_minimum_heart_rate', 'TestController@saveMinimumHeartRate')

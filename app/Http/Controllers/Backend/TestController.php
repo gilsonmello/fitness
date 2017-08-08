@@ -140,13 +140,14 @@ class TestController extends Controller
      * @param $id
      * @throws \App\Exceptions\GeneralException
      */
-    public function findProtocol($id){
-        $protocol = $this->testRepository->findProtocol($id);
+    public function findProtocol($test_id, $id){
+        $protocol = $this->testRepository->findProtocol($test_id, $id);
         return die(
             json_encode([
                 'id' => $protocol->id,
                 'name' => $protocol->name,
-                'formula' => $protocol->formula
+                'formula' => $protocol->formula,
+                'result' => isset($protocol->result) ? $protocol->result : '',
             ])
         );
     }
