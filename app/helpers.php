@@ -76,6 +76,12 @@ if(!function_exists('active')){
 	}
 }
 
+if(!function_exists('string_replace')){
+	function string_replace(array $condition, $replace, $str){
+		return str_replace($condition, $replace, $str);
+	}
+}
+
 if (!function_exists('format_with_mask')) {
 
 	/**

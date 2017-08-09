@@ -154,6 +154,23 @@ class TestController extends Controller
 
     /**
      * @param $id
+     * @throws \App\Exceptions\GeneralException
+     */
+    public function findProtocolVo2Maximum($test_id, $id){
+        $protocol = $this->testRepository->findProtocolVo2Maximum($test_id, $id);
+        return die(
+            json_encode([
+                'id' => $protocol->id,
+                'name' => $protocol->name,
+                'formula' => $protocol->formula,
+                'result' => isset($protocol->result) ? $protocol->result : '',
+                'notFind' => isset($protocol->notFind) ? $protocol->notFind : NULL,
+            ])
+        );
+    }
+
+    /**
+     * @param $id
      * @param Request $request
      */
     public function saveMaximumHeartRate($id, Request $request){

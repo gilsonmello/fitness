@@ -15518,6 +15518,7 @@ function tests(param){
     var inputText = param.inputText;
     var row = param.row;
     var routeDestroy = param.route.destroy;
+    var routeFind = param.route.find != undefined ? param.route.find : 'find_protocol';
 
     //Código para seleção de procolos
     inputSelect.select2().on('select2:select', function (e) {
@@ -15525,7 +15526,7 @@ function tests(param){
 
         $.ajax({
             method: 'GET',
-            url: '/admin/tests/'+test_id+'/protocols/'+args.id+'/find_protocol',
+            url: '/admin/tests/'+test_id+'/protocols/'+args.id+'/'+routeFind,
             success: function(data){
                 var result = '';
                 if(data.result != ''){
@@ -15537,6 +15538,15 @@ function tests(param){
                 html += '<input type="hidden" name="protocol_'+data.id+'[id]" value="'+data.id+'">';
                 html += '<br><label>Resultado</label>';
                 html += '<input id="protocol_'+data.id+'[result]" value="'+result+'" name="protocol_'+data.id+'[result]" type="text" class="number '+classInputText+' form-control">';
+
+                if(data.notFind.length != 0){
+                    window.console.log(data);
+                    for(var i = 0; i < data.notFind.length; i++){
+                        html += '<br><label>'+data.notFind[i]+'</label>';
+                        html += '<input id="maximum_vo2_'+data.notFind[i]+'" value="" name="'+data.notFind[i]+'" type="text" class="number form-control">';
+                    }
+                }
+
                 html += '</div>';
                 html += '</div>';
                 html = $(html);
@@ -15547,7 +15557,6 @@ function tests(param){
                 row.append(html);
 
 
-                window.console.log(html, row);
 
                 $('.number').inputmask("[9]99.99", {
                     "placeholder": ""

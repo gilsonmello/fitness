@@ -8,7 +8,8 @@ $(function(){
         inputText: $('.input_maximum_vo2'),
         row: $('#save_maximum_vo2').find('.row-input'),
         route: {
-            destroy: 'destroy_maximum_vo2'
+            destroy: 'destroy_maximum_vo2',
+            find: 'find_protocol_maximum_vo2'
         }
     });
 

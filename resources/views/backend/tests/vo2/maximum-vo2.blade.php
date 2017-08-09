@@ -34,6 +34,9 @@
         </div>
         <div class="row {{$desactive}}" id="btn_save_maximum_vo2">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="pull-left">
+                    <button class="btn btn-xs btn-success btn-calculate">{{ trans('strings.Calculate') }}</button>
+                </div>
                 <div class="pull-right">
                     <input type="submit" class="btn btn-xs btn-primary" value="{{ trans('strings.save_button') }}" />
                 </div>

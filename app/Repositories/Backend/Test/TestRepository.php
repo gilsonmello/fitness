@@ -115,18 +115,82 @@ class TestRepository{
         return $this->maximumHeartRate->where('test_id', '=', $id)->get();
     }
 
+    private function findAttribute($arr, $val){
+        $notFind = [];
+        foreach($arr as $value){
+            if($value == $val){
+                return $val;
+            }else{
+                $notFind[] = $value;
+            }
+        }
+        return $notFind;
+    }
+
     /**
      * @param $id
      * @return mixed
      * @throws GeneralException
      */
-    public function findProtocol($test_id, $id){
+    public function findProtocolVo2Maximum($test_id, $id){
         $protocol = $this->protocol->find($id);
         $test = $this->findOrThrowException($test_id);
+        $notFind = [];
         if(!is_null($protocol)){
             //Procurando na tabela de usuários
-            foreach($this->user->getTableColumns() as $tableUser){
-                if(strpos($protocol->formula, $tableUser) !== FALSE){
+            $attributes = preg_split('/<|>|[0-9|\-|\/|\*|\+]/i',$protocol->formula, -1);
+            $collums = $this->user->getTableColumns();
+            $formula = $protocol->formula;
+            $notFind = [];
+            $attributes = array_filter($attributes);
+            foreach($attributes as $attribute){
+                if(in_array($attribute, $collums)){
+                    $birth_date = $this->user->select(''.$attribute.'')->where('id', '=', $test->user->id)->get()->first();
+                    $formula = str_replace($attribute, $birth_date->{$attribute}, $formula);
+                }else{
+                    $notFind[] = $attribute;
+                }
+            }
+            $formula = string_replace(['<', '>'], '', $formula);
+            try{
+                $protocol->result = !empty(eval('return '.$formula.';')) ? eval('return '.$formula.';') : NULL;
+                $protocol->result = number_format($protocol->result, 2, '.', '');
+                return $protocol;
+            }catch(\Exception $e){
+                $protocol->notFind = $notFind;
+                return $protocol;
+            }
+
+            /*foreach($collums as $collum){
+                if(strpos($protocol->formula, $collum) !== FALSE){
+                    $birth_date = $this->user->select(''.$collum.'')->where('id', '=', $test->user->id)->get()->first();
+                    $formula = str_replace($collum, $birth_date->{$collum}, $formula);
+                }else{
+                    $notFind = $protocol->formula;
+                }
+            }
+            dd($formula, $collums);*/
+            /*$protocol->formula = str_replace($collum, $birth_date->{$collum}, $protocol->formula);
+            $protocol->result = !empty(eval('return '.$protocol->formula.';')) ? eval('return '.$protocol->formula.';') : NULL;
+            $protocol->result = number_format($protocol->result, 2, '.', '');
+            if($protocol->result != NULL){
+                return $protocol;
+            }*/
+
+            /*foreach($this->user->getTableColumns() as $tableUser){
+                echo '<pre>';
+                if(in_array($tableUser, $teste)){
+                    $attribute = $this->user->select(''.$tableUser.'')->where('id', '=', $test->user->id)->get()->first();
+                    dd($attribute->{$tableUser}, $tableUser, $protocol->formula);
+                    $protocol->formula = str_replace($tableUser, $attribute->{$tableUser}, $protocol->formula);
+                    $protocol->result = !empty(eval('return '.$protocol->formula.';')) ? eval('return '.$protocol->formula.';') : NULL;
+                    $protocol->result = number_format($protocol->result, 2, '.', '');
+                    if($protocol->result != NULL){
+                        return $protocol;
+                    }
+                }
+                if($this->findAttribute($teste, $tableUser)){
+                //if(strpos($protocol->formula, $tableUser) !== FALSE){
                     $birth_date = $this->user->select(''.$tableUser.'')->where('id', '=', $test->user->id)->get()->first();
                     $protocol->formula = str_replace($tableUser, $birth_date->{$tableUser}, $protocol->formula);
                     $protocol->result = !empty(eval('return '.$protocol->formula.';')) ? eval('return '.$protocol->formula.';') : NULL;
@@ -135,7 +199,7 @@ class TestRepository{
                         return $protocol;
                     }
                 }
-            }
+            }*/
 
            /* //Procurando na tabela de usuários
             foreach($this->trainingVo2->getTableColumns() as $tableTrainingVo2){
@@ -151,7 +215,6 @@ class TestRepository{
                 }
             }*/
 
-            return $this->protocol->find($id);
         }
         throw new GeneralException("That test does not exist.");
     }
@@ -161,7 +224,7 @@ class TestRepository{
      * @return mixed
      * @throws GeneralException
      */
-    public function findProtocolMaximumVo2($test_id, $id){
+    public function findProtocol($test_id, $id){
         $protocol = $this->protocol->find($id);
         $test = $this->findOrThrowException($test_id);
         if(!is_null($protocol)){
