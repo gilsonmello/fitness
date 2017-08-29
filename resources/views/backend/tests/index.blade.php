@@ -1,3 +1,5 @@
+@section ('title', trans('menus.tests.index'))
+
 @section('content_header')
 
     <!-- Content Header (Page header) -->
@@ -66,9 +68,11 @@
                         </thead>
                         <tbody>
                             @forelse($tests as $value)
-                                <td>{!! $value->user->name !!}</td>
-                                <td>{!! format_datetimebr($value->created_at) !!}</td>
-                                <td>{!! $value->action_buttons !!}</td>
+                                <tr>
+                                    <td>{!! $value->user->name !!}</td>
+                                    <td>{!! format_datetimebr($value->created_at) !!}</td>
+                                    <td>{!! $value->action_buttons !!}</td>
+                                </tr>
                             @empty
                                 Vazio
                             @endforelse

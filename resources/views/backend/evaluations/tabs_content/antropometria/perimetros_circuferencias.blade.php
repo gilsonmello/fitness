@@ -5,7 +5,7 @@
             <div class="form-group">
                 {!! Form::label('right_arm', trans('strings.right_arm'), ['class' => '']) !!}
                 <div class="input-group">
-                    {!! Form::text('right_arm', !is_null($evaluation->antropometria) ? $evaluation->antropometria->right_arm : NULL, ['class' => 'cm form-control', 'placeholder' => trans('strings.right_arm')]) !!}
+                    {!! Form::text('right_arm', !is_null($evaluation->anthropometryPerimetersCircumferences) ? $evaluation->anthropometryPerimetersCircumferences->right_arm : NULL, ['class' => 'cm form-control', 'placeholder' => trans('strings.right_arm')]) !!}
                     <span class="input-group-addon" id="">cm</span>
                 </div>
             </div>
@@ -14,7 +14,7 @@
             <div class="form-group">
                 {!! Form::label('left_arm', trans('strings.left_arm'), ['class' => '']) !!}
                 <div class="input-group">
-                    {!! Form::text('left_arm', !is_null($evaluation->antropometria) ? $evaluation->antropometria->left_arm : NULL, ['class' => 'cm form-control', 'placeholder' => trans('strings.left_arm')]) !!}
+                    {!! Form::text('left_arm', !is_null($evaluation->anthropometryPerimetersCircumferences) ? $evaluation->anthropometryPerimetersCircumferences->left_arm : NULL, ['class' => 'cm form-control', 'placeholder' => trans('strings.left_arm')]) !!}
                     <span class="input-group-addon" id="">cm</span>
                 </div>
             </div>
@@ -24,7 +24,7 @@
             <div class="form-group">
                 {!! Form::label('tummy', trans('strings.tummy'), ['class' => '']) !!}
                 <div class="input-group">
-                    {!! Form::text('tummy', !is_null($evaluation->antropometria) ? $evaluation->antropometria->tummy : NULL, ['class' => 'cm form-control', 'placeholder' => trans('strings.tummy')]) !!}
+                    {!! Form::text('tummy', !is_null($evaluation->anthropometryPerimetersCircumferences) ? $evaluation->anthropometryPerimetersCircumferences->tummy : NULL, ['class' => 'cm form-control', 'placeholder' => trans('strings.tummy')]) !!}
                     <span class="input-group-addon" id="">cm</span>
                 </div>
             </div>
@@ -34,7 +34,7 @@
             <div class="form-group">
                 {!! Form::label('hip', trans('strings.hip'), ['class' => '']) !!}
                 <div class="input-group">
-                    {!! Form::text('hip', !is_null($evaluation->antropometria) ? $evaluation->antropometria->hip : NULL, ['class' => 'cm form-control', 'placeholder' => trans('strings.hip')]) !!}
+                    {!! Form::text('hip', !is_null($evaluation->anthropometryPerimetersCircumferences) ? $evaluation->anthropometryPerimetersCircumferences->hip : NULL, ['class' => 'cm form-control', 'placeholder' => trans('strings.hip')]) !!}
                     <span class="input-group-addon" id="">cm</span>
                 </div>
             </div>
@@ -43,7 +43,7 @@
             <div class="form-group">
                 {!! Form::label('coxa_proximal', "Coxa Proximal", ['class' => '']) !!}
                 <div class="input-group">
-                    {!! Form::text('coxa_proximal', !is_null($evaluation->antropometria) ? $evaluation->antropometria->coxa_proximal : NULL, ['class' => 'cm form-control', 'placeholder' => "Coxa Proximal"]) !!}
+                    {!! Form::text('coxa_proximal', !is_null($evaluation->anthropometryPerimetersCircumferences) ? $evaluation->anthropometryPerimetersCircumferences->coxa_proximal : NULL, ['class' => 'cm form-control', 'placeholder' => "Coxa Proximal"]) !!}
                     <span class="input-group-addon" id="">cm</span>
                 </div>
             </div>
@@ -52,7 +52,7 @@
             <div class="form-group">
                 {!! Form::label('coxa_medial', "Coxa Medial", ['class' => '']) !!}
                 <div class="input-group">
-                    {!! Form::text('coxa_medial', !is_null($evaluation->antropometria) ? $evaluation->antropometria->coxa_medial : NULL, ['class' => 'cm form-control', 'placeholder' => "Coxa Medial"]) !!}
+                    {!! Form::text('coxa_medial', !is_null($evaluation->anthropometryPerimetersCircumferences) ? $evaluation->anthropometryPerimetersCircumferences->coxa_medial : NULL, ['class' => 'cm form-control', 'placeholder' => "Coxa Medial"]) !!}
                     <span class="input-group-addon" id="">cm</span>
                 </div>
             </div>
@@ -61,7 +61,7 @@
             <div class="form-group">
                 {!! Form::label('coxa_distal', "Coxa Distal", ['class' => '']) !!}
                 <div class="input-group">
-                    {!! Form::text('coxa_distal', !is_null($evaluation->antropometria) ? $evaluation->antropometria->coxa_distal : NULL, ['class' => 'cm form-control', 'placeholder' => "Coxa Distal"]) !!}
+                    {!! Form::text('coxa_distal', !is_null($evaluation->anthropometryPerimetersCircumferences) ? $evaluation->anthropometryPerimetersCircumferences->coxa_distal : NULL, ['class' => 'cm form-control', 'placeholder' => "Coxa Distal"]) !!}
                     <span class="input-group-addon" id="">cm</span>
                 </div>
             </div>
@@ -70,7 +70,7 @@
             <div class="form-group">
                 {!! Form::label('right_leg', trans('strings.right_leg'), ['class' => '']) !!}
                 <div class="input-group">
-                    {!! Form::text('right_leg', !is_null($evaluation->antropometria) ? $evaluation->antropometria->right_leg : NULL, ['class' => 'cm form-control', 'placeholder' => trans('strings.right_leg')]) !!}
+                    {!! Form::text('right_leg', !is_null($evaluation->anthropometryPerimetersCircumferences) ? $evaluation->anthropometryPerimetersCircumferences->right_leg : NULL, ['class' => 'cm form-control', 'placeholder' => trans('strings.right_leg')]) !!}
                     <span class="input-group-addon" id="">cm</span>
                 </div>
             </div>
@@ -79,7 +79,7 @@
             <div class="form-group">
                 {!! Form::label('left_leg', trans('strings.left_leg'), ['class' => '']) !!}
                 <div class="input-group">
-                    {!! Form::text('left_leg', !is_null($evaluation->antropometria) ? $evaluation->antropometria->left_leg : NULL, ['class' => 'cm form-control', 'placeholder' => trans('strings.left_leg')]) !!}
+                    {!! Form::text('left_leg', !is_null($evaluation->anthropometryPerimetersCircumferences) ? $evaluation->anthropometryPerimetersCircumferences->left_leg : NULL, ['class' => 'cm form-control', 'placeholder' => trans('strings.left_leg')]) !!}
                     <span class="input-group-addon" id="">cm</span>
                 </div>
             </div>
@@ -88,7 +88,7 @@
             <div class="form-group">
                 {!! Form::label('forearm', trans('strings.forearm'), ['class' => '']) !!}
                 <div class="input-group">
-                    {!! Form::text('forearm', !is_null($evaluation->antropometria) ? $evaluation->antropometria->forearm : NULL, ['class' => 'cm form-control', 'placeholder' => trans('strings.forearm')]) !!}
+                    {!! Form::text('forearm', !is_null($evaluation->anthropometryPerimetersCircumferences) ? $evaluation->anthropometryPerimetersCircumferences->forearm : NULL, ['class' => 'cm form-control', 'placeholder' => trans('strings.forearm')]) !!}
                     <span class="input-group-addon" id="">cm</span>
                 </div>
             </div>
@@ -97,7 +97,7 @@
             <div class="form-group">
                 {!! Form::label('chest', trans('strings.chest'), ['class' => '']) !!}
                 <div class="input-group">
-                    {!! Form::text('chest', !is_null($evaluation->antropometria) ? $evaluation->antropometria->chest : NULL, ['class' => 'cm form-control', 'placeholder' => trans('strings.chest')]) !!}
+                    {!! Form::text('chest', !is_null($evaluation->anthropometryPerimetersCircumferences) ? $evaluation->anthropometryPerimetersCircumferences->chest : NULL, ['class' => 'cm form-control', 'placeholder' => trans('strings.chest')]) !!}
                     <span class="input-group-addon" id="">cm</span>
                 </div>
             </div>
@@ -106,7 +106,7 @@
             <div class="form-group">
                 {!! Form::label('waist', trans('strings.waist'), ['class' => '']) !!}
                 <div class="input-group">
-                    {!! Form::text('waist', !is_null($evaluation->antropometria) ? $evaluation->antropometria->waist : NULL, ['class' => 'cm form-control', 'placeholder' => trans('strings.waist')]) !!}
+                    {!! Form::text('waist', !is_null($evaluation->anthropometryPerimetersCircumferences) ? $evaluation->anthropometryPerimetersCircumferences->waist : NULL, ['class' => 'cm form-control', 'placeholder' => trans('strings.waist')]) !!}
                     <span class="input-group-addon" id="">cm</span>
                 </div>
             </div>

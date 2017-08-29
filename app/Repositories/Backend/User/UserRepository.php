@@ -3,8 +3,8 @@
 use App\Question;
 use App\Exceptions\GeneralException;
 use App\User;
-use App\EvaluationAttribute;
-use App\Antropometria;
+use App\AnthropometryPerimetersCircumferences;
+use App\AnthropometryWeightHeight;
 use App\Bioempedancia;
 use App\Evaluation;
 /**
@@ -15,7 +15,7 @@ class UserRepository{
 
     protected $user;
 
-    protected $evaluationAttribute;
+    protected $anthropometryPerimetersCircumferences;
 
     protected $antropometria;
 
@@ -26,8 +26,8 @@ class UserRepository{
     public function __construct()
     {
         $this->user = new User;
-        $this->evaluationAttribute = new EvaluationAttribute;
-        $this->antropometria = new Antropometria;
+        $this->anthropometryPerimetersCircumferences = new AnthropometryPerimetersCircumferences;
+        $this->antropometria = new AnthropometryWeightHeight;
         $this->bioempedancia = new Bioempedancia;
         $this->evaluation = new Evaluation;
     }
@@ -134,7 +134,7 @@ class UserRepository{
     public function updateWeightAndHeight($id, $request){
         $data = $request->all();
         $evaluation = $this->evaluation->find($id);
-        $save = $this->evaluationAttribute->where('evaluation_id', '=', $evaluation->id)
+        $save = $this->anthropometryPerimetersCircumferences->where('evaluation_id', '=', $evaluation->id)
             ->update([
                 'weight' => isset($data['weight']) && !empty($data['weight']) ? $data['weight'] : NULL,
                 'height' => isset($data['height']) && !empty($data['height']) ? $data['height'] : NULL,

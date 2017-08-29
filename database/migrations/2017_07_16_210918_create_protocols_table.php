@@ -16,12 +16,16 @@ class CreateProtocolsTable extends Migration
         Schema::create('protocols', function (Blueprint $table) {
             $table->engine = "InnoDB";
             $table->increments('id');
+            $table->integer('measure_id')->unsigned();
             $table->string('name');
             $table->string('formula');
             $table->longText('description')->nullable();
             $table->boolean('is_active')->default(1);
             $table->timestamps();
             $table->softDeletes();
+            $table->foreign('measure_id')
+                ->on('measures')
+                ->references('id');
         });
     }
 

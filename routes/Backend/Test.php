@@ -60,6 +60,61 @@ Route::post('tests/protocols/{id}/save_training_vo2', 'TestController@saveTraini
 Route::delete('tests/{test_id}/protocols/{id}/destroy_training_vo2', 'TestController@destroyTrainingVo2')
     ->name('backend.tests.destroy_training_vo2');
 
+Route::post('tests/{test_id}/save_resistance/{type_resistance}', 'TestController@saveResistance')
+    ->name('backend.tests.save_resistance');
+
+Route::delete('tests/{test_id}/protocols/{id}/destroy_resistance', 'TestController@destroyResistance')
+    ->name('backend.tests.destroy_resistance');
+
+Route::post('tests/protocols/{id}/save_target_zone', 'TestController@saveTargetZone')
+    ->name('backend.tests.save_target_zone');
+
+Route::delete('tests/{test_id}/protocols/{id}/destroy_target_zone', 'TestController@destroyTargetZone')
+    ->name('backend.tests.destroy_target_zone');
+
+Route::post('tests/{id}/save_flexitests', 'TestController@saveFlexitests')
+    ->name('backend.tests.save_flexitests');
+
+Route::post('tests/{id}/save_wells_bank', 'TestController@saveWellsBank')
+    ->name('backend.tests.save_wells_bank');
+
+Route::get('tests/{id}/additional_data', 'TestController@additionalData')
+    ->name('backend.tests.additional_data');
+
+Route::get('tests/additional_data_maximum_heart_rate', 'TestController@additionalDataMaximumHeartRate')
+    ->name('backend.tests.additional_data_maximum_heart_rate');
+
+Route::get('tests/additional_data_minimum_heart_rate', 'TestController@additionalDataMinimumHeartRate')
+    ->name('backend.tests.additional_data_minimum_heart_rate');
+
+Route::get('tests/additional_data_reserve_heart_rate', 'TestController@additionalDataReserveHeartRate')
+    ->name('backend.tests.additional_data_reserve_heart_rate');
+
+Route::get('tests/additional_data_maximum_vo2', 'TestController@additionalDataMaximumVo2')
+    ->name('backend.tests.additional_data_maximum_vo2');
+
+Route::get('tests/additional_data_training_vo2', 'TestController@additionalDataTrainingVo2')
+    ->name('backend.tests.additional_data_training_vo2');
+
+Route::get('tests/additional_data_resistance', 'TestController@additionalDataResistance')
+    ->name('backend.tests.additional_data_resistance');
+
+Route::get('tests/additional_data_target_zone', 'TestController@additionalDataTargetZone')
+    ->name('backend.tests.additional_data_target_zone');
+
+Route::get('tests/additional_data_flexibility', 'TestController@additionalDataFlexibility')
+    ->name('backend.tests.additional_data_flexibility');
+
+Route::post('tests/save_attribute', 'TestController@saveAttribute')
+    ->name('backend.tests.save_attribute');
+
+Route::post('tests/{user_id}/save_additional_data', 'TestController@saveAdditionalData')
+    ->name('backend.tests.save_additional_data');
+
+Route::get('tests/{test_id}/resistance/{type_resistance}', 'TestController@getResistances')
+    ->name('backend.tests.get_resistances');
+
+
 
 
 

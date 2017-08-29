@@ -10,6 +10,11 @@ use App\ReserveHeartRate;
 use App\MaximumVo2;
 use App\TrainingVo2;
 use App\User;
+use App\AdditionalData;
+use App\Resistance;
+use App\TargetZone;
+use App\Flexitest;
+use App\WellsBank;
 
 /**
  * Class QuestionRepository
@@ -29,7 +34,12 @@ class TestRepository{
         $this->reserveHeartRate = new ReserveHeartRate;
         $this->maximumVo2 = new MaximumVo2;
         $this->trainingVo2 = new TrainingVo2;
+        $this->resistance = new Resistance;
+        $this->targetZone = new TargetZone;
         $this->user = new User;
+        $this->additionalData = new AdditionalData;
+        $this->flexitest = new Flexitest;
+        $this->wellsBank = new WellsBank;
     }
 
     /**
@@ -76,36 +86,151 @@ class TestRepository{
     /**
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
+    public function getAdditionalData($id){
+        return $this->additionalData
+            ->where('user_id', '=', $id)
+            ->where('is_active', '=', 1)
+            ->orderBy('name', 'asc')
+            ->get();
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
     public function getMaximumHeartRate($id){
-        return $this->maximumHeartRate->where('test_id', '=', $id)->get();
+        return $this->findOrThrowException($id)->maximumHeartRate; //$this->maximumHeartRate->where('test_id', '=', $id)->get();
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
     public function getMinimumHeartRate($id){
-        return $this->minimumHeartRate->where('test_id', '=', $id)->get();
+        return $this->findOrThrowException($id)->minimumHeartRate;//$this->minimumHeartRate->where('test_id', '=', $id)->get();
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
     public function getReserveHeartRate($id){
-        return $this->reserveHeartRate->where('test_id', '=', $id)->get();
+        return $this->findOrThrowException($id)->reserveHeartRate; //$this->reserveHeartRate->where('test_id', '=', $id)->get();
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
     public function getMaximumVo2($id){
-        return $this->maximumVo2->where('test_id', '=', $id)->get();
+        return $this->findOrThrowException($id)->maximumVo2; //$this->maximumVo2->where('test_id', '=', $id)->get();
+    }
+
+    /**
+     * @param $id
+     * @return mixed
+     * @throws GeneralException
+     */
+    public function getTrainingVo2($id){
+        return $this->findOrThrowException($id)->trainingVo2; //$this->trainingVo2->where('test_id', '=', $id)->get();
+    }
+
+    /**
+     * @param $id
+     * @return mixed
+     * @throws GeneralException
+     */
+    public function getResistances($id){
+        return $this->findOrThrowException($id)->resistances; //$this->trainingVo2->where('test_id', '=', $id)->get();
+    }
+
+    /**
+     * @param $id
+     * @return mixed
+     * @throws GeneralException
+     */
+    public function getTargetZone($id){
+        return $this->findOrThrowException($id)->targetZone; //$this->trainingVo2->where('test_id', '=', $id)->get();
+    }
+
+    /**
+     * @param $id
+     * @return mixed
+     * @throws GeneralException
+     */
+    public function getFlexibilities($id){
+        return $this->findOrThrowException($id)->flexibilities;
+    }
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function getadditionalDataMinimumHeartRate($id){
+        return AdditionalData::whereHas('typeTest', function($query) use($id) {
+            $query->where('type_test_id', '=', $id);
+        })->get();
+    }
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function getadditionalDataReserveHeartRate($id){
+        return AdditionalData::whereHas('typeTest', function($query) use($id) {
+            $query->where('type_test_id', '=', $id);
+        })->get();
+    }
+
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
+    public function getProtocolsMaximumVo2($id){
+        return Protocol::whereHas('typeTest', function($query) use($id) {
+            $query->where('type_test_id', '=', $id);
+        })->get();
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public function getTrainingVo2($id){
-        return $this->trainingVo2->where('test_id', '=', $id)->get();
+    public function getProtocolsMaximumHeartRate($id){
+        return Protocol::whereHas('typeTest', function($query) use($id) {
+            $query->where('type_test_id', '=', $id);
+        })->get();
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
+    public function getProtocolsMinimumHeartRate($id){
+        return Protocol::whereHas('typeTest', function($query) use($id) {
+            $query->where('type_test_id', '=', $id);
+        })->get();
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
+    public function getProtocolsReserveHeartRate($id){
+        return Protocol::whereHas('typeTest', function($query) use($id) {
+            $query->where('type_test_id', '=', $id);
+        })->get();
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
+    public function getProtocolsTrainingVo2($id){
+        return Protocol::whereHas('typeTest', function($query) use($id) {
+            $query->where('type_test_id', '=', $id);
+        })->get();
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
+    public function getProtocol($id){
+        return Protocol::whereHas('typeTest', function($query) use($id) {
+            $query->where('type_test_id', '=', $id);
+        })->get();
     }
 
     /**
@@ -115,108 +240,60 @@ class TestRepository{
         return $this->maximumHeartRate->where('test_id', '=', $id)->get();
     }
 
-    private function findAttribute($arr, $val){
-        $notFind = [];
-        foreach($arr as $value){
-            if($value == $val){
-                return $val;
-            }else{
-                $notFind[] = $value;
-            }
+
+    public function resistances($test_id, $type_resistance){
+        $resistances = Resistance::where('test_id', '=', $test_id)
+            ->where('type_resistance', '=', $type_resistance)
+            ->orderBy('sequency', 'asc')
+            ->max('id');
+
+        if(count($resistances) > 0){
+            return count($resistances) + 1;
         }
-        return $notFind;
     }
 
     /**
-     * @param $id
-     * @return mixed
-     * @throws GeneralException
+     * @param int $test_id
+     * @param int $id
+     * @return boolean
      */
-    public function findProtocolVo2Maximum($test_id, $id){
+    public function findProtocolWithResult($test_id, $id){
         $protocol = $this->protocol->find($id);
         $test = $this->findOrThrowException($test_id);
-        $notFind = [];
         if(!is_null($protocol)){
             //Procurando na tabela de usuários
-            $attributes = preg_split('/<|>|[0-9|\-|\/|\*|\+]/i',$protocol->formula, -1);
-            $collums = $this->user->getTableColumns();
+            //$attributes = preg_split('/<|>|[0-9|\-|\/|\*|\(|\)|\,|\+]/i',$protocol->formula, -1);
+            //dd($attributes, $protocol->formula);
+            $collums = $this->additionalData
+                ->where('user_id', '=', $test->user->id)
+                ->where('is_active', '=', 1)->get();
             $formula = $protocol->formula;
-            $notFind = [];
-            $attributes = array_filter($attributes);
-            foreach($attributes as $attribute){
-                if(in_array($attribute, $collums)){
-                    $birth_date = $this->user->select(''.$attribute.'')->where('id', '=', $test->user->id)->get()->first();
-                    $formula = str_replace($attribute, $birth_date->{$attribute}, $formula);
-                }else{
-                    $notFind[] = $attribute;
+            //$attributes = array_filter($attributes);
+            //foreach($attributes as $attribute){
+            foreach($collums as $collum){
+                if(strpos($protocol->formula, $collum->initials) !== FALSE && ($collum->value != NULL)){
+                    $formula = str_replace($collum->initials, $collum->value, $formula);
                 }
             }
-            $formula = string_replace(['<', '>'], '', $formula);
+            //}
             try{
-                $protocol->result = !empty(eval('return '.$formula.';')) ? eval('return '.$formula.';') : NULL;
+                $formula = string_replace(['<', '>'], '', $formula);
+                $protocol->result = $this->calculate_string($formula);
                 $protocol->result = number_format($protocol->result, 2, '.', '');
-                return $protocol;
+
             }catch(\Exception $e){
-                $protocol->notFind = $notFind;
-                return $protocol;
+
             }
-
-            /*foreach($collums as $collum){
-                if(strpos($protocol->formula, $collum) !== FALSE){
-                    $birth_date = $this->user->select(''.$collum.'')->where('id', '=', $test->user->id)->get()->first();
-                    $formula = str_replace($collum, $birth_date->{$collum}, $formula);
-                }else{
-                    $notFind = $protocol->formula;
-                }
-            }
-            dd($formula, $collums);*/
-            /*$protocol->formula = str_replace($collum, $birth_date->{$collum}, $protocol->formula);
-            $protocol->result = !empty(eval('return '.$protocol->formula.';')) ? eval('return '.$protocol->formula.';') : NULL;
-            $protocol->result = number_format($protocol->result, 2, '.', '');
-            if($protocol->result != NULL){
-                return $protocol;
-            }*/
-
-            /*foreach($this->user->getTableColumns() as $tableUser){
-                echo '<pre>';
-                if(in_array($tableUser, $teste)){
-                    $attribute = $this->user->select(''.$tableUser.'')->where('id', '=', $test->user->id)->get()->first();
-                    dd($attribute->{$tableUser}, $tableUser, $protocol->formula);
-                    $protocol->formula = str_replace($tableUser, $attribute->{$tableUser}, $protocol->formula);
-                    $protocol->result = !empty(eval('return '.$protocol->formula.';')) ? eval('return '.$protocol->formula.';') : NULL;
-                    $protocol->result = number_format($protocol->result, 2, '.', '');
-                    if($protocol->result != NULL){
-                        return $protocol;
-                    }
-                }
-                if($this->findAttribute($teste, $tableUser)){
-                //if(strpos($protocol->formula, $tableUser) !== FALSE){
-                    $birth_date = $this->user->select(''.$tableUser.'')->where('id', '=', $test->user->id)->get()->first();
-                    $protocol->formula = str_replace($tableUser, $birth_date->{$tableUser}, $protocol->formula);
-                    $protocol->result = !empty(eval('return '.$protocol->formula.';')) ? eval('return '.$protocol->formula.';') : NULL;
-                    $protocol->result = number_format($protocol->result, 2, '.', '');
-                    if($protocol->result != NULL){
-                        return $protocol;
-                    }
-                }
-            }*/
-
-           /* //Procurando na tabela de usuários
-            foreach($this->trainingVo2->getTableColumns() as $tableTrainingVo2){
-                dd($this->trainingVo2->getTableColumns());
-                if(strpos($protocol->formula, $tableTrainingVo2) !== FALSE){
-                    $birth_date = $this->user->select(''.$tableTrainingVo2.'')->where('id', '=', $test->user->id)->get()->first();
-                    $protocol->formula = str_replace($tableTrainingVo2, $birth_date->{$tableTrainingVo2}, $protocol->formula);
-                    $protocol->result = !empty(eval('return '.$protocol->formula.';')) ? eval('return '.$protocol->formula.';') : NULL;
-                    $protocol->result = number_format($protocol->result, 2, '.', '');
-                    if($protocol->result != NULL){
-                        return $protocol;
-                    }
-                }
-            }*/
-
+            return $protocol;
         }
-        throw new GeneralException("That test does not exist.");
+        return false;
+    }
+
+    private function calculate_string($mathString){
+        $mathString = trim($mathString);     // trim white spaces
+        $mathString = preg_replace('[^0-9\+-\*\/\(\) ]', '', $mathString);
+        $compute = create_function("", "return (" . $mathString . ");" );
+        return 0 + $compute();
     }
 
     /**
@@ -279,21 +356,25 @@ class TestRepository{
         if ($test->delete()) {
             return true;
         }
-        throw new GeneralException("There was a problem deleting this parq. Please try again.");
+        throw new GeneralException("There was a problem deleting this test. Please try again.");
     }
 
     public function saveMaximumHeartRate($id, $request){
         $data = $request->all();
+        //Se existir algum dado para ser tratado
         if(count($data) > 1){
             unset($data['_token']);
+            unset($data['protocol']);
             $test = $this->findOrThrowException($id);
+            //Se já existe algum teste de frequência cardíaca máxima
             if(count($test->maximumHeartRate) > 0){
+                //Percorrendo os dados
                 foreach($data as $key => $value){
                     $maximumHeartRate = $this->maximumHeartRate->where('protocol_id', '=', $value['id'])
                             ->where('test_id', '=', $test->id)
                             ->get()
                             ->first();
-                    //Se já existir uma frequencia cardiaca cadastrada para o teste e o protocolo
+                    //Se já existir uma frequencia cardiaca cadastrada para o teste e o protocolo, faço atualização
                     if(!is_null($maximumHeartRate)){
                         $save = $this->maximumHeartRate->where('test_id', '=', $test->id)
                             ->where('protocol_id', '=', $value['id'])
@@ -355,6 +436,7 @@ class TestRepository{
 
         //Removendo o token do array
         unset($data['_token']);
+        unset($data['protocol']);
 
         //Buscando o teste
         $test = $this->findOrThrowException($id);
@@ -451,6 +533,7 @@ class TestRepository{
         $data = $request->all();
         if(count($data) > 1){
             unset($data['_token']);
+            unset($data['protocol']);
             $test = $this->findOrThrowException($id);
             if(count($test->reserveHeartRate) > 0){
                 foreach($data as $key => $value){
@@ -528,6 +611,7 @@ class TestRepository{
         $data = $request->all();
         if(count($data) > 1){
             unset($data['_token']);
+            unset($data['protocol']);
             $test = $this->findOrThrowException($id);
             if(count($test->maximumVo2) > 0){
                 foreach($data as $key => $value){
@@ -556,6 +640,7 @@ class TestRepository{
                         $this->maximumVo2 = new MaximumVo2;
                     }
                 }
+
                 return true;
             }else{
                 foreach($data as $key => $value) {
@@ -603,6 +688,7 @@ class TestRepository{
 
         //Removendo o token do array
         unset($data['_token']);
+        unset($data['protocol']);
 
         //Buscando o teste
         $test = $this->findOrThrowException($id);
@@ -688,6 +774,225 @@ class TestRepository{
         return false;
     }
 
+    /**
+     * @param $user_id
+     * @param $request
+     * @return bool
+     * @throws GeneralException
+     */
+    public function saveAdditionalData($user_id, $request){
+        $data = $request->all();
 
+        if(isset($data['_token'])){
+            unset($data['_token']);
+        }
+        if(count($data) > 0){
+            foreach($data as $key => $value){
+                //id do dado adicional
+                $id = explode('_', $key)[3];
+                AdditionalData::where('user_id', '=', $user_id)
+                    ->where('id', '=', $id)
+                    ->update([
+                        'value' => !is_null($value) ? str_replace(',', '', $value) : $value
+                    ]);
+            }
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * @param $test_id
+     * @param $type_resistance
+     * @param $request
+     * @return bool
+     * @throws GeneralException
+     */
+    public function saveResistance($test_id, $type_resistance, $request){
+        //Todos os dados da requisição
+        $data = $request->all();
+        $test = $this->findOrThrowException($test_id);
+        $supine = $this->resistance->where('test_id', '=', $test->id)
+            ->where('type_resistance', '=', $type_resistance)
+            ->get()
+            ->first();
+
+        if(!is_null($supine)){
+            $supine->load_estimed = $data['load_estimed'];
+            $supine->option_1 = $data['option_1'];
+            $supine->option_2 = $data['option_2'];
+            $supine->option_3 = $data['option_3'];
+            $supine->option_4 = $data['option_4'];
+            $supine->maximum_repeat = $data['maximum_repeat'];
+            if($supine->save()){
+                return true;
+            }
+        }
+
+        $this->resistance->test_id = $test->id;
+        $this->resistance->type_resistance = $type_resistance;
+        $this->resistance->load_estimed = $data['load_estimed'];
+        $this->resistance->option_1 = $data['option_1'];
+        $this->resistance->option_2 = $data['option_2'];
+        $this->resistance->option_3 = $data['option_3'];
+        $this->resistance->option_4 = $data['option_4'];
+        $this->resistance->maximum_repeat = $data['maximum_repeat'];
+        if($this->resistance->save()){
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * @param $test_id
+     * @param $protocol_id
+     * @return bool
+     * @throws GeneralException
+     */
+    public function destroyResistance($test_id, $protocol_id){
+        $test = $this->findOrThrowException($test_id);
+        $protocol = $this->protocol->find($protocol_id);
+        $resistance = $this->resistance
+            ->where('test_id', '=', $test->id)
+            ->where('protocol_id', '=', $protocol->id)
+            ->get()
+            ->first();
+        if (!is_null($resistance)) {
+            if($resistance->delete()){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * @param $id
+     * @param $request
+     * @return bool
+     * @throws GeneralException
+     */
+    public function saveTargetZone($id, $request){
+
+        //Todos os dados da requisição
+        $data = $request->all();
+
+        //Removendo o token do array
+        unset($data['_token']);
+        unset($data['protocol']);
+
+        //Buscando o teste
+        $test = $this->findOrThrowException($id);
+
+        //Se já existir um teste de frequencia cardiaca mínima, tentará atualizar os já existentes
+        //Se não, irá criar todos os testes feito
+        if(count($test->targetZone) > 0){
+
+            //Loop em todos os dados informados no formulário
+            foreach($data as $key => $value){
+
+                //Busco o teste de frequencia cardíaca mínima
+                $targetZone = TargetZone::where('protocol_id', '=', $value['id'])
+                    ->where('test_id', '=', $test->id)
+                    ->get()
+                    ->first();
+
+                //Se já existir um teste de frequencia cardiaca mínima cadastrada para o teste e o protocolo
+                //Se não existir, crio um novo teste de frequencia cardiaca mínima
+                if(!is_null($targetZone)){
+                    //Tento atualizar o registro já existente
+                    $save = $targetZone->update([
+                        'result' => $value['result'],
+                    ]);
+                    //Se não atualizar retorno falso
+                    if(!$save){
+                        return false;
+                    }
+                }else{
+                    $this->targetZone->test_id = $test->id;
+                    $this->targetZone->result = $value['result'];
+                    $this->targetZone->protocol_id = $value['id'];
+                    //Se não salvar, retorno falso
+                    if (!$this->targetZone->save()) {
+                        return false;
+                    }
+                    $this->targetZone = new TargetZone;
+                }
+            }
+            //Se todos os dados foram salvos e atualizados, retorno true
+            return true;
+        }else{
+
+            //Loop em todos os dados informados no formulário
+            foreach($data as $key => $value) {
+
+                $this->targetZone->test_id = $test->id;
+                $this->targetZone->result = $value['result'];
+                $this->targetZone->protocol_id = $value['id'];
+
+                //Se não salvar, retorno falso
+                if (!$this->targetZone->save()) {
+                    return false;
+                }
+
+                $this->targetZone = new TargetZone;
+            }
+            //Se todos os dados foram salvos e atualizados, retorno true
+            return true;
+        }
+    }
+
+    /**
+     * @param $test_id
+     * @param $protocol_id
+     * @return bool
+     * @throws GeneralException
+     */
+    public function destroyTargetZone($test_id, $protocol_id){
+        $test = $this->findOrThrowException($test_id);
+        $protocol = $this->protocol->find($protocol_id);
+        $targetZone = $this->targetZone
+            ->where('test_id', '=', $test->id)
+            ->where('protocol_id', '=', $protocol->id)
+            ->get()
+            ->first();
+        if (!is_null($targetZone)) {
+            if($targetZone->delete()){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * @param $id
+     * @param $request
+     * @return bool
+     * @throws GeneralException
+     */
+    public function saveFlexitests($id, $request){
+        //Todos os dados da requisição
+        $data = $request->all();
+        $test = $this->findOrThrowException($id);
+
+        if(is_null($test->wellsBank)) {
+            $this->wellsBank->test_id = $id;
+            $this->wellsBank->right_leg = isset($data['right_leg']) ? $data['right_leg'] : NULL;
+            $this->wellsBank->left_leg = isset($data['left_leg']) ? $data['left_leg'] : NULL;
+            $this->wellsBank->trunk = isset($data['trunk']) ? $data['trunk'] : NULL;
+            if($this->wellsBank->save()){
+                return true;
+            }
+        }
+
+        $test->wellsBank->right_leg = isset($data['right_leg']) ? $data['right_leg'] : NULL;
+        $test->wellsBank->left_leg = isset($data['left_leg']) ? $data['left_leg'] : NULL;
+        $test->wellsBank->trunk = isset($data['trunk']) ? $data['trunk'] : NULL;
+
+        if($test->wellsBank->save()){
+           return true;
+        }
+
+        return false;
+    }
 
 }

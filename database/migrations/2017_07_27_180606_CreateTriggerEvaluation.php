@@ -33,19 +33,19 @@ class CreateTriggerEvaluation extends Migration
                     )
 
                     VALUES(
-                        1,
-                        1,
-                        1,
-                        1,
-                        1,
-                        1,
-                        1,
-                        1,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
                         NEW.id,
                         NOW(),
                         NOW()
                     );
-                    INSERT INTO antropometrias (evaluation_id, created_at, updated_at) VALUES(
+                    INSERT INTO anthropometry_perimeters_circumferences (evaluation_id, created_at, updated_at) VALUES(
                         NEW.id,
                         NOW(),
                         NOW()
@@ -55,7 +55,7 @@ class CreateTriggerEvaluation extends Migration
                         NOW(),
                         NOW()
                     );
-                    INSERT INTO evaluation_attributes (evaluation_id, created_at, updated_at) VALUES(
+                    INSERT INTO anthropometry_weight_height (evaluation_id, created_at, updated_at) VALUES(
                         NEW.id,
                         NOW(),
                         NOW()

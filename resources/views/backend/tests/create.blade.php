@@ -1,6 +1,6 @@
 @extends('layouts.backend.app')
 
-@section ('title', trans('menus.protocols.protocols') . ' | ' . trans('menus.protocols.create'))
+@section ('title', trans('menus.tests.create'))
 
 @section('content_header')
     <!-- Content Header (Page header) -->
@@ -31,10 +31,16 @@
     <div class="box box-primary">
         <div class="box-body">
             <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                     <div class="form-group">
                         {!! Form::label('user_id', trans('strings.name').'*', ['class' => '']) !!}
                         {!! Form::select('user_id', $users->pluck('name', 'id')->all(), NULL, ['class' => 'select2', 'placeholder' => trans('strings.name')]) !!}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                    <div class="form-group">
+                        {!! Form::label('validity', trans('strings.validity').'*', ['class' => '']) !!}
+                        {!! Form::text('validity', NULL, ['class' => 'datepicker form-control', 'placeholder' => trans('strings.validity')]) !!}
                     </div>
                 </div>
             </div>

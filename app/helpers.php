@@ -10,6 +10,29 @@ if(!function_exists('access')) {
 
 }
 
+if(!function_exists('emailExists')) {
+
+	/**
+	 * @param $param
+	 * @param $id
+	 * @return bool
+	 */
+	function emailExists($param, $id = NULL){
+		//Busco o usuário pelo id
+		if(isset($id)){
+			$user = \App\User::find($id);
+			if(!is_null($user)) {
+				//Se o e-mail do usuário for igual ao informado, deixo passar
+				if ($user->email == $param) {
+					return TRUE;
+				}
+			}
+		}
+		//Verificando se o e-mail já existe
+		return \App\User::where('email', '=', $param)->get()->isEmpty() == FALSE ? FALSE : TRUE;
+	}
+}
+
 if (!function_exists('getValueSession')) {
 
 	/**
@@ -60,7 +83,7 @@ if(!function_exists('active')){
 		$uri = $domain.'/';
 		for($i = 2; $i < count($url); $i++){
 			$uri .= $url[$i];
-			if($uri === $condition){
+			if(strpos($condition, $uri) !== FALSE){
 				return "active";
 			}
 			$uri .= '/';
@@ -260,4 +283,32 @@ if (!function_exists('img_sizes')) {
 		return $sources;
 	}
 
+}
+
+if (!function_exists('supine')) {
+	/**
+	 * @param $test_id
+	 * @return mixed
+	 */
+	function supine($test_id){
+		$supine = \App\Resistance::where('test_id', '=', $test_id)
+				->where('type_resistance', '=', 1)
+				->get()
+				->first();
+		return $supine;
+	}
+}
+
+if (!function_exists('squat')) {
+	/**
+	 * @param $test_id
+	 * @return mixed
+	 */
+	function squat($test_id){
+		$squat = \App\Resistance::where('test_id', '=', $test_id)
+				->where('type_resistance', '=', 2)
+				->get()
+				->first();
+		return $squat;
+	}
 }

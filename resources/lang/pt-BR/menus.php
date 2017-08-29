@@ -459,4 +459,16 @@ return [
         'index' => 'Testes',
         'edit' => 'Editar Teste'
     ],
+
+    'users' => [
+        'create' => 'Criar Usuário',
+        'index' => 'Usuários',
+        'edit' => 'Editar Usuário'
+    ],
+
+    'additional_data' => [
+        'create' => 'Criar Dado Adicional',
+        'index' => 'Dados Adicionais',
+        'edit' => 'Editar Dado Adicional'
+    ],
 ];

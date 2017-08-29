@@ -18,13 +18,6 @@ class createTriggerTests extends Migration
                 AFTER INSERT ON tests
                 FOR EACH ROW
                 BEGIN
-                    INSERT INTO maximum_heart_rates (test_id, protocol_id, result, created_at, updated_at) VALUES(
-                        NEW.id,
-                        1,
-                        100.00,
-                        NOW(),
-                        NOW()
-                    );
                 END;
         ');
     }

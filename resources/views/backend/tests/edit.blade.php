@@ -66,21 +66,48 @@
                         Oi
                     </h5>
                 </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
+                    <button data-toggle="modal" data-target="#modal_additional_data" class="btn btn-block btn-info">
+                        Dados Adicionais <i class="fa fa-arrow-circle-right"></i>
+                    </button>
+                    {{-- ao clicar no botão irá abrir o #modal_additional_data --}}
+                    @include('backend.tests.additional_data.all')
+                </div>
             </div>
         </div>
     </div>
 
     <div class="row">
-        <div class="col-md-12 col-xs-12 col-lg-6 col-sm-12">
-            @include('backend.tests.frequencia_cardiaca.frequencia_cardiaca')
-        </div><!-- /.col -->
-        <div class="col-md-12 col-xs-12 col-lg-6 col-sm-12">
-            @include('backend.tests.vo2.vo2')
-        </div><!-- /.col -->
+        <div class="col-lg-12 col-xs-12 col-md-12 col-sm-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Todos os Testes</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse">
+                            <i class="fa fa-minus"></i></button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="col-lg-4 col-xs-12 col-md-4 col-sm-6">
+                        @include('backend.tests.frequencia_cardiaca.frequencia_cardiaca')
+                    </div>
+                    <div class="col-lg-4 col-xs-12 col-md-4 col-sm-6">
+                        @include('backend.tests.vo2.vo2')
+                    </div>
+                    <div class="col-lg-4 col-xs-12 col-md-4 col-sm-6">
+                        @include('backend.tests.resistances.resistance')
+                    </div>
+                </div>
+                <div class="box-footer">
+
+                </div>
+            </div>
+        </div>
     </div>
-    <!-- /.row -->
 
     <script type="text/javascript">
         var test_id = '{{$test->id}}';
     </script>
+
+
 @endsection

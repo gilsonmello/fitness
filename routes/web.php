@@ -11,8 +11,14 @@
 |
 */
 
+// Route::group(['namespace' => 'AdminAuth'], function () {
+
 //Rotas para frontend
 Route::group(['namespace' => 'Frontend'], function(){
+	
+	/*Route::get('/', function () {
+	    return view('welcome');
+	});*/
 	Route::get('/', 'FrontendController@index')->name('frontend.index');
 	/*Route::get('/services', 'ServicesController@index')->name('services.index');
 	Route::get('/services/{slug}', 'ServicesController@view')->name('services.view');*/
@@ -59,7 +65,25 @@ Route::group(['namespace' => 'Backend'], function () {
 
 			//Rotas para os protocolos
 			require_once __DIR__.'/Backend/Test.php';
+
+
+			//Rotas para os protocolos
+			require_once __DIR__.'/Backend/AdditionalData.php';
 				
+	});
+});
+
+Route::group(['prefix' => 'api', 'namespace' => 'API'], function(){
+
+
+	Route::group(['prefix' => 'users'], function(){
+		Route::get('/', 'UserController@all')->name('api.users.index');
+		Route::get('/{id}', function($id){
+			return 'Usuário '. $id;
+		});
+		Route::get('/find/{id}', function($id){
+			return 'Buscando usuário '. $id;
+		});
 	});
 });
 /*Route::get('/', function () {

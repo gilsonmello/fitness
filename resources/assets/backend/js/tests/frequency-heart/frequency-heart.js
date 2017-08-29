@@ -1,6 +1,7 @@
 $(function(){
 
     tests({
+        name: 'maximum_heart_rate',
         form: $('#save_maximum_heart_rate'),
         btn: $('#btn_save_maximum_heart_rate'),
         inputSelect: $("#protocol_maximum_heart_rate"),
@@ -13,6 +14,7 @@ $(function(){
     });
 
     tests({
+        name: 'minimum_heart_rate',
         form: $('#save_minimum_heart_rate'),
         btn: $('#btn_save_minimum_heart_rate'),
         inputSelect: $("#protocol_minimum_heart_rate"),
@@ -25,6 +27,7 @@ $(function(){
     });
 
     tests({
+        name: 'reserve_heart_rate',
         form: $('#save_reserve_heart_rate'),
         btn: $('#btn_save_reserve_heart_rate'),
         inputSelect: $("#protocol_reserve_heart_rate"),
@@ -35,5 +38,41 @@ $(function(){
             destroy: 'destroy_reserve_heart_rate'
         }
     });
+
+    /*$('#modal_additional_data_maximum_heart_rate').on('click', function(){
+        openModalWithFields({
+            routeBlade: '/admin/tests/additional_data_maximum_heart_rate',
+            inputClass: 'input_validate_additional_data_maximum_heart_rate'
+        });
+    });*/
+
+   /* validateForm({
+        el: $('#save_additional_data_maximum_heart_rate'),
+        input: $('.input_validate_additional_data_maximum_heart_rate')
+    });*/
+
+    /*$('#modal_additional_data_minimum_heart_rate').on('click', function(){
+        openModalWithFields({
+            routeBlade: '/admin/tests/additional_data_minimum_heart_rate',
+            inputClass: 'input_validate_additional_data_minimum_heart_rate'
+        });
+    });*/
+
+    /*validateForm({
+        el: $('#save_additional_data_minimum_heart_rate'),
+        input: $('.input_validate_additional_data_minimum_heart_rate')
+    });*/
+/*
+    $('#modal_additional_data_reserve_heart_rate').on('click', function(){
+        openModalWithFields({
+            routeBlade: '/admin/tests/additional_data_reserve_heart_rate',
+            inputClass: 'input_validate_additional_data_reserve_heart_rate'
+        });
+    });*/
+
+   /* validateForm({
+        el: $('#save_additional_data_reserve_heart_rate'),
+        input: $('.input_validate_additional_data_reserve_heart_rate')
+    });*/
 
 });

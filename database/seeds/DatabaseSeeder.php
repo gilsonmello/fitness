@@ -190,15 +190,131 @@ class DatabaseSeeder extends Seeder
             'updated_at' => date('Y-m-d H:i:s')
         ]);
 
+        DB::table('tests')->insert([
+            'user_id' => 1,
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ]);
+
+        DB::table('type_tests')->insert([
+            'name' => 'Frequência Cardíaca Máxima',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ]);
+
+        DB::table('type_tests')->insert([
+            'name' => 'Frequência Cardíaca Mínima',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ]);
+
+        DB::table('type_tests')->insert([
+            'name' => 'Frequência Cardíaca Reserva',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ]);
+
+        DB::table('type_tests')->insert([
+            'name' => 'Vo2 Máximo',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ]);
+
+        DB::table('type_tests')->insert([
+            'name' => 'Vo2 Treino',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ]);
+
+        DB::table('type_tests')->insert([
+            'name' => 'Resistência',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ]);
+
+        DB::table('type_tests')->insert([
+            'name' => 'Zona Alvo',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ]);
+
+        DB::table('type_tests')->insert([
+            'name' => 'Flexibilidade',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ]);
+
+        DB::table('measures')->insert([
+            'id' => 1,
+            'name' => 'Kilo',
+            'initials' => 'KG',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ]);
+
+        DB::table('measures')->insert([
+            'id' => 2,
+            'name' => 'Centímetros',
+            'initials' => 'CM',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ]);
+
+        DB::table('measures')->insert([
+            'id' => 3,
+            'name' => 'Metros',
+            'initials' => 'M',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ]);
+
+        DB::table('measures')->insert([
+            'id' => 4,
+            'name' => 'Frequência Cardíaca Máxima',
+            'initials' => 'FCM',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ]);
+
+        DB::table('measures')->insert([
+            'id' => 5,
+            'name' => 'Vo 2 Treino',
+            'initials' => 'Vo2 T',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ]);
+
+        DB::table('measures')->insert([
+            'id' => 6,
+            'name' => 'Zona Alvo',
+            'initials' => 'ZN',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ]);
+
         DB::table('protocols')->insert([
+            'id' => 1,
+            'measure_id' => 4,
             'name' => 'Karnovem',
             'formula' => '220-idade',
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s')
         ]);
 
-        DB::table('tests')->insert([
-            'user_id' => 1,
+        DB::table('protocols')->insert([
+            'id' => 2,
+            'measure_id' => 5,
+            'name' => 'Vo2 Treino',
+            'formula' => '(((porcentagem_intensidade*350)+vo2_maximo)/350)*vo2_maximo',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ]);
+
+        DB::table('protocols')->insert([
+            'id' => 3,
+            'measure_id' => 6,
+            'name' => 'Zona Alvo',
+            'formula' => '(rfc*porcentagem_objetivo)+fcr',
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s')
         ]);

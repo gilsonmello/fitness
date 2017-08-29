@@ -25,6 +25,9 @@ class hasPermissionTheRoute
         if(Auth::guest()) {
             return redirect()->route('auth.login');
         }
+        if(Auth::user()->hasAnyRoles('adm')){
+            return $next($request);
+        }
         $assets = $this->getAssets($request, $params);
         if (!access()->canMultiple($assets['permissions'], $assets['needsAll']))
             return $this->getRedirectMethodAndGo($request, $params);

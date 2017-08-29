@@ -9,8 +9,8 @@ use App\AnalisePosturalAnterior;
 use App\AnalisePosturalLateralEsquerda;
 use App\AnalisePosturalLateralDireita;
 use App\AnalisePosturalPosterior;
-use App\EvaluationAttribute;
-use App\Antropometria;
+use App\AnthropometryWeightHeight;
+use App\AnthropometryPerimetersCircumferences;
 use App\Bioempedancia;
 use File;
 
@@ -29,9 +29,9 @@ class EvaluationRepository{
         $this->analisePosturalLateralEsquerda = new AnalisePosturalLateralEsquerda;
         $this->analisePosturalLateralDireita = new AnalisePosturalLateralDireita;
         $this->analisePosturalPosterior = new AnalisePosturalPosterior;
-        $this->evaluationAttribute = new EvaluationAttribute;
+        $this->anthropometryWeightHeight = new AnthropometryWeightHeight;
         $this->bioempedancia = new Bioempedancia;
-        $this->antropometria = new Antropometria;
+        $this->anthropometryPerimetersCircumferences = new AnthropometryPerimetersCircumferences;
     }
 
     /**
@@ -109,7 +109,7 @@ class EvaluationRepository{
     public function updateWeightAndHeight($id, $request){
         $data = $request->all();
         $evaluation = $this->evaluation->find($id);
-        $save = $this->evaluationAttribute->where('evaluation_id', '=', $evaluation->id)
+        $save = $this->anthropometryWeightHeight->where('evaluation_id', '=', $evaluation->id)
             ->update([
                 'weight' => isset($data['weight']) && !empty($data['weight']) ? $data['weight'] : NULL,
                 'height' => isset($data['height']) && !empty($data['height']) ? $data['height'] : NULL,
@@ -128,7 +128,7 @@ class EvaluationRepository{
     public function updatePerimetrosCircunferencias($id, $request){
         $data = $request->all();
         $evaluation = $this->evaluation->find($id);
-        $save = $this->antropometria->where('evaluation_id', '=', $evaluation->id)
+        $save = $this->anthropometryPerimetersCircumferences->where('evaluation_id', '=', $evaluation->id)
             ->update([
                 'right_arm' => isset($data['right_arm']) && !empty($data['right_arm']) ? $data['right_arm'] : NULL,
                 'left_arm' => isset($data['left_arm']) && !empty($data['left_arm']) ? $data['left_arm'] : NULL,

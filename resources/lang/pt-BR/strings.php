@@ -11,6 +11,11 @@ return [
       | found in a intuitive way.
       |
      */
+	'trunk' => 'Tronco',
+	'validity' => 'Validade',
+	'cpf' => 'CPF',
+	'rg' => 'RG',
+	'profile' => 'Perfil',
 	'test' => 'Teste',
 	'tests' => 'Testes',
 	'protocols' => 'Protocolos',
@@ -197,8 +202,11 @@ return [
     'date_active' => 'Data de ativação',
     'due_date' => 'Data de vencimento',
     'limit' => 'Limite',
+	'result' => 'Resultado',
+	'load_estimed' => 'Carga Estimada',
+	'maximum_repeat' => 'Repetição Máxima',
     'used' => 'Usado',
-    'percentage' => 'Percentagem',
+    'percentage' => 'Porcentagem',
     'percentage_discount' => 'Percentual de Desconto',
     'value' => 'Valor',
     'description' => 'Descrição',

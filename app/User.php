@@ -5,10 +5,11 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Permission;
+use App\Services\Backend\User\Traits\UserAttributes;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, UserAttributes;
 
     /**
      * The attributes that are mass assignable.
@@ -73,12 +74,32 @@ class User extends Authenticatable
 
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
     public function antropometria(){
         return $this->hasOne(\App\Antropometria::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
     public function bioempedancia(){
         return $this->hasOne(\App\Bioempedancia::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function tests(){
+        return $this->hasMany(\App\Test::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function additionalData(){
+        return $this->hasMany(\App\AdditionalData::class);
     }
 
 

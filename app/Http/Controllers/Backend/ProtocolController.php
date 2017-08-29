@@ -41,7 +41,8 @@ class ProtocolController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create(){
-        return view('backend.protocols.create');
+        $measures = $this->protocolRepository->getMeasures('name');
+        return view('backend.protocols.create', compact('typeTests', 'measures'));
     }
 
     /**
@@ -52,7 +53,7 @@ class ProtocolController extends Controller
         if($this->protocolRepository->create($request)){
             return redirect()->route('backend.protocols.index')
                 ->withInput()
-                ->withFlashSuccess(trans('alerts.protocols.create'));
+                ->withFlashSuccess(trans('alerts.protocols.created'));
         }
     }
 
@@ -63,7 +64,8 @@ class ProtocolController extends Controller
      */
     public function edit($id){
         $protocol = $this->protocolRepository->findOrThrowException($id);
-        return view('backend.protocols.edit', compact('protocol'));
+        $measures = $this->protocolRepository->getMeasures('name');
+        return view('backend.protocols.edit', compact('protocol', 'measures'));
     }
 
     /**

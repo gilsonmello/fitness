@@ -74,7 +74,8 @@ class EvaluationController extends Controller
                 ->withFlashSuccess(trans('alerts.evaluations.created'));
         }
         return redirect()
-            ->route('backend.evaluations.index', ['page' => $request->session()->get('lastpage', '1')])
+            ->route('backend.evaluations.create', ['page' => $request->session()->get('lastpage', '1')])
+            ->withInput()
             ->withFlashSuccess(trans('alerts.evaluations.error'));
     }
 

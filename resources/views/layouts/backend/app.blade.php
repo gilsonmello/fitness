@@ -76,6 +76,26 @@
         });
     </script>
 
+
+
+    <div class="modal" id="ajaxLoader">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                </div>
+                <div class="modal-body">
+                    <p class="text-center">
+                        <img class="" src="{!!asset('img')!!}/loading.gif">
+                    </p>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
     <!-- Optionally, you can add Slimscroll and FastClick plugins.
     Both of these plugins are recommended to enhance the
     user experience -->

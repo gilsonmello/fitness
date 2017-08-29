@@ -25,7 +25,8 @@ class CreateProtocolRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'formula' => 'required'
+            'formula' => 'required',
+            'measure_id' => 'required'
         ];
     }
 }

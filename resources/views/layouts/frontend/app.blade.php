@@ -15,15 +15,18 @@
         <link rel="stylesheet" href="{{ url('frontend/css/font-awesome-ie7.css') }}">
 
         <script src="{{ url('frontend/js/modernizr-2.6.2-respond-1.1.0.min.js') }}"></script>
+
+        <script src="{{ asset('js/app.js') }}"></script>
 </head>
 <body>
-
+    @{{ title }}
+            <div id="root"></div>
     <!-- Cabeçalho -->
     @include('frontend.includes.header')
     <!-- Fim cabeçalho -->
 
 
-    <div class="banner">
+    <div class="banner" id="app">
         <div class="container">
             <div class="carousel slide" id="myCarousel">
                 <!-- Carousel items -->
@@ -89,6 +92,8 @@
             interval: 1800
         });
     </script>
+
+
 
 
 </body>

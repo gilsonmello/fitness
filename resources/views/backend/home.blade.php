@@ -1,3 +1,5 @@
+@section ('title', trans('strings.dashboard'))
+
 @section('content_header')
     <!-- Content Header (Page header) -->
     <section class="content-header">

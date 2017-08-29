@@ -17,7 +17,7 @@
         </div>
 
         <!-- search form (Optional) -->
-        <form action="#" method="get" class="sidebar-form">
+        {{--<form action="#" method="get" class="sidebar-form">
             <div class="input-group">
                 <input type="text" name="q" class="form-control" placeholder="Search..."/>
                 <span class="input-group-btn">
@@ -26,7 +26,7 @@
                     </button>
                 </span>
             </div>
-        </form>
+        </form>--}}
         <!-- Sidebar Menu -->
         <ul class="sidebar-menu">
             <li class="{{ active('admin') }}">
@@ -34,46 +34,60 @@
                     <span>Dashboard</span>
                 </a>
             </li>
-            @if (access()->hasPermission('backend.view'))
-                    <li class="treeview {{ active('admin/evaluations') }}">
-                        <a href="#">
-                            <span>Avaliação Física</span>
-                            <i class="fa fa-angle-left pull-right"></i>
-                        </a>
-                        <ul class="treeview-menu">
-                            <li class="{{ active('admin/evaluations') }}">
-                                <a href="{{ route('backend.evaluations.index') }}">{{ trans('strings.evaluations') }}</a>
-                            </li>
-                        </ul>
-                    </li>
+            @if (access()->hasPermission('backend.view') || auth()->user()->hasAnyRoles('adm'))
+                <li class="treeview {{ active('admin/auth') }} {{ active('admin/protocols') }}">
+                    <a href="#">
+                        <span>Usuários</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li class="{{ active('admin/auth') }}">
+                            <a href="{{ route('backend.auth.index') }}">{{ trans('strings.users') }}</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="treeview {{ active('admin/evaluations') }}">
+                    <a href="#">
+                        <span>Avaliação Física</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li class="{{ active('admin/evaluations') }}">
+                            <a href="{{ route('backend.evaluations.index') }}">{{ trans('strings.evaluations') }}</a>
+                        </li>
+                    </ul>
+                </li>
 
-                    <li class="treeview {{ active('admin/tests') }} {{ active('admin/protocols') }}">
-                        <a href="#">
-                            <span>Testes</span>
-                            <i class="fa fa-angle-left pull-right"></i>
-                        </a>
-                        <ul class="treeview-menu">
-                            <li class="{{ active('admin/tests') }}">
-                                <a href="{{ route('backend.tests.index') }}">{{ trans('strings.tests') }}</a>
-                            </li>
-                            <li class="{{ active('admin/protocols') }}">
-                                <a href="{{ route('backend.protocols.index') }}">{{  trans('strings.protocols') }}</a>
-                            </li>
-                        </ul>
-                    </li>
+                <li class="treeview {{ active('admin/tests') }} {{ active('admin/protocols') }}">
+                    <a href="#">
+                        <span>Testes</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li class="{{ active('admin/tests') }}">
+                            <a href="{{ route('backend.tests.index') }}">{{ trans('strings.tests') }}</a>
+                        </li>
+                        <li class="{{ active('admin/protocols') }}">
+                            <a href="{{ route('backend.protocols.index') }}">{{  trans('strings.protocols') }}</a>
+                        </li>
+                        <li class="{{ active('admin/additional_data') }}">
+                            <a href="{{ route('backend.additional_data.index') }}">Dados Adicionais</a>
+                        </li>
+                    </ul>
+                </li>
 
-                    <li class="treeview">
-                        <a href="#">
-                            <span>Relatórios</span>
-                            <i class="fa fa-angle-left pull-right"></i>
-                        </a>
-                        <ul class="treeview-menu">
-                            <li class="#">
-                                <a href="#">{{ trans('strings.users') }}</a>
-                            </li>
-                        </ul>
-                    </li>
-                @endif
+                <li class="treeview">
+                    <a href="#">
+                        <span>Relatórios</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li class="#">
+                            <a href="#">{{ trans('strings.users') }}</a>
+                        </li>
+                    </ul>
+                </li>
+            @endif
         </ul><!-- /.sidebar-menu -->
     </section>
     <!-- /.sidebar -->

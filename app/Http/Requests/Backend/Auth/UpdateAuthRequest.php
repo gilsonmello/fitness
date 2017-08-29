@@ -24,7 +24,23 @@ class UpdateAuthRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|min:10'
+            'name' => 'required|min:10|regex:/^([a-zA-z\ ]+)$/u',
+            'role_id'  => 'required|array|min:1',
+        ];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'name.required' => 'O campo nome é obrigatório',
+            'name.min' => 'Informe o nome com no mínimo 11 letras',
+            'name.regex' => 'Informe o nome somente com letras',
+            'role_id.required' => 'O campo perfil é obrigatório',
         ];
     }
 }

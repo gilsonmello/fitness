@@ -16,6 +16,3 @@
 <li>
     <a href="#risco_coronario" data-toggle="tab">Risco Coronário</a>
 </li>
-<li>
-    <a href="#anamnese" data-toggle="tab">Anamnese</a>
-</li>

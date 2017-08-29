@@ -1,3 +1,14 @@
+<div class="small-box bg-aqua">
+    <div class="inner">
+        <h3>FCM</h3>
+        <p>Frequência Cardíaca Máxima</p>
+    </div>
+    <div class="icon">
+        <i class="ion ion-bag"></i>
+    </div>
+    <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+</div>
+
 <!-- /.box-header -->
 <div class="box box-primary">
     <div class="box-header with-border">

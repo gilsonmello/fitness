@@ -1,6 +1,50 @@
 /**
  * Created by Junnyor on 09/07/2017.
  */
+
+Number.prototype.format = function(n, x) {
+    var re = '(\\d)(?=(\\d{' + (x || 3) + '})+' + (n > 0 ? '\\.' : '$') + ')';
+    return this.toFixed(Math.max(0, ~~n)).replace(new RegExp(re, 'g'), '$1,');
+};
+
+//Função para validar CPF
+function validateCPF(cpf){
+
+    var numbers, digits, sum, i, result, equal_digits;
+    equal_digits = 1;
+    cpf = cpf.replace(/\.|\-/g, '');
+    if (cpf.length < 11) {
+        return false;
+    }
+    for (i = 0; i < cpf.length - 1; i++)
+        if (cpf.charAt(i) != cpf.charAt(i + 1))
+        {
+            equal_digits = 0;
+            break;
+        }
+    if (!equal_digits)
+    {
+        numbers = cpf.substring(0,9);
+        digits = cpf.substring(9);
+        sum = 0;
+        for (i = 10; i > 1; i--)
+            sum += numbers.charAt(10 - i) * i;
+        result = sum % 11 < 2 ? 0 : 11 - sum % 11;
+        if (result != digits.charAt(0))
+            return false;
+        numbers = cpf.substring(0,10);
+        sum = 0;
+        for (i = 11; i > 1; i--)
+            sum += numbers.charAt(11 - i) * i;
+        result = sum % 11 < 2 ? 0 : 11 - sum % 11;
+        if (result != digits.charAt(1))
+            return false;
+        return true;
+    }
+    else
+        return false;
+}
+
 function serialize(form) {
     if (!form || form.nodeName !== "FORM") {
         return;
@@ -80,8 +124,69 @@ function convertToSlug(str){
     return str;
 }
 
+function validateForm(params){
+    var el = params.el;
+    var input = params.input;
+    var validate = params.validate != undefined ? 0 : 1;
+
+    el.validate({
+        submitHandler: function(frm){
+            var data = el.serialize();
+            var action = el.attr('action');
+            swal({
+                title: "Você realmente deseja atualizar os dados?",
+                type: "info",
+                showCancelButton: true,
+                cancelButtonText: "Cancelar",
+                confirmButtonColor: "#00a65a",
+                confirmButtonText: "Salvar",
+                closeOnConfirm: false,
+                showLoaderOnConfirm: true
+            }, function () {
+                $.ajax({
+                    url: action,
+                    method: 'POST',
+                    dataType: 'Json',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                    },
+                    data: data,
+                    success: function (data) {
+                        if(data == 'true')
+                            swal("Atualizado!", "", "success");
+                        else
+                            swal("Oops...", "Something went wrong!", "error");
+                    },
+                    error: function(data){
+                        swal("Oops...", "Something went wrong!", "error");
+                    }
+                });
+
+            });
+        }
+    });
+
+    if(validate == 1) {
+        //Implementando validações para os inputs do formulário
+        input.each(function (item) {
+            $(this).rules("add", {
+                required: true,
+                number: true,
+                minlength: 3,
+                min: 0,
+                messages: {
+                    required: "Este campo é obrigatório",
+                    number: "Informe somente números",
+                    minlength: "Informe no mínimo 2 números com 1 casa decimal"
+                }
+            });
+        });
+    }
+}
+
 function tests(param){
 
+    var name = param.name != undefined ? param.name : '';
     var form = param.form;
     var btn = param.btn;
     var inputSelect = param.inputSelect;
@@ -93,57 +198,51 @@ function tests(param){
 
     //Código para seleção de procolos
     inputSelect.select2().on('select2:select', function (e) {
+        window.console.log(param);
         var args = e.params.data;
-
         $.ajax({
             method: 'GET',
             url: '/admin/tests/'+test_id+'/protocols/'+args.id+'/'+routeFind,
             success: function(data){
-                var result = '';
-                if(data.result != ''){
-                    result = data.result;
-                }
-                var html = '<div class="col-xs-12 col-sm-12 col-md-12 col-lg-6" id="'+args.text+'" style="display: none;">';
-                html += '<div class="form-group">';
-                html += '<label for="protocol_'+data.id+'[result]">'+data.name+'.: '+data.formula+'</label>';
-                html += '<input type="hidden" name="protocol_'+data.id+'[id]" value="'+data.id+'">';
-                html += '<br><label>Resultado</label>';
-                html += '<input id="protocol_'+data.id+'[result]" value="'+result+'" name="protocol_'+data.id+'[result]" type="text" class="number '+classInputText+' form-control">';
 
-                if(data.notFind.length != 0){
-                    window.console.log(data);
-                    for(var i = 0; i < data.notFind.length; i++){
-                        html += '<br><label>'+data.notFind[i]+'</label>';
-                        html += '<input id="maximum_vo2_'+data.notFind[i]+'" value="" name="'+data.notFind[i]+'" type="text" class="number form-control">';
+                    var result = '';
+                    if (data.result != '') {
+                        result = data.result;
                     }
-                }
+                    var html = '<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4" id="' + args.text.replace(' ', '_') + '" style="display: none;">';
+                    html += '<div class="form-group">';
+                    html += '<label for="protocol_' + name+'_'+data.id + '[result]">' + data.name + '.: ' + data.formula + '</label>';
+                    html += '<input type="hidden" name="protocol_' + data.id + '[id]" value="' + data.id + '">';
+                    html += '<div class="input-group">';
+                        html += '<input id="protocol_' + name+'_'+data.id + '[result]"" value="' + result + '" name="protocol_' + data.id + '[result]" type="text" class="number ' + classInputText + ' form-control">';
+                        html += '<span class="input-group-addon" id="">'+data.measure+'</span>';
+                    html += '</div>';
 
-                html += '</div>';
-                html += '</div>';
-                html = $(html);
-                html.hide();
+                    html += '</div>';
+                    html += '</div>';
+                    html = $(html);
+                    html.hide();
 
-                btn.fadeIn('slow').removeClass('desactive');
+                    btn.fadeIn('slow').removeClass('desactive');
 
-                row.append(html);
+                    row.append(html);
 
 
+                    $('.number').inputmask("decimal");
 
-                $('.number').inputmask("[9]99.99", {
-                    "placeholder": ""
-                });
-                html.fadeIn('slow');
+                    html.fadeIn('slow');
 
-                html.find('.'+classInputText).rules("add", {
-                    required: true,
-                    number: true,
-                    minlength: true,
-                    messages: {
-                        required:  "Este campo é obrigatório",
-                        number:  "Informe somente números",
-                        minlength: "Informe no mínimo 3 números com casas decimais"
-                    }
-                });
+                    html.find('.' + classInputText).rules("add", {
+                        required: true,
+                        number: true,
+                        minlength: true,
+                        messages: {
+                            required: "Este campo é obrigatório",
+                            number: "Informe somente números",
+                            minlength: "Informe no mínimo 3 números com casas decimais"
+                        }
+                    });
+
             },
             dataType: 'Json',
             headers: {
@@ -160,7 +259,7 @@ function tests(param){
                 if(data == 'true'){
                     swal("Removido!", "", "success");
                 }
-                form.find('#'+args.text).fadeOut('slow').promise().done(function(){
+                form.find('#'+args.text.replace(' ', '_')).fadeOut('slow').promise().done(function(){
                     $(this).remove();
                     var rows = form.find('.col-lg-6').length;
                     if(rows == 0){
@@ -220,23 +319,145 @@ function tests(param){
         $(this).rules("add", {
             required: true,
             number: true,
-            minlength: true,
+            minlength: 1,
             messages: {
                 required: "Este campo é obrigatório",
                 number: "Informe somente números",
-                minlength: "Informe no mínimo 3 números com casas decimais"
+                minlength: "Informe no mínimo 1 número"
             }
         });
 
-        $(this).inputmask("[9]99.99", {
+        $(this).inputmask("decimal", {
             "placeholder": ""
         });
     });
 
 }
 
+/*function executeAjax(params){
+    var url = params.url;
+    var dataType = params.dataType != undefined ? params.dataType : '';
+    var headers = params.headers;
+    var method = params.method;
+    var callbackSuccess = params.success;
+
+    $.ajax({
+        url: url,
+        dataType: dataType,
+        data: $(this).serialize(),
+        success: callbackSuccess,
+        method: method,
+        headers: headers
+    });
+}*/
+
+function openModalWithFields(params){
+    var routeBlade = params.routeBlade;
+    var inputClass = params.inputClass;
+    //Ativo o modal ajax
+    $('#ajaxLoader').modal('toggle');
+    //Requisição para retornar a blade
+    $.ajax({
+        url: routeBlade,
+        method: 'GET',
+        success: function (data) {
+            //Escondo o modal ajax
+            $('#ajaxLoader').modal('hide');
+            //Transformando a blade em objeto jquery
+            data = $(data);
+            //Adicionando o modal ao body
+            $("body").append(data);
+            //Ativando o modal
+            $(data).modal('toggle');
+            //Formulário do modal
+            var form = data.find('form');
+            //Validação do formulário
+            form.validate({
+                submitHandler: function(frm){
+                    var data = form.serialize();
+                    var action = form.attr('action');
+                    swal({
+                        title: "Você realmente deseja atualizar os dados?",
+                        type: "info",
+                        showCancelButton: true,
+                        cancelButtonText: "Cancelar",
+                        confirmButtonColor: "#00a65a",
+                        confirmButtonText: "Salvar",
+                        closeOnConfirm: false,
+                        showLoaderOnConfirm: true
+                    }, function () {
+                        $.ajax({
+                            url: action,
+                            method: 'POST',
+                            dataType: 'Json',
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                            },
+                            data: data,
+                            success: function (data) {
+                                if(data == 'true')
+                                    swal("Atualizado!", "", "success");
+                                else
+                                    swal("Oops...", "Something went wrong!", "error");
+                            },
+                            error: function(data){
+                                swal("Oops...", "Something went wrong!", "error");
+                            }
+                        });
+
+                    });
+                }
+            });
+
+            //Evento disparado ao esconder o modal
+            $(data).on('hidden.bs.modal', function (e) {
+                $(this).remove();
+                form.unbind("submit");
+            });
+
+            //Adicionando validações e máscaras aos fields do formulário
+            form.find('.'+inputClass).each(function(){
+                $(this).rules("add", {
+                    required: true,
+                    number: true,
+                    minlength: 1,
+                    messages: {
+                        required: "Este campo é obrigatório",
+                        number: "Informe somente números",
+                        minlength: "Informe no mínimo 1"
+                    }
+                });
+
+                $(this).inputmask("decimal", {
+                    "placeholder": ""
+                });
+            });
+
+        },
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+        }
+    });
+}
+
 $(function () {
+
+    //Método para validar o CPF
+    $.validator.addMethod("isCPF", function(value, element) {
+        return validateCPF(value);
+    });
+
+    //Desabilitando todos os elementos com a classe desactive
     $('.desactive').hide();
+
+    /*$('.number2').inputmask("regex", {
+        regex: "/\-|\d/"
+    });*/
+
+    $('.number').inputmask("decimal");
+
+
+    $('.decimal').inputmask("decimal");
 
     $('.textarea').css({
         'width': '100%'
@@ -248,15 +469,17 @@ $(function () {
     $(".textarea").wysihtml5({
         toolbar: {
             html: true,
-        },
+        }
     });
 
     //Datemask dd/mm/yyyy
     $("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
 
 
-    $(".rg").inputmask("99.999.999-99", {"placeholder": "99.999.999-99"});
-    $(".cpf").inputmask("999.999.999-99", {"placeholder": "999.999.999-99"});
+    $(".rg").inputmask("99.999.999-99", {"placeholder": ""});
+    $(".cpf").inputmask("999.999.999-99", {"placeholder": ""});
+
+
 
     $(".birth_date").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
 
@@ -290,9 +513,22 @@ $(function () {
             $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
     });
 
+    $.fn.datepicker.dates['pt-br'] = {
+        days: ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"],
+        daysShort: ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sab"],
+        daysMin: ["Do", "Se", "Te", "Qua", "Qui", "Se", "Sa"],
+        months: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
+        monthsShort: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
+        today: "Hoje",
+        clear: "Limpar",
+        format: "dd/mm/yyyy",
+        titleFormat: "MM yyyy", /* Leverages same syntax as 'format' */
+        weekStart: 0
+    };
+
     //Date picker
-    $('#datepicker').datepicker({
-        autoclose: true
+    $('.datepicker').datepicker({
+        language: 'pt-br'
     });
 
     //iCheck for checkbox and radio inputs
@@ -354,7 +590,7 @@ $(function () {
         responsive: true,
         scroll: true,
         scrollX: true,
-        scrollCollapse: true,
+        scrollCollapse: true
     });
 
     $('[data-method]').append(function(){
@@ -623,6 +859,4 @@ $(function () {
             });
         }, false);
     }*/
-
-
 });

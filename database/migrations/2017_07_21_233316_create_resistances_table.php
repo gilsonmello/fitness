@@ -15,12 +15,19 @@ class CreateResistancesTable extends Migration
     {
         Schema::create('resistances', function (Blueprint $table) {
             $table->engine = "InnoDB";
-            $table->integer('user_id')->unsigned();
             $table->increments('id');
+            $table->integer('test_id')->unsigned();
+            $table->tinyInteger('type_resistance');
+            $table->decimal('load_estimed')->nullable();
+            $table->decimal('option_1')->nullable();
+            $table->decimal('option_2')->nullable();
+            $table->decimal('option_3')->nullable();
+            $table->decimal('option_4')->nullable();
+            $table->decimal('maximum_repeat')->nullable();
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('user_id')
-                ->on('users')
+            $table->foreign('test_id')
+                ->on('tests')
                 ->references('id');
         });
     }

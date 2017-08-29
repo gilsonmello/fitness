@@ -31,17 +31,22 @@
     <div class="box box-primary">
         <div class="box-body">
             <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
                     <div class="form-group">
                         {!! Form::label('name', trans('strings.name').'*', ['class' => '']) !!}
                         {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => trans('strings.name')]) !!}
                     </div>
                 </div>
-
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
                     <div class="form-group">
                         {!! Form::label('formula', trans('strings.formula').'*', ['class' => '']) !!}
                         {!! Form::text('formula', null, ['class' => 'form-control', 'placeholder' => trans('strings.formula')]) !!}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                    <div class="form-group">
+                        {!! Form::label('measure_id', 'Medida *', ['class' => '']) !!}
+                        {!! Form::select('measure_id', $measures->pluck('initials', 'id')->all(), NULL, ['witdh' => '100%', 'class' => 'select2 form-control', 'data-placeholder' => 'Medidas']) !!}
                     </div>
                 </div>
             </div>

@@ -1,4 +1,4 @@
-@section ('title', trans('menus.protocols.index') . ' | ' . trans('menus.protocols.create'))
+@section ('title', trans('menus.protocols.index'))
 
 @section('content_header')
 <!-- Content Header (Page header) -->
@@ -68,7 +68,6 @@
                         <tr>
                             <th>{!! trans('strings.title') !!}</th>
                             <th>{!! trans('strings.formula') !!}</th>
-                            <th>{!! trans('strings.description') !!}</th>
                             <th>{!! trans('strings.created_at') !!}</th>
                             <th>{!! trans('strings.actions') !!}</th>
                         </tr>
@@ -78,7 +77,6 @@
                             <tr>
                                 <td>{!! $value->name !!}</td>
                                 <td>{!! $value->formula !!}</td>
-                                <td>{!! substr($value->description, 0, 100) !!}</td>
                                 <td>{!! format_datetimebr($value->created_at) !!}</td>
                                 <th>{!! $value->action_buttons !!}</th>
                             </tr>
@@ -90,7 +88,6 @@
                         <tr>
                             <th>{!! trans('strings.title') !!}</th>
                             <th>{!! trans('strings.formula') !!}</th>
-                            <th>{!! trans('strings.description') !!}</th>
                             <th>{!! trans('strings.created_at') !!}</th>
                             <th>{!! trans('strings.actions') !!}</th>
                         </tr>

@@ -8682,6 +8682,405 @@ Optional extensions on the jquery.inputmask base
     });
 })(jQuery);
 
+/*
+Input Mask plugin extensions
+http://github.com/RobinHerbots/jquery.inputmask
+Copyright (c) 2010 - 2014 Robin Herbots
+Licensed under the MIT license (http://www.opensource.org/licenses/mit-license.php)
+Version: 0.0.0
+
+Optional extensions on the jquery.inputmask base
+*/
+(function ($) {
+    //number aliases
+    $.extend($.inputmask.defaults.aliases, {
+        'decimal': {
+            mask: "~",
+            placeholder: "",
+            repeat: "*",
+            greedy: false,
+            numericInput: false,
+            isNumeric: true,
+            digits: "*", //number of fractionalDigits
+            groupSeparator: "",//",", // | "."
+            radixPoint: ".",
+            groupSize: 3,
+            autoGroup: false,
+            allowPlus: true,
+            allowMinus: true,
+            //todo
+            integerDigits: "*", //number of integerDigits
+            defaultValue: "",
+            prefix: "",
+            suffix: "",
+
+            //todo
+            getMaskLength: function (buffer, greedy, repeat, currentBuffer, opts) { //custom getMaskLength to take the groupSeparator into account
+                var calculatedLength = buffer.length;
+
+                if (!greedy) {
+                    if (repeat == "*") {
+                        calculatedLength = currentBuffer.length + 1;
+                    } else if (repeat > 1) {
+                        calculatedLength += (buffer.length * (repeat - 1));
+                    }
+                }
+
+                var escapedGroupSeparator = $.inputmask.escapeRegex.call(this, opts.groupSeparator);
+                var escapedRadixPoint = $.inputmask.escapeRegex.call(this, opts.radixPoint);
+                var currentBufferStr = currentBuffer.join(''), strippedBufferStr = currentBufferStr.replace(new RegExp(escapedGroupSeparator, "g"), "").replace(new RegExp(escapedRadixPoint), ""),
+                groupOffset = currentBufferStr.length - strippedBufferStr.length;
+                return calculatedLength + groupOffset;
+            },
+            postFormat: function (buffer, pos, reformatOnly, opts) {
+                if (opts.groupSeparator == "") return pos;
+                var cbuf = buffer.slice(),
+                    radixPos = $.inArray(opts.radixPoint, buffer);
+                if (!reformatOnly) {
+                    cbuf.splice(pos, 0, "?"); //set position indicator
+                }
+                var bufVal = cbuf.join('');
+                if (opts.autoGroup || (reformatOnly && bufVal.indexOf(opts.groupSeparator) != -1)) {
+                    var escapedGroupSeparator = $.inputmask.escapeRegex.call(this, opts.groupSeparator);
+                    bufVal = bufVal.replace(new RegExp(escapedGroupSeparator, "g"), '');
+                    var radixSplit = bufVal.split(opts.radixPoint);
+                    bufVal = radixSplit[0];
+                    var reg = new RegExp('([-\+]?[\\d\?]+)([\\d\?]{' + opts.groupSize + '})');
+                    while (reg.test(bufVal)) {
+                        bufVal = bufVal.replace(reg, '$1' + opts.groupSeparator + '$2');
+                        bufVal = bufVal.replace(opts.groupSeparator + opts.groupSeparator, opts.groupSeparator);
+                    }
+                    if (radixSplit.length > 1)
+                        bufVal += opts.radixPoint + radixSplit[1];
+                }
+                buffer.length = bufVal.length; //align the length
+                for (var i = 0, l = bufVal.length; i < l; i++) {
+                    buffer[i] = bufVal.charAt(i);
+                }
+                var newPos = $.inArray("?", buffer);
+                if (!reformatOnly) buffer.splice(newPos, 1);
+
+                return reformatOnly ? pos : newPos;
+            },
+            regex: {
+                number: function (opts) {
+                    var escapedGroupSeparator = $.inputmask.escapeRegex.call(this, opts.groupSeparator);
+                    var escapedRadixPoint = $.inputmask.escapeRegex.call(this, opts.radixPoint);
+                    var digitExpression = isNaN(opts.digits) ? opts.digits : '{0,' + opts.digits + '}';
+                    var signedExpression = opts.allowPlus || opts.allowMinus ? "[" + (opts.allowPlus ? "\+" : "") + (opts.allowMinus ? "-" : "") + "]?" : "";
+                    return new RegExp("^" + signedExpression + "(\\d+|\\d{1," + opts.groupSize + "}((" + escapedGroupSeparator + "\\d{" + opts.groupSize + "})?)+)(" + escapedRadixPoint + "\\d" + digitExpression + ")?$");
+                }
+            },
+            onKeyDown: function (e, buffer, opts) {
+                var $input = $(this), input = this;
+                if (e.keyCode == opts.keyCode.TAB) {
+                    var radixPosition = $.inArray(opts.radixPoint, buffer);
+                    if (radixPosition != -1) {
+                        var masksets = $input.data('_inputmask')['masksets'];
+                        var activeMasksetIndex = $input.data('_inputmask')['activeMasksetIndex'];
+                        for (var i = 1; i <= opts.digits && i < opts.getMaskLength(masksets[activeMasksetIndex]["_buffer"], masksets[activeMasksetIndex]["greedy"], masksets[activeMasksetIndex]["repeat"], buffer, opts) ; i++) {
+                            if (buffer[radixPosition + i] == undefined || buffer[radixPosition + i] == "") buffer[radixPosition + i] = "0";
+                        }
+                        input._valueSet(buffer.join(''));
+                    }
+                } else if (e.keyCode == opts.keyCode.DELETE || e.keyCode == opts.keyCode.BACKSPACE) {
+                    opts.postFormat(buffer, 0, true, opts);
+                    input._valueSet(buffer.join(''));
+                    return true;
+                }
+            },
+            definitions: {
+                '~': { //real number
+                    validator: function (chrs, buffer, pos, strict, opts) {
+                        if (chrs == "") return false;
+                        if (!strict && pos <= 1 && buffer[0] === '0' && new RegExp("[\\d-]").test(chrs) && buffer.join('').length == 1) { //handle first char
+                            buffer[0] = "";
+                            return { "pos": 0 };
+                        }
+
+                        var cbuf = strict ? buffer.slice(0, pos) : buffer.slice();
+
+                        cbuf.splice(pos, 0, chrs);
+                        var bufferStr = cbuf.join('');
+
+                        //strip groupseparator
+                        var escapedGroupSeparator = $.inputmask.escapeRegex.call(this, opts.groupSeparator);
+                        bufferStr = bufferStr.replace(new RegExp(escapedGroupSeparator, "g"), '');
+
+                        var isValid = opts.regex.number(opts).test(bufferStr);
+                        if (!isValid) {
+                            //let's help the regex a bit
+                            bufferStr += "0";
+                            isValid = opts.regex.number(opts).test(bufferStr);
+                            if (!isValid) {
+                                //make a valid group
+                                var lastGroupSeparator = bufferStr.lastIndexOf(opts.groupSeparator);
+                                for (var i = bufferStr.length - lastGroupSeparator; i <= 3; i++) {
+                                    bufferStr += "0";
+                                }
+
+                                isValid = opts.regex.number(opts).test(bufferStr);
+                                if (!isValid && !strict) {
+                                    if (chrs == opts.radixPoint) {
+                                        isValid = opts.regex.number(opts).test("0" + bufferStr + "0");
+                                        if (isValid) {
+                                            buffer[pos] = "0";
+                                            pos++;
+                                            return { "pos": pos };
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        if (isValid != false && !strict && chrs != opts.radixPoint) {
+                            var newPos = opts.postFormat(buffer, pos, false, opts);
+                            return { "pos": newPos };
+                        }
+
+                        return isValid;
+                    },
+                    cardinality: 1,
+                    prevalidator: null
+                }
+            },
+            insertMode: true,
+            autoUnmask: false
+        },
+        'integer': {
+            regex: {
+                number: function (opts) {
+                    var escapedGroupSeparator = $.inputmask.escapeRegex.call(this, opts.groupSeparator);
+                    var signedExpression = opts.allowPlus || opts.allowMinus ? "[" + (opts.allowPlus ? "\+" : "") + (opts.allowMinus ? "-" : "") + "]?" : "";
+                    return new RegExp("^" + signedExpression + "(\\d+|\\d{1," + opts.groupSize + "}((" + escapedGroupSeparator + "\\d{" + opts.groupSize + "})?)+)$");
+                }
+            },
+            alias: "decimal"
+        }
+    });
+})(jQuery);
+
+/*
+Input Mask plugin extensions
+http://github.com/RobinHerbots/jquery.inputmask
+Copyright (c) 2010 - 2014 Robin Herbots
+Licensed under the MIT license (http://www.opensource.org/licenses/mit-license.php)
+Version: 0.0.0
+
+Phone extension.
+When using this extension make sure you specify the correct url to get the masks
+
+ $(selector).inputmask("phone", {
+                url: "Scripts/jquery.inputmask/phone-codes/phone-codes.json", 
+                onKeyValidation: function () { //show some metadata in the console
+                    console.log($(this).inputmask("getmetadata")["name_en"]);
+                } 
+  });
+
+
+*/
+(function ($) {
+    $.extend($.inputmask.defaults.aliases, {
+        'phone': {
+            url: "phone-codes/phone-codes.json",
+            mask: function (opts) {
+                opts.definitions = {
+                    'p': {
+                        validator: function () { return false; },
+                        cardinality: 1
+                    },
+                    '#': {
+                        validator: "[0-9]",
+                        cardinality: 1
+                    }
+                };
+                var maskList = [];
+                $.ajax({
+                    url: opts.url,
+                    async: false,
+                    dataType: 'json',
+                    success: function (response) {
+                        maskList = response;
+                    }
+                });
+    
+                maskList.splice(0, 0, "+p(ppp)ppp-pppp");
+                return maskList;
+            }
+        }
+    });
+})(jQuery);
+
+/*
+Input Mask plugin extensions
+http://github.com/RobinHerbots/jquery.inputmask
+Copyright (c) 2010 - 2014 Robin Herbots
+Licensed under the MIT license (http://www.opensource.org/licenses/mit-license.php)
+Version: 0.0.0
+
+Regex extensions on the jquery.inputmask base
+Allows for using regular expressions as a mask
+*/
+(function ($) {
+    $.extend($.inputmask.defaults.aliases, { // $(selector).inputmask("Regex", { regex: "[0-9]*"}
+        'Regex': {
+            mask: "r",
+            greedy: false,
+            repeat: "*",
+            regex: null,
+            regexTokens: null,
+            //Thx to https://github.com/slevithan/regex-colorizer for the tokenizer regex
+            tokenizer: /\[\^?]?(?:[^\\\]]+|\\[\S\s]?)*]?|\\(?:0(?:[0-3][0-7]{0,2}|[4-7][0-7]?)?|[1-9][0-9]*|x[0-9A-Fa-f]{2}|u[0-9A-Fa-f]{4}|c[A-Za-z]|[\S\s]?)|\((?:\?[:=!]?)?|(?:[?*+]|\{[0-9]+(?:,[0-9]*)?\})\??|[^.?*+^${[()|\\]+|./g,
+            quantifierFilter: /[0-9]+[^,]/,
+            definitions: {
+                'r': {
+                    validator: function (chrs, buffer, pos, strict, opts) {
+                        function regexToken() {
+                            this.matches = [];
+                            this.isGroup = false;
+                            this.isQuantifier = false;
+                            this.isLiteral = false;
+                        }
+                        function analyseRegex() {
+                            var currentToken = new regexToken(), match, m, opengroups = [];
+
+                            opts.regexTokens = [];
+
+                            // The tokenizer regex does most of the tokenization grunt work
+                            while (match = opts.tokenizer.exec(opts.regex)) {
+                                m = match[0];
+                                switch (m.charAt(0)) {
+                                    case "[": // Character class
+                                    case "\\":  // Escape or backreference
+                                        if (opengroups.length > 0) {
+                                            opengroups[opengroups.length - 1]["matches"].push(m);
+                                        } else {
+                                            currentToken.matches.push(m);
+                                        }
+                                        break;
+                                    case "(": // Group opening
+                                        if (!currentToken.isGroup && currentToken.matches.length > 0)
+                                            opts.regexTokens.push(currentToken);
+                                        currentToken = new regexToken();
+                                        currentToken.isGroup = true;
+                                        opengroups.push(currentToken);
+                                        break;
+                                    case ")": // Group closing
+                                        var groupToken = opengroups.pop();
+                                        if (opengroups.length > 0) {
+                                            opengroups[opengroups.length - 1]["matches"].push(groupToken);
+                                        } else {
+                                            opts.regexTokens.push(groupToken);
+                                            currentToken = new regexToken();
+                                        }
+                                        break;
+                                    case "{": //Quantifier
+                                        var quantifier = new regexToken();
+                                        quantifier.isQuantifier = true;
+                                        quantifier.matches.push(m);
+                                        if (opengroups.length > 0) {
+                                            opengroups[opengroups.length - 1]["matches"].push(quantifier);
+                                        } else {
+                                            currentToken.matches.push(quantifier);
+                                        }
+                                        break;
+                                    default:
+                                        // Vertical bar (alternator) 
+                                        // ^ or $ anchor
+                                        // Dot (.)
+                                        // Literal character sequence
+                                        var literal = new regexToken();
+                                        literal.isLiteral = true;
+                                        literal.matches.push(m);
+                                        if (opengroups.length > 0) {
+                                            opengroups[opengroups.length - 1]["matches"].push(literal);
+                                        } else {
+                                            currentToken.matches.push(literal);
+                                        }
+                                }
+                            }
+
+                            if (currentToken.matches.length > 0)
+                                opts.regexTokens.push(currentToken);
+                        }
+                        function validateRegexToken(token, fromGroup) {
+                            var isvalid = false;
+                            if (fromGroup) {
+                                regexPart += "(";
+                                openGroupCount++;
+                            }
+                            for (var mndx = 0; mndx < token["matches"].length; mndx++) {
+                                var matchToken = token["matches"][mndx];
+                                if (matchToken["isGroup"] == true) {
+                                    isvalid = validateRegexToken(matchToken, true);
+                                } else if (matchToken["isQuantifier"] == true) {
+                                    matchToken = matchToken["matches"][0];
+                                    var quantifierMax = opts.quantifierFilter.exec(matchToken)[0].replace("}", "");
+                                    var testExp = regexPart + "{1," + quantifierMax + "}"; //relax quantifier validation
+                                    for (var j = 0; j < openGroupCount; j++) {
+                                        testExp += ")";
+                                    }
+                                    var exp = new RegExp("^(" + testExp + ")$");
+                                    isvalid = exp.test(bufferStr);
+                                    regexPart += matchToken;
+                                } else if (matchToken["isLiteral"] == true) {
+                                    matchToken = matchToken["matches"][0];
+                                    var testExp = regexPart, openGroupCloser = "";
+                                    for (var j = 0; j < openGroupCount; j++) {
+                                        openGroupCloser += ")";
+                                    }
+                                    for (var k = 0; k < matchToken.length; k++) { //relax literal validation
+                                        testExp = (testExp + matchToken[k]).replace(/\|$/, "");
+                                        var exp = new RegExp("^(" + testExp + openGroupCloser + ")$");
+                                        isvalid = exp.test(bufferStr);
+                                        if (isvalid) break;
+                                    }
+                                    regexPart += matchToken;
+                                    //console.log(bufferStr + " " + exp + " " + isvalid);
+                                } else {
+                                    regexPart += matchToken;
+                                    var testExp = regexPart.replace(/\|$/, "");
+                                    for (var j = 0; j < openGroupCount; j++) {
+                                        testExp += ")";
+                                    }
+                                    var exp = new RegExp("^(" + testExp + ")$");
+                                    isvalid = exp.test(bufferStr);
+                                    //console.log(bufferStr + " " + exp + " " + isvalid);
+                                }
+                                if (isvalid) break;
+                            }
+
+                            if (fromGroup) {
+                                regexPart += ")";
+                                openGroupCount--;
+                            }
+
+                            return isvalid;
+                        }
+
+
+                        if (opts.regexTokens == null) {
+                            analyseRegex();
+                        }
+
+                        var cbuffer = buffer.slice(), regexPart = "", isValid = false, openGroupCount = 0;
+                        cbuffer.splice(pos, 0, chrs);
+                        var bufferStr = cbuffer.join('');
+                        for (var i = 0; i < opts.regexTokens.length; i++) {
+                            var regexToken = opts.regexTokens[i];
+                            isValid = validateRegexToken(regexToken, regexToken["isGroup"]);
+                            if (isValid) break;
+                        }
+
+                        return isValid;
+                    },
+                    cardinality: 1
+                }
+            }
+        }
+    });
+})(jQuery);
+
 /**
 * @version: 2.1.19
 * @author: Dan Grossman http://www.dangrossman.info/
@@ -15430,6 +15829,50 @@ function _init() {
 /**
  * Created by Junnyor on 09/07/2017.
  */
+
+Number.prototype.format = function(n, x) {
+    var re = '(\\d)(?=(\\d{' + (x || 3) + '})+' + (n > 0 ? '\\.' : '$') + ')';
+    return this.toFixed(Math.max(0, ~~n)).replace(new RegExp(re, 'g'), '$1,');
+};
+
+//Função para validar CPF
+function validateCPF(cpf){
+
+    var numbers, digits, sum, i, result, equal_digits;
+    equal_digits = 1;
+    cpf = cpf.replace(/\.|\-/g, '');
+    if (cpf.length < 11) {
+        return false;
+    }
+    for (i = 0; i < cpf.length - 1; i++)
+        if (cpf.charAt(i) != cpf.charAt(i + 1))
+        {
+            equal_digits = 0;
+            break;
+        }
+    if (!equal_digits)
+    {
+        numbers = cpf.substring(0,9);
+        digits = cpf.substring(9);
+        sum = 0;
+        for (i = 10; i > 1; i--)
+            sum += numbers.charAt(10 - i) * i;
+        result = sum % 11 < 2 ? 0 : 11 - sum % 11;
+        if (result != digits.charAt(0))
+            return false;
+        numbers = cpf.substring(0,10);
+        sum = 0;
+        for (i = 11; i > 1; i--)
+            sum += numbers.charAt(11 - i) * i;
+        result = sum % 11 < 2 ? 0 : 11 - sum % 11;
+        if (result != digits.charAt(1))
+            return false;
+        return true;
+    }
+    else
+        return false;
+}
+
 function serialize(form) {
     if (!form || form.nodeName !== "FORM") {
         return;
@@ -15509,8 +15952,69 @@ function convertToSlug(str){
     return str;
 }
 
+function validateForm(params){
+    var el = params.el;
+    var input = params.input;
+    var validate = params.validate != undefined ? 0 : 1;
+
+    el.validate({
+        submitHandler: function(frm){
+            var data = el.serialize();
+            var action = el.attr('action');
+            swal({
+                title: "Você realmente deseja atualizar os dados?",
+                type: "info",
+                showCancelButton: true,
+                cancelButtonText: "Cancelar",
+                confirmButtonColor: "#00a65a",
+                confirmButtonText: "Salvar",
+                closeOnConfirm: false,
+                showLoaderOnConfirm: true
+            }, function () {
+                $.ajax({
+                    url: action,
+                    method: 'POST',
+                    dataType: 'Json',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                    },
+                    data: data,
+                    success: function (data) {
+                        if(data == 'true')
+                            swal("Atualizado!", "", "success");
+                        else
+                            swal("Oops...", "Something went wrong!", "error");
+                    },
+                    error: function(data){
+                        swal("Oops...", "Something went wrong!", "error");
+                    }
+                });
+
+            });
+        }
+    });
+
+    if(validate == 1) {
+        //Implementando validações para os inputs do formulário
+        input.each(function (item) {
+            $(this).rules("add", {
+                required: true,
+                number: true,
+                minlength: 3,
+                min: 0,
+                messages: {
+                    required: "Este campo é obrigatório",
+                    number: "Informe somente números",
+                    minlength: "Informe no mínimo 2 números com 1 casa decimal"
+                }
+            });
+        });
+    }
+}
+
 function tests(param){
 
+    var name = param.name != undefined ? param.name : '';
     var form = param.form;
     var btn = param.btn;
     var inputSelect = param.inputSelect;
@@ -15522,57 +16026,51 @@ function tests(param){
 
     //Código para seleção de procolos
     inputSelect.select2().on('select2:select', function (e) {
+        window.console.log(param);
         var args = e.params.data;
-
         $.ajax({
             method: 'GET',
             url: '/admin/tests/'+test_id+'/protocols/'+args.id+'/'+routeFind,
             success: function(data){
-                var result = '';
-                if(data.result != ''){
-                    result = data.result;
-                }
-                var html = '<div class="col-xs-12 col-sm-12 col-md-12 col-lg-6" id="'+args.text+'" style="display: none;">';
-                html += '<div class="form-group">';
-                html += '<label for="protocol_'+data.id+'[result]">'+data.name+'.: '+data.formula+'</label>';
-                html += '<input type="hidden" name="protocol_'+data.id+'[id]" value="'+data.id+'">';
-                html += '<br><label>Resultado</label>';
-                html += '<input id="protocol_'+data.id+'[result]" value="'+result+'" name="protocol_'+data.id+'[result]" type="text" class="number '+classInputText+' form-control">';
 
-                if(data.notFind.length != 0){
-                    window.console.log(data);
-                    for(var i = 0; i < data.notFind.length; i++){
-                        html += '<br><label>'+data.notFind[i]+'</label>';
-                        html += '<input id="maximum_vo2_'+data.notFind[i]+'" value="" name="'+data.notFind[i]+'" type="text" class="number form-control">';
+                    var result = '';
+                    if (data.result != '') {
+                        result = data.result;
                     }
-                }
+                    var html = '<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4" id="' + args.text.replace(' ', '_') + '" style="display: none;">';
+                    html += '<div class="form-group">';
+                    html += '<label for="protocol_' + name+'_'+data.id + '[result]">' + data.name + '.: ' + data.formula + '</label>';
+                    html += '<input type="hidden" name="protocol_' + data.id + '[id]" value="' + data.id + '">';
+                    html += '<div class="input-group">';
+                        html += '<input id="protocol_' + name+'_'+data.id + '[result]"" value="' + result + '" name="protocol_' + data.id + '[result]" type="text" class="number ' + classInputText + ' form-control">';
+                        html += '<span class="input-group-addon" id="">'+data.measure+'</span>';
+                    html += '</div>';
 
-                html += '</div>';
-                html += '</div>';
-                html = $(html);
-                html.hide();
+                    html += '</div>';
+                    html += '</div>';
+                    html = $(html);
+                    html.hide();
 
-                btn.fadeIn('slow').removeClass('desactive');
+                    btn.fadeIn('slow').removeClass('desactive');
 
-                row.append(html);
+                    row.append(html);
 
 
+                    $('.number').inputmask("decimal");
 
-                $('.number').inputmask("[9]99.99", {
-                    "placeholder": ""
-                });
-                html.fadeIn('slow');
+                    html.fadeIn('slow');
 
-                html.find('.'+classInputText).rules("add", {
-                    required: true,
-                    number: true,
-                    minlength: true,
-                    messages: {
-                        required:  "Este campo é obrigatório",
-                        number:  "Informe somente números",
-                        minlength: "Informe no mínimo 3 números com casas decimais"
-                    }
-                });
+                    html.find('.' + classInputText).rules("add", {
+                        required: true,
+                        number: true,
+                        minlength: true,
+                        messages: {
+                            required: "Este campo é obrigatório",
+                            number: "Informe somente números",
+                            minlength: "Informe no mínimo 3 números com casas decimais"
+                        }
+                    });
+
             },
             dataType: 'Json',
             headers: {
@@ -15589,7 +16087,7 @@ function tests(param){
                 if(data == 'true'){
                     swal("Removido!", "", "success");
                 }
-                form.find('#'+args.text).fadeOut('slow').promise().done(function(){
+                form.find('#'+args.text.replace(' ', '_')).fadeOut('slow').promise().done(function(){
                     $(this).remove();
                     var rows = form.find('.col-lg-6').length;
                     if(rows == 0){
@@ -15649,23 +16147,145 @@ function tests(param){
         $(this).rules("add", {
             required: true,
             number: true,
-            minlength: true,
+            minlength: 1,
             messages: {
                 required: "Este campo é obrigatório",
                 number: "Informe somente números",
-                minlength: "Informe no mínimo 3 números com casas decimais"
+                minlength: "Informe no mínimo 1 número"
             }
         });
 
-        $(this).inputmask("[9]99.99", {
+        $(this).inputmask("decimal", {
             "placeholder": ""
         });
     });
 
 }
 
+/*function executeAjax(params){
+    var url = params.url;
+    var dataType = params.dataType != undefined ? params.dataType : '';
+    var headers = params.headers;
+    var method = params.method;
+    var callbackSuccess = params.success;
+
+    $.ajax({
+        url: url,
+        dataType: dataType,
+        data: $(this).serialize(),
+        success: callbackSuccess,
+        method: method,
+        headers: headers
+    });
+}*/
+
+function openModalWithFields(params){
+    var routeBlade = params.routeBlade;
+    var inputClass = params.inputClass;
+    //Ativo o modal ajax
+    $('#ajaxLoader').modal('toggle');
+    //Requisição para retornar a blade
+    $.ajax({
+        url: routeBlade,
+        method: 'GET',
+        success: function (data) {
+            //Escondo o modal ajax
+            $('#ajaxLoader').modal('hide');
+            //Transformando a blade em objeto jquery
+            data = $(data);
+            //Adicionando o modal ao body
+            $("body").append(data);
+            //Ativando o modal
+            $(data).modal('toggle');
+            //Formulário do modal
+            var form = data.find('form');
+            //Validação do formulário
+            form.validate({
+                submitHandler: function(frm){
+                    var data = form.serialize();
+                    var action = form.attr('action');
+                    swal({
+                        title: "Você realmente deseja atualizar os dados?",
+                        type: "info",
+                        showCancelButton: true,
+                        cancelButtonText: "Cancelar",
+                        confirmButtonColor: "#00a65a",
+                        confirmButtonText: "Salvar",
+                        closeOnConfirm: false,
+                        showLoaderOnConfirm: true
+                    }, function () {
+                        $.ajax({
+                            url: action,
+                            method: 'POST',
+                            dataType: 'Json',
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                            },
+                            data: data,
+                            success: function (data) {
+                                if(data == 'true')
+                                    swal("Atualizado!", "", "success");
+                                else
+                                    swal("Oops...", "Something went wrong!", "error");
+                            },
+                            error: function(data){
+                                swal("Oops...", "Something went wrong!", "error");
+                            }
+                        });
+
+                    });
+                }
+            });
+
+            //Evento disparado ao esconder o modal
+            $(data).on('hidden.bs.modal', function (e) {
+                $(this).remove();
+                form.unbind("submit");
+            });
+
+            //Adicionando validações e máscaras aos fields do formulário
+            form.find('.'+inputClass).each(function(){
+                $(this).rules("add", {
+                    required: true,
+                    number: true,
+                    minlength: 1,
+                    messages: {
+                        required: "Este campo é obrigatório",
+                        number: "Informe somente números",
+                        minlength: "Informe no mínimo 1"
+                    }
+                });
+
+                $(this).inputmask("decimal", {
+                    "placeholder": ""
+                });
+            });
+
+        },
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+        }
+    });
+}
+
 $(function () {
+
+    //Método para validar o CPF
+    $.validator.addMethod("isCPF", function(value, element) {
+        return validateCPF(value);
+    });
+
+    //Desabilitando todos os elementos com a classe desactive
     $('.desactive').hide();
+
+    /*$('.number2').inputmask("regex", {
+        regex: "/\-|\d/"
+    });*/
+
+    $('.number').inputmask("decimal");
+
+
+    $('.decimal').inputmask("decimal");
 
     $('.textarea').css({
         'width': '100%'
@@ -15677,15 +16297,17 @@ $(function () {
     $(".textarea").wysihtml5({
         toolbar: {
             html: true,
-        },
+        }
     });
 
     //Datemask dd/mm/yyyy
     $("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
 
 
-    $(".rg").inputmask("99.999.999-99", {"placeholder": "99.999.999-99"});
-    $(".cpf").inputmask("999.999.999-99", {"placeholder": "999.999.999-99"});
+    $(".rg").inputmask("99.999.999-99", {"placeholder": ""});
+    $(".cpf").inputmask("999.999.999-99", {"placeholder": ""});
+
+
 
     $(".birth_date").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
 
@@ -15719,9 +16341,22 @@ $(function () {
             $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
     });
 
+    $.fn.datepicker.dates['pt-br'] = {
+        days: ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"],
+        daysShort: ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sab"],
+        daysMin: ["Do", "Se", "Te", "Qua", "Qui", "Se", "Sa"],
+        months: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
+        monthsShort: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
+        today: "Hoje",
+        clear: "Limpar",
+        format: "dd/mm/yyyy",
+        titleFormat: "MM yyyy", /* Leverages same syntax as 'format' */
+        weekStart: 0
+    };
+
     //Date picker
-    $('#datepicker').datepicker({
-        autoclose: true
+    $('.datepicker').datepicker({
+        language: 'pt-br'
     });
 
     //iCheck for checkbox and radio inputs
@@ -15783,7 +16418,7 @@ $(function () {
         responsive: true,
         scroll: true,
         scrollX: true,
-        scrollCollapse: true,
+        scrollCollapse: true
     });
 
     $('[data-method]').append(function(){
@@ -16052,6 +16687,4 @@ $(function () {
             });
         }, false);
     }*/
-
-
 });

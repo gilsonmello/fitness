@@ -354,12 +354,32 @@ return [
     'evaluations' => [
         'created' => 'Avaliação criada com sucesso.',
         'updated' => 'Avaliação atualizada com sucesso.',
-        'error' => 'Erro ao criar avaliação com sucesso.',
+        'error' => 'Erro ao criar avaliação.',
         'upated_error' => 'Erro ao atualizar avaliação.',
         'not_find' => 'Avaliação não encontrada.',
         'deleted' => 'Avaliação deletada com sucesso',
         'deleted_error' => 'Erro ao deletadar avaliação.',
-    ]
+    ],
+
+    'protocols' => [
+        'created' => 'Protocolo criado com sucesso.',
+        'updated' => 'Protocolo atualizado com sucesso.',
+        'error' => 'Erro ao criar Protocolo.',
+        'upated_error' => 'Erro ao atualizar Protocolo.',
+        'not_find' => 'Protocolo não encontrado.',
+        'deleted' => 'Protocolo deletado com sucesso',
+        'deleted_error' => 'Erro ao deletadar Protocolo.',
+    ],
+
+    'additional_data' => [
+        'created' => 'Dado Adicional criado com sucesso.',
+        'updated' => 'Dado Adicional atualizado com sucesso.',
+        'error' => 'Erro ao criar Dado Adicional.',
+        'upated_error' => 'Erro ao atualizar Dado Adicional.',
+        'not_find' => 'Dado Adicional não encontrado.',
+        'deleted' => 'Dado Adicional deletado com sucesso',
+        'deleted_error' => 'Erro ao deletadar Dado Adicional.',
+    ],
     
 
 ];

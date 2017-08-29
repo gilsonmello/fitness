@@ -15,13 +15,15 @@ const mix  = require('laravel-mix');
 
 //mix.minify('resources/assets/css/backend/bootstrap/css/bootstrap.css');
 
+mix.js('resources/assets/js/app.js', 'public/js').sass('resources/assets/sass/app.scss', 'public/css');
+
 mix.styles([
     'public/bower_components/admin-lte/bootstrap/css/bootstrap.min.css',
 ], 'public/backend/css/bootstrap.css');
 
 mix.styles([
+    'public/bower_components/external-plugins/ionicons/ionicons.min.css',
     'public/bower_components/admin-lte/bootstrap/css/font-awesome.min.css',
-    'public/bower_components/admin-lte/dist/css/AdminLTE.min.css',
     'public/bower_components/admin-lte/plugins/daterangepicker/daterangepicker.css',
     'public/bower_components/admin-lte/plugins/datepicker/datepicker3.css',
     'public/bower_components/admin-lte/plugins/iCheck/minimal/_all.css',
@@ -55,10 +57,14 @@ mix.scripts([
 
     'public/bower_components/admin-lte/plugins/moment/moment.min.js',
     'public/bower_components/admin-lte/plugins/select2/select2.full.js',
-    'public/bower_components/admin-lte/plugins/input-mask/jquery.inputmask.js',
 
+    'public/bower_components/admin-lte/plugins/input-mask/jquery.inputmask.js',
     'public/bower_components/admin-lte/plugins/input-mask/jquery.inputmask.date.extensions.js',
     'public/bower_components/admin-lte/plugins/input-mask/jquery.inputmask.extensions.js',
+    'public/bower_components/admin-lte/plugins/input-mask/jquery.inputmask.numeric.extensions.js',
+    'public/bower_components/admin-lte/plugins/input-mask/jquery.inputmask.phone.extensions.js',
+    'public/bower_components/admin-lte/plugins/input-mask/jquery.inputmask.regex.extensions.js',
+
     'public/bower_components/admin-lte/plugins/daterangepicker/daterangepicker.js',
     'public/bower_components/admin-lte/plugins/datepicker/bootstrap-datepicker.js',
     'public/bower_components/admin-lte/plugins/colorpicker/bootstrap-colorpicker.min.js',
@@ -78,8 +84,13 @@ mix.scripts([
 ], 'public/backend/js/app.js');
 
 mix.scripts([
+    'resources/assets/backend/js/auth/auth.js',
     'resources/assets/backend/js/tests/frequency-heart/frequency-heart.js',
-    'resources/assets/backend/js/tests/maximum-vo2/maximum-vo2.js',
+    'resources/assets/backend/js/tests/vo2/vo2.js',
+    'resources/assets/backend/js/tests/resistance/resistance.js',
+    'resources/assets/backend/js/tests/target-zone/target-zone.js',
+    'resources/assets/backend/js/tests/flexibility/flexibility.js',
+    'resources/assets/backend/js/tests/additional_data/additional-data.js',
 ], 'public/backend/js/main.js');
 
 /*

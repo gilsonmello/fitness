@@ -29,8 +29,25 @@ class Protocol extends Model
      */
     protected $guarded = ['id'];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
     public function maximumHeartRate(){
         return $this->hasOne(\App\MaximumHeartRate::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function minimumHeartRate(){
+        return $this->hasOne(\App\MinimumHeartRate::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function measure(){
+        return $this->belongsTo(\App\Measure::class);
     }
 
 }

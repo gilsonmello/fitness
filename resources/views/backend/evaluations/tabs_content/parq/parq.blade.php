@@ -7,9 +7,9 @@
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <label for="2">{{ trans('strings.yes') }}</label>
-        <input type="radio" id="2" name="question_1" value="1" {{!is_null($evaluation->parq) && $evaluation->parq->question_1 == 1 ? "checked='checked'" : ""}} class="flat-red answer-yes-click" />
+        <input type="radio" id="2" name="question_1" value="1" {{!is_null($evaluation->parq) && $evaluation->parq->question_1 == 1 ? "checked=checked" : ""}} class="flat-red answer-yes-click" />
         <label for="1">{{ trans('strings.no') }}</label>
-        <input type="radio" id="1" name="question_1" value="0" {{!is_null($evaluation->parq) && $evaluation->parq->question_1 == 0 ? "checked='checked'" : ""}} class="flat-red" />
+        <input type="radio" id="1" name="question_1" value="0" {{!is_null($evaluation->parq) && $evaluation->parq->question_1 == 0 ? "checked=checked" : ""}} class="flat-red" />
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 answer-yes {{!is_null($evaluation->parq) && $evaluation->parq->question_1 == 1 ? "editor-active" : "" }}">
         <br>
@@ -25,9 +25,9 @@
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <label for="2">{{ trans('strings.yes') }}</label>
-        <input type="radio" id="2" name="question_2" value="1" {{!is_null($evaluation->parq) && $evaluation->parq->question_2 == 1 ? "checked='checked'" : ""}} class="flat-red answer-yes-click" />
+        <input type="radio" id="2" name="question_2" value="1" {{!is_null($evaluation->parq) && $evaluation->parq->question_2 == 1 ? "checked=checked" : ""}} class="flat-red answer-yes-click" />
         <label for="1">{{ trans('strings.no') }}</label>
-        <input type="radio" id="1" name="question_2" value="0" {{!is_null($evaluation->parq) && $evaluation->parq->question_2 == 0 ? "checked='checked'" : ""}} class="flat-red" />
+        <input type="radio" id="1" name="question_2" value="0" {{!is_null($evaluation->parq) && $evaluation->parq->question_2 == 0 ? "checked=checked" : ""}} class="flat-red" />
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 answer-yes {{!is_null($evaluation->parq) && $evaluation->parq->question_2 == 1 ? "editor-active" : "" }}">
         <br>
@@ -43,9 +43,9 @@
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <label for="2">{{ trans('strings.yes') }}</label>
-        <input type="radio" id="2" name="question_3" value="1" {{!is_null($evaluation->parq) && $evaluation->parq->question_3 == 1 ? "checked='checked'" : ""}} class="flat-red answer-yes-click" />
+        <input type="radio" id="2" name="question_3" value="1" {{!is_null($evaluation->parq) && $evaluation->parq->question_3 == 1 ? "checked=checked" : ""}} class="flat-red answer-yes-click" />
         <label for="1">{{ trans('strings.no') }}</label>
-        <input type="radio" id="1" name="question_3" value="0" {{!is_null($evaluation->parq) && $evaluation->parq->question_3 == 0 ? "checked='checked'" : ""}} class="flat-red" />
+        <input type="radio" id="1" name="question_3" value="0" {{!is_null($evaluation->parq) && $evaluation->parq->question_3 == 0 ? "checked=checked" : ""}} class="flat-red" />
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 answer-yes {{!is_null($evaluation->parq) && $evaluation->parq->question_3 == 1 ? "editor-active" : "" }}">
         <br>
@@ -61,9 +61,9 @@
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <label for="2">{{ trans('strings.yes') }}</label>
-        <input type="radio" id="2" name="question_4" value="1" {{!is_null($evaluation->parq) && $evaluation->parq->question_4 == 1 ? "checked='checked'" : ""}} class="flat-red answer-yes-click" />
+        <input type="radio" id="2" name="question_4" value="1" {{!is_null($evaluation->parq) && $evaluation->parq->question_4 == 1 ? "checked=checked" : ""}} class="flat-red answer-yes-click" />
         <label for="1">{{ trans('strings.no') }}</label>
-        <input type="radio" id="1" name="question_4" value="0" {{!is_null($evaluation->parq) && $evaluation->parq->question_4 == 0 ? "checked='checked'" : ""}} class="flat-red" />
+        <input type="radio" id="1" name="question_4" value="0" {{!is_null($evaluation->parq) && $evaluation->parq->question_4 == 0 ? "checked=checked" : ""}} class="flat-red" />
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 answer-yes {{!is_null($evaluation->parq) && $evaluation->parq->question_4 == 1 ? "editor-active" : "" }}">
         <br>
@@ -79,9 +79,9 @@
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <label for="2">{{ trans('strings.yes') }}</label>
-        <input type="radio" id="2" name="question_5" value="1" {{!is_null($evaluation->parq) && $evaluation->parq->question_5 == 1 ? "checked='checked'" : ""}} class="flat-red answer-yes-click" />
+        <input type="radio" id="2" name="question_5" value="1" {{!is_null($evaluation->parq) && $evaluation->parq->question_5 == 1 ? "checked=checked" : ""}} class="flat-red answer-yes-click" />
         <label for="1">{{ trans('strings.no') }}</label>
-        <input type="radio" id="1" name="question_5" value="0" {{!is_null($evaluation->parq) && $evaluation->parq->question_5 == 0 ? "checked='checked'" : ""}} class="flat-red" />
+        <input type="radio" id="1" name="question_5" value="0" {{!is_null($evaluation->parq) && $evaluation->parq->question_5 == 0 ? "checked=checked" : ""}} class="flat-red" />
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 answer-yes {{!is_null($evaluation->parq) && $evaluation->parq->question_5 == 1 ? "editor-active" : "" }}">
         <br>
@@ -97,9 +97,9 @@
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <label for="2">{{ trans('strings.yes') }}</label>
-        <input type="radio" id="2" name="question_6" value="1" {{!is_null($evaluation->parq) && $evaluation->parq->question_6 == 1 ? "checked='checked'" : ""}} class="flat-red answer-yes-click" />
+        <input type="radio" id="2" name="question_6" value="1" {{!is_null($evaluation->parq) && $evaluation->parq->question_6 == 1 ? "checked=checked" : ""}} class="flat-red answer-yes-click" />
         <label for="1">{{ trans('strings.no') }}</label>
-        <input type="radio" id="1" name="question_6" value="0" {{!is_null($evaluation->parq) && $evaluation->parq->question_6 == 0 ? "checked='checked'" : ""}} class="flat-red" />
+        <input type="radio" id="1" name="question_6" value="0" {{!is_null($evaluation->parq) && $evaluation->parq->question_6 == 0 ? "checked=checked" : ""}} class="flat-red" />
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 answer-yes {{!is_null($evaluation->parq) && $evaluation->parq->question_6 == 1 ? "editor-active" : "" }}">
         <br>
@@ -116,9 +116,9 @@
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <label for="2">{{ trans('strings.yes') }}</label>
-        <input type="radio" id="2" name="question_7" value="1" {{!is_null($evaluation->parq) && $evaluation->parq->question_7 == 1 ? "checked='checked'" : ""}} class="flat-red answer-yes-click" />
+        <input type="radio" id="2" name="question_7" value="1" {{!is_null($evaluation->parq) && $evaluation->parq->question_7 == 1 ? "checked=checked" : ""}} class="flat-red answer-yes-click" />
         <label for="1">{{ trans('strings.no') }}</label>
-        <input type="radio" id="1" name="question_7" value="0" {{!is_null($evaluation->parq) && $evaluation->parq->question_7 == 0 ? "checked='checked'" : ""}} class="flat-red" />
+        <input type="radio" id="1" name="question_7" value="0" {{!is_null($evaluation->parq) && $evaluation->parq->question_7 == 0 ? "checked=checked" : ""}} class="flat-red" />
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 answer-yes {{!is_null($evaluation->parq) && $evaluation->parq->question_7 == 1 ? "editor-active" : "" }}">
         <br>
@@ -135,9 +135,9 @@
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <label for="2">{{ trans('strings.yes') }}</label>
-        <input type="radio" id="2" name="question_8" value="1" {{!is_null($evaluation->parq) && $evaluation->parq->question_8 == 1 ? "checked='checked'" : ""}} class="flat-red answer-yes-click" />
+        <input type="radio" id="2" name="question_8" value="1" {{!is_null($evaluation->parq) && $evaluation->parq->question_8 == 1 ? "checked=checked" : ""}} class="flat-red answer-yes-click" />
         <label for="1">{{ trans('strings.no') }}</label>
-        <input type="radio" id="1" name="question_8" value="0" {{!is_null($evaluation->parq) && $evaluation->parq->question_8 == 0 ? "checked='checked'" : ""}} class="flat-red" />
+        <input type="radio" id="1" name="question_8" value="0" {{!is_null($evaluation->parq) && $evaluation->parq->question_8 == 0 ? "checked=checked" : ""}} class="flat-red" />
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 answer-yes {{!is_null($evaluation->parq) && $evaluation->parq->question_8 == 1 ? "editor-active" : "" }}">
         <br>
@@ -158,9 +158,9 @@
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <label for="2">{{ trans('strings.yes') }}</label>
-        <input type="radio" id="2" name="terms" value="1" {{!is_null($evaluation->parq) && $evaluation->parq->terms == 1 ? "checked='checked'" : ""}} class="flat-red answer-yes-click" />
+        <input type="radio" id="2" name="terms" value="1" {{!is_null($evaluation->parq) && $evaluation->parq->terms == 1 ? "checked=checked" : ""}} class="flat-red answer-yes-click" />
         <label for="1">{{ trans('strings.no') }}</label>
-        <input type="radio" id="1" name="terms" value="0" {{!is_null($evaluation->parq) && $evaluation->parq->terms == 0 ? "checked='checked'" : ""}} class="flat-red" />
+        <input type="radio" id="1" name="terms" value="0" {{!is_null($evaluation->parq) && $evaluation->parq->terms == 0 ? "checked=checked" : ""}} class="flat-red" />
     </div>
 </div>
 <br>

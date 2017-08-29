@@ -5,5 +5,7 @@
   "/backend/js/jquery.js": "/backend/js/jquery.js",
   "/backend/js/bootstrap.js": "/backend/js/bootstrap.js",
   "/backend/js/app.js": "/backend/js/app.js",
-  "/backend/js/main.js": "/backend/js/main.js"
+  "/backend/js/main.js": "/backend/js/main.js",
+  "/js/app.js": "/js/app.js",
+  "/css/app.css": "/css/app.css"
 }

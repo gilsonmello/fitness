@@ -17,7 +17,8 @@ class CreateMeasuresTable extends Migration
             $table->engine = "InnoDB";
             $table->increments('id');
             $table->string('name');
-            $table->tinyInteger('is_active')->default(1);
+            $table->string('initials', 10);
+            $table->boolean('is_active')->default(1);
             $table->timestamps();
             $table->softDeletes();
         });
