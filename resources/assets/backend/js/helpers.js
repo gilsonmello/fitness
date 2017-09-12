@@ -209,12 +209,12 @@ function tests(param){
                     if (data.result != '') {
                         result = data.result;
                     }
-                    var html = '<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4" id="' + args.text.replace(' ', '_') + '" style="display: none;">';
+                    var html = '<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 calculated" id="' + args.text.replace(' ', '_') + '" style="display: none;">';
                     html += '<div class="form-group">';
                     html += '<label for="protocol_' + name+'_'+data.id + '[result]">' + data.name + '.: ' + data.formula + '</label>';
                     html += '<input type="hidden" name="protocol_' + data.id + '[id]" value="' + data.id + '">';
                     html += '<div class="input-group">';
-                        html += '<input id="protocol_' + name+'_'+data.id + '[result]"" value="' + result + '" name="protocol_' + data.id + '[result]" type="text" class="number ' + classInputText + ' form-control">';
+                        html += '<input id="protocol_' + name+'_'+data.id + '[result]" value="' + result + '" name="protocol_' + data.id + '[result]" type="text" class="number ' + classInputText + ' form-control">';
                         html += '<span class="input-group-addon" id="">'+data.measure+'</span>';
                     html += '</div>';
 
@@ -261,7 +261,7 @@ function tests(param){
                 }
                 form.find('#'+args.text.replace(' ', '_')).fadeOut('slow').promise().done(function(){
                     $(this).remove();
-                    var rows = form.find('.col-lg-6').length;
+                    var rows = form.find('.calculated').length;
                     if(rows == 0){
                         btn.fadeOut('slow').addClass('desactive');
                     }
@@ -576,6 +576,7 @@ $(function () {
     });
 
 
+    $.fn.dataTable.ext.errMode = 'none';
 
     $('.data-table').DataTable({
         rowReorder: {

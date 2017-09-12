@@ -62,6 +62,7 @@
                         <thead>
                         <tr>
                             <th>{!! trans('strings.user_name') !!}</th>
+                            <th>{!! trans('strings.validity') !!}</th>
                             <th>{!! trans('strings.created_at') !!}</th>
                             <th>{!! trans('strings.actions') !!}</th>
                         </tr>
@@ -70,6 +71,7 @@
                             @forelse($tests as $value)
                                 <tr>
                                     <td>{!! $value->user->name !!}</td>
+                                    <td>{!! format_datetimebr($value->validity) !!}</td>
                                     <td>{!! format_datetimebr($value->created_at) !!}</td>
                                     <td>{!! $value->action_buttons !!}</td>
                                 </tr>
@@ -80,6 +82,7 @@
                         <tfoot>
                             <tr>
                                 <th>{!! trans('strings.user_name') !!}</th>
+                                <th>{!! trans('strings.validity') !!}</th>
                                 <th>{!! trans('strings.created_at') !!}</th>
                                 <th>{!! trans('strings.actions') !!}</th>
                             </tr>

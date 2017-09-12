@@ -6,10 +6,16 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
 
+/**
+ * Class FrontendController
+ * @package App\Http\Controllers\Frontend
+ */
 class FrontendController extends Controller
 {
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index(){
-    	$users = User::all();
-    	return view('welcome', compact('users'));
+    	return view('frontend.home');
     }
 }

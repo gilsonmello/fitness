@@ -22,13 +22,14 @@ class AuthRepository{
     /**
      * @param $per_page
      * @param array $params
+     * @param array $whereHas
      * @param string $order_by
      * @param string $sort
      * @return mixed
      */
-    public function getPaginated($per_page = NULL, $params = [], $order_by = 'id', $sort = 'asc')
+    public function getPaginated($per_page = NULL, $params = [], $whereHas = [], $order_by = 'users.id', $sort = 'asc')
     {
-        $user = User::where('is_active', '=', 1);
+        $user = User::where('users.is_active', '=', 1);
         if (!is_null($per_page)) {
             return $user->orderBy($order_by, $sort)->paginate($per_page);
         }
@@ -46,9 +47,15 @@ class AuthRepository{
                     }
                 }
             });
-            return $user->orderBy($order_by, $sort)->get();
         }
-        return null;
+
+        if(!is_null($whereHas) && count($whereHas) > 0){
+            foreach($whereHas as $key => $value){
+                $user->whereHas($value);
+            }
+        }
+
+        return $user->orderBy($order_by, $sort)->get();
     }
 
     public function users(){

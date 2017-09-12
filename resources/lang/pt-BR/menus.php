@@ -13,7 +13,7 @@ return [
      */
 
     'crm' => "Relacionamento",
-
+    'simple' => 'Simples',
     'questions' => [
         'index' => 'Questões',
         'create' => 'Criar Questão',
@@ -458,6 +458,16 @@ return [
         'create' => 'Criar Teste',
         'index' => 'Testes',
         'edit' => 'Editar Teste'
+    ],
+
+    'reports' => [
+        'index' => 'Relatórios',
+        'tests' => [
+            'index' => 'Relatórios de Testes'
+        ],
+        'evaluations' => [
+            'index' => 'Relatórios de Avaliações'
+        ]
     ],
 
     'users' => [

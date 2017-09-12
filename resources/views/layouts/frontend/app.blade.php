@@ -1,100 +1,79 @@
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
-<head>
-    <meta charset="utf-8">
+    <head>
+        <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title></title>
+        <title>Miranda Fitness</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
-       
-        <link rel="stylesheet" href="{{ url('frontend/css/bootstrap.css') }}">
-        <link rel="stylesheet" href="{{ url('frontend/css/bootstrap-responsive.css') }}">
-        <link rel="stylesheet" href="{{ url('frontend/css/custom-styles.css') }}">
-        <link rel="stylesheet" href="{{ url('frontend/css/font-awesome.css') }}">
-        <link rel="stylesheet" href="{{ url('frontend/css/component.css') }}">
-        <link rel="stylesheet" href="{{ url('frontend/css/font-awesome-ie7.css') }}">
+        <meta name="csrf-token" content="{{csrf_token()}}">
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css">
+        
+        <!-- Bootstrap
+        <link href="/bower_components/gentelella/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+        Font Awesome
+        <link href="/bower_components/gentelella/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+        iCheck
+        <link href="/bower_components/gentelella/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+        bootstrap-progressbar
+        <link href="/bower_components/gentelella/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+        jVectorMap
+        <link href="/bower_components/gentelella/production/css/maps/jquery-jvectormap-2.0.3.css" rel="stylesheet"/>
+        
+        Custom Theme Style
+        <link href="/bower_components/gentelella/build/css/custom.min.css" rel="stylesheet"> -->
 
-        <script src="{{ url('frontend/js/modernizr-2.6.2-respond-1.1.0.min.js') }}"></script>
-
-        <script src="{{ asset('js/app.js') }}"></script>
-</head>
-<body>
-    @{{ title }}
-            <div id="root"></div>
-    <!-- Cabeçalho -->
-    @include('frontend.includes.header')
-    <!-- Fim cabeçalho -->
-
-
-    <div class="banner" id="app">
-        <div class="container">
-            <div class="carousel slide" id="myCarousel">
-                <!-- Carousel items -->
-                <div class="carousel-inner">
-                    <div class="item">
-                        <div class="carousel-caption">
-                            <h2>hasellus ultrices nulla quis nibh</h2><br>
-                            <h1>Morbi in sem quis dui placerat ornare</h1>
-                            <div class="shadow"><img src="{{ url('frontend/img/shadow.png') }}" alt=""></div>
-                        </div>
-                        <img src="{{ url('frontend/img/banner-image.png') }}" alt="">
-                    </div>
-                    <div class="item">
-                        <div class="carousel-caption">
-                            <h2>hasellus ultrices nulla quis nibh</h2><br>
-                            <h1>Morbi in sem quis dui placerat ornare</h1>
-                            <div class="shadow"><img src="{{ url('frontend/img/shadow.png') }}" alt=""></div>
-                        </div>
-                        <img src="{{ url('frontend/img/banner-image.png') }}" alt="">
-                    </div>
-                    <div class="item active">
-                        <div class="carousel-caption">
-                            <h2>hasellus ultrices nulla quis nibh</h2><br>
-                            <h1>Morbi in sem quis dui placerat ornare</h1>
-                            <div class="shadow"><img src="{{ url('frontend/img/shadow.png') }}" alt=""></div>
-                        </div>
-                        <img src="{{ url('frontend/img/banner-image.png') }}" alt="">
-                    </div>
-                </div>
-                <a data-slide="prev" href="#myCarousel" class="carousel-control left"><i class="fw-icon-chevron-left"></i></a>
-                <a data-slide="next" href="#myCarousel" class="carousel-control right"><i class="fw-icon-chevron-right"></i></a>
-            </div>
-        </div>
-    </div>
-
+        <link rel="shortcut icon" type="image/png" href="/favicon.ico"/>
+   </head>
+<body class="nav-md">
     <!-- Conteúdo -->
-    @yield('content')
+    <div id="app">
+        @yield('content')
+        <app></app>
+    </div>
     <!-- Fim conteúdo -->
 
+    <script src="{{ asset('js/app.js') }}"></script><!-- 
+    <script src="{{ asset('js/gentelella.js') }}"></script> -->
+
+    <!-- <script src="/bower_components/gentelella/vendors/jquery/dist/jquery.min.js"></script>
     
-    <!-- Rodapé -->
-    @include('frontend.includes.footer')
-    <!-- Fim rodapé -->
+    Bootstrap
+    <script src="/bower_components/gentelella/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
     
-
-    <script src="{{ url('frontend/js/jquery-1.9.1.js') }}"></script> 
-    <script src="{{ url('frontend/js/bootstrap.js') }}"></script>
-    <script src="{{ url('frontend/js/masonry.pkgd.min.js') }}"></script>
-    <script src="{{ url('frontend/js/imagesloaded.js') }}"></script>
-    <script src="{{ url('frontend/js/classie.js') }}"></script>
-    <script src="{{ url('frontend/js/AnimOnScroll.js') }}"></script>
+    FastClick
+    <script src="/bower_components/gentelella/vendors/fastclick/lib/fastclick.js"></script>
+    NProgress
+    <script src="/bower_components/gentelella/vendors/nprogress/nprogress.js"></script>
+    Chart.js
+    <script src="/bower_components/gentelella/vendors/Chart.js/dist/Chart.min.js"></script>
+    gauge.js
+    <script src="/bower_components/gentelella/vendors/bernii/gauge.js/dist/gauge.min.js"></script>
+    bootstrap-progressbar
+    <script src="/bower_components/gentelella/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+    iCheck
+    <script src="/bower_components/gentelella/vendors/iCheck/icheck.min.js"></script>
+    Skycons
+    <script src="/bower_components/gentelella/vendors/skycons/skycons.js"></script>
+    Flot
+    <script src="/bower_components/gentelella/vendors/Flot/jquery.flot.js"></script>
+    <script src="/bower_components/gentelella/vendors/Flot/jquery.flot.pie.js"></script>
+    <script src="/bower_components/gentelella/vendors/Flot/jquery.flot.time.js"></script>
+    <script src="/bower_components/gentelella/vendors/Flot/jquery.flot.stack.js"></script>
+    <script src="/bower_components/gentelella/vendors/Flot/jquery.flot.resize.js"></script>
+    Flot plugins
+    <script src="/bower_components/gentelella/production/js/flot/jquery.flot.orderBars.js"></script>
+    <script src="/bower_components/gentelella/production/js/flot/date.js"></script>
+    <script src="/bower_components/gentelella/production/js/flot/jquery.flot.spline.js"></script>
+    <script src="/bower_components/gentelella/production/js/flot/curvedLines.js"></script>
+    jVectorMap
+    <script src="/bower_components/gentelella/production/js/maps/jquery-jvectormap-2.0.3.min.js"></script>
+    bootstrap-daterangepicker
+    <script src="/bower_components/gentelella/production/js/moment/moment.min.js"></script>
+    <script src="/bower_components/gentelella/production/js/datepicker/daterangepicker.js"></script>
     
-    <script>
-        new AnimOnScroll(document.getElementById('grid'), {
-            minDuration : 0.4,
-            maxDuration : 0.7,
-            viewportFactor : 0.2
-        });
-    </script>
-
-    <script>
-        $('#myCarousel').carousel({
-            interval: 1800
-        });
-    </script>
-
-
-
+    Custom Theme Scripts
+    <script src="/bower_components/gentelella/build/js/custom.min.js"></script> -->
 
 </body>
 </html>

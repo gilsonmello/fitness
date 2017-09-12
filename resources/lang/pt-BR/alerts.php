@@ -380,6 +380,19 @@ return [
         'deleted' => 'Dado Adicional deletado com sucesso',
         'deleted_error' => 'Erro ao deletadar Dado Adicional.',
     ],
+
+    'tests' => [
+        'create' => [
+            'sucess' => 'Teste criado com sucesso.',
+            'error' => 'Erro ao criar Teste.'
+        ],
+        'updated' => 'Teste atualizado com sucesso.',
+        'not_find' => 'Teste não encontrado.',
+        'delete' => [
+            'error' => 'Erro ao deletadar Teste.',
+            'success' => 'Teste deletado com sucesso.',
+        ],
+    ]
     
 
 ];

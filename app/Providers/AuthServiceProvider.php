@@ -8,6 +8,7 @@ use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvid
 use App\User;
 use App\Permission;
 use Auth;
+use Laravel\Passport\Passport;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -17,8 +18,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        'App\Model' => 'App\Policies\ModelPolicy',
-        'App\Policies\Backend\Question\QuestionPolicy' => App\Policies\Backend\Question\QuestionPolicy::class,
+        'App\Model' => 'App\Policies\ModelPolicy'
     ];
 
     /**
@@ -29,6 +29,8 @@ class AuthServiceProvider extends ServiceProvider
     public function boot(GateContract $gate)
     {
         $this->registerPolicies();
+        Passport::routes();
+
 
         /*Gate::define('edit-auth', function($user, $id) {
             return $user->id == $id;
@@ -45,5 +47,6 @@ class AuthServiceProvider extends ServiceProvider
                 return true;
             }
         });*/
+
     }
 }

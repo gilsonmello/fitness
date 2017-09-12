@@ -2,14 +2,18 @@
 
 namespace App;
 
+use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Permission;
 use App\Services\Backend\User\Traits\UserAttributes;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable
 {
-    use Notifiable, UserAttributes;
+    use HasApiTokens, Notifiable, UserAttributes, SoftDeletes;
+
+    public $timestamps = true;
 
     /**
      * The attributes that are mass assignable.

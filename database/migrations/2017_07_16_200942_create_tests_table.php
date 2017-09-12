@@ -17,6 +17,7 @@ class CreateTestsTable extends Migration
             $table->engine = "InnoDB";
             $table->increments('id');
             $table->integer('user_id')->unsigned();
+            $table->dateTime('validity')->nullable();
             $table->boolean('is_active')->default(1);
             $table->timestamps();
             $table->softDeletes();

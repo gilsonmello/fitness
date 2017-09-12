@@ -44,6 +44,6 @@ class CreateAnthropometryPerimetersCircumferencesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('anthropometries');
+        Schema::dropIfExists('anthropometry_perimeters_circumferences');
     }
 }

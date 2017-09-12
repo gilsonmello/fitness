@@ -165,6 +165,10 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         Matriphe\Imageupload\ImageuploadServiceProvider::class,
 
+        Laravel\Passport\PassportServiceProvider::class,
+
+        Barryvdh\Cors\ServiceProvider::class,
+
         /*
          * Package Service Providers...
          */

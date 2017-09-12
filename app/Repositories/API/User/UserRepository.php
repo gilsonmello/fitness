@@ -2,7 +2,6 @@
 
 use App\Exceptions\GeneralException;
 use App\User;
-use App\EvaluationAttribute;
 use App\Antropometria;
 use App\Bioempedancia;
 use App\Evaluation;
@@ -15,10 +14,6 @@ class UserRepository{
 
     protected $user;
 
-    protected $evaluationAttribute;
-
-    protected $antropometria;
-
     protected $bioempedancia;
 
     protected $evaluation;
@@ -26,8 +21,6 @@ class UserRepository{
     public function __construct()
     {
         $this->user = new User;
-        $this->evaluationAttribute = new EvaluationAttribute;
-        $this->antropometria = new Antropometria;
         $this->bioempedancia = new Bioempedancia;
         $this->evaluation = new Evaluation;
     }
@@ -51,17 +44,17 @@ class UserRepository{
      */
     public function create($request){
         $data = $request->all();
-
-        $this->user->title = trim($data['title']);
-        $this->user->note = trim($data['note']);
-        $this->user->is_active = isset($data['is_active']) ? 1 : 0;
+        $this->user->name = $data['name'];
+        $this->user->email = $data['email'];
+        $this->user->password = bcrypt($data['password']);
+        $this->user->remember_token = str_random(10);
 
         if($this->user->save()){
-            if(isset($data['group_question']) && count($data['group_question']) > 0 ){
-                $this->user->questionGroup()->attach($data['group_question']);
-            }
-            return true;
+            $user = $this->user;
+            $token = User::find($user->id)->createToken('token')->accessToken;
+            return $token;
         }
+
         return false;
     }
 
@@ -126,53 +119,6 @@ class UserRepository{
         throw new GeneralException("There was a problem deleting this question. Please try again.");
     }
 
-    /**
-     * @param $id
-     * @param $request
-     * @return bool
-     */
-    public function updateWeightAndHeight($id, $request){
-        $data = $request->all();
-        $evaluation = $this->evaluation->find($id);
-        $save = $this->evaluationAttribute->where('evaluation_id', '=', $evaluation->id)
-            ->update([
-                'weight' => isset($data['weight']) && !empty($data['weight']) ? $data['weight'] : NULL,
-                'height' => isset($data['height']) && !empty($data['height']) ? $data['height'] : NULL,
-            ]);
-        if($save){
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * @param $id
-     * @param $request
-     * @return bool
-     */
-    public function updateAntropometria($id, $request){
-        $data = $request->all();
-        $evaluation = $this->evaluation->find($id);
-        $save = $this->antropometria->where('evaluation_id', '=', $evaluation->id)
-            ->update([
-                'right_arm' => isset($data['right_arm']) && !empty($data['right_arm']) ? $data['right_arm'] : NULL,
-                'left_arm' => isset($data['left_arm']) && !empty($data['left_arm']) ? $data['left_arm'] : NULL,
-                'tummy' => isset($data['tummy']) && !empty($data['tummy']) ? $data['tummy'] : NULL,
-                'hip' => isset($data['hip']) && !empty($data['hip']) ? $data['hip'] : NULL,
-                'coxa_proximal' => isset($data['coxa_proximal']) && !empty($data['coxa_proximal']) ? $data['coxa_proximal'] : NULL,
-                'coxa_medial' => isset($data['coxa_medial']) && !empty($data['coxa_medial']) ? $data['coxa_medial'] : NULL,
-                'coxa_distal' => isset($data['coxa_distal']) && !empty($data['coxa_distal']) ? $data['coxa_distal'] : NULL,
-                'right_leg' => isset($data['right_leg']) && !empty($data['right_leg']) ? $data['right_leg'] : NULL,
-                'left_leg' => isset($data['left_leg']) && !empty($data['left_leg']) ? $data['left_leg'] : NULL,
-                'forearm' => isset($data['forearm']) && !empty($data['forearm']) ? $data['forearm'] : NULL,
-                'chest' => isset($data['chest']) && !empty($data['chest']) ? $data['forearm'] : NULL,
-                'waist' => isset($data['waist']) && !empty($data['waist']) ? $data['waist'] : NULL,
-            ]);
-        if($save){
-            return true;
-        }
-        return false;
-    }
     public function updateBioempedancia($id, $request){
         $data = $request->all();
         $evaluation = $this->evaluation->find($id);

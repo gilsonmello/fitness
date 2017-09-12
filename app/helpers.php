@@ -131,15 +131,15 @@ if (!function_exists('format_without_mask')) {
 	 * Helper to return a Carbon object from a date timestamp
 	 * and a custom format
 	 *
-	 * @param $date
-	 * @param $format
+	 * @param string $date
+	 * @param string $condition
 	 * @return mixed
 	 */
-	function format_without_mask($date) {
+	function format_without_mask($date, $condition) {
 		if ($date == NULL) {
 			return NULL;
 		}else{
-			return implode('/', array_reverse(explode('-', $date)));
+			return implode('-', array_reverse(explode($condition, $date)));
 		}
 	}
 
@@ -167,6 +167,16 @@ if (!function_exists('format')) {
 
 if(!function_exists('birth_date')){
 	function birth_date($date){
+		$date = explode('-', $date);
+		$date = Carbon\Carbon::create($date[0], $date[1], $date[2]);
+		$age = $date->diff(Carbon\Carbon::now())->y;
+		//$age = $date->diff(Carbon\Carbon::now())->format('%y Year, %m Months and %d Days');
+		return $age;
+	}
+}
+
+if(!function_exists('age')){
+	function age($date){
 		$date = explode('-', $date);
 		$date = Carbon\Carbon::create($date[0], $date[1], $date[2]);
 		$age = $date->diff(Carbon\Carbon::now())->y;
@@ -310,5 +320,34 @@ if (!function_exists('squat')) {
 				->get()
 				->first();
 		return $squat;
+	}
+}
+
+if (!function_exists('currentTest')) {
+	/**
+	 * @param $user
+	 * @return mixed
+	 */
+	function currentTest($user){
+		$squat = \App\Test::where('user_id', '=', $user)
+				->orderBy('validity', 'desc')
+				->get()
+				->first();
+		return $squat;
+	}
+}
+
+if (!function_exists('previousTest')) {
+	/**
+	 * @param $user
+	 * @return mixed
+	 */
+	function previousTest($user){
+		$squat = \App\Test::where('user_id', '=', $user)
+				->orderBy('validity', 'desc')
+				->take(2)
+				->get();
+
+		return isset($squat[1]) ? $squat[1] : null;
 	}
 }

@@ -83,7 +83,7 @@
                     </a>
                     <ul class="treeview-menu">
                         <li class="#">
-                            <a href="#">{{ trans('strings.users') }}</a>
+                            <a href="{{route('backend.reports.index')}}">{{ trans('menus.simple') }}</a>
                         </li>
                     </ul>
                 </li>

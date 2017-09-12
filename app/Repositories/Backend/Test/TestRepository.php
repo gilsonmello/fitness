@@ -62,6 +62,7 @@ class TestRepository{
     public function create($request){
         $data = $request->all();
         $this->test->user_id = $data['user_id'];
+        $this->test->validity =  isset($data['validity']) ? format_without_mask($data['validity'], '/') : NULL;
         $this->test->is_active =  isset($data['is_active']) ? $data['is_active'] : 0;
         if($this->test->save()){
             return true;
@@ -268,6 +269,7 @@ class TestRepository{
                 ->where('user_id', '=', $test->user->id)
                 ->where('is_active', '=', 1)->get();
             $formula = $protocol->formula;
+            $regex = '[0-9]';
             //$attributes = array_filter($attributes);
             //foreach($attributes as $attribute){
             foreach($collums as $collum){
@@ -278,11 +280,13 @@ class TestRepository{
             //}
             try{
                 $formula = string_replace(['<', '>'], '', $formula);
-                $protocol->result = $this->calculate_string($formula);
-                $protocol->result = number_format($protocol->result, 2, '.', '');
+                if($result = $this->calculate_string($formula) != NULL){
+                    $protocol->result = number_format($result, 2, '.', '');
+                }
 
             }catch(\Exception $e){
 
+                dd($formula);
             }
             return $protocol;
         }
@@ -292,6 +296,10 @@ class TestRepository{
     private function calculate_string($mathString){
         $mathString = trim($mathString);     // trim white spaces
         $mathString = preg_replace('[^0-9\+-\*\/\(\) ]', '', $mathString);
+
+        if(preg_match('~[a-zA-Z]~', $mathString)){
+            return NULL;
+        }
         $compute = create_function("", "return (" . $mathString . ");" );
         return 0 + $compute();
     }
@@ -969,7 +977,65 @@ class TestRepository{
      * @return bool
      * @throws GeneralException
      */
-    public function saveFlexitests($id, $request){
+    public function saveFlexitests($id, $request)
+    {
+        //Todos os dados da requisição
+        $data = $request->all();
+        $test = $this->findOrThrowException($id);
+
+        if(is_null($test->flexitest)) {
+            $this->flexitest->test_id = $id;
+            $this->flexitest->abduction_shoulders = isset($data['abduction_shoulders']) ? $data['abduction_shoulders'] : NULL;
+            $this->flexitest->lateral_trunk_flexion = isset($data['lateral_trunk_flexion']) ? $data['lateral_trunk_flexion'] : NULL;
+            $this->flexitest->leg_hyperextension = isset($data['leg_hyperextension']) ? $data['leg_hyperextension'] : NULL;
+            $this->flexitest->elbow_flexion = isset($data['elbow_flexion']) ? $data['elbow_flexion'] : NULL;
+            $this->flexitest->elbow_hyperextension = isset($data['elbow_hyperextension']) ? $data['elbow_hyperextension'] : NULL;
+            $this->flexitest->fist_flexion = isset($data['fist_flexion']) ? $data['fist_flexion'] : NULL;
+            $this->flexitest->fist_extension = isset($data['fist_extension']) ? $data['fist_extension'] : NULL;
+            $this->flexitest->horizontal_shoulder_abduction = isset($data['horizontal_shoulder_abduction']) ? $data['horizontal_shoulder_abduction'] : NULL;
+            $this->flexitest->hip_flexion = isset($data['hip_flexion']) ? $data['hip_flexion'] : NULL;
+            $this->flexitest->trunk_hyperextension = isset($data['trunk_hyperextension']) ? $data['trunk_hyperextension'] : NULL;
+            $this->flexitest->haunch_flexion = isset($data['haunch_flexion']) ? $data['haunch_flexion'] : NULL;
+            $this->flexitest->haunch_extension = isset($data['haunch_extension']) ? $data['haunch_extension'] : NULL;
+            $this->flexitest->leg_flexion = isset($data['leg_flexion']) ? $data['leg_flexion'] : NULL;
+            $this->flexitest->plantar_dorsiflexion = isset($data['plantar_dorsiflexion']) ? $data['plantar_dorsiflexion'] : NULL;
+            $this->flexitest->plantar_flexion = isset($data['plantar_flexion']) ? $data['plantar_flexion'] : NULL;
+            if($this->flexitest->save()){
+                return true;
+            }
+        }
+
+        $test->flexitest->abduction_shoulders = isset($data['abduction_shoulders']) ? $data['abduction_shoulders'] : NULL;
+        $test->flexitest->lateral_trunk_flexion = isset($data['lateral_trunk_flexion']) ? $data['lateral_trunk_flexion'] : NULL;
+        $test->flexitest->leg_hyperextension = isset($data['leg_hyperextension']) ? $data['leg_hyperextension'] : NULL;
+        $test->flexitest->elbow_flexion = isset($data['elbow_flexion']) ? $data['elbow_flexion'] : NULL;
+        $test->flexitest->elbow_hyperextension = isset($data['elbow_hyperextension']) ? $data['elbow_hyperextension'] : NULL;
+        $test->flexitest->fist_flexion = isset($data['fist_flexion']) ? $data['fist_flexion'] : NULL;
+        $test->flexitest->fist_extension = isset($data['fist_extension']) ? $data['fist_extension'] : NULL;
+        $test->flexitest->horizontal_shoulder_abduction = isset($data['horizontal_shoulder_abduction']) ? $data['horizontal_shoulder_abduction'] : NULL;
+        $test->flexitest->hip_flexion = isset($data['hip_flexion']) ? $data['hip_flexion'] : NULL;
+        $test->flexitest->trunk_hyperextension = isset($data['trunk_hyperextension']) ? $data['trunk_hyperextension'] : NULL;
+        $test->flexitest->haunch_flexion = isset($data['haunch_flexion']) ? $data['haunch_flexion'] : NULL;
+        $test->flexitest->haunch_extension = isset($data['haunch_extension']) ? $data['haunch_extension'] : NULL;
+        $test->flexitest->leg_flexion = isset($data['leg_flexion']) ? $data['leg_flexion'] : NULL;
+        $test->flexitest->plantar_dorsiflexion = isset($data['plantar_dorsiflexion']) ? $data['plantar_dorsiflexion'] : NULL;
+        $test->flexitest->plantar_flexion = isset($data['plantar_flexion']) ? $data['plantar_flexion'] : NULL;
+
+        if($test->flexitest->save()){
+            return true;
+        }
+
+        return false;
+
+    }
+
+    /**
+     * @param $id
+     * @param $request
+     * @return bool
+     * @throws GeneralException
+     */
+    public function saveWellsBank($id, $request){
         //Todos os dados da requisição
         $data = $request->all();
         $test = $this->findOrThrowException($id);

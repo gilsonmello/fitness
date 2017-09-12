@@ -21,7 +21,7 @@
                     @if(count($test->targetZone) > 0)
                         <?php $desactive = '';?>
                         @foreach($test->targetZone as $value)
-                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4" id="{{str_replace(' ', '_', $value->protocol->name)}}">
+                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 calculated" id="{{str_replace(' ', '_', $value->protocol->name)}}">
                                 <div class="form-group">
                                     <label for="protocol_target_zone_{{$value->protocol->id}}[result]"><strong>{{$value->protocol->name}}.:</strong> {{$value->protocol->formula}}</label>
                                     <input type="hidden" name="protocol_{{$value->protocol->id}}[id]" value="{{$value->protocol->id}}">

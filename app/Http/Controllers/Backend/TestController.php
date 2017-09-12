@@ -38,11 +38,11 @@ class TestController extends Controller
     public function store(CreateTestRequest $request){
         if($this->testRepository->create($request)){
             return redirect()->route('backend.tests.index')
-                ->withFlashSuccess(trans('alerts.tests.create'));
+                ->withFlashSuccess(trans('alerts.tests.create.sucess'));
         }
         return redirect()->route('backend.tests.create')
             ->withInput()
-            ->withFlashSuccess(trans('alerts.tests.create_erro'));
+            ->withFlashSuccess(trans('alerts.tests.create.error'));
     }
 
     /**
@@ -51,11 +51,11 @@ class TestController extends Controller
     public function destroy($id){
         if($this->testRepository->destroy($id)){
             return redirect()->route('backend.tests.index')
-                ->withFlashSuccess(trans('alerts.tests.deleted'));
+                ->withFlashSuccess(trans('alerts.tests.delete.success'));
         }
         return redirect()
             ->route('backend.tests.index')
-            ->withFlashSuccess(trans('alerts.tests.delete_error'));
+            ->withFlashSuccess(trans('alerts.tests.delete.error'));
     }
 
     /**
@@ -353,7 +353,7 @@ class TestController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function saveWellsBank($id, Request $request){
-        if($this->testRepository->saveFlexitests($id, $request)){
+        if($this->testRepository->saveWellsBank($id, $request)){
             return response()->json('true', 200);
         }
         return response()->json('false', 200);
