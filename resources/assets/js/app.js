@@ -20,6 +20,8 @@ window.VueMaterial = require('vue-material');*/
 Vue.use(VueRouter)
 Vue.use(VueResource)
 
+alert(window.location.host)
+
 Vue.component('app', App)
 
 const routes = [

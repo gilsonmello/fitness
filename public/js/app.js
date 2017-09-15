@@ -12836,7 +12836,7 @@ const loginUrl = '/oauth/token';
 const userUrl = '/api/user';
 /* harmony export (immutable) */ __webpack_exports__["b"] = userUrl;
 
-alert(apiDomain);
+
 const getHeader = function () {
 	const tokenData = JSON.parse(window.localStorage.getItem('authUser'));
 	const headers = {
@@ -34709,6 +34709,8 @@ window.VueMaterial = require('vue-material');*/
 /*Vue.use(VueMaterial)*/
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_2_vue_router__["a" /* default */]);
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_resource__["a" /* default */]);
+
+alert(window.location.host);
 
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('app', __WEBPACK_IMPORTED_MODULE_4__App_vue___default.a);
 
