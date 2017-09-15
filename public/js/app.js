@@ -12836,7 +12836,7 @@ const loginUrl = '/oauth/token';
 const userUrl = '/api/user';
 /* harmony export (immutable) */ __webpack_exports__["b"] = userUrl;
 
-
+console.log(apiDomain);
 const getHeader = function () {
 	const tokenData = JSON.parse(window.localStorage.getItem('authUser'));
 	const headers = {
