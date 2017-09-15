@@ -12827,13 +12827,13 @@ module.exports = function spread(callback) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-const apiDomain = 'http://localhost:8000/';
+const apiDomain = window.location.host;
 /* unused harmony export apiDomain */
 
-const loginUrl = apiDomain + 'oauth/token';
+const loginUrl = apiDomain + '/oauth/token';
 /* harmony export (immutable) */ __webpack_exports__["a"] = loginUrl;
 
-const userUrl = apiDomain + 'api/user';
+const userUrl = apiDomain + '/api/user';
 /* harmony export (immutable) */ __webpack_exports__["b"] = userUrl;
 
 
@@ -48163,7 +48163,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "c:\\wamp64\\www\\fitness\\resources\\assets\\js\\App.vue"
+Component.options.__file = "C:\\wamp64\\www\\fitness\\resources\\assets\\js\\App.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] App.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -48197,7 +48197,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "c:\\wamp64\\www\\fitness\\resources\\assets\\js\\components\\FooterComponent.vue"
+Component.options.__file = "C:\\wamp64\\www\\fitness\\resources\\assets\\js\\components\\FooterComponent.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] FooterComponent.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -48231,7 +48231,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "c:\\wamp64\\www\\fitness\\resources\\assets\\js\\components\\HeaderComponent.vue"
+Component.options.__file = "C:\\wamp64\\www\\fitness\\resources\\assets\\js\\components\\HeaderComponent.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] HeaderComponent.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -48265,7 +48265,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "c:\\wamp64\\www\\fitness\\resources\\assets\\js\\components\\Home\\HomeComponent.vue"
+Component.options.__file = "C:\\wamp64\\www\\fitness\\resources\\assets\\js\\components\\Home\\HomeComponent.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] HomeComponent.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -48299,7 +48299,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "c:\\wamp64\\www\\fitness\\resources\\assets\\js\\components\\Login\\Login.vue"
+Component.options.__file = "C:\\wamp64\\www\\fitness\\resources\\assets\\js\\components\\Login\\Login.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Login.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -48333,7 +48333,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "c:\\wamp64\\www\\fitness\\resources\\assets\\js\\components\\NewsletterComponent.vue"
+Component.options.__file = "C:\\wamp64\\www\\fitness\\resources\\assets\\js\\components\\NewsletterComponent.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] NewsletterComponent.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -48372,7 +48372,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "c:\\wamp64\\www\\fitness\\resources\\assets\\js\\components\\SliderComponent.vue"
+Component.options.__file = "C:\\wamp64\\www\\fitness\\resources\\assets\\js\\components\\SliderComponent.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] SliderComponent.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -48406,7 +48406,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "c:\\wamp64\\www\\fitness\\resources\\assets\\js\\components\\Users\\Create.vue"
+Component.options.__file = "C:\\wamp64\\www\\fitness\\resources\\assets\\js\\components\\Users\\Create.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Create.vue: functional components are not supported with templates, they should use render functions.")}
 

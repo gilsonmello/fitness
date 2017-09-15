@@ -16747,10 +16747,6 @@ function openModalWithFields(params){
 
 $(function () {
 
-    function sendEmai(){
-        alert('message?: DOMString');
-    }
-
     //Método para validar o CPF
     $.validator.addMethod("isCPF", function(value, element) {
         return validateCPF(value);
