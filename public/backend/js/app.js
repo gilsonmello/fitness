@@ -16747,6 +16747,10 @@ function openModalWithFields(params){
 
 $(function () {
 
+    function sendEmai(){
+        alert('message?: DOMString');
+    }
+
     //Método para validar o CPF
     $.validator.addMethod("isCPF", function(value, element) {
         return validateCPF(value);
@@ -16771,6 +16775,11 @@ $(function () {
     //Initialize Select2 Elements
     $(".select2").select2();
 
+    //Initialize Select2 Elements
+    $(".select2-tags").select2({
+        tags: true
+    });
+
     $(".textarea").wysihtml5({
         toolbar: {
             html: true,
@@ -16783,6 +16792,7 @@ $(function () {
 
     $(".rg").inputmask("99.999.999-99", {"placeholder": ""});
     $(".cpf").inputmask("999.999.999-99", {"placeholder": ""});
+
 
 
 

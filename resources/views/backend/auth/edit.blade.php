@@ -56,7 +56,7 @@
             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
                 <div class="form-group">
                     {!! Form::label('birth_date', trans('strings.birth_date').'*', ['class' => '']) !!}
-                    {!! Form::text('birth_date', format_without_mask($auth->birth_date), ['class' => 'birth_date form-control', 'placeholder' => trans('strings.birth_date')]) !!}
+                    {!! Form::text('birth_date', !is_null($auth->birth_date) ? format_without_mask($auth->birth_date) : null, ['class' => 'birth_date form-control', 'placeholder' => trans('strings.birth_date')]) !!}
                 </div>
             </div>
         </div>

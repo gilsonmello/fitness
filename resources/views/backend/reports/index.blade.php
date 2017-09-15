@@ -106,17 +106,19 @@
                                         <a href="{{route('backend.reports.tests', $value->id)}}" class="btn btn-xs btn-primary">
                                             <i class="fa fa-list" data-toggle="tooltip" data-placement="top" title="Relatório de Testes"></i>
                                         </a>
-                                        <a href="{{route('backend.reports.tests', $value->id)}}" class="btn btn-xs btn-primary">
+                                        <button data-toggle="modal" data-target="#send-test-user-{{$value->id}}" class="btn btn-xs btn-primary">
                                             <i class="fa fa-envelope-o" data-toggle="tooltip" data-placement="top" title="Enviar por e-mail"></i>
-                                        </a>
+                                        </button>
+                                        @include('backend.reports.includes.tests.modal.email')
                                     </td>
                                     <td>
                                         <a href="{{route('backend.reports.evaluations', $value->id)}}" class="btn btn-xs btn-primary">
                                             <i class="fa fa-list" data-toggle="tooltip" data-placement="top" title="Relatório de Avaliações"></i>
                                         </a>
-                                        <a href="{{route('backend.reports.tests', $value->id)}}" class="btn btn-xs btn-primary">
+                                        <button data-toggle="modal" data-target="#send-evaluation-user-{{$value->id}}" class="btn btn-xs btn-primary">
                                             <i class="fa fa-envelope-o" data-toggle="tooltip" data-placement="top" title="Enviar por e-mail"></i>
-                                        </a>
+                                        </button>
+                                        @include('backend.reports.includes.evaluations.modal.email')
                                     </td>
                                 </tr>
                             @empty

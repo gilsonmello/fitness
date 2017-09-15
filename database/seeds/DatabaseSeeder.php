@@ -13,7 +13,7 @@ class DatabaseSeeder extends Seeder
     {
        //Seeds users
         DB::table('users')->insert([
-            'name' => 'Junior de Melo',
+            'name' => 'Gilson de Melo',
             'email' => 'junnyorr.sirnandes@gmail.com',
             'birth_date' => '1994-12-31',
             'cpf' => '073.011.215-20',
@@ -24,15 +24,15 @@ class DatabaseSeeder extends Seeder
         ]);
 
         DB::table('users')->insert([
-            'name' => 'Gilson de Melo',
-            'email' => 'junior140._-@hotmail.com',
+            'name' => 'Gabriele dos Santos Miranda',
+            'email' => 'gabrieledsmiranda@gmail.com',
             'password' => bcrypt('123456'),
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s')
         ]);
 
 
-        $this->call(UsersTableSeeder::class);
+        //$this->call(UsersTableSeeder::class);
 
 
         //Seed roles
@@ -44,12 +44,13 @@ class DatabaseSeeder extends Seeder
         ]);
 
         DB::table('roles')->insert([
-            'name' => 'manager',
-            'label' => 'Gerenciador',
+            'name' => 'clients',
+            'label' => 'Clientes',
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s')
         ]);
 
+        /*
         DB::table('roles')->insert([
             'name' => 'edit',
             'label' => 'Editor',
@@ -62,7 +63,7 @@ class DatabaseSeeder extends Seeder
             'label' => 'Publicador',
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s')
-        ]);
+        ]);*/
 
         //Seed role_user
         DB::table('role_user')->insert([
@@ -71,7 +72,14 @@ class DatabaseSeeder extends Seeder
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s')
         ]);
+
         DB::table('role_user')->insert([
+            'user_id' => 2,
+            'role_id' => 1,
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ]);
+       /* DB::table('role_user')->insert([
             'user_id' => 1,
             'role_id' => 2,
             'created_at' => date('Y-m-d H:i:s'),
@@ -89,7 +97,7 @@ class DatabaseSeeder extends Seeder
             'role_id' => 4,
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s')
-        ]);
+        ]);*/
 
         //Seed news
         DB::table('news')->insert([
@@ -129,7 +137,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         //Seeds permissions
-        DB::table('permissions')->insert([
+        /*DB::table('permissions')->insert([
             'name' => 'backend.view',
             'label' => 'Visualizar Backend',
             'created_at' => date('Y-m-d H:i:s'),
@@ -197,56 +205,9 @@ class DatabaseSeeder extends Seeder
             'user_id' => 1,
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s')
-        ]);
+        ]);*/
 
-        DB::table('type_tests')->insert([
-            'name' => 'Frequência Cardíaca Máxima',
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s')
-        ]);
-
-        DB::table('type_tests')->insert([
-            'name' => 'Frequência Cardíaca Mínima',
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s')
-        ]);
-
-        DB::table('type_tests')->insert([
-            'name' => 'Frequência Cardíaca Reserva',
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s')
-        ]);
-
-        DB::table('type_tests')->insert([
-            'name' => 'Vo2 Máximo',
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s')
-        ]);
-
-        DB::table('type_tests')->insert([
-            'name' => 'Vo2 Treino',
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s')
-        ]);
-
-        DB::table('type_tests')->insert([
-            'name' => 'Resistência',
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s')
-        ]);
-
-        DB::table('type_tests')->insert([
-            'name' => 'Zona Alvo',
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s')
-        ]);
-
-        DB::table('type_tests')->insert([
-            'name' => 'Flexibilidade',
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s')
-        ]);
-
+        
         DB::table('measures')->insert([
             'id' => 1,
             'name' => 'Kilo',
