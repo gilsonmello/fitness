@@ -20,7 +20,6 @@ window.VueMaterial = require('vue-material');*/
 Vue.use(VueRouter)
 Vue.use(VueResource)
 
-alert(window.location.host)
 
 Vue.component('app', App)
 
@@ -82,6 +81,7 @@ new Vue({
         }
     },
     created: function(){
+        window.console.log(window.location.host)
         /*const data = {
             grant_type: 'password',
             client_id: 2,

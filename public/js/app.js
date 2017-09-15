@@ -34710,8 +34710,6 @@ window.VueMaterial = require('vue-material');*/
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_2_vue_router__["a" /* default */]);
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_resource__["a" /* default */]);
 
-alert(window.location.host);
-
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('app', __WEBPACK_IMPORTED_MODULE_4__App_vue___default.a);
 
 const routes = [{ path: '/', component: __webpack_require__(68), name: 'home' }, { path: '/users/create', component: __webpack_require__(77) }, { path: '/login', component: __webpack_require__(69) }];
@@ -34764,6 +34762,7 @@ new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
         return {};
     },
     created: function () {
+        window.console.log(window.location.host);
         /*const data = {
             grant_type: 'password',
             client_id: 2,
