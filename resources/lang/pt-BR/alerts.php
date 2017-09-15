@@ -72,6 +72,10 @@ return [
     'users' => [
         'created' => 'O usuário foi criado com sucesso.',
         'updated' => 'O usuário foi atualizado com sucesso.',
+        'delete' => [
+            'success' => 'Usuário deletado com sucesso',
+            'error' => 'Erro ao deletar usuário.'
+        ],
         'deleted' => 'O usuário foi excluído com sucesso.',
         'deleted_permanently' => 'O usuário foi excluído permanentemente.',
         'restored' => 'O usuário foi restaurado com sucesso.',
@@ -392,7 +396,9 @@ return [
             'error' => 'Erro ao deletadar Teste.',
             'success' => 'Teste deletado com sucesso.',
         ],
-    ]
+    ],
+
+
     
 
 ];

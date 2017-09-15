@@ -97,4 +97,12 @@ class AuthController extends Controller
         return die(json_encode(emailExists($_GET['email'], $user_id)));
     }
 
+
+    public function destroy($id){
+        return $this->authRepository->destroy($id) ? 
+            redirect()->route('backend.auth.index')->withFlashSuccess(trans('alerts.users.delete.success')) : 
+            redirect()->route('backend.auth.index')->withFlashDanger(trans('alerts.users.delete.error'));
+
+    }
+
 }

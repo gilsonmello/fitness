@@ -125,4 +125,12 @@ class AuthRepository{
     public function emailExists($param){
         return User::where('email', 'like', '%'.$param.'%')->get()->isEmpty();
     }
+
+    public function destroy($id){
+        $user = $this->find($id);
+        if($user->delete()){
+            return true;
+        }
+        return false;
+    }
 }

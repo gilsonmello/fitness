@@ -56,7 +56,7 @@
             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
                 <div class="form-group">
                     {!! Form::label('birth_date', trans('strings.birth_date').'*', ['class' => '']) !!}
-                    {!! Form::text('birth_date', !is_null($auth->birth_date) ? format_without_mask($auth->birth_date) : null, ['class' => 'birth_date form-control', 'placeholder' => trans('strings.birth_date')]) !!}
+                    {!! Form::text('birth_date', !is_null($auth->birth_date) ? format($auth->birth_date, 'd/m/Y') : null, ['class' => 'birth_date form-control', 'placeholder' => trans('strings.birth_date')]) !!}
                 </div>
             </div>
         </div>
@@ -73,7 +73,7 @@
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <div class="pull-left">
-                    <a href="{{route('backend.dashboard')}}" class="btn btn-danger">{{ trans('strings.cancel_button') }}</a>
+                    <a href="{{route('backend.auth.index')}}" class="btn btn-danger">{{ trans('strings.cancel_button') }}</a>
                 </div>
                 <div class="pull-right">
                     <input type="submit" class="btn btn-primary" value="{{ trans('strings.save_button') }}" />
