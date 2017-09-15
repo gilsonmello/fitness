@@ -23,5 +23,6 @@ class SendEmailController extends Controller
                 $message->subject('Test');
             });
     	}
+    	return redirect()->route('backend.reports.index');
     }
 }
