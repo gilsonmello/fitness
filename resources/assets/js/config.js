@@ -1,6 +1,6 @@
 export const apiDomain = window.location.host
-export const loginUrl = apiDomain + '/oauth/token'
-export const userUrl = apiDomain + '/api/user'
+export const loginUrl = '/oauth/token'
+export const userUrl = '/api/user'
 
 export const getHeader = function () {
   	const tokenData = JSON.parse(window.localStorage.getItem('authUser'))
@@ -13,8 +13,8 @@ export const getHeader = function () {
 
 export const rt = {
 	users: {
-		create: 'api/users',
-		edit: 'api/{id}/user',
-		logged: 'api/user'
+		create: '/api/users',
+		edit: '/api/{id}/user',
+		logged: '/api/user'
 	}
 };

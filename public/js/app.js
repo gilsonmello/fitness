@@ -12830,10 +12830,10 @@ module.exports = function spread(callback) {
 const apiDomain = window.location.host;
 /* unused harmony export apiDomain */
 
-const loginUrl = apiDomain + '/oauth/token';
+const loginUrl = '/oauth/token';
 /* harmony export (immutable) */ __webpack_exports__["a"] = loginUrl;
 
-const userUrl = apiDomain + '/api/user';
+const userUrl = '/api/user';
 /* harmony export (immutable) */ __webpack_exports__["b"] = userUrl;
 
 
@@ -12850,9 +12850,9 @@ const getHeader = function () {
 
 const rt = {
 	users: {
-		create: 'api/users',
-		edit: 'api/{id}/user',
-		logged: 'api/user'
+		create: '/api/users',
+		edit: '/api/{id}/user',
+		logged: '/api/user'
 	}
 };
 /* harmony export (immutable) */ __webpack_exports__["d"] = rt;
