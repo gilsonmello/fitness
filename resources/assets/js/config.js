@@ -1,7 +1,7 @@
 export const apiDomain = window.location.host
 export const loginUrl = '/oauth/token'
 export const userUrl = '/api/user'
-console.log(apiDomain)
+alert(apiDomain)
 export const getHeader = function () {
   	const tokenData = JSON.parse(window.localStorage.getItem('authUser'))
  	const headers = {
