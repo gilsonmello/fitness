@@ -24,6 +24,6 @@ class SendEmailController extends Controller
                 $message->subject('Test');
             });
     	}
-    	return redirect()->route('backend.reports.index');
+    	return redirect()->route('backend.reports.index')->withFlashSuccess('E-mail enviado com sucesso');
     }
 }
