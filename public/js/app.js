@@ -35193,7 +35193,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 			const data = {
 				grant_type: 'password',
 				client_id: 2,
-				client_secret: 'iVa3LONxVu0R7qXbUQ2W0Vglq4wi3g7NePqFETMa',
+				client_secret: 'rf6H1uBKL5TjylgaljUxHFh5tLQ06DLG7PHTvSP8',
 				username: this.login.email,
 				password: this.login.password,
 				scope: ''
