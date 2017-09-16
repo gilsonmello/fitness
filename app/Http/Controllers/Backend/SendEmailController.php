@@ -19,6 +19,7 @@ class SendEmailController extends Controller
     	foreach($data['email'] as $value){
 			Mail::send('emails.teste', [], function($message) use ($value)
             {
+                $message->from('junior140._-@htomail.com', 'Christian Nwamba');
                 $message->to($value, 'Teste');
                 $message->subject('Test');
             });
