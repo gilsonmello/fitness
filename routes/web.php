@@ -18,17 +18,17 @@ Route::get('errors/under_construction', function(){
 // Route::group(['namespace' => 'AdminAuth'], function () {
 
 //Rotas para frontend
-Route::group(['prefix' => '/', 'namespace' => 'Frontend', 'middleware' => 'redirect'], function(){
+Route::group(['namespace' => 'Frontend', 'middleware' => 'redirect'], function(){
 
 	Route::get('/auth', 'UserController@page')->name('frontend.auth');
 
 	require(__DIR__ . "/Frontend/User.php");
-	
+
 	/*Route::get('/', function () {
 	    return view('welcome');
 	});*/
 	Route::get('/', 'FrontendController@index')->name('frontend.index');
-	
+
 	/*Route::get('/services', 'ServicesController@index')->name('services.index');
 	Route::get('/services/{slug}', 'ServicesController@view')->name('services.view');*/
 });
@@ -89,7 +89,7 @@ Route::group(['namespace' => 'Backend'], function () {
 
 			//Rotas para envio de e-mails
 			require_once __DIR__.'/Backend/SendEmail.php';
-				
+
 	});
 });
 
