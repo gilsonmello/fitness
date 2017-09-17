@@ -1,5 +1,9 @@
 <?php
 
+Route::get('errors/under_construction', function(){
+	return view('frontend.errors.under_construction');
+})->name('errors.under_construction');
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,7 +18,7 @@
 // Route::group(['namespace' => 'AdminAuth'], function () {
 
 //Rotas para frontend
-Route::group(['namespace' => 'Frontend'], function(){
+Route::group(['prefix' => '/', 'namespace' => 'Frontend', 'middleware' => 'redirect'], function(){
 
 	Route::get('/auth', 'UserController@page')->name('frontend.auth');
 

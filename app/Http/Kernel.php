@@ -59,6 +59,7 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'access.checkingRules' => \App\Http\Middleware\CheckingRules::class,
         'auth.admin' => \App\Http\Middleware\Authenticate::class,
-        'access.route' => \App\Http\Middleware\hasPermissionTheRoute::class
+        'access.route' => \App\Http\Middleware\hasPermissionTheRoute::class,
+        'redirect' => \App\Http\Middleware\Redirect::class
     ];
 }
