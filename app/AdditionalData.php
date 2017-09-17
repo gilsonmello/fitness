@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Services\Backend\AdditionalData\Traits\AdditionalDataAttributes;
 
+/**
+ * Class AdditionalData
+ * @package App
+ */
 class AdditionalData extends Model
 {
     use SoftDeletes, AdditionalDataAttributes;
