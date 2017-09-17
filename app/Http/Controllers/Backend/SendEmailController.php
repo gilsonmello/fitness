@@ -17,8 +17,7 @@ class SendEmailController extends Controller
     	$data = $request->all();
     	unset($data['_token']);
     	foreach($data['email'] as $value){
-			Mail::send('emails.teste', [], function($message) use ($value)
-            {
+			Mail::send('emails.teste', [], function($message) use ($value){
                 $message->to($value, 'Teste');
                 $message->subject('Test');
             });
