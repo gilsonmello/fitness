@@ -92,7 +92,7 @@
                         </div>
                     </div>
                     <div class="box-body">
-                        <h4 class="box-title">Não há registros anteriores</h4>
+                        <h5 class="box-title">Não há registros anteriores</h5>
                     </div>
                     <div class="box-footer">
 
@@ -114,7 +114,7 @@
                         </div>
                     </div>
                     <div class="box-body">
-                        <h4 class="box-title">Não há registros anteriores</h4>
+                        <h5 class="box-title">Não há registros anteriores</h5>
                     </div>
                     <div class="box-footer">
 

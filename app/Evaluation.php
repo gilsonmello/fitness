@@ -51,7 +51,7 @@ class Evaluation extends Model
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function test(){
-        return $this->hasOne(\App\AnthropometryWeightHeight::class);
+        return $this->hasOne(\App\Test::class);
     }
 
     /**
