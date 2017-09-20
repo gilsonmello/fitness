@@ -39,10 +39,10 @@ class CreateAuthRequest extends FormRequest
     {
         return [
             'cpf.min' => 'Informe o CPF com 11 números',
-            'name.required' => 'O campo nome é obrigatório',
-            'name.min' => 'Informe o nome com no mínimo 11 letras',
-            'name.regex' => 'Informe o nome somente com letras',
-            'role_id.required' => 'O campo perfil é obrigatório',
+            'name.required' => 'O campo Nome é obrigatório',
+            'name.min' => 'Informe o Nome com no mínimo 11 letras',
+            'name.regex' => 'Informe o Nome somente com letras',
+            'role_id.required' => 'O campo Perfil é obrigatório',
         ];
     }
 }
