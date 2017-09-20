@@ -24,7 +24,7 @@ class UpdateAuthRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|min:10|regex:/^([a-zA-z\ ]+)$/u',
+            'name' => 'required|min:10|regex:/^([\pL\s\ ]+)$/u',
             'role_id'  => 'required|array|min:1',
         ];
     }

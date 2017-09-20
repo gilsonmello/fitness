@@ -65,6 +65,7 @@ class AuthRepository{
     public function create($request){
 
         $data = $request->all();
+        dd($data);
         $this->user->name = $data['name'];
         $this->user->email = $data['email'];
         $this->user->password = bcrypt($data['password']);

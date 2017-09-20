@@ -51,13 +51,13 @@
                 <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
                     <h5 class="">
                         {!! Form::label('birth_date', trans('strings.birth_date').'.: ', ['class' => '']) !!}
-                        {{ format($test->evaluation->user->birth_date, 'd/m/Y') }}
+                        {{ !is_null($test->evaluation->user->birth_date) ? format($test->evaluation->user->birth_date, 'd/m/Y') : 'Não informado'}}
                     </h5>
                 </div>
                 <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
                     <h5 class="">
                         {!! Form::label('age', trans('strings.age').'.: ', ['class' => '']) !!}
-                        {{ age($test->evaluation->user->birth_date) }}
+                        {{ !is_null($test->evaluation->user->birth_date) ? age($test->evaluation->user->birth_date) : 'Não informado'}}
                     </h5>
                 </div>
                 <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
@@ -68,7 +68,7 @@
                 </div>
                 <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
                     <button data-toggle="modal" data-target="#modal_additional_data" class="btn btn-block btn-info">
-                        Dados Adicionais <i class="fa fa-arrow-circle-right"></i>
+                        {{trans('strings.additional_data')}} <i class="fa fa-arrow-circle-right"></i>
                     </button>
                     {{-- ao clicar no botão irá abrir o #modal_additional_data --}}
                     @include('backend.tests.additional_data.all')

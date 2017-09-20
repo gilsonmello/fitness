@@ -51,13 +51,13 @@
                 <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
                     <h5 class="">
                         {!! Form::label('birth_date', trans('strings.birth_date').'.: ', ['class' => '']) !!}
-                        {{ format($evaluation->user->birth_date, 'd/m/Y') }}
+                        {{ !is_null($evaluation->user->birth_date) ? format($evaluation->user->birth_date, 'd/m/Y') : 'Não informado'}}
                     </h5>
                 </div>
                 <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
                     <h5 class="">
                         {!! Form::label('age', trans('strings.age').'.: ', ['class' => '']) !!}
-                        {{ age($evaluation->user->birth_date) }}
+                        {{ !is_null($evaluation->user->birth_date) ? age($evaluation->user->birth_date) : 'Não informado'}}
                     </h5>
                 </div>
                 <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">

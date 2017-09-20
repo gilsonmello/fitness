@@ -24,7 +24,7 @@ class CreateAuthRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|min:10|regex:/^([a-zA-z\ ]+)$/u',
+            'name' => 'required|min:10|regex:/^([\pL\s\ ]+)$/u',
             'cpf' => 'required|min:14',
             'role_id'  => 'required|array|min:1',
         ];
