@@ -29,6 +29,13 @@ class Test extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
+    public function evaluation(){
+        return $this->belongsTo(\App\Evaluation::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function user(){
         return $this->belongsTo(\App\User::class);
     }

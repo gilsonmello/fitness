@@ -20,14 +20,11 @@
 @section('content')
 
 
-    <div class="pull-right" style="margin-bottom:10px">
+    {{--<div class="pull-right" style="margin-bottom:10px">
         <a href="{{ route('backend.tests.create') }}" class="btn btn-primary btn-xs">
             {{ trans('menus.tests.create') }}
         </a>
-        {{--<a href="{{route('admin.coupons.import')}}" class="btn btn-primary btn-xs">--}}
-        {{--{{ trans('menus.import_coupon') }}--}}
-        {{--</a>--}}
-    </div>
+    </div>--}}
     <div class="clearfix"></div>
 
     <div class="box box-primary">
@@ -37,13 +34,27 @@
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
             </div>
         </div>
-        {!! Form::open(['route' => ['backend.tests.index'], 'class' => 'form-horizontal', 'method' => 'get'])  !!}
+        {!! Form::open(['route' => ['backend.tests.index'], 'class' => '', 'method' => 'get'])  !!}
         <div class="box-body">
             <div class="row">
                 {!! Form::hidden('f_submit', '1') !!}
-                {!! Form::label('TestController@index:title',  trans('strings.title'), ['class' => 'col-md-2 control-label']) !!}
-                <div class="col-md-10">
-                    {!! Form::text('TestController@index:title', null, ['class' => 'form-control']  ) !!}
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                    <div class="form-group">
+                        {!! Form::label('Backend/TestController@index:name',  trans('strings.name'), ['class' => '']) !!}
+                        {!! Form::text('Backend/TestController@index:name', null, ['class' => 'form-control']  ) !!}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                    <div class="form-group">
+                        {!! Form::label('Backend/TestController@index:email',  trans('strings.email'), ['class' => '']) !!}
+                        {!! Form::text('Backend/TestController@index:email', null, ['class' => 'form-control']  ) !!}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                    <div class="form-group">
+                        {!! Form::label('Backend/TestController@index:cpf',  trans('strings.cpf'), ['class' => '']) !!}
+                        {!! Form::text('Backend/TestController@index:cpf', null, ['class' => 'form-control cpf']  ) !!}
+                    </div>
                 </div>
             </div>
         </div>
@@ -70,7 +81,7 @@
                         <tbody>
                             @forelse($tests as $value)
                                 <tr>
-                                    <td>{!! $value->user->name !!}</td>
+                                    <td>{!! $value->evaluation->user->name !!}</td>
                                     <td>{!! format_datetimebr($value->validity) !!}</td>
                                     <td>{!! format_datetimebr($value->created_at) !!}</td>
                                     <td>{!! $value->action_buttons !!}</td>

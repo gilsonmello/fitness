@@ -14,5 +14,6 @@ Route::resource('reports', 'ReportController', [
     ]
 ]);
 
+Route::get('reports/simple', 'ReportController@simple')->name('backend.reports.simple');
 Route::get('reports/tests/{id}', 'ReportController@tests')->name('backend.reports.tests');
 Route::get('reports/evaluations/{id}', 'ReportController@evaluations')->name('backend.reports.evaluations');

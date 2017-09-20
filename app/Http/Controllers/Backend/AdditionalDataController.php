@@ -37,7 +37,7 @@ class AdditionalDataController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create(){
-        $userWithTest = $this->additionalData->getTests();
+        $userWithTest = $this->additionalData->getEvaluations();
         return view('backend.additional_data.create', compact('measures', 'userWithTest'));
     }
 
@@ -63,7 +63,7 @@ class AdditionalDataController extends Controller
      */
     public function edit($id){
         $additionalData = $this->additionalData->findOrThrowException($id);
-        $userWithTest = $this->additionalData->getTests();
+        $userWithTest = $this->additionalData->getEvaluations();
         return view('backend.additional_data.edit', compact('additionalData', 'userWithTest'));
     }
 

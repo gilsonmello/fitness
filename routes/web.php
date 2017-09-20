@@ -89,6 +89,9 @@ Route::group(['namespace' => 'Backend'], function () {
 
 			//Rotas para envio de e-mails
 			require_once __DIR__.'/Backend/SendEmail.php';
+			
+			//Rotas para config
+			require_once __DIR__.'/Backend/Config.php';
 
 	});
 });

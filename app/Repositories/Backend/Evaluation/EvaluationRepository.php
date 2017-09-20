@@ -50,6 +50,7 @@ class EvaluationRepository{
     public function create($request){
         $data = $request->all();
         $this->evaluation->user_id = trim($data['user_id']);
+        $this->evaluation->validity =  isset($data['validity']) ? format_without_mask($data['validity'], '/') : NULL;
         $this->evaluation->is_active = isset($data['is_active']) ? 1 : 0;
         if($this->evaluation->save()){
             return true;

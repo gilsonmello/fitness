@@ -39,31 +39,31 @@
                 <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
                     <h5 class="">
                         {!! Form::label('name', trans('strings.name').'.: ', ['class' => '']) !!}
-                        Oi
-                    </h5>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
-                    <h5 class="">
-                        {!! Form::label('birth_date', trans('strings.birth_date').'.: ', ['class' => '']) !!}
-                        31/12/1994
-                    </h5>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
-                    <h5 class="">
-                        {!! Form::label('age', trans('strings.age').'.: ', ['class' => '']) !!}
-                        22
-                    </h5>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
-                    <h5 class="">
-                        {!! Form::label('phone', trans('strings.phone').'.: ', ['class' => '']) !!}
-                        (71) 9 9714-3703
+                        {{ $test->evaluation->user->name }}
                     </h5>
                 </div>
                 <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
                     <h5 class="">
                         {!! Form::label('email', trans('strings.email').'.: ', ['class' => '']) !!}
-                        Oi
+                        {{ $test->evaluation->user->email }}
+                    </h5>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
+                    <h5 class="">
+                        {!! Form::label('birth_date', trans('strings.birth_date').'.: ', ['class' => '']) !!}
+                        {{ format($test->evaluation->user->birth_date, 'd/m/Y') }}
+                    </h5>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
+                    <h5 class="">
+                        {!! Form::label('age', trans('strings.age').'.: ', ['class' => '']) !!}
+                        {{ age($test->evaluation->user->birth_date) }}
+                    </h5>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
+                    <h5 class="">
+                        {!! Form::label('phone', trans('strings.phone').'.: ', ['class' => '']) !!}
+                        {{ !is_null($test->evaluation->user->phone) ? $test->evaluation->user->phone : 'Não informado' }}
                     </h5>
                 </div>
                 <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">

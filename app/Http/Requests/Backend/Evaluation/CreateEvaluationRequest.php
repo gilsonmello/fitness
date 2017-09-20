@@ -24,7 +24,21 @@ class CreateEvaluationRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id' => 'required'
+            'user_id' => 'required',
+            'validity' => 'required'
+        ];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'user_id.required' => 'Seleção de usuário obrigatório',
+            'validity.required' => 'O campo Data de Validade é obrigatório'
         ];
     }
 }

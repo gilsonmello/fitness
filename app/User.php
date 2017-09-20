@@ -106,5 +106,12 @@ class User extends Authenticatable
         return $this->hasMany(\App\AdditionalData::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function evaluations(){
+        return $this->hasMany(\App\Evaluation::class);
+    }
+
 
 }

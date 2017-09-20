@@ -66,7 +66,7 @@
                 <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
                     <h5 class="">
                         {!! Form::label('phone', trans('strings.phone').'.: ', ['class' => '']) !!}
-                        (71) 9 9714-3703
+                        {{ !is_null($user->phone) ? $user->phone : 'Não informado' }}
                     </h5>
                 </div>
                 <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">

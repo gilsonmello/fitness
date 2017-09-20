@@ -25,7 +25,49 @@ class ReportController extends Controller
      */
     public function tests($id, Request $request){
         $user = $this->authRepository->find($id);
-        return view('backend.reports.tests', compact('user'));
+        return view('backend.reports.simple.tests', compact('user'));
+    }
+
+    /**
+     * @param $id
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function evaluations($id, Request $request){
+        $user = $this->authRepository->find($id);
+        return view('backend.reports.simple.evaluations', compact('user'));
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function simple(Request $request)
+    {
+        $request->session()->put('lastpage', $request->only('page')['page']);
+        $f_submit = $request->input('f_submit', '');
+        $name = getValueSession($request, 'Backend/ReportController@index:name', '', $f_submit, '');
+        $email = getValueSession($request, 'Backend/ReportController@index:email', '', $f_submit, '');
+        $cpf = getValueSession($request, 'Backend/ReportController@index:cpf', '', $f_submit, '');
+        $rg = getValueSession($request, 'Backend/ReportController@index:rg', '', $f_submit, '');
+        $profile = getValueSession($request, 'Backend/ReportController@index:profile', '', $f_submit, '');
+        if(empty($profile)){
+            $profile = [];
+        }
+        $profile = array_map('intval', $profile);
+        $roles = $this->authRepository->roles();
+        $users = $this->authRepository->getPaginated(NULL, [
+            'name' => ['op' => 'like', 'value' => '%'.$name.'%'],
+            'email' => ['op' => 'like', 'value' => '%'.$email.'%'],
+            'cpf' => ['op' => '=', 'value' => $cpf],
+            'rg' => ['op' => '=', 'value' => $rg],
+            'role_id' => ['op' => 'In', 'value' => $profile]
+        ], [0 => 'evaluations']);
+
+        return view('backend.reports.simple.simple', compact(
+            'roles', 'users', 'name', 'email', 'cpf', 'rg', 'profile'
+        ));
     }
 
     /**

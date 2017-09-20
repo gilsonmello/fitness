@@ -3,10 +3,10 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="exampleModalLabel">Dados Adicionais - {!! $test->user->name !!}</h4>
+                <h4 class="modal-title" id="exampleModalLabel">Dados Adicionais - {!! $test->evaluation->user->name !!}</h4>
             </div>
 
-            <form id="save_additional_data" action="{{route('backend.tests.save_additional_data', ['user_id' => $test->user->id])}}" method="post" enctype="multipart/form-data">
+            <form id="save_additional_data" action="{{route('backend.tests.save_additional_data', ['user_id' => $test->evaluation->user->id])}}" method="post" enctype="multipart/form-data">
                 <div class="modal-body">
                     <div class="row">
                         <?php $desactive = 'desactive';?>

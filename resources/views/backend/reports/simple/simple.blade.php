@@ -29,7 +29,7 @@
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
             </div>
         </div>
-        {!! Form::open(array('route' => array('backend.reports.index'), 'class' => '', 'method' => 'get'))  !!}
+        {!! Form::open(array('route' => array('backend.reports.simple'), 'class' => '', 'method' => 'get'))  !!}
         {!! Form::hidden('f_submit', '1') !!}
         <div class="box-body">
             <div class="row">
@@ -91,8 +91,6 @@
                             <tr>
                                 <th>{!! trans('strings.name') !!}</th>
                                 <th>{!! trans('strings.email') !!}</th>
-                                <th>{!! trans('strings.validity') !!}</th>
-                                <th>{!! trans('strings.tests') !!}</th>
                                 <th>{!! trans('strings.evaluations') !!}</th>
                             </tr>
                         </thead>
@@ -101,23 +99,13 @@
                                 <tr>
                                     <td>{!! $value->name !!}</td>
                                     <td>{!! $value->email !!}</td>
-                                    <td>{!! !is_null($value->validity) ? format_datebr($value->validity) : 'Sem limite' !!}</td>
-                                    <td>
-                                        <a href="{{route('backend.reports.tests', $value->id)}}" class="btn btn-xs btn-primary">
-                                            <i class="fa fa-list" data-toggle="tooltip" data-placement="top" title="Relatório de Testes"></i>
-                                        </a>
-                                        <button data-toggle="modal" data-target="#send-test-user-{{$value->id}}" class="btn btn-xs btn-primary">
-                                            <i class="fa fa-envelope-o" data-toggle="tooltip" data-placement="top" title="Enviar por e-mail"></i>
-                                        </button>
-                                        @include('backend.reports.includes.tests.modal.email')
-                                    </td>
                                     <td>
                                         <a href="{{route('backend.reports.evaluations', $value->id)}}" class="btn btn-xs btn-primary">
                                             <i class="fa fa-list" data-toggle="tooltip" data-placement="top" title="Relatório de Avaliações"></i>
                                         </a>
-                                        <button data-toggle="modal" data-target="#send-evaluation-user-{{$value->id}}" class="btn btn-xs btn-primary">
+                                        {{--<button data-toggle="modal" data-target="#send-evaluation-user-{{$value->id}}" class="btn btn-xs btn-primary">
                                             <i class="fa fa-envelope-o" data-toggle="tooltip" data-placement="top" title="Enviar por e-mail"></i>
-                                        </button>
+                                        </button>--}}
                                         @include('backend.reports.includes.evaluations.modal.email')
                                     </td>
                                 </tr>
@@ -131,8 +119,6 @@
                             <tr>
                                 <th>{!! trans('strings.name') !!}</th>
                                 <th>{!! trans('strings.email') !!}</th>
-                                <th>{!! trans('strings.validity') !!}</th>
-                                <th>{!! trans('strings.tests') !!}</th>
                                 <th>{!! trans('strings.evaluations') !!}</th>
                             </tr>
                         </tfoot>

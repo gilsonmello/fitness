@@ -44,26 +44,26 @@
                 </div>
                 <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
                     <h5 class="">
+                        {!! Form::label('email', trans('strings.email').'.: ', ['class' => '']) !!}
+                        {{ $evaluation->user->email }}
+                    </h5>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
+                    <h5 class="">
                         {!! Form::label('birth_date', trans('strings.birth_date').'.: ', ['class' => '']) !!}
-                        31/12/1994
+                        {{ format($evaluation->user->birth_date, 'd/m/Y') }}
                     </h5>
                 </div>
                 <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
                     <h5 class="">
                         {!! Form::label('age', trans('strings.age').'.: ', ['class' => '']) !!}
-                        22
+                        {{ age($evaluation->user->birth_date) }}
                     </h5>
                 </div>
                 <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
                     <h5 class="">
                         {!! Form::label('phone', trans('strings.phone').'.: ', ['class' => '']) !!}
-                        (71) 9 9714-3703
-                    </h5>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
-                    <h5 class="">
-                        {!! Form::label('email', trans('strings.email').'.: ', ['class' => '']) !!}
-                        {{ $evaluation->user->email }}
+                        {{ !is_null($evaluation->user->phone) ? $evaluation->user->phone : 'Não informado' }}
                     </h5>
                 </div>
             </div>

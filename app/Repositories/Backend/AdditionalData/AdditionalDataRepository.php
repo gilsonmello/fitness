@@ -35,8 +35,13 @@ class AdditionalDataRepository{
         return NULL;
     }
 
-    public function getTests($order_by = 'id', $sort = 'asc'){
-        return User::has('tests')->get();
+    /**
+     * @param string $order_by
+     * @param string $sort
+     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Support\Collection|static[]
+     */
+    public function getEvaluations($order_by = 'id', $sort = 'asc'){
+        return User::has('evaluations')->get();
     }
 
     /**

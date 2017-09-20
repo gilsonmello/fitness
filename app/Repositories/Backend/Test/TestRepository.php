@@ -266,7 +266,7 @@ class TestRepository{
             //$attributes = preg_split('/<|>|[0-9|\-|\/|\*|\(|\)|\,|\+]/i',$protocol->formula, -1);
             //dd($attributes, $protocol->formula);
             $collums = $this->additionalData
-                ->where('user_id', '=', $test->user->id)
+                ->where('user_id', '=', $test->evaluation->user->id)
                 ->where('is_active', '=', 1)->get();
             $formula = $protocol->formula;
             $regex = '[0-9]';

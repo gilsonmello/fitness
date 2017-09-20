@@ -16,13 +16,13 @@ class CreateTestsTable extends Migration
         Schema::create('tests', function (Blueprint $table) {
             $table->engine = "InnoDB";
             $table->increments('id');
-            $table->integer('user_id')->unsigned();
+            $table->integer('evaluation_id')->unsigned();
             $table->dateTime('validity')->nullable();
             $table->boolean('is_active')->default(1);
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('user_id')
-                ->on('users')
+            $table->foreign('evaluation_id')
+                ->on('evaluations')
                 ->references('id');
         });
     }

@@ -95,6 +95,12 @@ class CreateTriggerEvaluation extends Migration
                         NOW(),
                         NOW()
                     );
+                    INSERT INTO tests (evaluation_id, validity, created_at, updated_at) VALUES(
+                        NEW.id,
+                        NEW.validity,
+                        NOW(),
+                        NOW()
+                    );
                 END;
         ');
     }

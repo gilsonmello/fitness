@@ -80,10 +80,11 @@ if(!function_exists('active')){
 			return "active";
 		}
 
+		$condition = is_array($condition) ? $condition : [$condition];
 		$uri = $domain.'/';
 		for($i = 2; $i < count($url); $i++){
 			$uri .= $url[$i];
-			if(strpos($condition, $uri) !== FALSE){
+			if(in_array($uri, $condition) !== FALSE){
 				return "active";
 			}
 			$uri .= '/';
@@ -329,11 +330,11 @@ if (!function_exists('currentTest')) {
 	 * @return mixed
 	 */
 	function currentTest($user){
-		$squat = \App\Test::where('user_id', '=', $user)
+		$squat = \App\Evaluation::where('user_id', '=', $user)
 				->orderBy('validity', 'desc')
 				->get()
 				->first();
-		return $squat;
+		return $squat->test;
 	}
 }
 
@@ -343,11 +344,10 @@ if (!function_exists('previousTest')) {
 	 * @return mixed
 	 */
 	function previousTest($user){
-		$squat = \App\Test::where('user_id', '=', $user)
+		$squat = \App\Evaluation::where('user_id', '=', $user)
 				->orderBy('validity', 'desc')
 				->take(2)
 				->get();
-
-		return isset($squat[1]) ? $squat[1] : null;
+		return isset($squat[1]) ? $squat[1]->test : null;
 	}
 }

@@ -46,13 +46,7 @@
                 @yield('content')
                 <!-- Your Page Content Here -->
                 <!-- INICIO FORMULARIO BOTAO PAGSEGURO -->
-                <form action="https://pagseguro.uol.com.br/checkout/v2/payment.html" method="post" onsubmit="PagSeguroLightbox(this); return false;">
-                    <!-- NÃO EDITE OS COMANDOS DAS LINHAS ABAIXO -->
-                    <input type="hidden" name="code" value="CC0109950F0FE7E664664F97B58CC4B9" />
-                    <input type="hidden" name="iot" value="button" />
-                    <input type="image" src="https://stc.pagseguro.uol.com.br/public/img/botoes/pagamentos/209x48-comprar-assina.gif" name="submit" alt="Pague com PagSeguro - é rápido, grátis e seguro!" />
-                </form>
-                <script type="text/javascript" src="https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.lightbox.js"></script>
+                <?php echo session('btnPagSeguro');?>
                 <!-- FINAL FORMULARIO BOTAO PAGSEGURO -->
             </section><!-- /.content -->
         </div><!-- /.content-wrapper -->

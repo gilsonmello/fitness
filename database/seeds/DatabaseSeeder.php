@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
             'birth_date' => '1994-12-31',
             'cpf' => '073.011.215-20',
             'rg' => '13.610.029-56',
-            'password' => bcrypt('123'),
+            'password' => bcrypt('jun10r'),
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s')
         ]);
@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
         DB::table('users')->insert([
             'name' => 'Gabriele dos Santos Miranda',
             'email' => 'gabrieledsmiranda@gmail.com',
-            'password' => bcrypt('123456'),
+            'password' => bcrypt('81625358'),
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s')
         ]);
@@ -44,8 +44,8 @@ class DatabaseSeeder extends Seeder
         ]);
 
         DB::table('roles')->insert([
-            'name' => 'clients',
-            'label' => 'Clientes',
+            'name' => 'client',
+            'label' => 'Cliente',
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s')
         ]);

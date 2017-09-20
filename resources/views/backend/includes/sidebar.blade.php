@@ -35,9 +35,9 @@
                 </a>
             </li>
             @if (access()->hasPermission('backend.view') || auth()->user()->hasAnyRoles('adm'))
-                <li class="treeview {{ active('admin/auth') }} {{ active('admin/protocols') }}">
+                <li class="treeview {{ active(['admin/auth']) }}">
                     <a href="#">
-                        <span>Usuários</span>
+                        <span>{{ trans('strings.users') }}</span>
                         <i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
@@ -58,7 +58,7 @@
                     </ul>
                 </li>
 
-                <li class="treeview {{ active('admin/tests') }} {{ active('admin/protocols') }}">
+                <li class="treeview {{ active(['admin/tests', 'admin/protocols']) }}">
                     <a href="#">
                         <span>Testes</span>
                         <i class="fa fa-angle-left pull-right"></i>
@@ -76,14 +76,26 @@
                     </ul>
                 </li>
 
-                <li class="treeview">
+                <li class="treeview {{ active(['admin/reports']) }}">
                     <a href="#">
                         <span>Relatórios</span>
                         <i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
-                        <li class="#">
-                            <a href="{{route('backend.reports.index')}}">{{ trans('menus.simple') }}</a>
+                        <li class="{{ active(['admin/reports/simple', 'admin/reports/tests', 'admin/reports/evaluations']) }}">
+                            <a href="{{route('backend.reports.simple')}}">{{ trans('menus.simple') }}</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="treeview {{ active(['admin/config']) }}">
+                    <a href="#">
+                        <span>Pagseguro</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li class="{{ active('admin/config') }}">
+                            <a href="{{route('backend.config.create')}}">Botão</a>
                         </li>
                     </ul>
                 </li>

@@ -22,7 +22,7 @@
 @extends('layouts.backend.app')
 
 @section('content')
-{!! Form::model($auth, ['route' => ['backend.config.update', $auth->id], 'id' => 'backend-auth-update', 'role' => 'form', 'method' => 'put']) !!}
+{!! Form::model($auth, ['route' => ['backend.auth.update', $auth->id], 'id' => 'backend-auth-update', 'role' => 'form', 'method' => 'put']) !!}
 {!! Form::hidden('user_id', $auth->id) !!}
 <div class="box box-primary">
     <div class="box-body">
