@@ -7,10 +7,10 @@ $(function(){
             form.submit();
         },
         rules: {
-            cpf: {
+            /*cpf: {
                 required: true,
                 isCPF: true
-            },
+            },*/
             password: {
                 required: true,
                 minlength: 6
@@ -22,10 +22,10 @@ $(function(){
             }
         },
         messages: {
-            cpf: {
+            /*cpf: {
                 required: 'Campo Obrigatório',
                 isCPF: 'Informe um CPF válido'
-            },
+            },*/
             password: {
                 required: 'Campo Obrigatório',
                 minlength: 'Informe a senha com no mínimo 6 carácteres'
