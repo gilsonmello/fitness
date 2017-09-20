@@ -45,9 +45,9 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        if(env('APP_URL') !== 'http://localhost:8000'){
+        /*if(env('APP_URL') !== 'http://localhost:8000'){
             return redirect()->route('errors.under_construction');
-        }
+        }*/
         return parent::render($request, $exception);
     }
 
