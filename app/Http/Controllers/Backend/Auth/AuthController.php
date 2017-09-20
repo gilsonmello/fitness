@@ -60,11 +60,11 @@ class AuthController extends Controller
     public function update($id, UpdateAuthRequest $request){
         if($this->authRepository->update($id, $request)){
             return redirect()->route('backend.auth.index')
-                ->withFlashSuccess(trans('alerts.auth.edited'));
+                ->withFlashSuccess(trans('alerts.auth.edit.success'));
         }
         return redirect()->route('backend.auth.edit')
             ->withInput()
-            ->withFlashDanger(trans('alerts.auth.not_edit'));
+            ->withFlashDanger(trans('alerts.auth.edit.error'));
     }
 
     /**
@@ -82,11 +82,11 @@ class AuthController extends Controller
     public function store(CreateAuthRequest $request){
         if($this->authRepository->create($request)){
             return redirect()->route('backend.auth.index')
-                ->withFlashSuccess(trans('alerts.auth.created'));
+                ->withFlashSuccess(trans('alerts.auth.save.success'));
         }
         return redirect()->route('backend.auth.index')
             ->withInput()
-            ->withFlashDanger(trans('alerts.auth.not_create'));
+            ->withFlashDanger(trans('alerts.auth.save.error'));
     }
 
     /**

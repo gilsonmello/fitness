@@ -398,6 +398,11 @@ return [
         ],
     ],
 
+    'auth' => [
+        'create' => ['success' => 'Usuário criado com sucesso', 'error' => 'Erro ao criar usuário'],
+        'edit' => ['success' => 'Usuário editado com sucesso', 'error' => 'Erro ao editar usuário']
+    ],
+
 
     
 

@@ -107,14 +107,15 @@ trait AccessParams {
 			$redirection = redirect()->route($route);
 		else if ($action = $this->getRedirectAction($request, $params))
 			$redirection = redirect()->action($action);
-
 		//Check to see if a flash message is being sent through
 		if ($redirection)
 		{
-			if ($with = $this->getSessionMessage($request, $params))
+			if ($with = $this->getSessionMessage($request, $params)){
 				return $redirection->with($with['key'], $with['message']);
-			else
+			}
+			else{
 				return $redirection;
+			}
 		}
 
 		//No redirect of any type given

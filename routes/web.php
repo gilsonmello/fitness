@@ -39,6 +39,10 @@ Route::group(['prefix' => 'painel'], function(){
 	});
 });
 
+Route::get('/admin/error', function(){
+	return '<h1>Você não possui permissão</h1>';
+});
+
 //Rotas para backend
 Route::group(['namespace' => 'Backend'], function () {
 
@@ -53,7 +57,7 @@ Route::group(['namespace' => 'Backend'], function () {
 		'role' => ['admin'],
 		'permission' => 'backend.view',
 		'with' => ['flash_danger', 'You do not have access to do that.'],
-		'redirect' => 'admin/login'
+		'redirect' => 'admin/error'
 
 		], function(){
 

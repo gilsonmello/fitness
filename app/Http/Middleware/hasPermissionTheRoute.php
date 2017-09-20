@@ -29,6 +29,7 @@ class hasPermissionTheRoute
             return $next($request);
         }
         $assets = $this->getAssets($request, $params);
+        
         if (!access()->canMultiple($assets['permissions'], $assets['needsAll']))
             return $this->getRedirectMethodAndGo($request, $params);
 
