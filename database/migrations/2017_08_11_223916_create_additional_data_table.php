@@ -16,7 +16,7 @@ class CreateAdditionalDataTable extends Migration
         Schema::create('additional_data', function (Blueprint $table) {
             $table->engine = "InnoDB";
             $table->increments('id');
-            $table->integer('user_id')->unsigned();
+            $table->integer('evaluation_id')->unsigned();
             $table->string('name');
             $table->string('initials');
             $table->decimal('value')->nullable();
@@ -24,8 +24,8 @@ class CreateAdditionalDataTable extends Migration
             $table->boolean('is_active')->default(1);
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('user_id')
-                ->on('users')
+            $table->foreign('evaluation_id')
+                ->on('evaluations')
                 ->references('id');
         });
     }

@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Resistance extends Model
+class MaximumRepeat extends Model
 {
     use SoftDeletes;
 
@@ -19,7 +19,7 @@ class Resistance extends Model
      *
      * @var string
      */
-    protected $table = 'resistances';
+    protected $table = 'maximum_repeat';
 
     /**
      * The attributes that are not mass assignable.

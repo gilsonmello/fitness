@@ -96,7 +96,7 @@
                     <tbody>
                         @forelse($additionalData as $value)
                             <tr>
-                                <td>{!! $value->user->name !!}</td>
+                                <td>{!! $value->evaluation->user->name !!}</td>
                                 <td>{!! $value->name !!}</td>
                                 <td>{!! $value->initials !!}</td>
                                 <td>{!! substr($value->description, 0, 100) !!}</td>

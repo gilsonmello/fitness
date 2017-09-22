@@ -31,36 +31,42 @@
     <div class="box box-primary">
         <div class="box-body">
             <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                     <div class="form-group">
                         {!! Form::label('user_id', trans('strings.user_name').' *', ['class' => '']) !!}
-                        {!! Form::select('user_id', $userWithTest->pluck('name', 'id')->all(), NULL, ['witdh' => '100%', 'class' => 'select2 form-control', 'data-placeholder' => trans('strings.user_name')]) !!}
+                        {!! Form::select('user_id', $userWithEvaluation->pluck('name', 'id')->all(), NULL, ['witdh' => '100%', 'class' => 'create-additional-data-user form-control', 'placeholder' => trans('strings.user_name')]) !!}
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                    <div class="form-group">
+                        {!! Form::label('evaluation_id', trans('strings.evaluations').' *', ['class' => '']) !!}
+                        {!! Form::select('evaluation_id', [], NULL, ['witdh' => '100%', 'class' => 'additional-data-evaluations form-control']) !!}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
                     <div class="form-group">
                         {!! Form::label('name', trans('strings.name').'*', ['class' => '']) !!}
                         {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => trans('strings.name')]) !!}
                     </div>
                 </div>
 
-                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
                     <div class="form-group">
                         {!! Form::label('initials', 'Sigla *', ['class' => '']) !!}
                         {!! Form::text('initials', null, ['class' => 'form-control', 'placeholder' => 'Sigla']) !!}
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
                     <div class="form-group">
-                        {!! Form::label('value', trans('strings.value').' *', ['class' => '']) !!}
+                        {!! Form::label('value', trans('strings.value'), ['class' => '']) !!}
                         {!! Form::text('value', null, ['class' => 'form-control decimal', 'placeholder' => trans('strings.value')]) !!}
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                <div class="col-xs-12 col-sm-6 col-md-1 col-lg-1">
                     <div class="form-group">
-                        {!! Form::label('is_active', trans('strings.is_active').'*', ['class' => '']) !!}
+                        {!! Form::label('is_active', trans('strings.is_active'), ['class' => '']) !!}
                         <br>
                         {!! Form::checkbox('is_active', 1, true,['class' => 'form-control flat-red', 'placeholder' => trans('strings.title')]) !!}
                     </div>
@@ -69,7 +75,7 @@
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-8 col-lg-12">
                     <div class="form-group">
-                        {!! Form::label('description', trans('strings.description').'*', ['class' => '']) !!}
+                        {!! Form::label('description', trans('strings.description'), ['class' => '']) !!}
                         {!! Form::textarea('description', null, ['class' => 'form-control textarea', 'placeholder' => trans('strings.description')]) !!}
                     </div>
                 </div>

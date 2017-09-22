@@ -39,6 +39,10 @@ class EvaluationController extends Controller
         $this->filesystem = $filesystem;
     }
 
+    public function allOfUser($id){
+        return response()->json($this->evaluationRepository->allOfUser($id), 200);
+    }
+
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */

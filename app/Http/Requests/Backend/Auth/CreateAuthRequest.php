@@ -25,7 +25,7 @@ class CreateAuthRequest extends FormRequest
     {
         return [
             'name' => 'required|min:10|regex:/^([\pL\s\ ]+)$/u',
-            'cpf' => 'required|min:14',
+            /*'cpf' => 'required|min:14',*/
             'role_id'  => 'required|array|min:1',
         ];
     }
@@ -38,7 +38,7 @@ class CreateAuthRequest extends FormRequest
     public function messages()
     {
         return [
-            'cpf.min' => 'Informe o CPF com 11 números',
+            /*'cpf.min' => 'Informe o CPF com 11 números',*/
             'name.required' => 'O campo Nome é obrigatório',
             'name.min' => 'Informe o Nome com no mínimo 11 letras',
             'name.regex' => 'Informe o Nome somente com letras',

@@ -17,6 +17,7 @@ class CreateWellsBanksTable extends Migration
             $table->engine = "InnoDB";
             $table->increments('id');
             $table->integer('test_id')->unsigned();
+            $table->tinyInteger('type_test_id');
             $table->decimal('right_leg')->nullable();
             $table->decimal('left_leg')->nullable();
             $table->decimal('trunk')->nullable();

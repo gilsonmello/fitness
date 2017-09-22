@@ -302,7 +302,7 @@ if (!function_exists('supine')) {
 	 * @return mixed
 	 */
 	function supine($test_id){
-		$supine = \App\Resistance::where('test_id', '=', $test_id)
+		$supine = \App\MaximumRepeat::where('test_id', '=', $test_id)
 				->where('type_resistance', '=', 1)
 				->get()
 				->first();
@@ -316,7 +316,7 @@ if (!function_exists('squat')) {
 	 * @return mixed
 	 */
 	function squat($test_id){
-		$squat = \App\Resistance::where('test_id', '=', $test_id)
+		$squat = \App\MaximumRepeat::where('test_id', '=', $test_id)
 				->where('type_resistance', '=', 2)
 				->get()
 				->first();

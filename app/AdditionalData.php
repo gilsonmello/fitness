@@ -36,8 +36,8 @@ class AdditionalData extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function user(){
-        return $this->belongsTo(\App\User::class);
+    public function evaluation(){
+        return $this->belongsTo(\App\Evaluation::class);
     }
 
     /**

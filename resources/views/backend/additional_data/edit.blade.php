@@ -27,33 +27,47 @@
 <div class="box box-primary">
     <div class="box-body">
         <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                 <div class="form-group">
                     {!! Form::label('user_id', trans('strings.user_name').' *', ['class' => '']) !!}
-                    {!! Form::select('user_id', $userWithTest->pluck('name', 'id')->all(), $additionalData->user->id, ['witdh' => '100%', 'class' => 'select2 form-control', 'data-placeholder' => trans('strings.user_name')]) !!}
+                    {!! Form::select('user_id', $userWithTest->pluck('name', 'id')->all(), $additionalData->evaluation->user->id, ['witdh' => '100%', 'class' => 'create-additional-data-user form-control', 'data-placeholder' => trans('strings.user_name')]) !!}
                 </div>
             </div>
-            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                <div class="form-group">
+                    {!! Form::label('evaluation_id', 'Data de criação da Avaliação *', ['class' => '']) !!}
+                    <select name="evaluation_id" class="additional-data-evaluations form-control">
+                        @foreach($evaluations->pluck('created_at', 'id')->all() as $key => $value)
+                            @if($key == $additionalData->evaluation->id)
+                                <option value="{!! $key !!}" selected="selected">{!! format($value, 'd/m/Y H:i') !!}</option>
+                            @else
+                                <option value="{!! $key !!}" >{!! format($value, 'd/m/Y H:i') !!}</option>
+                            @endif
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
                 <div class="form-group">
                     {!! Form::label('name', trans('strings.name').'*', ['class' => '']) !!}
                     {!! Form::text('name', $additionalData->name, ['class' => 'form-control', 'placeholder' => trans('strings.name')]) !!}
                 </div>
             </div>
-            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
                 <div class="form-group">
                     {!! Form::label('initials', 'Sigla *', ['class' => '']) !!}
                     {!! Form::text('initials', $additionalData->initials, ['class' => 'form-control', 'placeholder' => 'Sigla']) !!}
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
                 <div class="form-group">
-                    {!! Form::label('value', trans('strings.value').' *', ['class' => '']) !!}
+                    {!! Form::label('value', trans('strings.value'), ['class' => '']) !!}
                     {!! Form::text('value', $additionalData->value, ['class' => 'form-control decimal', 'placeholder' => trans('strings.value')]) !!}
                 </div>
             </div>
-            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+            <div class="col-xs-12 col-sm-6 col-md-1 col-lg-1">
                 <div class="form-group">
                     {!! Form::label('is_active', trans('strings.is_active').'*', ['class' => '']) !!}
                     <br>

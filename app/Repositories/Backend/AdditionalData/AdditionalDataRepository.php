@@ -60,7 +60,7 @@ class AdditionalDataRepository{
      */
     public function create($request){
         $data = $request->all();
-        $this->additionalData->user_id = $data['user_id'];
+        $this->additionalData->evaluation_id = $data['evaluation_id'];
         $this->additionalData->name = $data['name'];
         $this->additionalData->initials = $data['initials'];
         $this->additionalData->value = !is_null($data['value']) && !empty($data['value']) ? $data['value'] : NULL;
@@ -113,6 +113,7 @@ class AdditionalDataRepository{
     public function update($id, $request){
         $data = $request->all();
         $additionalData = $this->findOrThrowException($id);
+        $additionalData->evaluation_id = $data['evaluation_id'];
         $additionalData->name = $data['name'];
         $additionalData->initials = $data['initials'];
         $additionalData->value = !is_null($data['value']) && !empty($data['value']) ? $data['value'] : NULL;

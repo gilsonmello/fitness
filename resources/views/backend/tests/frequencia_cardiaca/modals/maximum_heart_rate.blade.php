@@ -1,5 +1,5 @@
 <div class="modal fade" id="modal_maximum_heart_rate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -20,9 +20,15 @@
                     @if(count($test->maximumHeartRate) > 0)
                         <?php $desactive = '';?>
                         @foreach($test->maximumHeartRate as $value)
-                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 calculated" id="{{str_replace(' ', '_', $value->protocol->name)}}">
+                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 calculated" id="{{str_replace(' ', '_', $value->protocol->name)}}">
                                 <div class="form-group">
-                                    <label for="protocol_maximum_heart_rate_{{$value->protocol->id}}[result]"><strong>{{$value->protocol->name}}.:</strong> {{$value->protocol->formula}}</label>
+                                    <label for="protocol_maximum_heart_rate_{{$value->protocol->id}}[result]">
+                                        <strong>{{$value->protocol->name}}</strong>
+                                    </label>
+                                    <br>
+                                    <label for="protocol_maximum_heart_rate_{{$value->protocol->id}}[result]">
+                                        {{$value->protocol->formula}}
+                                    </label>
                                     <input type="hidden" name="protocol_{{$value->protocol->id}}[id]" value="{{$value->protocol->id}}">
                                     <div class="input-group">
                                         <input id="protocol_maximum_heart_rate_{{$value->protocol->id}}[result]" name="protocol_{{$value->protocol->id}}[result]" value="{{$value->result}}" type="text" class="number input_maximum_heart_rate form-control">

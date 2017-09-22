@@ -1,14 +1,14 @@
-<div class="modal fade" id="modal_resistance" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+<div class="modal fade" id="modal_rm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="exampleModalLabel">Resistência</h4>
+                <h4 class="modal-title" id="exampleModalLabel">RM({{trans('strings.maximum_repeat')}})</h4>
             </div>
             <div class="row">
                 {{-- Formulário de resistência do tipo supino --}}
                 <div class="ccol-xs-12 col-sm-12 col-md-6 col-lg-6">
-                    {!! Form::open(['route' =>['backend.tests.save_resistance', 'test_id' => $test->id, 'type_resistance' => 1], 'id' => 'supine', 'role' => 'form', 'method' => 'post']) !!}
+                    {!! Form::open(['route' =>['backend.tests.save_rm', 'test_id' => $test->id, 'type_resistance' => 1], 'id' => 'supine', 'role' => 'form', 'method' => 'post']) !!}
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -68,7 +68,7 @@
                 </div>
                 {{-- Formulário de resistência do tipo agachamento --}}
                 <div class="ccol-xs-12 col-sm-12 col-md-6 col-lg-6">
-                    {!! Form::open(['route' =>['backend.tests.save_resistance', 'test_id' => $test->id, 'type_resistance' => 2], 'id' => 'squat', 'role' => 'form', 'method' => 'post']) !!}
+                    {!! Form::open(['route' =>['backend.tests.save_rm', 'test_id' => $test->id, 'type_resistance' => 2], 'id' => 'squat', 'role' => 'form', 'method' => 'post']) !!}
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">

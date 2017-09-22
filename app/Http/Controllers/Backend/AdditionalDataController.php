@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Backend\AdditionalData\CreateAdditionalDataRequest;
 use App\Http\Requests\Backend\AdditionalData\UpdateAdditionalDataRequest;
 use App\Repositories\Backend\AdditionalData\AdditionalDataRepository;
+use App\Repositories\Backend\Evaluation\EvaluationRepository;
 
 class AdditionalDataController extends Controller
 {
@@ -15,6 +16,7 @@ class AdditionalDataController extends Controller
      */
     public function __construct(){
         $this->additionalData = new AdditionalDataRepository;
+        $this->evaluationRepository = new EvaluationRepository;
     }
 
     /**
@@ -37,8 +39,8 @@ class AdditionalDataController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create(){
-        $userWithTest = $this->additionalData->getEvaluations();
-        return view('backend.additional_data.create', compact('measures', 'userWithTest'));
+        $userWithEvaluation = $this->additionalData->getEvaluations();
+        return view('backend.additional_data.create', compact('measures', 'userWithEvaluation'));
     }
 
     /**
@@ -64,7 +66,8 @@ class AdditionalDataController extends Controller
     public function edit($id){
         $additionalData = $this->additionalData->findOrThrowException($id);
         $userWithTest = $this->additionalData->getEvaluations();
-        return view('backend.additional_data.edit', compact('additionalData', 'userWithTest'));
+        $evaluations = $this->evaluationRepository->allOfUser($additionalData->evaluation->user->id);
+        return view('backend.additional_data.edit', compact('additionalData', 'userWithTest', 'evaluations'));
     }
 
     /**

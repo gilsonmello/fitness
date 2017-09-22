@@ -79,7 +79,7 @@ class TestController extends Controller
      */
     public function additionalData($id){
         $test = $this->testRepository->findOrThrowException($id);
-        $additionalData = $this->testRepository->getAdditionalData($test->user->id);
+        $additionalData = $this->testRepository->getAdditionalData($test->evaluation->id);
         return view('backend.tests.additional_data.all', compact('additionalData', 'test'));
     }
 
@@ -92,7 +92,6 @@ class TestController extends Controller
         $test = $this->testRepository->findOrThrowException($id);
 
         $protocols = $this->testRepository->getProtocols();
-
 
         $additionalData = $this->testRepository->getAdditionalData($test->evaluation->user->id);
 
@@ -116,11 +115,6 @@ class TestController extends Controller
         //ids dos protocolos utilizados do teste vo 2 treino
         $trainingVo2 = $this->testRepository->getTrainingVo2($id)->pluck('protocol_id');
         /* Fim dados do teste Vo 2 Treino */
-
-        /* Dados do teste Resistência */
-        //ids dos protocolos utilizados do teste Resistência
-        $resistances = $this->testRepository->getResistances($id)->pluck('protocol_id');
-        /* Fim dados do teste Resistência */
 
         /* Dados do teste Resistência */
         //ids dos protocolos utilizados do teste Resistência
@@ -295,19 +289,8 @@ class TestController extends Controller
      * @param $type_resistance
      * @param Request $request
      */
-    public function saveResistance($test_id, $type_resistance ,Request $request){
-        if($this->testRepository->saveResistance($test_id, $type_resistance, $request)){
-            return die(json_encode('true'));
-        }
-        return die(json_encode('false'));
-    }
-
-    /**
-     * @param $test_id
-     * @param $protocol_id
-     */
-    public function destroyResistance($test_id, $protocol_id){
-        if($this->testRepository->destroyResistance($test_id, $protocol_id)){
+    public function saveMaximumRepeat($test_id, $type_resistance, Request $request){
+        if($this->testRepository->saveMaximumRepeat($test_id, $type_resistance, $request)){
             return die(json_encode('true'));
         }
         return die(json_encode('false'));

@@ -55,7 +55,7 @@
     </div><!-- ./wrapper -->
 
     <!-- REQUIRED JS SCRIPTS -->
-
+    <script type="text/javascript">var src="/admin/"</script>
     <!-- jQuery 2.1.3 -->
     <script src="{{ mix ('backend/js/jquery.js') }}"></script>
     <!-- Bootstrap 3.3.2 JS -->

@@ -11,7 +11,7 @@ use App\MaximumVo2;
 use App\TrainingVo2;
 use App\User;
 use App\AdditionalData;
-use App\Resistance;
+use App\MaximumRepeat;
 use App\TargetZone;
 use App\Flexitest;
 use App\WellsBank;
@@ -34,7 +34,7 @@ class TestRepository{
         $this->reserveHeartRate = new ReserveHeartRate;
         $this->maximumVo2 = new MaximumVo2;
         $this->trainingVo2 = new TrainingVo2;
-        $this->resistance = new Resistance;
+        $this->maximumRepeat = new MaximumRepeat;
         $this->targetZone = new TargetZone;
         $this->user = new User;
         $this->additionalData = new AdditionalData;
@@ -89,7 +89,7 @@ class TestRepository{
      */
     public function getAdditionalData($id){
         return $this->additionalData
-            ->where('user_id', '=', $id)
+            ->where('evaluation_id', '=', $id)
             ->where('is_active', '=', 1)
             ->orderBy('name', 'asc')
             ->get();
@@ -137,8 +137,8 @@ class TestRepository{
      * @return mixed
      * @throws GeneralException
      */
-    public function getResistances($id){
-        return $this->findOrThrowException($id)->resistances; //$this->trainingVo2->where('test_id', '=', $id)->get();
+    public function getMaximumRepeat($id){
+        return $this->findOrThrowException($id)->maximumRepeat; //$this->trainingVo2->where('test_id', '=', $id)->get();
     }
 
     /**
@@ -242,14 +242,14 @@ class TestRepository{
     }
 
 
-    public function resistances($test_id, $type_resistance){
-        $resistances = Resistance::where('test_id', '=', $test_id)
+    public function rm($test_id, $type_resistance){
+        $rm = Rm::where('test_id', '=', $test_id)
             ->where('type_resistance', '=', $type_resistance)
             ->orderBy('sequency', 'asc')
             ->max('id');
 
-        if(count($resistances) > 0){
-            return count($resistances) + 1;
+        if(count($rm) > 0){
+            return count($rm) + 1;
         }
     }
 
@@ -266,7 +266,7 @@ class TestRepository{
             //$attributes = preg_split('/<|>|[0-9|\-|\/|\*|\(|\)|\,|\+]/i',$protocol->formula, -1);
             //dd($attributes, $protocol->formula);
             $collums = $this->additionalData
-                ->where('user_id', '=', $test->evaluation->user->id)
+                ->where('evaluation_id', '=', $test->evaluation->id)
                 ->where('is_active', '=', 1)->get();
             $formula = $protocol->formula;
             $regex = '[0-9]';
@@ -395,6 +395,7 @@ class TestRepository{
                     }else{
                         //Se não existir, crio um novo teste de frequencia cardiaca maxima
                         $this->maximumHeartRate->test_id = $test->id;
+                        $this->maximumHeartRate->type_test_id = 3;
                         $this->maximumHeartRate->result = $value['result'];
                         $this->maximumHeartRate->protocol_id = $value['id'];
                         if (!$this->maximumHeartRate->save()) {
@@ -407,6 +408,7 @@ class TestRepository{
             }else{
                 foreach($data as $key => $value) {
                     $this->maximumHeartRate->test_id = $test->id;
+                    $this->maximumHeartRate->type_test_id = 3;
                     $this->maximumHeartRate->result = $value['result'];
                     $this->maximumHeartRate->protocol_id = $value['id'];
                     if (!$this->maximumHeartRate->save()) {
@@ -475,6 +477,7 @@ class TestRepository{
                     }
                 }else{
                     $this->minimumHeartRate->test_id = $test->id;
+                    $this->minimumHeartRate->type_test_id = 4;
                     $this->minimumHeartRate->result = $value['result'];
                     $this->minimumHeartRate->protocol_id = $value['id'];
                     //Se não salvar, retorno falso
@@ -492,6 +495,7 @@ class TestRepository{
             foreach($data as $key => $value) {
 
                 $this->minimumHeartRate->test_id = $test->id;
+                $this->minimumHeartRate->type_test_id = 4;
                 $this->minimumHeartRate->result = $value['result'];
                 $this->minimumHeartRate->protocol_id = $value['id'];
 
@@ -562,6 +566,7 @@ class TestRepository{
                     }else{
                         //Se não existir, crio um novo teste de frequencia cardiaca maxima
                         $this->reserveHeartRate->test_id = $test->id;
+                        $this->reserveHeartRate->type_test_id = 5;
                         $this->reserveHeartRate->result = $value['result'];
                         $this->reserveHeartRate->protocol_id = $value['id'];
                         if (!$this->reserveHeartRate->save()) {
@@ -574,6 +579,7 @@ class TestRepository{
             }else{
                 foreach($data as $key => $value) {
                     $this->reserveHeartRate->test_id = $test->id;
+                    $this->reserveHeartRate->type_test_id = 5;
                     $this->reserveHeartRate->result = $value['result'];
                     $this->reserveHeartRate->protocol_id = $value['id'];
                     if (!$this->reserveHeartRate->save()) {
@@ -640,6 +646,7 @@ class TestRepository{
                     }else{
                         //Se não existir, crio um novo teste de frequencia cardiaca maxima
                         $this->maximumVo2->test_id = $test->id;
+                        $this->maximumVo2->type_test_id = 6;
                         $this->maximumVo2->result = $value['result'];
                         $this->maximumVo2->protocol_id = $value['id'];
                         if (!$this->maximumVo2->save()) {
@@ -653,6 +660,7 @@ class TestRepository{
             }else{
                 foreach($data as $key => $value) {
                     $this->maximumVo2->test_id = $test->id;
+                    $this->maximumVo2->type_test_id = 6;
                     $this->maximumVo2->result = $value['result'];
                     $this->maximumVo2->protocol_id = $value['id'];
                     if (!$this->maximumVo2->save()) {
@@ -727,6 +735,7 @@ class TestRepository{
                     }
                 }else{
                     $this->trainingVo2->test_id = $test->id;
+                    $this->trainingVo2->type_test_id = 7;
                     $this->trainingVo2->result = $value['result'];
                     $this->trainingVo2->protocol_id = $value['id'];
                     //Se não salvar, retorno falso
@@ -744,6 +753,7 @@ class TestRepository{
             foreach($data as $key => $value) {
 
                 $this->trainingVo2->test_id = $test->id;
+                $this->trainingVo2->type_test_id = 7;
                 $this->trainingVo2->result = $value['result'];
                 $this->trainingVo2->protocol_id = $value['id'];
 
@@ -783,12 +793,12 @@ class TestRepository{
     }
 
     /**
-     * @param $user_id
+     * @param $evaluation_id
      * @param $request
      * @return bool
      * @throws GeneralException
      */
-    public function saveAdditionalData($user_id, $request){
+    public function saveAdditionalData($evaluation_id, $request){
         $data = $request->all();
 
         if(isset($data['_token'])){
@@ -798,7 +808,7 @@ class TestRepository{
             foreach($data as $key => $value){
                 //id do dado adicional
                 $id = explode('_', $key)[3];
-                AdditionalData::where('user_id', '=', $user_id)
+                AdditionalData::where('evaluation_id', '=', $evaluation_id)
                     ->where('id', '=', $id)
                     ->update([
                         'value' => !is_null($value) ? str_replace(',', '', $value) : $value
@@ -816,59 +826,38 @@ class TestRepository{
      * @return bool
      * @throws GeneralException
      */
-    public function saveResistance($test_id, $type_resistance, $request){
+    public function saveMaximumRepeat($test_id, $type_resistance, $request){
         //Todos os dados da requisição
         $data = $request->all();
         $test = $this->findOrThrowException($test_id);
-        $supine = $this->resistance->where('test_id', '=', $test->id)
+        $rm = $this->maximumRepeat->where('test_id', '=', $test->id)
             ->where('type_resistance', '=', $type_resistance)
             ->get()
             ->first();
 
-        if(!is_null($supine)){
-            $supine->load_estimed = $data['load_estimed'];
-            $supine->option_1 = $data['option_1'];
-            $supine->option_2 = $data['option_2'];
-            $supine->option_3 = $data['option_3'];
-            $supine->option_4 = $data['option_4'];
-            $supine->maximum_repeat = $data['maximum_repeat'];
-            if($supine->save()){
+        if(!is_null($rm)){
+            $rm->load_estimed = $data['load_estimed'];
+            $rm->option_1 = $data['option_1'];
+            $rm->option_2 = $data['option_2'];
+            $rm->option_3 = $data['option_3'];
+            $rm->option_4 = $data['option_4'];
+            $rm->maximum_repeat = $data['maximum_repeat'];
+            if($rm->save()){
                 return true;
             }
         }
 
-        $this->resistance->test_id = $test->id;
-        $this->resistance->type_resistance = $type_resistance;
-        $this->resistance->load_estimed = $data['load_estimed'];
-        $this->resistance->option_1 = $data['option_1'];
-        $this->resistance->option_2 = $data['option_2'];
-        $this->resistance->option_3 = $data['option_3'];
-        $this->resistance->option_4 = $data['option_4'];
-        $this->resistance->maximum_repeat = $data['maximum_repeat'];
-        if($this->resistance->save()){
+        $this->maximumRepeat->test_id = $test->id;
+        $this->maximumRepeat->type_resistance = $type_resistance;
+        $this->maximumRepeat->type_test_id = 1;
+        $this->maximumRepeat->load_estimed = $data['load_estimed'];
+        $this->maximumRepeat->option_1 = $data['option_1'];
+        $this->maximumRepeat->option_2 = $data['option_2'];
+        $this->maximumRepeat->option_3 = $data['option_3'];
+        $this->maximumRepeat->option_4 = $data['option_4'];
+        $this->maximumRepeat->maximum_repeat = $data['maximum_repeat'];
+        if($this->maximumRepeat->save()){
             return true;
-        }
-        return false;
-    }
-
-    /**
-     * @param $test_id
-     * @param $protocol_id
-     * @return bool
-     * @throws GeneralException
-     */
-    public function destroyResistance($test_id, $protocol_id){
-        $test = $this->findOrThrowException($test_id);
-        $protocol = $this->protocol->find($protocol_id);
-        $resistance = $this->resistance
-            ->where('test_id', '=', $test->id)
-            ->where('protocol_id', '=', $protocol->id)
-            ->get()
-            ->first();
-        if (!is_null($resistance)) {
-            if($resistance->delete()){
-                return true;
-            }
         }
         return false;
     }
@@ -917,6 +906,7 @@ class TestRepository{
                     }
                 }else{
                     $this->targetZone->test_id = $test->id;
+                    $this->targetZone->type_test_id = 8;
                     $this->targetZone->result = $value['result'];
                     $this->targetZone->protocol_id = $value['id'];
                     //Se não salvar, retorno falso
@@ -934,6 +924,7 @@ class TestRepository{
             foreach($data as $key => $value) {
 
                 $this->targetZone->test_id = $test->id;
+                $this->targetZone->type_test_id = 8;
                 $this->targetZone->result = $value['result'];
                 $this->targetZone->protocol_id = $value['id'];
 
@@ -985,6 +976,7 @@ class TestRepository{
 
         if(is_null($test->flexitest)) {
             $this->flexitest->test_id = $id;
+            $this->flexitest->type_test_id = 2;
             $this->flexitest->abduction_shoulders = isset($data['abduction_shoulders']) ? $data['abduction_shoulders'] : NULL;
             $this->flexitest->lateral_trunk_flexion = isset($data['lateral_trunk_flexion']) ? $data['lateral_trunk_flexion'] : NULL;
             $this->flexitest->leg_hyperextension = isset($data['leg_hyperextension']) ? $data['leg_hyperextension'] : NULL;
@@ -1042,6 +1034,7 @@ class TestRepository{
 
         if(is_null($test->wellsBank)) {
             $this->wellsBank->test_id = $id;
+            $this->wellsBank->type_test_id = 2;
             $this->wellsBank->right_leg = isset($data['right_leg']) ? $data['right_leg'] : NULL;
             $this->wellsBank->left_leg = isset($data['left_leg']) ? $data['left_leg'] : NULL;
             $this->wellsBank->trunk = isset($data['trunk']) ? $data['trunk'] : NULL;

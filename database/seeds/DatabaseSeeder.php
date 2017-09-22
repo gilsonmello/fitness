@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder
        //Seeds users
         DB::table('users')->insert([
             'name' => 'Gilson de Melo',
-            'email' => 'junnyorr.sirnandes@gmail.com',
+            'email' => 'gilson@mirandafitness.com.br',
             'birth_date' => '1994-12-31',
             'cpf' => '073.011.215-20',
             'rg' => '13.610.029-56',
@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
 
         DB::table('users')->insert([
             'name' => 'Gabriele dos Santos Miranda',
-            'email' => 'gabrieledsmiranda@gmail.com',
+            'email' => 'gabriele.miranda@mirandafitness.com.br',
             'password' => bcrypt('81625358'),
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s')
@@ -256,6 +256,14 @@ class DatabaseSeeder extends Seeder
             'updated_at' => date('Y-m-d H:i:s')
         ]);
 
+        DB::table('measures')->insert([
+            'id' => 7,
+            'name' => 'Vo 2 Máximo',
+            'initials' => 'Vo2 M',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ]);
+
         DB::table('protocols')->insert([
             'id' => 1,
             'measure_id' => 4,
@@ -282,5 +290,61 @@ class DatabaseSeeder extends Seeder
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s')
         ]);
+
+        DB::table('type_tests')->insert([
+            'id' => 1,
+            'name' => 'Resistência',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ]);
+
+        DB::table('type_tests')->insert([
+            'id' => 2,
+            'name' => 'Flexibilidade',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ]);
+
+        DB::table('type_tests')->insert([
+            'id' => 3,
+            'name' => 'Frequência Máxima Cardíaca',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ]);
+
+        DB::table('type_tests')->insert([
+            'id' => 4,
+            'name' => 'Frequência Máxima Repouso',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ]);
+
+        DB::table('type_tests')->insert([
+            'id' => 5,
+            'name' => 'Frequência Máxima Reserva',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ]);
+
+        DB::table('type_tests')->insert([
+            'id' => 6,
+            'name' => 'Vo 2 Máximo',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ]);
+
+        DB::table('type_tests')->insert([
+            'id' => 7,
+            'name' => 'Vo 2 Treino',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ]);
+        DB::table('type_tests')->insert([
+            'id' => 8,
+            'name' => 'Zona Alvo',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ]);
+
     }
 }

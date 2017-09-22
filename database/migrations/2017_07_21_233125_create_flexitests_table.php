@@ -17,6 +17,7 @@ class CreateFlexitestsTable extends Migration
             $table->engine = "InnoDB";
             $table->increments('id');
             $table->integer('test_id')->unsigned();
+            $table->tinyInteger('type_test_id');
             $table->tinyInteger('abduction_shoulders')->nullable();
             $table->tinyInteger('lateral_trunk_flexion')->nullable();
             $table->tinyInteger('leg_hyperextension')->nullable();

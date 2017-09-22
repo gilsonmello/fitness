@@ -16307,6 +16307,22 @@ function _init() {
  * Created by Junnyor on 09/07/2017.
  */
 
+function getFormattedDate(date) {
+    var date = new Date(date);
+    var month = date.getMonth() + 1;
+    var day = date.getDate();
+    var year = date.getFullYear();
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+    if(day < 10){
+        day = '0'+day;
+    }
+    if(month < 10){
+        month = '0'+month;
+    }
+    return day + "/" + month + "/" + year+' '+hours+':'+minutes;
+}
+
 Number.prototype.format = function(n, x) {
     var re = '(\\d)(?=(\\d{' + (x || 3) + '})+' + (n > 0 ? '\\.' : '$') + ')';
     return this.toFixed(Math.max(0, ~~n)).replace(new RegExp(re, 'g'), '$1,');
@@ -16514,9 +16530,11 @@ function tests(param){
                     if (data.result != '') {
                         result = data.result;
                     }
-                    var html = '<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 calculated" id="' + args.text.replace(' ', '_') + '" style="display: none;">';
+
+                    var html = '<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 calculated" id="' + args.text.replace(' ', '_') + '" style="display: none;">';
                     html += '<div class="form-group">';
-                    html += '<label for="protocol_' + name+'_'+data.id + '[result]">' + data.name + '.: ' + data.formula + '</label>';
+                    html += '<label for="protocol_' + name+'_'+data.id + '[result]">' + data.name +'</label><br>';
+                    html += '<label for="protocol_' + name+'_'+data.id + '[result]">' + data.formula +'</label>';
                     html += '<input type="hidden" name="protocol_' + data.id + '[id]" value="' + data.id + '">';
                     html += '<div class="input-group">';
                         html += '<input id="protocol_' + name+'_'+data.id + '[result]" value="' + result + '" name="protocol_' + data.id + '[result]" type="text" class="number ' + classInputText + ' form-control">';

@@ -5971,7 +5971,7 @@ button.close {
 }
 @media (min-width: 768px) {
   .modal-dialog {
-    width: 600px;
+    width: 90%;
     margin: 30px auto;
   }
   .modal-content {
@@ -5987,6 +5987,13 @@ button.close {
     width: 900px;
   }
 }
+
+@media (min-width: 992px) {
+  .modal-xl {
+    width: 90%;
+  }
+}
+
 .tooltip {
   position: absolute;
   z-index: 1070;

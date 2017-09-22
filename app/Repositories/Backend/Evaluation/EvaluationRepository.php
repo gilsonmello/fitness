@@ -47,6 +47,10 @@ class EvaluationRepository{
         throw new GeneralException('That evaluation does not exist.');
     }
 
+    public function allOfUser($id){
+        return $this->evaluation->where('user_id', '=', $id)->get();
+    }
+
     public function create($request){
         $data = $request->all();
         $this->evaluation->user_id = trim($data['user_id']);

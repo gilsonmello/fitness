@@ -95,7 +95,7 @@
                         @include('backend.tests.vo2.vo2')
                     </div>
                     <div class="col-lg-4 col-xs-12 col-md-4 col-sm-6">
-                        @include('backend.tests.resistances.resistance')
+                        @include('backend.tests.maximum_repeat.rm')
                     </div>
                 </div>
                 <div class="box-footer">

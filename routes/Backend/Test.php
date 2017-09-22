@@ -60,8 +60,8 @@ Route::post('tests/protocols/{id}/save_training_vo2', 'TestController@saveTraini
 Route::delete('tests/{test_id}/protocols/{id}/destroy_training_vo2', 'TestController@destroyTrainingVo2')
     ->name('backend.tests.destroy_training_vo2');
 
-Route::post('tests/{test_id}/save_resistance/{type_resistance}', 'TestController@saveResistance')
-    ->name('backend.tests.save_resistance');
+Route::post('tests/{test_id}/save_rm/{type_resistance}', 'TestController@saveMaximumRepeat')
+    ->name('backend.tests.save_rm');
 
 Route::delete('tests/{test_id}/protocols/{id}/destroy_resistance', 'TestController@destroyResistance')
     ->name('backend.tests.destroy_resistance');
@@ -108,7 +108,7 @@ Route::get('tests/additional_data_flexibility', 'TestController@additionalDataFl
 Route::post('tests/save_attribute', 'TestController@saveAttribute')
     ->name('backend.tests.save_attribute');
 
-Route::post('tests/{user_id}/save_additional_data', 'TestController@saveAdditionalData')
+Route::post('tests/{evaluation_id}/save_additional_data', 'TestController@saveAdditionalData')
     ->name('backend.tests.save_additional_data');
 
 Route::get('tests/{test_id}/resistance/{type_resistance}', 'TestController@getResistances')

@@ -1,12 +1,12 @@
 <div class="modal fade" id="modal_additional_data" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="exampleModalLabel">Dados Adicionais - {!! $test->evaluation->user->name !!}</h4>
             </div>
 
-            <form id="save_additional_data" action="{{route('backend.tests.save_additional_data', ['user_id' => $test->evaluation->user->id])}}" method="post" enctype="multipart/form-data">
+            <form id="save_additional_data" action="{{route('backend.tests.save_additional_data', ['evaluation_id' => $test->evaluation->id])}}" method="post" enctype="multipart/form-data">
                 <div class="modal-body">
                     <div class="row">
                         <?php $desactive = 'desactive';?>

@@ -14,6 +14,7 @@ return [
 	'maximum_heart_rate' => 'Frequência Cardíaca Máxima',
 	'minimum_heart_rate' => 'Frequência Cardíaca Mínima',
 	'reserve_heart_rate' => 'Frequência Cardíaca Reserva',
+	'maximum_repeat' => 'Repetição Máxima',
     'additional_data' => 'Dados Adicionais',
 	'maximum_vo2' => 'Vo 2 Máximo',
 	'training_vo2' => 'Vo 2 Treino',

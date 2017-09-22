@@ -27,6 +27,8 @@ Route::resource('evaluations', 'EvaluationController', [
     ]
 ]);
 
+Route::get('user/{user_id}/evaluations', 'EvaluationController@allOfUser');
+
 Route::post('evaluations/{id}/update_weight_and_height', 'EvaluationController@updateWeightAndHeight')
     ->name('backend.evaluations.update_weight_and_height');
 

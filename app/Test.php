@@ -78,8 +78,8 @@ class Test extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function resistances(){
-        return $this->hasMany(\App\Resistance::class);
+    public function maximumRepeat(){
+        return $this->hasMany(\App\MaximumRepeat::class);
     }
 
     /**

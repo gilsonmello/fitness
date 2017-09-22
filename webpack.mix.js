@@ -76,14 +76,14 @@ mix.styles([
 
 
 
-mix.js([
+/*mix.js([
     'resources/assets/js/app.js'
 ], 'public/js/app.js')
     .sass('resources/assets/sass/app.scss', 'public/css/app.css');
 
 mix.js([
     'resources/assets/js/painel.js'
-], 'public/js/painel.js');
+], 'public/js/painel.js');*/
 
 mix.scripts([
 
@@ -132,7 +132,7 @@ mix.styles([
 
 
 mix.styles([
-    'public/bower_components/admin-lte/bootstrap/css/bootstrap.min.css'
+    'public/bower_components/admin-lte/bootstrap/css/bootstrap.css'
 ], 'public/backend/css/bootstrap.css');
 
 mix.styles([

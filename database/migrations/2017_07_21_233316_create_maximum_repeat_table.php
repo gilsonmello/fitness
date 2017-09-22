@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateResistancesTable extends Migration
+class CreateMaximumRepeatTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateResistancesTable extends Migration
      */
     public function up()
     {
-        Schema::create('resistances', function (Blueprint $table) {
+        Schema::create('maximum_repeat', function (Blueprint $table) {
             $table->engine = "InnoDB";
             $table->increments('id');
             $table->integer('test_id')->unsigned();
             $table->tinyInteger('type_resistance');
+            $table->tinyInteger('type_test_id');
             $table->decimal('load_estimed')->nullable();
             $table->decimal('option_1')->nullable();
             $table->decimal('option_2')->nullable();
@@ -39,6 +40,6 @@ class CreateResistancesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('resistances');
+        Schema::dropIfExists('maximum_repeat');
     }
 }
