@@ -27,7 +27,7 @@ class SendEmailController extends Controller
         unset($data['_token']);
         if(count($data) > 0){
 
-            if(!File::exists(public_path().'/uploads/reports/tmp/')){
+            if(!File::exists(public_path().'/uploads/reports/')){
                 File::makeDirectory(public_path().'/uploads/reports/tmp/', 0777, true, true);
             }
 
