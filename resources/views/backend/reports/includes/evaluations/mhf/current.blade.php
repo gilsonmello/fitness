@@ -157,7 +157,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                @forelse($user->tests[0]->maximumVo2 as $value)
+                @forelse($current->maximumVo2 as $value)
                     <tr>
                         <td>{{$value->protocol->name}}</td>
                         <td>{{$value->protocol->formula}}</td>

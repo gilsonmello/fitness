@@ -18,7 +18,7 @@ $(function(){
             email: {
                 required: true,
                 email: true,
-                remote: '/admin/auth/find/email_exists'
+                remote: src+'auth/find/email_exists'
             }
         },
         messages: {

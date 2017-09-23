@@ -14,6 +14,8 @@ return [
 	'maximum_heart_rate' => 'Frequência Cardíaca Máxima',
 	'minimum_heart_rate' => 'Frequência Cardíaca Mínima',
 	'reserve_heart_rate' => 'Frequência Cardíaca Reserva',
+    'all_rights_reserved' => 'Todos os direitos reservados',
+    'report' => 'Relatório',
 	'maximum_repeat' => 'Repetição Máxima',
     'additional_data' => 'Dados Adicionais',
 	'maximum_vo2' => 'Vo 2 Máximo',

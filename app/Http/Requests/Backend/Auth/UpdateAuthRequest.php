@@ -26,6 +26,7 @@ class UpdateAuthRequest extends FormRequest
         return [
             'name' => 'required|min:10|regex:/^([\pL\s\ ]+)$/u',
             'role_id'  => 'required|array|min:1',
+            'password' => !is_null($this->all()['password']) && !empty($this->all()['password']) ? 'min:6' : ''
         ];
     }
 
@@ -41,6 +42,7 @@ class UpdateAuthRequest extends FormRequest
             'name.min' => 'Informe o nome com no mínimo 11 letras',
             'name.regex' => 'Informe o nome somente com letras',
             'role_id.required' => 'O campo perfil é obrigatório',
+            'password.min' => 'Informe a senha com no mínimo 6 carácteres'
         ];
     }
 }

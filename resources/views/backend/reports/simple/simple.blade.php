@@ -81,8 +81,10 @@
         {!! Form::close() !!}
     </div>
 
+        
+
     <div class="row">
-        <div class="col-xs-12">
+        <div class="col-xs-12 col-sm-12 col-lg-12 col-md-12">
             <div class="box">
                 <!-- /.box-header -->
                 <div class="box-body">
@@ -103,10 +105,10 @@
                                         <a href="{{route('backend.reports.evaluations', $value->id)}}" class="btn btn-xs btn-primary">
                                             <i class="fa fa-list" data-toggle="tooltip" data-placement="top" title="Relatório de Avaliações"></i>
                                         </a>
-                                        {{--<button data-toggle="modal" data-target="#send-evaluation-user-{{$value->id}}" class="btn btn-xs btn-primary">
+                                        <button data-toggle="modal" data-target="#send-evaluation-user-{{$value->id}}" class="btn btn-xs btn-primary">
                                             <i class="fa fa-envelope-o" data-toggle="tooltip" data-placement="top" title="Enviar por e-mail"></i>
-                                        </button>--}}
-                                        @include('backend.reports.includes.evaluations.modal.email')
+                                        </button>
+                                        @include('backend.reports.simple.email')
                                     </td>
                                 </tr>
                             @empty

@@ -106,20 +106,8 @@ class EvaluationController extends Controller
      * @param $id
      * @param UpdateWeightAndHeightRequest $request
      */
-    public function updateWeightAndHeight($id, UpdateWeightAndHeightRequest $request){
-        if($this->evaluationRepository->updateWeightAndHeight($id, $request)){
-            return die(json_encode("true"));
-        }
-        return die(json_encode("false"));
-    }
-
-    /**
-     * @param $id
-     * @param UpdateAntropometriaRequest $request
-     * @return boolean
-     */
-    public function updatePerimetrosCircunferencias($id, UpdateAntropometriaRequest $request){
-        if($this->evaluationRepository->updatePerimetrosCircunferencias($id, $request)){
+    public function updateAnthropometries($id, Request $request){
+        if($this->evaluationRepository->updateAnthropometries($id, $request)){
             return die(json_encode("true"));
         }
         return die(json_encode("false"));

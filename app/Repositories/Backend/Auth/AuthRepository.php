@@ -65,8 +65,8 @@ class AuthRepository{
     public function create($request){
 
         $data = $request->all();
-        $this->user->name = $data['name'];
-        $this->user->email = $data['email'];
+        $this->user->name = strtoupper($data['name']);
+        $this->user->email = strtolower($data['email']);
         $this->user->password = bcrypt($data['password']);
         $this->user->birth_date = format_with_mask($data['birth_date']);
         $this->user->cpf = $data['cpf'];
@@ -85,11 +85,10 @@ class AuthRepository{
     public function update($id, $request){
 
         $data = $request->all();
-
         $user = $this->find($id);
-
-        $user->name = $data['name'];
-        $user->email = $data['email'];
+        $user->name = strtoupper($data['name']);
+        $user->email = strtolower($data['email']);
+        $user->password = !is_null($data['password']) && !empty($data['password'])? bcrypt($data['password']) : $user->password;
         $user->birth_date = format_with_mask($data['birth_date']);
         $user->cpf = $data['cpf'];
         $user->rg = $data['rg'];

@@ -29,10 +29,10 @@ Route::resource('evaluations', 'EvaluationController', [
 
 Route::get('user/{user_id}/evaluations', 'EvaluationController@allOfUser');
 
-Route::post('evaluations/{id}/update_weight_and_height', 'EvaluationController@updateWeightAndHeight')
+Route::post('evaluations/{id}/update_weight_and_height', 'EvaluationController@updateAnthropometries')
     ->name('backend.evaluations.update_weight_and_height');
 
-Route::post('evaluations/{id}/update_perimetros_circunferencias', 'EvaluationController@updatePerimetrosCircunferencias')
+Route::post('evaluations/{id}/update_perimetros_circunferencias', 'EvaluationController@updateAnthropometries')
     ->name('backend.evaluations.update_perimetros_circunferencias');
 
 //Rota para atualiazar as respostas do IPAC

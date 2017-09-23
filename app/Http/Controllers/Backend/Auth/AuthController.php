@@ -62,7 +62,7 @@ class AuthController extends Controller
             return redirect()->route('backend.auth.index')
                 ->withFlashSuccess(trans('alerts.auth.edit.success'));
         }
-        return redirect()->route('backend.auth.edit')
+        return redirect()->route('backend.auth.edit', $id)
             ->withInput()
             ->withFlashDanger(trans('alerts.auth.edit.error'));
     }

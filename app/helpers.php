@@ -324,17 +324,31 @@ if (!function_exists('squat')) {
 	}
 }
 
+if (!function_exists('currentEvaluation')) {
+	/**
+	 * @param $user
+	 * @return mixed
+	 */
+	function currentEvaluation($user){
+		$current = \App\Evaluation::where('user_id', '=', $user)
+				->orderBy('validity', 'desc')
+				->get()
+				->first();
+		return $current;
+	}
+}
+
 if (!function_exists('currentTest')) {
 	/**
 	 * @param $user
 	 * @return mixed
 	 */
 	function currentTest($user){
-		$squat = \App\Evaluation::where('user_id', '=', $user)
+		$current = \App\Evaluation::where('user_id', '=', $user)
 				->orderBy('validity', 'desc')
 				->get()
 				->first();
-		return $squat->test;
+		return $current->test;
 	}
 }
 
@@ -344,10 +358,10 @@ if (!function_exists('previousTest')) {
 	 * @return mixed
 	 */
 	function previousTest($user){
-		$squat = \App\Evaluation::where('user_id', '=', $user)
+		$previus = \App\Evaluation::where('user_id', '=', $user)
 				->orderBy('validity', 'desc')
 				->take(2)
 				->get();
-		return isset($squat[1]) ? $squat[1]->test : null;
+		return isset($previus[1]) ? $previus[1]->test : null;
 	}
 }

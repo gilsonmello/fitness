@@ -43,6 +43,13 @@ class Evaluation extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
+    public function anthropometry(){
+        return $this->hasOne(\App\Anthropometry::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
     public function anthropometryPerimetersCircumferences(){
         return $this->hasOne(\App\AnthropometryPerimetersCircumferences::class);
     }

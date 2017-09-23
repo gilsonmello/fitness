@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * Class Antropometria
  * @package App
  */
-class Anthropometry extends Model
+class AnthropometryPerimetersCircumferences extends Model
 {
     use SoftDeletes;
 
@@ -23,7 +23,7 @@ class Anthropometry extends Model
      *
      * @var string
      */
-    protected $table = 'anthropometries';
+    protected $table = 'anthropometry_perimeters_circumferences';
 
     /**
      * The attributes that are not mass assignable.

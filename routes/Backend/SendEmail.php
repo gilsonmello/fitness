@@ -1,2 +1,2 @@
 <?php
-Route::post('send_email/tests/user/{id}', 'SendEmailController@tests')->name('backend.send_email.tests.user');
+Route::post('send_email/evaluations/user/{id}', 'SendEmailController@evaluations')->name('backend.send_email.evaluations.user');

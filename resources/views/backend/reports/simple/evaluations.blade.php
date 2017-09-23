@@ -81,7 +81,7 @@
         <div class="col-lg-6 col-xs-12 col-md-6 col-sm-12">
             @if(!is_null($previous))
                 <h1 class="page-header">Dados Anterior - {{ !is_null($previous->validity) ? format($previous->validity, 'd/m/Y') : 'Sem limite'}}</h1>
-                @include('backend.reports.includes.tests.mhf.previous')
+                @include('backend.reports.includes.evaluations.mhf.previous')
             @else
                 <div class="box box-primary">
                     <div class="box-header with-border">
@@ -103,7 +103,7 @@
         <div class="col-lg-6 col-xs-12 col-md-6 col-sm-12">
             @if(!is_null($current))
                 <h1 class="page-header">Dados Atual - {{ !is_null($current->validity) ? format($current->validity, 'd/m/Y') : 'Sem limite'}}</h1>
-                @include('backend.reports.includes.tests.mhf.current')
+                @include('backend.reports.includes.evaluations.mhf.current')
             @else
                 <div class="box box-primary">
                     <div class="box-header with-border">

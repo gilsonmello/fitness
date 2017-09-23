@@ -10,6 +10,7 @@ use App\AnalisePosturalLateralEsquerda;
 use App\AnalisePosturalLateralDireita;
 use App\AnalisePosturalPosterior;
 use App\AnthropometryWeightHeight;
+use App\Anthropometry;
 use App\AnthropometryPerimetersCircumferences;
 use App\Bioempedancia;
 use File;
@@ -29,6 +30,7 @@ class EvaluationRepository{
         $this->analisePosturalLateralEsquerda = new AnalisePosturalLateralEsquerda;
         $this->analisePosturalLateralDireita = new AnalisePosturalLateralDireita;
         $this->analisePosturalPosterior = new AnalisePosturalPosterior;
+        $this->anthropometry = new Anthropometry;
         $this->anthropometryWeightHeight = new AnthropometryWeightHeight;
         $this->bioempedancia = new Bioempedancia;
         $this->anthropometryPerimetersCircumferences = new AnthropometryPerimetersCircumferences;
@@ -105,36 +107,13 @@ class EvaluationRepository{
     }
 
 
-
-    /**
-     * @param $id
-     * @param $request
-     * @return bool
-     */
-    public function updateWeightAndHeight($id, $request){
+    public function updateAnthropometries($id, $request){
         $data = $request->all();
         $evaluation = $this->evaluation->find($id);
-        $save = $this->anthropometryWeightHeight->where('evaluation_id', '=', $evaluation->id)
+        $save = $this->anthropometry->where('evaluation_id', '=', $evaluation->id)
             ->update([
                 'weight' => isset($data['weight']) && !empty($data['weight']) ? $data['weight'] : NULL,
                 'height' => isset($data['height']) && !empty($data['height']) ? $data['height'] : NULL,
-            ]);
-        if($save){
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * @param $id
-     * @param $request
-     * @return bool
-     */
-    public function updatePerimetrosCircunferencias($id, $request){
-        $data = $request->all();
-        $evaluation = $this->evaluation->find($id);
-        $save = $this->anthropometryPerimetersCircumferences->where('evaluation_id', '=', $evaluation->id)
-            ->update([
                 'right_arm' => isset($data['right_arm']) && !empty($data['right_arm']) ? $data['right_arm'] : NULL,
                 'left_arm' => isset($data['left_arm']) && !empty($data['left_arm']) ? $data['left_arm'] : NULL,
                 'tummy' => isset($data['tummy']) && !empty($data['tummy']) ? $data['tummy'] : NULL,
@@ -153,6 +132,7 @@ class EvaluationRepository{
         }
         return false;
     }
+
     public function updateBioempedancia($id, $request){
         $data = $request->all();
         $evaluation = $this->evaluation->find($id);
@@ -402,7 +382,7 @@ class EvaluationRepository{
             //Deletando os tmps atuais
             foreach($tmp_imgs as $img){
                 if(File::exists(public_path().'/uploads/images/tmp/'.$img)){
-                    File::Delete(public_path().'/uploads/images/tmp/'.$img);
+                    File::delete(public_path().'/uploads/images/tmp/'.$img);
                 }
             }
 
