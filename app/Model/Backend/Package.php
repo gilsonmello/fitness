@@ -1,13 +1,15 @@
 <?php
 
-namespace App;
+namespace App\Model\Backend;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class TypeTest extends Model
+class Package extends Model
 {
-
-    /**
+	use SoftDeletes;
+	
+     /**
      * @var bool
      */
     public $timestamps = true;
@@ -17,7 +19,7 @@ class TypeTest extends Model
      *
      * @var string
      */
-    protected $table = 'type_tests';
+    protected $table = 'packages';
 
     /**
      * The attributes that are not mass assignable.
@@ -25,6 +27,4 @@ class TypeTest extends Model
      * @var array
      */
     protected $guarded = ['id'];
-
-    
 }

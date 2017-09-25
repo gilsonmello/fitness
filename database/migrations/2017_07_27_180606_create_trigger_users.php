@@ -30,6 +30,6 @@ class createTriggerUsers extends Migration
      */
     public function down()
     {
-        DB::unprepared('DROP TRIGGER create_trigger_users');
+        DB::unprepared('DROP TRIGGER IF EXISTS create_trigger_users');
     }
 }

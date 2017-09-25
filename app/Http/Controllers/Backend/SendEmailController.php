@@ -36,7 +36,11 @@ class SendEmailController extends Controller
             $hash = str_random(10).'_'.$user->email.'.pdf';
             $path = public_path().'/uploads/reports/tmp/';
             
-            if($this->uploadPdf('emails.report_simple', ['evaluation' => currentEvaluation($user->id)], $path, $hash)) {
+            $upload = $this->uploadPdf('emails.report_simple', [
+                'evaluation' => currentEvaluation($user->id)
+            ], $path, $hash);
+
+            if($upload) {
                 foreach($data['email'] as $value){
                     Mail::send('emails.informative_text', [], function($message) use ($value, $path, $hash){
                         $message->to($value, 'Teste');

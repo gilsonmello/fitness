@@ -29,6 +29,6 @@ class createTriggerTests extends Migration
      */
     public function down()
     {
-        DB::unprepared('DROP TRIGGER create_trigger_tests');
+        DB::unprepared('DROP TRIGGER IF EXISTS create_trigger_tests');
     }
 }
