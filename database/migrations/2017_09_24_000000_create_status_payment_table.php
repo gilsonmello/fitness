@@ -13,7 +13,7 @@ class CreateStatusPaymentTable extends Migration
      */
     public function up()
     {
-        Schema::create('status_payments', function (Blueprint $table) {
+        Schema::create('status_payment', function (Blueprint $table) {
             $table->engine = "InnoDB";
             $table->increments('id');
             $table->string('name')->comment = "1 Aprovado, 2 Cancelado, 3 Em Análise, 4 Pendente, 5 Estornado";
@@ -28,6 +28,6 @@ class CreateStatusPaymentTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('status_payments');
+        Schema::dropIfExists('status_payment');
     }
 }

@@ -22,7 +22,7 @@ class CreateOrdersTable extends Migration
             $table->decimal('value_discount');
             $table->dateTime('date_confirmation')->nullable();
             $table->dateTime('date_cancel')->nullable();
-            $table->integer('status_id')->nullable();
+            $table->integer('status_payment_id')->unsigned()->default(4);
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('user_id')
@@ -30,6 +30,9 @@ class CreateOrdersTable extends Migration
                 ->references('id');
             $table->foreign('coupon_id')
                 ->on('coupons')
+                ->references('id');
+            $table->foreign('status_payment_id')
+                ->on('status_payment')
                 ->references('id');
         });
 
