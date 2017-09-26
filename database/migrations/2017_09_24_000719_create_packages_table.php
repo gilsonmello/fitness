@@ -26,6 +26,7 @@ class CreatePackagesTable extends Migration
             $table->dateTime('begin_discount')->nullable();
             $table->dateTime('end_discount')->nullable();
             $table->decimal('value_discount')->nullable();
+            $table->decimal('supplier_percentage')->nullable();
             $table->boolean('is_active')->default(1);
             $table->text('meta_description')->nullable();
             $table->text('meta_title')->nullable();
@@ -45,6 +46,21 @@ class CreatePackagesTable extends Migration
                 ->on('packages')
                 ->references('id');
         });
+
+        Schema::create('discount_suppliers_packages', function (Blueprint $table) {
+            $table->engine = "InnoDB";
+            $table->increments('id');
+            $table->integer('supplier_id')->unsigned();
+            $table->integer('package_id')->unsigned();
+            $table->decimal('value')->nullable();
+            $table->decimal('percentage')->nullable();
+            $table->foreign('supplier_id')
+                ->on('suppliers')
+                ->references('id');
+            $table->foreign('package_id')
+                ->on('packages')
+                ->references('id');
+        });
     }
 
     /**
@@ -54,6 +70,7 @@ class CreatePackagesTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('discount_suppliers_packages');
         Schema::dropIfExists('coupons_has_packages');
         Schema::dropIfExists('packages');
     }

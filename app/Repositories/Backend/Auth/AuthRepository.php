@@ -65,16 +65,18 @@ class AuthRepository{
     public function create($request){
 
         $data = $request->all();
-        $this->user->name = strtoupper($data['name']);
-        $this->user->email = strtolower($data['email']);
+        $this->user->name = mb_strtoupper($data['name'], 'UTF-8');
+        $this->user->email = mb_strtolower($data['email']);
         $this->user->password = bcrypt($data['password']);
         $this->user->birth_date = format_with_mask($data['birth_date']);
         $this->user->cpf = $data['cpf'];
         $this->user->rg = $data['rg'];
+        $this->user->gender = isset($data['gender']) && $data['gender'] == '1' ? 1 : 0;
 
         if($this->user->save()){
-            if(count($data['role_id']) > 0){
-                $this->user->roles()->attach($data['role_id']);
+            $this->user->roles()->attach([2]);
+            if(count($data['supplier_id']) > 0){
+                $this->user->suppliers()->attach($data['supplier_id']);
             }
             return true;
         }
@@ -86,16 +88,20 @@ class AuthRepository{
 
         $data = $request->all();
         $user = $this->find($id);
-        $user->name = strtoupper($data['name']);
+        $user->name = mb_strtoupper($data['name'], 'UTF-8');
         $user->email = strtolower($data['email']);
         $user->password = !is_null($data['password']) && !empty($data['password'])? bcrypt($data['password']) : $user->password;
         $user->birth_date = format_with_mask($data['birth_date']);
         $user->cpf = $data['cpf'];
         $user->rg = $data['rg'];
+        $user->gender = isset($data['gender']) && $data['gender'] == '1' ? 1 : 0;
 
         if($user->save()){
-            if(count($data['role_id']) > 0){
+           /* if(count($data['role_id']) > 0){
                 $user->roles()->sync($data['role_id']);
+            }*/
+            if(count($data['supplier_id']) > 0){
+                $user->suppliers()->sync($data['supplier_id']);
             }
             return true;
         }
@@ -128,6 +134,8 @@ class AuthRepository{
     public function destroy($id){
         $user = $this->find($id);
         if($user->delete()){
+            $user->roles()->detach();
+            $user->suppliers()->detach();
             return true;
         }
         return false;

@@ -43,10 +43,10 @@ $(function(){
             form.submit();
         },
         rules: {
-            cpf: {
+            /*cpf: {
                 required: true,
                 isCPF: true
-            },
+            },*/
             email: {
                 required: true,
                 email: true,
@@ -54,10 +54,10 @@ $(function(){
             }
         },
         messages: {
-            cpf: {
+            /*cpf: {
                 required: 'Campo Obrigatório',
                 isCPF: 'Informe um CPF válido'
-            },
+            },*/
             email: {
                 required: 'Campo Obrigatório',
                 email: 'Informe um e-mail válido',

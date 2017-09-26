@@ -26,7 +26,8 @@ class CreateAuthRequest extends FormRequest
         return [
             'name' => 'required|min:10|regex:/^([\pL\s\ ]+)$/u',
             /*'cpf' => 'required|min:14',*/
-            'role_id'  => 'required|array|min:1',
+            /*'role_id'  => 'required|array|min:1',*/
+            'supplier_id'  => 'required|array|min:1',
         ];
     }
 
@@ -42,7 +43,8 @@ class CreateAuthRequest extends FormRequest
             'name.required' => 'O campo Nome é obrigatório',
             'name.min' => 'Informe o Nome com no mínimo 11 letras',
             'name.regex' => 'Informe o Nome somente com letras',
-            'role_id.required' => 'O campo Perfil é obrigatório',
+            /*'role_id.required' => 'O campo Perfil é obrigatório',*/
+            'supplier_id.required' => 'O campo Fornecedor é obrigatório',
         ];
     }
 }

@@ -67,10 +67,28 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+            {{-- <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
                 <div class="form-group">
                     {!! Form::label('role_id[]', trans('strings.profile').' *', ['class' => '']) !!}
                     {!! Form::select('role_id[]', $roles->pluck('label', 'id')->all(), $auth->roles->pluck('id')->all(), ['style' => 'width: 100%;','multiple' => 'multiple' ,'class' => 'select2', 'data-placeholder' => trans('strings.profile')]) !!}
+                </div>
+            </div> --}}
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                <div class="form-group">
+                    {!! Form::label('gender', trans('strings.gender'), ['class' => '']) !!}
+                    {!! Form::select('gender', [0 => 'Masculino', 1 => 'Feminino'], $auth->gender, 
+                        [
+                            'style' => 'width: 100%;', 
+                            'class' => 'select2', 
+                            'placeholder' => trans('strings.gender')
+                        ]) 
+                    !!}
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                <div class="form-group">
+                    {!! Form::label('supplier_id[]', trans('strings.supplier'), ['class' => '']) !!}
+                    {!! Form::select('supplier_id[]', $suppliers, $auth->suppliers->pluck('id')->all(), ['style' => 'width: 100%;', 'class' => 'select2', 'multiple' => 'multiple', 'data-placeholder' => trans('strings.supplier')]) !!}
                 </div>
             </div>
         </div>

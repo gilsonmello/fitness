@@ -602,22 +602,6 @@ $(function () {
 
     $.fn.dataTable.ext.errMode = 'none';
 
-    $('.data-table').DataTable({
-        rowReorder: {
-            selector: 'td:nth-child(2)'
-        },
-        "paging": true,
-        "lengthChange": false,
-        "searching": false,
-        "ordering": true,
-        "info": true,
-        autoWidth: true,
-        responsive: true,
-        scroll: true,
-        scrollX: true,
-        scrollCollapse: true
-    });
-
     $('[data-method]').append(function(){
 
             var method;
@@ -666,6 +650,33 @@ $(function () {
 
     $('.editor-active').css({
         'display': 'block'
+    });
+
+    var table = $('.data-table').DataTable({
+        rowReorder: {
+            selector: 'td:nth-child(2)'
+        },
+        paging: true,
+        lengthChange: true,
+        searching: true,
+        ordering: true,
+        info: true,
+        lengthMenu: [10, 20, 50],
+        autoWidth: true,
+        responsive: true,
+        scroll: true,
+        scrollX: true,
+        scrollCollapse: true,
+        language: {
+            search: "Pesquisar",
+            paginate: {
+                first: "Primeiro",
+                last: "Último",
+                next: "Próximo",
+                previous: "Anterior"
+            },
+            info: "Mostrando de _START_ até _END_ no total de _TOTAL_ registros"
+        }
     });
 
     function submitFormWithSweetAlertAndAjax(id){

@@ -108,6 +108,6 @@ class AlterEvaluationsTrigger extends Migration
      */
     public function down()
     {
-        DB::unprepared('DROP TRIGGER trigger_create_evaluations');
+        DB::unprepared('DROP TRIGGER IF EXISTS trigger_create_evaluations');
     }
 }

@@ -113,5 +113,8 @@ class User extends Authenticatable
         return $this->hasMany(\App\Evaluation::class);
     }
 
+    public function suppliers(){
+        return $this->belongsToMany(\App\Model\Backend\Supplier::class, 'suppliers_has_users', 'user_id', 'supplier_id');
+    }
 
 }

@@ -31,7 +31,7 @@ class DatabaseSeeder extends Seeder
             'updated_at' => date('Y-m-d H:i:s')
         ]);
 
-        //$this->call(UsersTableSeeder::class);
+        $this->call(UsersTableSeeder::class);
 
 
         //Seed roles
@@ -346,6 +346,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $this->call(SuppliersTableSeeder::class);
+        $this->call(PackagesTableSeeder::class);
 
     }
 }

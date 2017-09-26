@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\Backend\Auth\UpdateAuthRequest;
 use App\Http\Requests\Backend\Auth\CreateAuthRequest;
 use App\Repositories\Backend\Auth\AuthRepository;
+use App\Repositories\Backend\Supplier\SupplierRepository;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 Use App\User;
@@ -16,6 +17,7 @@ class AuthController extends Controller
      */
     public function __construct(){
         $this->authRepository = new AuthRepository;
+        $this->supplierRepository = new SupplierRepository;
     }
 
     public function index(Request $request){
@@ -54,7 +56,8 @@ class AuthController extends Controller
         $this->authorize('edit-auth', (int) $id);*/
         $auth = User::find($id);
         $roles = $this->authRepository->roles();
-        return view('backend.auth.edit', compact('auth', 'roles'));
+        $suppliers = $this->supplierRepository->all()->pluck('name', 'id')->all();
+        return view('backend.auth.edit', compact('auth', 'roles', 'suppliers'));
     }
 
     public function update($id, UpdateAuthRequest $request){
@@ -72,7 +75,8 @@ class AuthController extends Controller
      */
     public function create(){
         $roles = $this->authRepository->roles();
-        return view('backend.auth.create', compact('roles'));
+        $suppliers = $this->supplierRepository->all()->pluck('name', 'id')->all();
+        return view('backend.auth.create', compact('roles', 'suppliers'));
     }
 
     /**
@@ -102,7 +106,6 @@ class AuthController extends Controller
         return $this->authRepository->destroy($id) ? 
             redirect()->route('backend.auth.index')->withFlashSuccess(trans('alerts.users.delete.success')) : 
             redirect()->route('backend.auth.index')->withFlashDanger(trans('alerts.users.delete.error'));
-
     }
 
 }
