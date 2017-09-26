@@ -97,6 +97,9 @@ Route::group(['namespace' => 'Backend'], function () {
 			//Rotas para config
 			require_once __DIR__.'/Backend/Config.php';
 
+			//Rotas para auth
+			require_once __DIR__.'/Backend/Auth.php';
+
 	});
 });
 
