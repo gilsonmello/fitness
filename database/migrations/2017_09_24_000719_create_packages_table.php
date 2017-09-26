@@ -26,7 +26,6 @@ class CreatePackagesTable extends Migration
             $table->dateTime('begin_discount')->nullable();
             $table->dateTime('end_discount')->nullable();
             $table->decimal('value_discount')->nullable();
-            $table->decimal('supplier_percentage')->nullable();
             $table->boolean('is_active')->default(1);
             $table->text('meta_description')->nullable();
             $table->text('meta_title')->nullable();

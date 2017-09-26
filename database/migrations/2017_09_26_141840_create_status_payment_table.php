@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTagsTable extends Migration
+class CreateStatusPaymentTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,11 @@ class CreateTagsTable extends Migration
      */
     public function up()
     {
-        Schema::create('tags', function (Blueprint $table) {
+        Schema::create('status_payments', function (Blueprint $table) {
             $table->engine = "InnoDB";
             $table->increments('id');
-            $table->string('name');
-            $table->longText('description')->nullable();
-            $table->boolean('is_active')->default(1);
+            $table->string('name')->comment = "1 Aprovado, 2 Cancelado, 3 Em Análise, 4 Pendente, 5 Estornado";
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -31,6 +28,6 @@ class CreateTagsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tags');
+        Schema::dropIfExists('status_payments');
     }
 }
