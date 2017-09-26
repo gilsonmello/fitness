@@ -18,6 +18,7 @@ class CreateStatusPaymentTable extends Migration
             $table->increments('id');
             $table->string('name')->comment = "1 Aprovado, 2 Cancelado, 3 Em Análise, 4 Pendente, 5 Estornado";
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
