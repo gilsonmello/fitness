@@ -675,6 +675,11 @@ $(function () {
                 next: "Próximo",
                 previous: "Anterior"
             },
+            zeroRecords: "Não foram encontrados registros",
+            processing: "Processando...",
+            thousands: ",",
+            lengthMenu: "Listando _MENU_ registros",
+            emptyTable: "Não há registros disponíveis",
             info: "Mostrando de _START_ até _END_ no total de _TOTAL_ registros"
         }
     });

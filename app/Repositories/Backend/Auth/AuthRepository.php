@@ -13,11 +13,9 @@ use App\Role;
 
 class AuthRepository{
 
-
     public function __construct(){
         $this->user = new User;
     }
-
 
     /**
      * @param $per_page
@@ -51,10 +49,15 @@ class AuthRepository{
 
         if(!is_null($whereHas) && count($whereHas) > 0){
             foreach($whereHas as $key => $value){
-                $user->whereHas($value);
+                if($value == 'NULL'){
+                    $user->whereHas($key);
+                }else{
+                    $user->whereHas($key, function($subquery) use ($value) {
+                        $subquery->where('name', $value);
+                    });
+                }   
             }
         }
-
         return $user->orderBy($order_by, $sort)->get();
     }
 

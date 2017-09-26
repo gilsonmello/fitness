@@ -112,7 +112,7 @@
                                     <td>{!! $value->action_buttons !!}</td>
                                 </tr>
                             @empty
-                                Vazio
+                                
                             @endforelse
                         </tbody>
                         <tfoot>

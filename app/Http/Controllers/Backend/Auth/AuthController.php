@@ -41,7 +41,7 @@ class AuthController extends Controller
             'cpf' => ['op' => '=', 'value' => $cpf],
             'rg' => ['op' => '=', 'value' => $rg],
             'role_id' => ['op' => 'In', 'value' => $profile]
-        ]);
+        ], ['roles' => 'client']);
         return view('backend.auth.index', compact(
             'roles', 'users', 'name', 'email', 'cpf', 'rg', 'profile'
         ));

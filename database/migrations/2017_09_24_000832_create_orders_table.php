@@ -19,7 +19,7 @@ class CreateOrdersTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->integer('coupon_id')->unsigned()->nullable();
             $table->decimal('value');
-            $table->decimal('value_discount');
+            $table->decimal('value_discount')->nullable();
             $table->dateTime('date_confirmation')->nullable();
             $table->dateTime('date_cancel')->nullable();
             $table->integer('status_payment_id')->unsigned()->default(4);
@@ -41,8 +41,10 @@ class CreateOrdersTable extends Migration
             $table->increments('id');
             $table->integer('order_id')->unsigned();
             $table->integer('package_id')->unsigned();
-            $table->decimal('price');
-            $table->decimal('discount_price');
+            $table->decimal('price')->nullable();;
+            $table->decimal('discount_price')->nullable();
+            $table->timestamps();
+            $table->softDeletes();
             $table->foreign('order_id')
                 ->on('orders')
                 ->references('id');

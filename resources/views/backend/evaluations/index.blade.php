@@ -1,3 +1,5 @@
+@section ('title', trans('menus.evaluations.index'))
+
 @section('content_header')
 
     <!-- Content Header (Page header) -->
@@ -72,7 +74,7 @@
                                     <td>{!! $value->action_buttons !!}</td>
                                 </tr>
                             @empty
-                                Vazio
+                                <tr><td colspan="3">Não possui registros disponíveis</td></tr>
                             @endforelse
                         </tbody>
                         <tfoot>

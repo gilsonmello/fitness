@@ -63,7 +63,7 @@ class ReportController extends Controller
             'cpf' => ['op' => '=', 'value' => $cpf],
             'rg' => ['op' => '=', 'value' => $rg],
             'role_id' => ['op' => 'In', 'value' => $profile]
-        ], [0 => 'evaluations']);
+        ], ['evaluations' => 'NULL']);
 
         return view('backend.reports.simple.simple', compact(
             'roles', 'users', 'name', 'email', 'cpf', 'rg', 'profile'
