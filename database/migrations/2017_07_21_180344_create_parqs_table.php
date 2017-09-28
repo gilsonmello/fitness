@@ -19,29 +19,31 @@ class CreateParqsTable extends Migration
 
             $table->integer('evaluation_id')->unsigned();
 
-            $table->binary('question_1');
+            $table->boolean('question_1');
             $table->longText('option_answer_1')->nullable();
 
-            $table->binary('question_2');
+            $table->boolean('question_2');
             $table->longText('option_answer_2')->nullable();
 
-            $table->binary('question_3');
+            $table->boolean('question_3');
             $table->longText('option_answer_3')->nullable();
 
-            $table->binary('question_4');
+            $table->boolean('question_4');
             $table->longText('option_answer_4')->nullable();
 
-            $table->binary('question_5');
+            $table->boolean('question_5');
             $table->longText('option_answer_5')->nullable();
 
-            $table->binary('question_6');
+            $table->boolean('question_6');
             $table->longText('option_answer_6')->nullable();
 
-            $table->binary('question_7');
+            $table->boolean('question_7');
             $table->longText('option_answer_7')->nullable();
 
-            $table->binary('question_8');
+            $table->boolean('question_8');
             $table->longText('option_answer_8')->nullable();
+
+            $table->boolean('terms')->default(1);
 
             $table->boolean('is_active')->default(1);
             $table->timestamps();

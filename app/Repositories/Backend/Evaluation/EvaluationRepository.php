@@ -152,26 +152,27 @@ class EvaluationRepository{
 
         $evaluation = $this->evaluation->find($id);
 
+
         if(!is_null($evaluation->parq)) {
             $this->parq->where('evaluation_id', '=', $evaluation->id)
                 ->update([
-                    'question_1' => $data['question_1'],
+                    'question_1' => isset($data['question_1']) && $data['question_1'] == '1' ? 1 : 0,
                     'option_answer_1' => $data['option_answer_1'],
-                    'question_2' => $data['question_2'],
+                    'question_2' => isset($data['question_2']) && $data['question_2'] == '1' ? 1 : 0,
                     'option_answer_2' => $data['option_answer_2'],
-                    'question_3' => $data['question_3'],
+                    'question_3' => isset($data['question_3']) && $data['question_3'] == '1' ? 1 : 0,
                     'option_answer_3' => $data['option_answer_3'],
-                    'question_4' => $data['question_4'],
+                    'question_4' => isset($data['question_4']) && $data['question_4'] == '1' ? 1 : 0,
                     'option_answer_4' => $data['option_answer_4'],
-                    'question_5' => $data['question_5'],
+                    'question_5' => isset($data['question_5']) && $data['question_5'] == '1' ? 1 : 0,
                     'option_answer_5' => $data['option_answer_5'],
-                    'question_6' => $data['question_6'],
+                    'question_6' => isset($data['question_6']) && $data['question_6'] == '1' ? 1 : 0,
                     'option_answer_6' => $data['option_answer_6'],
-                    'question_7' => $data['question_7'],
+                    'question_7' => isset($data['question_7']) && $data['question_7'] == '1' ? 1 : 0,
                     'option_answer_7' => $data['option_answer_7'],
-                    'terms', $data['terms'],
-                    'user_id' => $evaluation->user->id,
-                    'question_group_id' => 1
+                    'question_8' => isset($data['question_8']) && $data['question_8'] == '1' ? 1 : 0,
+                    'option_answer_8' => $data['option_answer_8'],
+                    'terms' => $data['terms'],
                 ]);
             return true;
         }
@@ -200,9 +201,6 @@ class EvaluationRepository{
         $this->parq->option_answer_7 = $data['option_answer_7'];
 
         $this->parq->terms = $data['terms'];
-
-        $this->parq->user_id = $evaluation->user->id;
-        $this->parq->question_group_id = 1;
 
         if($this->parq->save()){
             return true;

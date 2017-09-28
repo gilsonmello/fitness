@@ -399,6 +399,7 @@ return [
     ],
 
     'auth' => [
+        'save' => ['success' => 'Usuário criado com sucesso', 'error' => 'Erro ao criar usuário'],
         'create' => ['success' => 'Usuário criado com sucesso', 'error' => 'Erro ao criar usuário'],
         'edit' => ['success' => 'Usuário editado com sucesso', 'error' => 'Erro ao editar usuário']
     ],

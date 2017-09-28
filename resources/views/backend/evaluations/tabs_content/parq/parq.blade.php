@@ -6,10 +6,10 @@
         <h5>1) Alguma vez seu médico disse que você possui algum problema de coração e recomendou que você só praticasse atividade física sob prescrição médica? </h5>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <label for="2">{{ trans('strings.yes') }}</label>
-        <input type="radio" id="2" name="question_1" value="1" {{!is_null($evaluation->parq) && $evaluation->parq->question_1 == 1 ? "checked=checked" : ""}} class="flat-red answer-yes-click" />
-        <label for="1">{{ trans('strings.no') }}</label>
-        <input type="radio" id="1" name="question_1" value="0" {{!is_null($evaluation->parq) && $evaluation->parq->question_1 == 0 ? "checked=checked" : ""}} class="flat-red" />
+        <label for="question_1_yes">{{ trans('strings.yes') }}</label>
+        <input type="radio" id="question_1_yes" name="question_1" value="1" {{!is_null($evaluation->parq) && $evaluation->parq->question_1 == 1 ? "checked=checked" : ""}} class="flat-red answer-yes-click" />
+        <label for="question_1_no">{{ trans('strings.no') }}</label>
+        <input type="radio" id="question_1_no" name="question_1" value="0" {{!is_null($evaluation->parq) && $evaluation->parq->question_1 == 0 ? "checked=checked" : ""}} class="flat-red" />
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 answer-yes {{!is_null($evaluation->parq) && $evaluation->parq->question_1 == 1 ? "editor-active" : "" }}">
         <br>
