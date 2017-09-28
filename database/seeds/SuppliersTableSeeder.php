@@ -11,6 +11,7 @@ class SuppliersTableSeeder extends Seeder
      */
     public function run()
     {
+        
         DB::table('suppliers')->insert([
             'name' => 'Físicos',
             'is_active' => 1,
@@ -31,5 +32,13 @@ class SuppliersTableSeeder extends Seeder
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s')
         ]);
+
+        DB::table('suppliers')->insert([
+            'name' => 'Indefinido',
+            'is_active' => 1,
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ]);
+        
     }
 }
