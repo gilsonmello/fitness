@@ -27,6 +27,7 @@ class UpdateAuthRequest extends FormRequest
             'name' => 'required|min:10|regex:/^([\pL\s\ ]+)$/u',
             /*'role_id'  => 'required|array|min:1',*/
             'supplier_id'  => 'required|array|min:1',
+            'gender'  => 'required|array|min:1',
             'password' => !is_null($this->all()['password']) && !empty($this->all()['password']) ? 'min:6' : ''
         ];
     }
@@ -44,7 +45,8 @@ class UpdateAuthRequest extends FormRequest
             'name.regex' => 'Informe o nome somente com letras',
             /*'role_id.required' => 'O campo perfil é obrigatório',*/
             'supplier_id.required' => 'O campo Fornecedor é obrigatório',
-            'password.min' => 'Informe a senha com no mínimo 6 carácteres'
+            'password.min' => 'Informe a senha com no mínimo 6 carácteres',
+            'gender.required' => 'O campo Sexo é obrigatório',
         ];
     }
 }

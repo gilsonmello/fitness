@@ -1,10 +1,10 @@
 <?php
 namespace App\Repositories\Backend\Protocol;
 
-use App\Protocol;
+use App\Model\Backend\Protocol;
 use App\Exceptions\GeneralException;
-use App\TypeTest;
-use App\Measure;
+use App\Model\Backend\TypeTest;
+use App\Model\Backend\Measure;
 
 /**
  * Class QuestionRepository

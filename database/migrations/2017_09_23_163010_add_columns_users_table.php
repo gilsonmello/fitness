@@ -14,7 +14,7 @@ class AddColumnsUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function ($table) {
-            $table->boolean('gender')->default(1)->after('is_active')->comment = "Masculino 0, Feminino 1";
+            $table->boolean('gender')->default(0)->after('is_active')->comment = "Masculino 0, Feminino 1";
             $table->string('zip_code', 9)->nullable();
             $table->string('address')->nullable();
             $table->string('address_complement', 100)->nullable();

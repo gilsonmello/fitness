@@ -22,6 +22,7 @@ class CreateWellsBanksTable extends Migration
             $table->decimal('left_leg')->nullable();
             $table->decimal('trunk')->nullable();
             $table->timestamps();
+            $table->softDeletes();
             $table->foreign('test_id')
                 ->on('tests')
                 ->references('id');

@@ -74,11 +74,11 @@ class EvaluationController extends Controller
     public function store(CreateEvaluationRequest $request){
         if($this->evaluationRepository->create($request)){
             return redirect()
-                ->route('backend.evaluations.index', ['page' => $request->session()->get('lastpage', '1')])
+                ->route('backend.evaluations.index')
                 ->withFlashSuccess(trans('alerts.evaluations.created'));
         }
         return redirect()
-            ->route('backend.evaluations.create', ['page' => $request->session()->get('lastpage', '1')])
+            ->route('backend.evaluations.create')
             ->withInput()
             ->withFlashSuccess(trans('alerts.evaluations.error'));
     }

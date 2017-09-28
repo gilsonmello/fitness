@@ -1,10 +1,7 @@
 <?php namespace App\Repositories\API\User;
 
 use App\Exceptions\GeneralException;
-use App\User;
-use App\Antropometria;
-use App\Bioempedancia;
-use App\Evaluation;
+use App\Model\Backend\User;
 
 /**
  * Class UserRepository
@@ -14,15 +11,12 @@ class UserRepository{
 
     protected $user;
 
-    protected $bioempedancia;
-
-    protected $evaluation;
-
+    /**
+     * UserRepository constructor.
+     */
     public function __construct()
     {
         $this->user = new User;
-        $this->bioempedancia = new Bioempedancia;
-        $this->evaluation = new Evaluation;
     }
 
     /**
@@ -117,22 +111,5 @@ class UserRepository{
             return true;
         }
         throw new GeneralException("There was a problem deleting this question. Please try again.");
-    }
-
-    public function updateBioempedancia($id, $request){
-        $data = $request->all();
-        $evaluation = $this->evaluation->find($id);
-        $save = $this->bioempedancia->where('evaluation_id', '=', $evaluation->id)
-            ->update([
-                'fat' => isset($data['fat']) && !empty($data['fat']) ? $data['fat'] : NULL,
-                'muscle_mass' => isset($data['muscle_mass']) && !empty($data['muscle_mass']) ? $data['muscle_mass'] : NULL,
-                'body_water' => isset($data['body_water']) && !empty($data['body_water']) ? $data['body_water'] : NULL,
-                'osseous_weight' => isset($data['osseous_weight']) && !empty($data['osseous_weight']) ? $data['osseous_weight'] : NULL,
-                'imc' => isset($data['imc']) && !empty($data['imc']) ? $data['imc'] : NULL,
-            ]);
-        if($save){
-            return true;
-        }
-        return false;
     }
 }

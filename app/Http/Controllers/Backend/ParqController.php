@@ -8,10 +8,6 @@ use App\Http\Requests\Backend\Parq\CreateParqRequest;
 use App\Http\Requests\Backend\Parq\UpdateParqRequest;
 use App\Http\Requests\Backend\Parq\CreateParqAnswerRequest;
 use App\Repositories\Backend\Parq\ParqRepository;
-use App\Repositories\Backend\QuestionGroup\QuestionGroupRepository;
-use App\Repositories\Backend\User\UserRepository;
-use App\ParqAnswer;
-use App\User;
 use Auth;
 
 class ParqController extends Controller{
@@ -22,26 +18,10 @@ class ParqController extends Controller{
     protected $parq;
 
     /**
-     * @var QuestionGroupRepository
+     * ParqController constructor.
      */
-    protected $questionGroup;
-
-    /**
-     * @var UserRepository
-     */
-    protected $user;
-
-
-    /**
-     * IpacController constructor.
-     * @param UserRepository $user
-     * @param IpacRepository $ipac
-     * @param QuestionGroupRepository $questionGroup
-     */
-    public function __construct(UserRepository $user, ParqRepository $parq, QuestionGroupRepository $questionGroup){
-        $this->user = $user;
-        $this->parq = $parq;
-        $this->questionGroup = $questionGroup;
+    public function __construct(){
+        $this->parq = new ParqRepository;
     }
 
     /**

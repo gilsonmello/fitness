@@ -556,5 +556,6 @@ return [
     'password' => 'Senha',
     'ipacs' => 'Ipacs',
     'users' => 'Usuários',
-    'evaluations' => 'Avaliações'
+    'evaluations' => 'Avaliações',
+    'objetive' => 'Objetivo'
 ];

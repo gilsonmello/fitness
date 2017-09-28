@@ -1,7 +1,7 @@
 <?php
 namespace App\Repositories\Backend\Parq;
 
-use App\Parq;
+use App\Model\Backend\Parq;
 use App\Exceptions\GeneralException;
 use App\ParqAnswer;
 
@@ -26,10 +26,9 @@ class ParqRepository{
      * @param parq $parq
      * @param parqAnswer $parqAnswer
      */
-    public function __construct(Parq $parq, ParqAnswer $parqAnswer)
+    public function __construct(Parq $parq)
     {
         $this->parq = $parq;
-        $this->parqAnswer = $parqAnswer;
     }
 
     /**

@@ -4,8 +4,8 @@ namespace App\Http\Middleware;
 
 use Closure;
 use App\Services\Access\Traits\AccessParams;
-use App\User;
-use App\Permission;
+use App\Model\Backend\User;
+use App\Model\Backend\Permission;
 use Auth;
 
 class hasPermissionTheRoute

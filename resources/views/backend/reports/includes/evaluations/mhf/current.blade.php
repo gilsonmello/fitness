@@ -291,7 +291,7 @@
         <div class="row">
             <?php $supine = supine($current->id); $squat = squat($current->id);?>
             <div class="col-lg-6 col-md-6 col-xs-6 col-sm-6">
-                <h3>Supino</h3>
+                <h4>{{trans('strings.supine')}}</h4>
                 @if($supine)
                     <div class="form-group">
                         {!! Form::label('load_estimed', trans('strings.load_estimed'), ['class' => '']) !!}
@@ -335,7 +335,7 @@
                 @endif
             </div>
             <div class="col-lg-6 col-md-6 col-xs-6 col-sm-6">
-                <h3>{{trans('strings.squat')}}</h3>
+                <h4>{{trans('strings.squat')}}</h4>
                 @if($squat)
                     <div class="form-group">
                         {!! Form::label('load_estimed', trans('strings.load_estimed'), ['class' => '']) !!}
@@ -422,8 +422,8 @@
                         </div>
                     @else
                         <div class="form-group">
-                            <h3>{{ trans('strings.lateral_trunk_flexion') }}</h3>
-                            <h5>Não há registros></h5>
+                            {!! Form::label('lateral_trunk_flexion', trans('strings.lateral_trunk_flexion'), ['class' => '']) !!}
+                            <h5>Não há registro</h5>
                         </div>
                     @endif
                 </div>

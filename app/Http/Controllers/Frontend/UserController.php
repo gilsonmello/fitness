@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\Frontend\User\UserRepository;
-use App\User;
+use App\Model\Backend\User;
 
 /**
  * Class UserController

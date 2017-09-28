@@ -7,7 +7,7 @@
  */
 
 namespace App\Repositories\Frontend\User;
-use App\User;
+use App\Model\Backend\User;
 
 /**
  * Class UserRepository

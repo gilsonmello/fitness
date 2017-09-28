@@ -13,90 +13,52 @@ class AlterEvaluationsTrigger extends Migration
      */
     public function up()
     {
-        DB::unprepared('DROP TRIGGER trigger_create_evaluations');
         DB::unprepared('
-            CREATE TRIGGER trigger_create_evaluations
-                AFTER INSERT ON evaluations
+            CREATE TRIGGER trigger_delete_evaluations
+                AFTER UPDATE ON evaluations
                 FOR EACH ROW
                 BEGIN
-                    INSERT INTO parqs (
-                        question_1,
-                        question_2,
-                        question_3,
-                        question_4,
-                        question_5,
-                        question_6,
-                        question_7,
-                        question_8,
-                        evaluation_id,
-                        created_at,
-                        updated_at
-                    )
+                    IF (NEW.deleted_at IS NOT NULL) OR (NEW.deleted_at IS NULL) THEN
+                        UPDATE parqs
+                        SET deleted_at = NEW.deleted_at
+                        WHERE parqs.evaluation_id = NEW.id;
 
-                    VALUES(
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        NEW.id,
-                        NOW(),
-                        NOW()
-                    );
-                    INSERT INTO anthropometries (evaluation_id, created_at, updated_at) VALUES(
-                        NEW.id,
-                        NOW(),
-                        NOW()
-                    );
-                    INSERT INTO pregas_cutaneas (evaluation_id, created_at, updated_at) VALUES(
-                        NEW.id,
-                        NOW(),
-                        NOW()
-                    );
-                    INSERT INTO bioempedancias (evaluation_id, created_at, updated_at) VALUES(
-                        NEW.id,
-                        NOW(),
-                        NOW()
-                    );
-                    INSERT INTO analise_posturais_anterior (evaluation_id, created_at, updated_at) VALUES(
-                        NEW.id,
-                        NOW(),
-                        NOW()
-                    );
-                    INSERT INTO analise_posturais_lateral_direita (evaluation_id, created_at, updated_at) VALUES(
-                        NEW.id,
-                        NOW(),
-                        NOW()
-                    );
-                    INSERT INTO analise_posturais_lateral_esquerda (evaluation_id, created_at, updated_at) VALUES(
-                        NEW.id,
-                        NOW(),
-                        NOW()
-                    );
-                    INSERT INTO analise_posturais_posterior (evaluation_id, created_at, updated_at) VALUES(
-                        NEW.id,
-                        NOW(),
-                        NOW()
-                    );
-                    INSERT INTO riscos_coronarios (evaluation_id, created_at, updated_at) VALUES(
-                        NEW.id,
-                        NOW(),
-                        NOW()
-                    );
-                    INSERT INTO anamneses (evaluation_id, created_at, updated_at) VALUES(
-                        NEW.id,
-                        NOW(),
-                        NOW()
-                    );
-                    INSERT INTO tests (evaluation_id, validity, created_at, updated_at) VALUES(
-                        NEW.id,
-                        NEW.validity,
-                        NOW(),
-                        NOW()
-                    );
+                        UPDATE pregas_cutaneas
+                        SET deleted_at = NEW.deleted_at
+                        WHERE pregas_cutaneas.evaluation_id = NEW.id;
+
+                        UPDATE bioempedancias
+                        SET deleted_at = NEW.deleted_at
+                        WHERE bioempedancias.evaluation_id = NEW.id;
+
+                        UPDATE analise_posturais_anterior
+                        SET deleted_at = NEW.deleted_at
+                        WHERE analise_posturais_anterior.evaluation_id = NEW.id;
+
+                        UPDATE analise_posturais_lateral_direita
+                        SET deleted_at = NEW.deleted_at
+                        WHERE analise_posturais_lateral_direita.evaluation_id = NEW.id;
+
+                        UPDATE analise_posturais_lateral_esquerda
+                        SET deleted_at = NEW.deleted_at
+                        WHERE analise_posturais_lateral_esquerda.evaluation_id = NEW.id;
+
+                        UPDATE analise_posturais_posterior
+                        SET deleted_at = NEW.deleted_at
+                        WHERE analise_posturais_posterior.evaluation_id = NEW.id;
+
+                        UPDATE tests
+                        SET deleted_at = NEW.deleted_at, validity = NEW.validity
+                        WHERE tests.evaluation_id = NEW.id;
+
+                        UPDATE anthropometries
+                        SET deleted_at = NEW.deleted_at
+                        WHERE anthropometries.evaluation_id = NEW.id;
+
+                        UPDATE additional_data SET deleted_at = NEW.deleted_at WHERE evaluation_id = NEW.id;
+
+                    END IF;
+
                 END;
         ');
     }
@@ -108,6 +70,6 @@ class AlterEvaluationsTrigger extends Migration
      */
     public function down()
     {
-        DB::unprepared('DROP TRIGGER IF EXISTS trigger_create_evaluations');
+        DB::unprepared('DROP TRIGGER IF EXISTS trigger_delete_evaluations');
     }
 }

@@ -5,7 +5,7 @@ namespace App;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use App\Permission;
+use App\Model\Backend\Permission;
 use App\Services\Backend\User\Traits\UserAttributes;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -33,10 +33,17 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function roles(){
-        return $this->belongsToMany(\App\Role::class);
+        return $this->belongsToMany(\App\Model\Backend\Role::class);
     }
 
+    /**
+     * @param $permissions
+     * @return bool
+     */
     public function hasPermission($permissions){
         if(is_array($permissions)){
             foreach($this->roles as $role){
@@ -57,7 +64,11 @@ class User extends Authenticatable
         }
         return false;
     }
-    
+
+    /**
+     * @param $roles
+     * @return bool
+     */
     public function hasAnyRoles($roles){
         if(is_object($roles)){
             return !! $roles->intersect($this->roles)->count();
@@ -65,6 +76,9 @@ class User extends Authenticatable
         return $this->roles->contains('name', $roles);
     }
 
+    /**
+     *
+     */
     public function rolesOfUser(){
         $rolesUser = auth()->user()->roles;
         foreach($rolesUser as $roleUser){
@@ -75,42 +89,13 @@ class User extends Authenticatable
             }
             echo '<br><br>';
         }
-
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     */
-    public function antropometria(){
-        return $this->hasOne(\App\Antropometria::class);
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     */
-    public function bioempedancia(){
-        return $this->hasOne(\App\Bioempedancia::class);
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function tests(){
-        return $this->hasMany(\App\Test::class);
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function additionalData(){
-        return $this->hasMany(\App\AdditionalData::class);
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function evaluations(){
-        return $this->hasMany(\App\Evaluation::class);
+        return $this->hasMany(\App\Model\Backend\Evaluation::class);
     }
 
     public function suppliers(){

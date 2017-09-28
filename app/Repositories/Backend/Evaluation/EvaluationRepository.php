@@ -1,18 +1,15 @@
 <?php namespace App\Repositories\Backend\Evaluation;
 
-use App\Question;
 use App\Exceptions\GeneralException;
-use App\Evaluation;
-use App\Parq;
-use App\PregasCutanea;
-use App\AnalisePosturalAnterior;
-use App\AnalisePosturalLateralEsquerda;
-use App\AnalisePosturalLateralDireita;
-use App\AnalisePosturalPosterior;
-use App\AnthropometryWeightHeight;
-use App\Anthropometry;
-use App\AnthropometryPerimetersCircumferences;
-use App\Bioempedancia;
+use App\Model\Backend\Evaluation;
+use App\Model\Backend\Parq;
+use App\Model\Backend\PregasCutanea;
+use App\Model\Backend\AnalisePosturalAnterior;
+use App\Model\Backend\AnalisePosturalLateralEsquerda;
+use App\Model\Backend\AnalisePosturalLateralDireita;
+use App\Model\Backend\AnalisePosturalPosterior;
+use App\Model\Backend\Anthropometry;
+use App\Model\Backend\Bioempedancia;
 use File;
 
 /**
@@ -31,9 +28,7 @@ class EvaluationRepository{
         $this->analisePosturalLateralDireita = new AnalisePosturalLateralDireita;
         $this->analisePosturalPosterior = new AnalisePosturalPosterior;
         $this->anthropometry = new Anthropometry;
-        $this->anthropometryWeightHeight = new AnthropometryWeightHeight;
         $this->bioempedancia = new Bioempedancia;
-        $this->anthropometryPerimetersCircumferences = new AnthropometryPerimetersCircumferences;
     }
 
     /**
@@ -110,22 +105,23 @@ class EvaluationRepository{
     public function updateAnthropometries($id, $request){
         $data = $request->all();
         $evaluation = $this->evaluation->find($id);
+        $anthropometry = $this->anthropometry->where('evaluation_id', '=', $evaluation->id)->get()->first();
         $save = $this->anthropometry->where('evaluation_id', '=', $evaluation->id)
             ->update([
-                'weight' => isset($data['weight']) && !empty($data['weight']) ? $data['weight'] : NULL,
-                'height' => isset($data['height']) && !empty($data['height']) ? $data['height'] : NULL,
-                'right_arm' => isset($data['right_arm']) && !empty($data['right_arm']) ? $data['right_arm'] : NULL,
-                'left_arm' => isset($data['left_arm']) && !empty($data['left_arm']) ? $data['left_arm'] : NULL,
-                'tummy' => isset($data['tummy']) && !empty($data['tummy']) ? $data['tummy'] : NULL,
-                'hip' => isset($data['hip']) && !empty($data['hip']) ? $data['hip'] : NULL,
-                'coxa_proximal' => isset($data['coxa_proximal']) && !empty($data['coxa_proximal']) ? $data['coxa_proximal'] : NULL,
-                'coxa_medial' => isset($data['coxa_medial']) && !empty($data['coxa_medial']) ? $data['coxa_medial'] : NULL,
-                'coxa_distal' => isset($data['coxa_distal']) && !empty($data['coxa_distal']) ? $data['coxa_distal'] : NULL,
-                'right_leg' => isset($data['right_leg']) && !empty($data['right_leg']) ? $data['right_leg'] : NULL,
-                'left_leg' => isset($data['left_leg']) && !empty($data['left_leg']) ? $data['left_leg'] : NULL,
-                'forearm' => isset($data['forearm']) && !empty($data['forearm']) ? $data['forearm'] : NULL,
-                'chest' => isset($data['chest']) && !empty($data['chest']) ? $data['forearm'] : NULL,
-                'waist' => isset($data['waist']) && !empty($data['waist']) ? $data['waist'] : NULL,
+                'weight' => isset($data['weight']) && !empty($data['weight']) ? $data['weight'] : $anthropometry->weight,
+                'height' => isset($data['height']) && !empty($data['height']) ? $data['height'] : $anthropometry->height,
+                'right_arm' => isset($data['right_arm']) && !empty($data['right_arm']) ? $data['right_arm'] : $anthropometry->right_arm,
+                'left_arm' => isset($data['left_arm']) && !empty($data['left_arm']) ? $data['left_arm'] : $anthropometry->left_arm,
+                'tummy' => isset($data['tummy']) && !empty($data['tummy']) ? $data['tummy'] : $anthropometry->tummy,
+                'hip' => isset($data['hip']) && !empty($data['hip']) ? $data['hip'] : $anthropometry->hip,
+                'coxa_proximal' => isset($data['coxa_proximal']) && !empty($data['coxa_proximal']) ? $data['coxa_proximal'] : $anthropometry->coxa_proximal,
+                'coxa_medial' => isset($data['coxa_medial']) && !empty($data['coxa_medial']) ? $data['coxa_medial'] : $anthropometry->coxa_medial,
+                'coxa_distal' => isset($data['coxa_distal']) && !empty($data['coxa_distal']) ? $data['coxa_distal'] : $anthropometry->coxa_distal,
+                'right_leg' => isset($data['right_leg']) && !empty($data['right_leg']) ? $data['right_leg'] : $anthropometry->right_leg,
+                'left_leg' => isset($data['left_leg']) && !empty($data['left_leg']) ? $data['left_leg'] : $anthropometry->left_leg ,
+                'forearm' => !isset($data['forearm']) && !empty($data['forearm']) ? $data['forearm'] : $anthropometry->forearm ,
+                'chest' => isset($data['chest']) && !empty($data['chest']) ? $data['chest'] : $anthropometry->chest,
+                'waist' => isset($data['waist']) && !empty($data['waist']) ? $data['waist'] : $anthropometry->waist
             ]);
         if($save){
             return true;

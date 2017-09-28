@@ -5,8 +5,8 @@ namespace App\Providers;
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-use App\User;
-use App\Permission;
+use App\Model\Backend\User;
+use App\Model\Backend\Permission;
 use Auth;
 use Laravel\Passport\Passport;
 

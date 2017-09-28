@@ -28,6 +28,7 @@ class CreateAuthRequest extends FormRequest
             /*'cpf' => 'required|min:14',*/
             /*'role_id'  => 'required|array|min:1',*/
             'supplier_id'  => 'required|array|min:1',
+            'gender'  => 'required|min:1',
         ];
     }
 
@@ -45,6 +46,7 @@ class CreateAuthRequest extends FormRequest
             'name.regex' => 'Informe o Nome somente com letras',
             /*'role_id.required' => 'O campo Perfil é obrigatório',*/
             'supplier_id.required' => 'O campo Fornecedor é obrigatório',
+            'gender.required' => 'O campo Sexo é obrigatório',
         ];
     }
 }

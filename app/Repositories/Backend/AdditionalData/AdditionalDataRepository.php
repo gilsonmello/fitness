@@ -1,11 +1,11 @@
 <?php
 namespace App\Repositories\Backend\AdditionalData;
 
-use App\AdditionalData;
-use App\TypeTest;
-use App\Measure;
-use App\Test;
-use App\User;
+use App\Model\Backend\AdditionalData;
+use App\Model\Backend\TypeTest;
+use App\Model\Backend\Measure;
+use App\Model\Backend\Test;
+use App\Model\Backend\User;
 
 /**
  * Class QuestionRepository

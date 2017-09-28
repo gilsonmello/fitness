@@ -8,7 +8,7 @@ use App\Repositories\Backend\Auth\AuthRepository;
 use App\Repositories\Backend\Supplier\SupplierRepository;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-Use App\User;
+Use App\Model\Backend\User;
 
 class AuthController extends Controller
 {

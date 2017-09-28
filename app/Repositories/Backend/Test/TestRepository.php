@@ -1,20 +1,20 @@
 <?php
 namespace App\Repositories\Backend\Test;
 
-use App\MinimumHeartRate;
-use App\Test;
+use App\Model\Backend\MinimumHeartRate;
+use App\Model\Backend\Test;
 use App\Exceptions\GeneralException;
-use App\Protocol;
-use App\MaximumHeartRate;
-use App\ReserveHeartRate;
-use App\MaximumVo2;
-use App\TrainingVo2;
-use App\User;
-use App\AdditionalData;
-use App\MaximumRepeat;
-use App\TargetZone;
-use App\Flexitest;
-use App\WellsBank;
+use App\Model\Backend\Protocol;
+use App\Model\Backend\MaximumHeartRate;
+use App\Model\Backend\ReserveHeartRate;
+use App\Model\Backend\MaximumVo2;
+use App\Model\Backend\TrainingVo2;
+use App\Model\Backend\User;
+use App\Model\Backend\AdditionalData;
+use App\Model\Backend\MaximumRepeat;
+use App\Model\Backend\TargetZone;
+use App\Model\Backend\Flexitest;
+use App\Model\Backend\WellsBank;
 
 /**
  * Class QuestionRepository

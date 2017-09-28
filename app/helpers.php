@@ -20,7 +20,7 @@ if(!function_exists('emailExists')) {
 	function emailExists($param, $id = NULL){
 		//Busco o usuário pelo id
 		if(isset($id)){
-			$user = \App\User::find($id);
+			$user = \App\Model\Backend\User::find($id);
 			if(!is_null($user)) {
 				//Se o e-mail do usuário for igual ao informado, deixo passar
 				if ($user->email == $param) {
@@ -29,7 +29,7 @@ if(!function_exists('emailExists')) {
 			}
 		}
 		//Verificando se o e-mail já existe
-		return \App\User::where('email', '=', $param)->get()->isEmpty() == FALSE ? FALSE : TRUE;
+		return \App\Model\Backend\User::where('email', '=', $param)->get()->isEmpty() == FALSE ? FALSE : TRUE;
 	}
 }
 
@@ -302,11 +302,39 @@ if (!function_exists('supine')) {
 	 * @return mixed
 	 */
 	function supine($test_id){
-		$supine = \App\MaximumRepeat::where('test_id', '=', $test_id)
+		$supine = \App\Model\Backend\MaximumRepeat::where('test_id', '=', $test_id)
 				->where('type_resistance', '=', 1)
 				->get()
 				->first();
 		return $supine;
+	}
+}
+
+if (!function_exists('findSupine')) {
+	/**
+	 * @param $test_id
+	 * @return mixed
+	 */
+	function findSupine($id){
+		$supine = \App\Model\Backend\MaximumRepeat::where('test_id', '=', $id)
+				->where('type_resistance', '=', 1)
+				->get()
+				->first();
+		return $supine;
+	}
+}
+
+if (!function_exists('findSquat')) {
+	/**
+	 * @param $test_id
+	 * @return mixed
+	 */
+	function findSquat($id){
+		$squat = \App\Model\Backend\MaximumRepeat::where('test_id', '=', $id)
+				->where('type_resistance', '=', 2)
+				->get()
+				->first();
+		return $squat;
 	}
 }
 
@@ -316,7 +344,7 @@ if (!function_exists('squat')) {
 	 * @return mixed
 	 */
 	function squat($test_id){
-		$squat = \App\MaximumRepeat::where('test_id', '=', $test_id)
+		$squat = \App\Model\Backend\MaximumRepeat::where('test_id', '=', $test_id)
 				->where('type_resistance', '=', 2)
 				->get()
 				->first();
@@ -330,7 +358,7 @@ if (!function_exists('currentEvaluation')) {
 	 * @return mixed
 	 */
 	function currentEvaluation($user){
-		$current = \App\Evaluation::where('user_id', '=', $user)
+		$current = \App\Model\Backend\Evaluation::where('user_id', '=', $user)
 				->orderBy('validity', 'desc')
 				->get()
 				->first();
@@ -344,7 +372,7 @@ if (!function_exists('currentTest')) {
 	 * @return mixed
 	 */
 	function currentTest($user){
-		$current = \App\Evaluation::where('user_id', '=', $user)
+		$current = \App\Model\Backend\Evaluation::where('user_id', '=', $user)
 				->orderBy('validity', 'desc')
 				->get()
 				->first();
@@ -355,13 +383,24 @@ if (!function_exists('currentTest')) {
 if (!function_exists('previousTest')) {
 	/**
 	 * @param $user
-	 * @return mixed
+	 * @return null
 	 */
 	function previousTest($user){
-		$previus = \App\Evaluation::where('user_id', '=', $user)
+		$previus = \App\Model\Backend\Evaluation::where('user_id', '=', $user)
 				->orderBy('validity', 'desc')
 				->take(2)
 				->get();
 		return isset($previus[1]) ? $previus[1]->test : null;
+	}
+}
+
+if (!function_exists('findMaximumRepeat')) {
+	/**
+	 * @param $id
+	 * @return mixed|null|static
+	 */
+	function findMaximumRepeat($id){
+		$maximumRepeat = \App\Model\Backend\MaximumRepeat::find($id);
+		return isset($maximumRepeat) ? $maximumRepeat : null;
 	}
 }

@@ -2,7 +2,7 @@
 
 namespace App\Services\Access;
 
-use App\User;
+use App\Model\Backend\User;
 
 class Access
 {

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\User;
+use App\Model\Backend\User;
 
 /**
  * Class FrontendController

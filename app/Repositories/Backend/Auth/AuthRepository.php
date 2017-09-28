@@ -7,8 +7,8 @@
  */
 
 namespace App\Repositories\Backend\Auth;
-use App\User;
-use App\Role;
+use App\Model\Backend\User;
+use App\Model\Backend\Role;
 
 
 class AuthRepository{
