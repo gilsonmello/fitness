@@ -40,6 +40,12 @@ class User extends Authenticatable
         return $this->belongsToMany(\App\Model\Backend\Role::class);
     }
 
+    public function scopeOfClients($query){
+        return $query->whereHas('roles', function($subquery){
+            $subquery->where('name', 'client');
+        })->get();
+    }
+
     /**
      * @param $permissions
      * @return bool

@@ -1,4 +1,6 @@
-<?php namespace App\Repositories\Backend\Evaluation;
+<?php
+
+namespace App\Repositories\Backend\Evaluation;
 
 use App\Exceptions\GeneralException;
 use App\Model\Backend\Evaluation;
@@ -13,12 +15,14 @@ use App\Model\Backend\Bioempedancia;
 use File;
 
 /**
- * Class QuestionRepository
+ * Class EvaluationRepository
  * @package App\Repositories\Backend\Evaluation
  */
 class EvaluationRepository{
 
-
+    /**
+     * EvaluationRepository constructor.
+     */
     public function __construct(){
         $this->evaluation = new Evaluation;
         $this->parq = new Parq;
@@ -44,10 +48,20 @@ class EvaluationRepository{
         throw new GeneralException('That evaluation does not exist.');
     }
 
+    /**
+     * Retorna todas as avaliações do usuário
+     * Passando o id do usuário como parâmetro
+     * @param $id
+     * @return \Illuminate\Support\Collection
+     */
     public function allOfUser($id){
         return $this->evaluation->where('user_id', '=', $id)->get();
     }
 
+    /**
+     * @param $request
+     * @return bool
+     */
     public function create($request){
         $data = $request->all();
         $this->evaluation->user_id = trim($data['user_id']);
@@ -59,6 +73,9 @@ class EvaluationRepository{
         return false;
     }
 
+    /**
+     * @return static
+     */
     public function all(){
         return $this->evaluation->all()->where('is_active', '=', 1);
     }
@@ -81,6 +98,7 @@ class EvaluationRepository{
     }
 
     /**
+     * Passando o id da avaliação como parâmetro
      * @param $request
      * @return boolean
      */
@@ -89,6 +107,7 @@ class EvaluationRepository{
         return false;
     }
     /**
+     * Passando o id da avaliação como parâmetro
      * @param int $id
      * @return boolean
      * @throws GeneralException
@@ -102,6 +121,12 @@ class EvaluationRepository{
     }
 
 
+    /**
+     * Passando o id da avaliação como parâmetro
+     * @param $id
+     * @param $request
+     * @return bool
+     */
     public function updateAnthropometries($id, $request){
         $data = $request->all();
         $evaluation = $this->evaluation->find($id);
@@ -129,6 +154,12 @@ class EvaluationRepository{
         return false;
     }
 
+    /**
+     * Passando o id da avaliação como parâmetro
+     * @param $id
+     * @param $request
+     * @return bool
+     */
     public function updateBioempedancia($id, $request){
         $data = $request->all();
         $evaluation = $this->evaluation->find($id);
@@ -146,13 +177,15 @@ class EvaluationRepository{
         return false;
     }
 
+    /**
+     * Passando o id da avaliação como parâmetro
+     * @param $id
+     * @param $request
+     * @return bool
+     */
     public function updateParq($id, $request){
-
         $data = $request->all();
-
         $evaluation = $this->evaluation->find($id);
-
-
         if(!is_null($evaluation->parq)) {
             $this->parq->where('evaluation_id', '=', $evaluation->id)
                 ->update([
@@ -172,43 +205,20 @@ class EvaluationRepository{
                     'option_answer_7' => $data['option_answer_7'],
                     'question_8' => isset($data['question_8']) && $data['question_8'] == '1' ? 1 : 0,
                     'option_answer_8' => $data['option_answer_8'],
-                    'terms' => $data['terms'],
+                    'terms' => isset($data['terms']) && $data['terms'] == '1' ? 1 : 0,
                 ]);
             return true;
         }
-
-        $this->parq->evaluation_id = $evaluation->id;
-
-        $this->parq->question_1 = $data['question_1'];
-        $this->parq->option_answer_1 = $data['option_answer_1'];
-
-        $this->parq->question_2 = $data['question_2'];
-        $this->parq->option_answer_2 = $data['option_answer_2'];
-
-        $this->parq->question_3 = $data['question_3'];
-        $this->parq->option_answer_3 = $data['option_answer_3'];
-
-        $this->parq->question_4 = $data['question_4'];
-        $this->parq->option_answer_4 = $data['option_answer_4'];
-
-        $this->parq->question_5 = $data['question_5'];
-        $this->parq->option_answer_5 = $data['option_answer_5'];
-
-        $this->parq->question_6 = $data['question_6'];
-        $this->parq->option_answer_6 = $data['option_answer_6'];
-
-        $this->parq->question_7 = $data['question_7'];
-        $this->parq->option_answer_7 = $data['option_answer_7'];
-
-        $this->parq->terms = $data['terms'];
-
-        if($this->parq->save()){
-            return true;
-        }
-
         return false;
     }
 
+    /**
+     * Função responsável por atualizar Pregras Cutaneas dos usuários
+     * Passando o id da avaliação como parâmetro
+     * @param $id
+     * @param $request
+     * @return bool
+     */
     public function updatePregrasCutaneas($id, $request)
     {
         $data = $request->all();
@@ -244,6 +254,13 @@ class EvaluationRepository{
         return false;
     }
 
+    /**
+     * Função responsável por atualizar as imagens das análises posturais anterior dos usuários
+     * Passando o id da avaliação como parâmetro
+     * @param $id
+     * @param $request
+     * @return bool
+     */
     public function updateAnalisePosturalAnterior($id, $request){
         $data = $request->all();
         $evaluation = $this->evaluation->find($id);
@@ -317,6 +334,14 @@ class EvaluationRepository{
         return false;
     }
 
+    /**
+     * Função responsável por enviar as imagens das análises posturais dos usuários
+     * Passando o id da avaliação como parâmetro
+     * @param $id
+     * @param $request
+     * @param $result
+     * @return bool
+     */
     public function sendImgAnalisePosturalAnterior($id, $request, $result){
         $evaluation = $this->evaluation->find($id);
 

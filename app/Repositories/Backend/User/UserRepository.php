@@ -1,7 +1,7 @@
 <?php namespace App\Repositories\Backend\User;
 
 use App\Exceptions\GeneralException;
-use App\Model\Backend\User;
+use App\User;
 
 /**
  * Class UserRepository
@@ -47,12 +47,13 @@ class UserRepository{
         $this->user->is_active = isset($data['is_active']) ? 1 : 0;
 
         if($this->user->save()){
-            if(isset($data['group_question']) && count($data['group_question']) > 0 ){
-                $this->user->questionGroup()->attach($data['group_question']);
-            }
             return true;
         }
         return false;
+    }
+
+    public function allClients(){
+        return User::ofClients();
     }
 
     /**

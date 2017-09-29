@@ -47,7 +47,7 @@ class EvaluationController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create(){
-        $users = $this->userRepository->all();
+        $users = $this->userRepository->allClients();
         return view('backend.evaluations.create', compact('users'));
     }
 
