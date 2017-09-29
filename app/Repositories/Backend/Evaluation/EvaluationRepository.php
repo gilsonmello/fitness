@@ -301,7 +301,10 @@ class EvaluationRepository{
                 ]);
         }
 
-        //Salvando nova imagem com o tmp atual
+        /*$evaluation->analisePosturalAnterior->arlcd = isset($data['arlcd']) && !empty($data['arlcd']) ? $data['arlcd'] : NULL;
+        $evaluation->analisePosturalAnterior->arlce = isset($data['arlce']) && !empty($data['arlce']) ? $data['arlce'] : NULL;
+        $evaluation->analisePosturalAnterior->ailcd = isset($data['ailcd']) && !empty($data['ailcd']) ? $data['ailcd'] : NULL;
+        *///Salvando nova imagem com o tmp atual
         $save = $this->analisePosturalAnterior->where('evaluation_id', $evaluation->id)
             ->update([
                 'arlcd' => isset($data['arlcd']) && !empty($data['arlcd']) ? $data['arlcd'] : NULL,
@@ -406,10 +409,9 @@ class EvaluationRepository{
             }
 
             //Salvando nova imagem
-            $this->analisePosturalLateralEsquerda->where('evaluation_id', $evaluation->id)
-                ->update([
-                    'tmp_img' => $imgs
-                ]);
+            $evaluation->analisePosturalLateralEsquerda->update([
+                'tmp_img' => $imgs
+            ]);
             return true;
         }
         return false;
@@ -451,13 +453,13 @@ class EvaluationRepository{
                     }
                 }
             }
-            $this->analisePosturalLateralEsquerda->where('evaluation_id', $evaluation->id)
-                ->update(['img' => $evaluation->analisePosturalLateralEsquerda->tmp_img]);
+            $evaluation->analisePosturalLateralEsquerda->update([
+                'img' => $evaluation->analisePosturalLateralEsquerda->tmp_img
+            ]);
         }
 
         //Salvando nova imagem com o tmp atual
-        $save = $this->analisePosturalLateralEsquerda->where('evaluation_id', $evaluation->id)
-            ->update([
+        $save = $evaluation->analisePosturalLateralEsquerda->update([
                 'lehc' => isset($data['lehc']) && !empty($data['lehc']) ? $data['lehc'] : NULL,
                 'leht' => isset($data['leht']) && !empty($data['leht']) ? $data['leht'] : NULL,
                 'lehl' => isset($data['lehl']) && !empty($data['lehl']) ? $data['lehl'] : NULL,
@@ -506,10 +508,9 @@ class EvaluationRepository{
         }
 
         //Salvando nova imagem
-        $this->analisePosturalLateralDireita->where('evaluation_id', $evaluation->id)
-            ->update([
-                'tmp_img' => $imgs
-            ]);
+        $evaluation->analisePosturalLateralDireita->update([
+            'tmp_img' => $imgs
+        ]);
         return true;
 
     }
@@ -545,26 +546,24 @@ class EvaluationRepository{
                     }
                 }
             }
-            $this->analisePosturalLateralDireita->where('evaluation_id', $evaluation->id)
-                ->update([
-                    'img' => $evaluation->analisePosturalLateralDireita->tmp_img
-                ]);
+            $evaluation->analisePosturalLateralDireita->update([
+                'img' => $evaluation->analisePosturalLateralDireita->tmp_img
+            ]);
         }
 
         //Salvando nova imagem com o tmp atual
-        $this->analisePosturalLateralDireita->where('evaluation_id', $evaluation->id)
-            ->update([
-                'ldhc' => isset($data['ldhc']) && !empty($data['ldhc']) ? $data['ldhc'] : NULL,
-                'ldht' => isset($data['ldht']) && !empty($data['ldht']) ? $data['ldht'] : NULL,
-                'ldhl' => isset($data['ldhl']) && !empty($data['ldhl']) ? $data['ldhl'] : NULL,
-                'ldcp' => isset($data['ldcp']) && !empty($data['ldcp']) ? $data['ldcp'] : NULL,
-                'ldgr' => isset($data['ldgr']) && !empty($data['ldgr']) ? $data['ldgr'] : NULL,
-                'ldgf' => isset($data['ldgf']) && !empty($data['ldgf']) ? $data['ldgf'] : NULL,
-                'ldact' => isset($data['ldact']) && !empty($data['ldact']) ? $data['ldact'] : NULL,
-                'ldll' => isset($data['ldll']) && !empty($data['ldll']) ? $data['ldll'] : NULL,
-                'ldas' => isset($data['ldas']) && !empty($data['ldas']) ? $data['ldas'] : NULL,
-                'obs' => isset($data['obs']) && !empty($data['obs']) ? $data['obs'] : NULL,
-            ]);
+        $evaluation->analisePosturalLateralDireita->update([
+            'ldhc' => isset($data['ldhc']) && !empty($data['ldhc']) ? $data['ldhc'] : NULL,
+            'ldht' => isset($data['ldht']) && !empty($data['ldht']) ? $data['ldht'] : NULL,
+            'ldhl' => isset($data['ldhl']) && !empty($data['ldhl']) ? $data['ldhl'] : NULL,
+            'ldcp' => isset($data['ldcp']) && !empty($data['ldcp']) ? $data['ldcp'] : NULL,
+            'ldgr' => isset($data['ldgr']) && !empty($data['ldgr']) ? $data['ldgr'] : NULL,
+            'ldgf' => isset($data['ldgf']) && !empty($data['ldgf']) ? $data['ldgf'] : NULL,
+            'ldact' => isset($data['ldact']) && !empty($data['ldact']) ? $data['ldact'] : NULL,
+            'ldll' => isset($data['ldll']) && !empty($data['ldll']) ? $data['ldll'] : NULL,
+            'ldas' => isset($data['ldas']) && !empty($data['ldas']) ? $data['ldas'] : NULL,
+            'obs' => isset($data['obs']) && !empty($data['obs']) ? $data['obs'] : NULL,
+        ]);
         return true;
 
     }
@@ -600,28 +599,26 @@ class EvaluationRepository{
                     }
                 }
             }
-            $this->analisePosturalPosterior->where('evaluation_id', $evaluation->id)
-                ->update([
-                    'img' => $evaluation->analisePosturalPosterior->tmp_img
-                ]);
+            $evaluation->analisePosturalPosterior->update([
+                'img' => $evaluation->analisePosturalPosterior->tmp_img
+            ]);
         }
 
         //Salvando nova imagem com o tmp atual
-        $save = $this->analisePosturalPosterior->where('evaluation_id', $evaluation->id)
-            ->update([
-                'pec' => isset($data['pec']) && !empty($data['pec']) ? $data['pec'] : NULL,
-                'pet' => isset($data['pet']) && !empty($data['pet']) ? $data['pet'] : NULL,
-                'pel' => isset($data['pel']) && !empty($data['pel']) ? $data['pel'] : NULL,
-                'pde' => isset($data['pde']) && !empty($data['pde']) ? $data['pde'] : NULL,
-                'peabduzidas' => isset($data['peabduzidas']) && !empty($data['peabduzidas']) ? $data['peabduzidas'] : NULL,
-                'peaduzidas' => isset($data['peaduzidas']) && !empty($data['peaduzidas']) ? $data['peaduzidas'] : NULL,
-                'pdda' => isset($data['pdda']) && !empty($data['pdda']) ? $data['pdda'] : NULL,
-                'pdq' => isset($data['pdq']) && !empty($data['pdq']) ? $data['pdq'] : NULL,
-                'pdpd' => isset($data['pdpd']) && !empty($data['pdpd']) ? $data['pdpd'] : NULL,
-                'prmp' => isset($data['prmp']) && !empty($data['prmp']) ? $data['prmp'] : NULL,
-                'pas' => isset($data['pas']) && !empty($data['pas']) ? $data['pas'] : NULL,
-                'obs' => isset($data['obs']) && !empty($data['obs']) ? $data['obs'] : NULL,
-            ]);
+        $save = $evaluation->analisePosturalPosterior->update([
+            'pec' => isset($data['pec']) && !empty($data['pec']) ? $data['pec'] : NULL,
+            'pet' => isset($data['pet']) && !empty($data['pet']) ? $data['pet'] : NULL,
+            'pel' => isset($data['pel']) && !empty($data['pel']) ? $data['pel'] : NULL,
+            'pde' => isset($data['pde']) && !empty($data['pde']) ? $data['pde'] : NULL,
+            'peabduzidas' => isset($data['peabduzidas']) && !empty($data['peabduzidas']) ? $data['peabduzidas'] : NULL,
+            'peaduzidas' => isset($data['peaduzidas']) && !empty($data['peaduzidas']) ? $data['peaduzidas'] : NULL,
+            'pdda' => isset($data['pdda']) && !empty($data['pdda']) ? $data['pdda'] : NULL,
+            'pdq' => isset($data['pdq']) && !empty($data['pdq']) ? $data['pdq'] : NULL,
+            'pdpd' => isset($data['pdpd']) && !empty($data['pdpd']) ? $data['pdpd'] : NULL,
+            'prmp' => isset($data['prmp']) && !empty($data['prmp']) ? $data['prmp'] : NULL,
+            'pas' => isset($data['pas']) && !empty($data['pas']) ? $data['pas'] : NULL,
+            'obs' => isset($data['obs']) && !empty($data['obs']) ? $data['obs'] : NULL,
+        ]);
         if($save){
             return true;
         }
@@ -658,10 +655,9 @@ class EvaluationRepository{
         }
 
         //Salvando nova imagem
-        $this->analisePosturalPosterior->where('evaluation_id', $evaluation->id)
-            ->update([
-                'tmp_img' => $imgs
-            ]);
+        $evaluation->analisePosturalPosterior->update([
+            'tmp_img' => $imgs
+        ]);
         return true;
 
     }
