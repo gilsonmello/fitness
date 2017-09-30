@@ -280,7 +280,8 @@ class TestRepository{
             //}
             try{
                 $formula = string_replace(['<', '>'], '', $formula);
-                if($result = $this->calculate_string($formula) != NULL){
+                $result = $this->calculate_string($formula);
+                if($result != NULL){
                     $protocol->result = number_format($result, 2, '.', '');
                 }
 
