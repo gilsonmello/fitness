@@ -1,5 +1,5 @@
 <div class="modal fade" id="modal_wells_bank" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             {!! Form::open(['route' => ['backend.tests.save_wells_bank', $test->id], 'id' => 'save_wells_bank', 'role' => 'form', 'method' => 'post']) !!}
             <div class="modal-header">
@@ -33,6 +33,12 @@
                                 {!! Form::text('trunk', !is_null($test->wellsBank) ? $test->wellsBank->trunk : NULL, ['class' => 'decimal form-control', 'placeholder' => trans('strings.trunk')]) !!}
                                 <span class="input-group-addon" id="">CM</span>
                             </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="form-group">
+                            {!! Form::label('obs', trans('strings.obs'), []) !!}
+                            {!! Form::textarea('obs', !is_null($test->wellsBank) ? $test->wellsBank->obs : NULL, ['class' => 'textarea form-control', 'placeholder' => trans('strings.obs')]) !!}
                         </div>
                     </div>
                 </div>

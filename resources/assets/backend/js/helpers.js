@@ -226,18 +226,23 @@ function tests(param){
                         result = data.result;
                     }
 
-                    var html = '<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 calculated" id="' + args.text.replace(' ', '_') + '" style="display: none;">';
-                    html += '<div class="form-group">';
-                    html += '<label for="protocol_' + name+'_'+data.id + '[result]">' + data.name +'</label><br>';
-                    html += '<label for="protocol_' + name+'_'+data.id + '[result]">' + data.formula +'</label>';
-                    html += '<input type="hidden" name="protocol_' + data.id + '[id]" value="' + data.id + '">';
-                    html += '<div class="input-group">';
-                        html += '<input id="protocol_' + name+'_'+data.id + '[result]" value="' + result + '" name="protocol_' + data.id + '[result]" type="text" class="number ' + classInputText + ' form-control">';
-                        html += '<span class="input-group-addon" id="">'+data.measure+'</span>';
+                    var html = '<input type="hidden" name="protocol_' + data.id + '[id]" value="' + data.id + '">';
+                    html += '<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 calculated" id="' + args.text.replace(' ', '_') + '" style="display: none;">';
+                        html += '<div class="form-group">';
+                            html += '<label for="protocol_' + name+'_'+data.id + '[result]">' + data.name +'</label><br>';
+                            html += '<label for="protocol_' + name+'_'+data.id + '[result]">' + data.formula +'</label>';
+                            html += '<div class="input-group">';
+                                html += '<input id="protocol_' + name+'_'+data.id + '[result]" value="' + result + '" name="protocol_' + data.id + '[result]" type="text" class="number ' + classInputText + ' form-control">';
+                                html += '<span class="input-group-addon" id="">'+data.measure+'</span>';
+                            html += '</div>';
+                        html += '</div>';
+                        html += '<div class="form-group">';
+                            html += '<label for="protocol_' + data.id + '[obs]">Observaçao</label>';
+                            html += '<textarea id="protocol_' + data.id + '[obs]" name="protocol_' + data.id + '[obs]" class="textarea form-control"></textarea>';
+                        html += '</div>';
                     html += '</div>';
 
-                    html += '</div>';
-                    html += '</div>';
+
                     html = $(html);
                     html.hide();
 
@@ -245,10 +250,15 @@ function tests(param){
 
                     row.append(html);
 
-
-                    $('.number').inputmask("decimal");
+                    html.find('.number').inputmask("decimal");
 
                     html.fadeIn('slow');
+
+                    html.find('.textarea').wysihtml5({
+                        toolbar: {
+                            html: true
+                        }
+                    });
 
                     html.find('.' + classInputText).rules("add", {
                         required: true,
@@ -491,7 +501,7 @@ $(function () {
 
     $(".textarea").wysihtml5({
         toolbar: {
-            html: true,
+            html: true
         }
     });
 
@@ -501,6 +511,9 @@ $(function () {
 
     $(".rg").inputmask("99.999.999-99", {"placeholder": ""});
     $(".cpf").inputmask("999.999.999-99", {"placeholder": ""});
+
+    $(".phone").inputmask("(99) 9999-9999", {"placeholder": ""});
+    $(".cell_phone").inputmask("(99) [9]9999-9999");
 
 
 

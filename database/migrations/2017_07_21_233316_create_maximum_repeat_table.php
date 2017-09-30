@@ -25,6 +25,7 @@ class CreateMaximumRepeatTable extends Migration
             $table->decimal('option_3')->nullable();
             $table->decimal('option_4')->nullable();
             $table->decimal('maximum_repeat')->nullable();
+            $table->longText('obs')->nullable();
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('test_id')

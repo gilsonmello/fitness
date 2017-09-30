@@ -27,7 +27,7 @@ class UpdateAuthRequest extends FormRequest
             'name' => 'required|min:10|regex:/^([\pL\s\ ]+)$/u',
             /*'role_id'  => 'required|array|min:1',*/
             'supplier_id'  => 'required|array|min:1',
-            'gender'  => 'required|array|min:1',
+            'gender'  => 'required|min:1',
             'password' => !is_null($this->all()['password']) && !empty($this->all()['password']) ? 'min:6' : ''
         ];
     }

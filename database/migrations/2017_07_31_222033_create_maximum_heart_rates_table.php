@@ -19,6 +19,7 @@ class CreateMaximumHeartRatesTable extends Migration
             $table->integer('test_id')->unsigned();
             $table->integer('protocol_id')->unsigned();
             $table->tinyInteger('type_test_id');
+            $table->longText('obs')->nullable();
             $table->decimal('result');
             $table->timestamps();
             $table->softDeletes();

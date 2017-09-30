@@ -37,3 +37,13 @@
         </div>
     </div>
 </div>
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="form-group">
+            <label for="obs">{{trans('strings.obs')}}</label>
+            <textarea id="obs" name="obs" class="textarea form-control">
+                {{ isset($test->flexitest) ? $test->flexitest->obs : null }}
+            </textarea>
+        </div>
+    </div>
+</div>

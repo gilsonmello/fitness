@@ -27,6 +27,63 @@
 @endsection
 
 @section('content')
+    {!! Form::open(['route' => ['backend.evaluations.update', $evaluation->id], 'class' => '', 'role' => 'form', 'method' => 'put']) !!}
+    <div class="box box-primary collapsed-box">
+        <div class="box-header with-border">
+            <h3 class="box-title">Dados da Avaliação</h3>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+            </div>
+        </div>
+        <div class="box-body">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                    <div class="form-group">
+                        {!! Form::label('user_id', trans('strings.name').'*', ['class' => '']) !!}
+                        {!! Form::select('user_id', $users->pluck('name', 'id')->all(), $evaluation->user->id, ['class' => 'select2', 'placeholder' => trans('strings.name')]) !!}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                    <div class="form-group">
+                        {!! Form::label('validity', trans('strings.validity').'*', ['class' => '']) !!}
+                        {!! Form::text('validity', format($evaluation->validity, 'd/m/Y'), ['class' => 'datepicker form-control', 'placeholder' => trans('strings.validity')]) !!}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div class="form-group">
+                        {!! Form::label('objective', trans('strings.objective'), ['class' => '']) !!}
+                        {!! Form::textarea('objective', $evaluation->objective, ['class' => 'form-control textarea', 'placeholder' => trans('strings.objective')]) !!}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-12">
+                    <div class="form-group">
+                        {!! Form::label('is_active', trans('strings.is_active').'*', ['class' => '']) !!}
+                        {!! Form::checkbox('is_active', 1, $evaluation->is_active == 1 ? true : false, ['class' => 'form-control flat-red', 'placeholder' => trans('strings.title')]) !!}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="box-footer">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div class="pull-left">
+                        <a href="{{route('backend.evaluations.index')}}" class="btn btn-danger">{{ trans('strings.cancel_button') }}</a>
+                    </div>
+                    <div class="pull-right">
+                        <input type="submit" class="btn btn-primary" value="{{ trans('strings.save_button') }}" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    {!! Form::close() !!}
+
+
     <div class="box box-primary">
         <div class="box-header with-border">
             <h3 class="box-title">Dados do Aluno</h3>

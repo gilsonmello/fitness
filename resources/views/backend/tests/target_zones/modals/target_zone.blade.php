@@ -36,6 +36,12 @@
                                         <span class="input-group-addon" id="">{{ $value->protocol->measure->initials }}</span>
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <label for="protocol_{{$value->protocol->id}}[obs]">{{trans('strings.obs')}}</label>
+                                    <textarea id="protocol_{{$value->protocol->id}}[obs]" name="protocol_{{$value->protocol->id}}[obs]" class="textarea form-control">
+                                        {{ $value->obs }}
+                                    </textarea>
+                                </div>
                             </div>
                         @endforeach
                     @endif

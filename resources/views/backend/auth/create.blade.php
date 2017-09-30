@@ -87,6 +87,20 @@
             </div>
             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
                 <div class="form-group">
+                    {!! Form::label('phone', trans('strings.phone'), ['class' => '']) !!}
+                    {!! Form::text('phone', null, ['class' => 'phone form-control', 'placeholder' => trans('strings.phone')]) !!}
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                <div class="form-group">
+                    {!! Form::label('cell_phone', trans('strings.cell_phone'), ['class' => '']) !!}
+                    {!! Form::text('cell_phone', null, ['class' => 'cell_phone form-control', 'placeholder' => trans('strings.cell_phone')]) !!}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                <div class="form-group">
                     {!! Form::label('supplier_id[]', trans('strings.supplier'), ['class' => '']) !!}
                     {!! Form::select('supplier_id[]', $suppliers, NULL, ['style' => 'width: 100%;', 'class' => 'select2', 'multiple' => 'multiple', 'data-placeholder' => trans('strings.supplier')]) !!}
                 </div>

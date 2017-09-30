@@ -19,6 +19,7 @@ class CreateTrainingVo2Table extends Migration
             $table->integer('test_id')->unsigned();
             $table->integer('protocol_id')->unsigned();
             $table->decimal('result')->nullable();
+            $table->longText('obs')->nullable();
             $table->tinyInteger('type_test_id');
             $table->timestamps();
             $table->softDeletes();

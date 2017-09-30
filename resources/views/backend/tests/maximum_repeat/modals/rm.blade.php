@@ -1,5 +1,5 @@
 <div class="modal fade" id="modal_rm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -56,6 +56,12 @@
                                         {!! Form::text('maximum_repeat', isset($supine) ? $supine->maximum_repeat : null, ['class' => 'decimal form-control', 'placeholder' => trans('strings.maximum_repeat')]) !!}
                                         <span class="input-group-addon" id="">&nbsp;RM&nbsp;</span>
                                     </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="obs">{{trans('strings.obs')}}</label>
+                                    <textarea id="obs" name="obs" class="textarea form-control">
+                                        {{ isset($supine) ? $supine->obs : null }}
+                                    </textarea>
                                 </div>
                             </div>
                         </div>
@@ -115,6 +121,12 @@
                                         {!! Form::text('maximum_repeat', isset($squat) ? $squat->maximum_repeat : null, ['class' => 'decimal form-control', 'placeholder' => trans('strings.maximum_repeat')]) !!}
                                         <span class="input-group-addon" id="">&nbsp;RM&nbsp;</span>
                                     </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="obs">{{trans('strings.obs')}}</label>
+                                    <textarea id="obs" name="obs" class="textarea form-control">
+                                        {{ isset($squat) ? $squat->obs : null }}
+                                    </textarea>
                                 </div>
                             </div>
                         </div>

@@ -358,6 +358,7 @@ return [
     'evaluations' => [
         'created' => 'Avaliação criada com sucesso.',
         'updated' => 'Avaliação atualizada com sucesso.',
+        'update' => ['success' => 'Avaliação atualizada com sucesso.', 'error' => 'Erro ao atualizar Avaliação.'],
         'error' => 'Erro ao criar avaliação.',
         'upated_error' => 'Erro ao atualizar avaliação.',
         'not_find' => 'Avaliação não encontrada.',

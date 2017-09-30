@@ -21,6 +21,7 @@ class CreateWellsBanksTable extends Migration
             $table->decimal('right_leg')->nullable();
             $table->decimal('left_leg')->nullable();
             $table->decimal('trunk')->nullable();
+            $table->longText('obs')->nullable();
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('test_id')

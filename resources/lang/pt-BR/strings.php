@@ -12,6 +12,7 @@ return [
       |
      */
 	'maximum_heart_rate' => 'Frequência Cardíaca Máxima',
+	'objective' => 'Objetivo',
 	'minimum_heart_rate' => 'Frequência Cardíaca Mínima',
 	'reserve_heart_rate' => 'Frequência Cardíaca Reserva',
     'all_rights_reserved' => 'Todos os direitos reservados',
@@ -90,9 +91,12 @@ return [
     'ipac_answers' => 'Respostas do IPAC',
     'export_to_csv' => 'Exportar para CSV',
     'count_execution' => 'Execuções',
+	'name_of_additional_data' => 'Nome do Dado Adicional',
+	'initials' => 'Sigla',
     'campaign' => 'Campanha',
     'campaigns' => 'Campanhas',
     'fone' => 'Telefone',
+	'cell_phone' => 'Celular',
     'saap_in_lesson' => 'SAAP na aula',
     'proof' => 'Prova',
     'saap' => 'SAAP',

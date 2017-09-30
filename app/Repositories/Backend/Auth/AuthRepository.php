@@ -75,6 +75,8 @@ class AuthRepository{
         $this->user->cpf = $data['cpf'];
         $this->user->rg = $data['rg'];
         $this->user->gender = isset($data['gender']) && $data['gender'] == '1' ? 1 : 0;
+        $this->user->phone = isset($data['phone']) && !empty($data['phone']) ? $data['phone'] : NULL;
+        $this->user->cell_phone = isset($data['cell_phone']) && !empty($data['cell_phone']) ? $data['cell_phone'] : NULL;
 
         if($this->user->save()){
             $this->user->roles()->attach([2]);
@@ -98,6 +100,8 @@ class AuthRepository{
         $user->cpf = $data['cpf'];
         $user->rg = $data['rg'];
         $user->gender = isset($data['gender']) && $data['gender'] == '1' ? 1 : 0;
+        $user->phone = isset($data['phone']) && !empty($data['phone']) ? $data['phone'] : NULL;
+        $user->cell_phone = isset($data['cell_phone']) && !empty($data['cell_phone']) ? $data['cell_phone'] : NULL;
 
         if($user->save()){
            /* if(count($data['role_id']) > 0){

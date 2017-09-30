@@ -47,6 +47,14 @@
                 </div>
             </div>
             <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div class="form-group">
+                        {!! Form::label('objective', trans('strings.objective'), ['class' => '']) !!}
+                        {!! Form::textarea('objective', null, ['class' => 'form-control textarea', 'placeholder' => trans('strings.objective')]) !!}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-12">
                     <div class="form-group">
                         {!! Form::label('is_active', trans('strings.is_active').'*', ['class' => '']) !!}

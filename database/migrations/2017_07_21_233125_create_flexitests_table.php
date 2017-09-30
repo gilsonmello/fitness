@@ -33,6 +33,7 @@ class CreateFlexitestsTable extends Migration
             $table->tinyInteger('leg_flexion')->nullable();
             $table->tinyInteger('plantar_dorsiflexion')->nullable();
             $table->tinyInteger('plantar_flexion')->nullable();
+            $table->longText('obs')->nullable();
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('test_id')

@@ -20,6 +20,7 @@ class CreateMinimumHeartRatesTable extends Migration
             $table->integer('protocol_id')->unsigned();
             $table->tinyInteger('type_test_id');
             $table->decimal('result');
+            $table->longText('obs')->nullable();
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('test_id')

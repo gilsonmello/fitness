@@ -263,6 +263,30 @@ class DatabaseSeeder extends Seeder
             'updated_at' => date('Y-m-d H:i:s')
         ]);
 
+        DB::table('measures')->insert([
+            'id' => 8,
+            'name' => 'Frequência Cardíaca Reserva',
+            'initials' => 'RFC',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ]);
+
+        DB::table('measures')->insert([
+            'id' => 9,
+            'name' => 'Repetição Máxima',
+            'initials' => 'RM',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ]);
+
+        DB::table('measures')->insert([
+            'id' => 10,
+            'name' => 'Frequência Cardíaca Mínima',
+            'initials' => 'FCN',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ]);
+
         DB::table('protocols')->insert([
             'id' => 1,
             'measure_id' => 4,
@@ -347,6 +371,5 @@ class DatabaseSeeder extends Seeder
 
         $this->call(SuppliersTableSeeder::class);
         $this->call(PackagesTableSeeder::class);
-
     }
 }

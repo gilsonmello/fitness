@@ -24,11 +24,8 @@
         <a href="{{ route('backend.evaluations.create') }}" class="btn btn-primary btn-xs">
             {{ trans('menus.evaluations.create') }}
         </a>
-        {{--<a href="{{route('admin.coupons.import')}}" class="btn btn-primary btn-xs">--}}
-        {{--{{ trans('menus.import_coupon') }}--}}
-        {{--</a>--}}
     </div>
-    <div class="clearfix"></div>
+    {{--<div class="clearfix"></div>
 
     <div class="box box-primary">
         <div class="box-header with-border">
@@ -51,7 +48,7 @@
             {!! Form::submit( trans('strings.search'), ['class' => 'btn btn-primary btn-xs']) !!}
         </div>
         {!! Form::close() !!}
-    </div>
+    </div>--}}
 
     <div class="row">
         <div class="col-xs-12">
@@ -62,6 +59,8 @@
                         <thead>
                             <tr>
                                 <th>{!! trans('strings.name') !!}</th>
+                                <th>{!! trans('strings.objective') !!}</th>
+                                <th>{!! trans('strings.validity') !!}</th>
                                 <th>{!! trans('strings.created_at') !!}</th>
                                 <th>{!! trans('strings.actions') !!}</th>
                             </tr>
@@ -70,16 +69,22 @@
                             @forelse($evaluations as $value)
                                 <tr>
                                     <td>{!! $value->user->name !!}</td>
+                                    <td>{!! strip_tags($value->objective) !!}</td>
+                                    <td>{!! format_datetimebr($value->validity) !!}</td>
                                     <td>{!! format_datetimebr($value->created_at) !!}</td>
                                     <td>{!! $value->action_buttons !!}</td>
                                 </tr>
                             @empty
-                                <tr><td colspan="3">Não possui registros disponíveis</td></tr>
+                                <tr>
+                                    <td colspan="5">Não possui registros disponíveis</td>
+                                </tr>
                             @endforelse
                         </tbody>
                         <tfoot>
                             <tr>
                                 <th>{!! trans('strings.name') !!}</th>
+                                <th>{!! trans('strings.objective') !!}</th>
+                                <th>{!! trans('strings.validity') !!}</th>
                                 <th>{!! trans('strings.created_at') !!}</th>
                                 <th>{!! trans('strings.actions') !!}</th>
                             </tr>

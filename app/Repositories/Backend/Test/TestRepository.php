@@ -373,6 +373,7 @@ class TestRepository{
         if(count($data) > 1){
             unset($data['_token']);
             unset($data['protocol']);
+            unset($data['_wysihtml5_mode']);
             $test = $this->findOrThrowException($id);
             //Se já existe algum teste de frequência cardíaca máxima
             if(count($test->maximumHeartRate) > 0){
@@ -388,6 +389,7 @@ class TestRepository{
                             ->where('protocol_id', '=', $value['id'])
                             ->update([
                                 'result' => $value['result'],
+                                'obs' => $value['obs'],
                             ]);
                         if(!$save){
                             return false;
@@ -398,6 +400,7 @@ class TestRepository{
                         $this->maximumHeartRate->type_test_id = 3;
                         $this->maximumHeartRate->result = $value['result'];
                         $this->maximumHeartRate->protocol_id = $value['id'];
+                        $this->maximumHeartRate->obs = $value['obs'];
                         if (!$this->maximumHeartRate->save()) {
                             return false;
                         }
@@ -411,6 +414,7 @@ class TestRepository{
                     $this->maximumHeartRate->type_test_id = 3;
                     $this->maximumHeartRate->result = $value['result'];
                     $this->maximumHeartRate->protocol_id = $value['id'];
+                    $this->maximumHeartRate->obs = $value['obs'];
                     if (!$this->maximumHeartRate->save()) {
                         return false;
                     }
@@ -447,6 +451,7 @@ class TestRepository{
         //Removendo o token do array
         unset($data['_token']);
         unset($data['protocol']);
+        unset($data['_wysihtml5_mode']);
 
         //Buscando o teste
         $test = $this->findOrThrowException($id);
@@ -470,6 +475,7 @@ class TestRepository{
                     //Tento atualizar o registro já existente
                     $save = $minimumHeartRates->update([
                             'result' => $value['result'],
+                            'obs' => $value['obs'],
                         ]);
                     //Se não atualizar retorno falso
                     if(!$save){
@@ -480,6 +486,7 @@ class TestRepository{
                     $this->minimumHeartRate->type_test_id = 4;
                     $this->minimumHeartRate->result = $value['result'];
                     $this->minimumHeartRate->protocol_id = $value['id'];
+                    $this->minimumHeartRate->obs = $value['obs'];
                     //Se não salvar, retorno falso
                     if (!$this->minimumHeartRate->save()) {
                         return false;
@@ -498,14 +505,13 @@ class TestRepository{
                 $this->minimumHeartRate->type_test_id = 4;
                 $this->minimumHeartRate->result = $value['result'];
                 $this->minimumHeartRate->protocol_id = $value['id'];
+                $this->minimumHeartRate->obs = $value['obs'];
 
                 //Se não salvar, retorno falso
                 if (!$this->minimumHeartRate->save()) {
                     return false;
                 }
-
                 $this->minimumHeartRate = new MinimumHeartRate;
-
             }
             //Se todos os dados foram salvos e atualizados, retorno true
             return true;
@@ -546,6 +552,7 @@ class TestRepository{
         if(count($data) > 1){
             unset($data['_token']);
             unset($data['protocol']);
+            unset($data['_wysihtml5_mode']);
             $test = $this->findOrThrowException($id);
             if(count($test->reserveHeartRate) > 0){
                 foreach($data as $key => $value){
@@ -559,6 +566,7 @@ class TestRepository{
                             ->where('protocol_id', '=', $value['id'])
                             ->update([
                                 'result' => $value['result'],
+                                'obs' => $value['obs'],
                             ]);
                         if(!$save){
                             return false;
@@ -569,6 +577,7 @@ class TestRepository{
                         $this->reserveHeartRate->type_test_id = 5;
                         $this->reserveHeartRate->result = $value['result'];
                         $this->reserveHeartRate->protocol_id = $value['id'];
+                        $this->reserveHeartRate->obs = $value['obs'];
                         if (!$this->reserveHeartRate->save()) {
                             return false;
                         }
@@ -582,6 +591,7 @@ class TestRepository{
                     $this->reserveHeartRate->type_test_id = 5;
                     $this->reserveHeartRate->result = $value['result'];
                     $this->reserveHeartRate->protocol_id = $value['id'];
+                    $this->reserveHeartRate->obs = $value['obs'];
                     if (!$this->reserveHeartRate->save()) {
                         return false;
                     }
@@ -626,6 +636,7 @@ class TestRepository{
         if(count($data) > 1){
             unset($data['_token']);
             unset($data['protocol']);
+            unset($data['_wysihtml5_mode']);
             $test = $this->findOrThrowException($id);
             if(count($test->maximumVo2) > 0){
                 foreach($data as $key => $value){
@@ -639,6 +650,7 @@ class TestRepository{
                             ->where('protocol_id', '=', $value['id'])
                             ->update([
                                 'result' => $value['result'],
+                                'obs' => $value['obs'],
                             ]);
                         if(!$save){
                             return false;
@@ -649,6 +661,7 @@ class TestRepository{
                         $this->maximumVo2->type_test_id = 6;
                         $this->maximumVo2->result = $value['result'];
                         $this->maximumVo2->protocol_id = $value['id'];
+                        $this->maximumVo2->obs = $value['obs'];
                         if (!$this->maximumVo2->save()) {
                             return false;
                         }
@@ -663,6 +676,7 @@ class TestRepository{
                     $this->maximumVo2->type_test_id = 6;
                     $this->maximumVo2->result = $value['result'];
                     $this->maximumVo2->protocol_id = $value['id'];
+                    $this->maximumVo2->obs = $value['obs'];
                     if (!$this->maximumVo2->save()) {
                         return false;
                     }
@@ -705,6 +719,7 @@ class TestRepository{
         //Removendo o token do array
         unset($data['_token']);
         unset($data['protocol']);
+        unset($data['_wysihtml5_mode']);
 
         //Buscando o teste
         $test = $this->findOrThrowException($id);
@@ -728,6 +743,7 @@ class TestRepository{
                     //Tento atualizar o registro já existente
                     $save = $trainingVo2->update([
                         'result' => $value['result'],
+                        'obs' => $value['obs'],
                     ]);
                     //Se não atualizar retorno falso
                     if(!$save){
@@ -738,6 +754,7 @@ class TestRepository{
                     $this->trainingVo2->type_test_id = 7;
                     $this->trainingVo2->result = $value['result'];
                     $this->trainingVo2->protocol_id = $value['id'];
+                    $this->trainingVo2->obs = $value['obs'];
                     //Se não salvar, retorno falso
                     if (!$this->trainingVo2->save()) {
                         return false;
@@ -756,6 +773,7 @@ class TestRepository{
                 $this->trainingVo2->type_test_id = 7;
                 $this->trainingVo2->result = $value['result'];
                 $this->trainingVo2->protocol_id = $value['id'];
+                $this->trainingVo2->obs = $value['obs'];
 
                 //Se não salvar, retorno falso
                 if (!$this->trainingVo2->save()) {
@@ -842,6 +860,7 @@ class TestRepository{
             $rm->option_3 = $data['option_3'];
             $rm->option_4 = $data['option_4'];
             $rm->maximum_repeat = $data['maximum_repeat'];
+            $rm->obs = $data['obs'];
             if($rm->save()){
                 return true;
             }
@@ -856,6 +875,7 @@ class TestRepository{
         $this->maximumRepeat->option_3 = $data['option_3'];
         $this->maximumRepeat->option_4 = $data['option_4'];
         $this->maximumRepeat->maximum_repeat = $data['maximum_repeat'];
+        $this->maximumRepeat->obs = $data['obs'];
         if($this->maximumRepeat->save()){
             return true;
         }
@@ -876,6 +896,7 @@ class TestRepository{
         //Removendo o token do array
         unset($data['_token']);
         unset($data['protocol']);
+        unset($data['_wysihtml5_mode']);
 
         //Buscando o teste
         $test = $this->findOrThrowException($id);
@@ -899,6 +920,7 @@ class TestRepository{
                     //Tento atualizar o registro já existente
                     $save = $targetZone->update([
                         'result' => $value['result'],
+                        'obs' => $value['obs'],
                     ]);
                     //Se não atualizar retorno falso
                     if(!$save){
@@ -909,6 +931,7 @@ class TestRepository{
                     $this->targetZone->type_test_id = 8;
                     $this->targetZone->result = $value['result'];
                     $this->targetZone->protocol_id = $value['id'];
+                    $this->targetZone->obs = $value['obs'];
                     //Se não salvar, retorno falso
                     if (!$this->targetZone->save()) {
                         return false;
@@ -927,6 +950,7 @@ class TestRepository{
                 $this->targetZone->type_test_id = 8;
                 $this->targetZone->result = $value['result'];
                 $this->targetZone->protocol_id = $value['id'];
+                $this->targetZone->obs = $value['obs'];
 
                 //Se não salvar, retorno falso
                 if (!$this->targetZone->save()) {
@@ -992,6 +1016,7 @@ class TestRepository{
             $this->flexitest->leg_flexion = isset($data['leg_flexion']) ? $data['leg_flexion'] : NULL;
             $this->flexitest->plantar_dorsiflexion = isset($data['plantar_dorsiflexion']) ? $data['plantar_dorsiflexion'] : NULL;
             $this->flexitest->plantar_flexion = isset($data['plantar_flexion']) ? $data['plantar_flexion'] : NULL;
+            $this->flexitest->obs = isset($data['obs']) ? $data['obs'] : NULL;
             if($this->flexitest->save()){
                 return true;
             }
@@ -1012,6 +1037,7 @@ class TestRepository{
         $test->flexitest->leg_flexion = isset($data['leg_flexion']) ? $data['leg_flexion'] : NULL;
         $test->flexitest->plantar_dorsiflexion = isset($data['plantar_dorsiflexion']) ? $data['plantar_dorsiflexion'] : NULL;
         $test->flexitest->plantar_flexion = isset($data['plantar_flexion']) ? $data['plantar_flexion'] : NULL;
+        $test->flexitest->obs = isset($data['obs']) ? $data['obs'] : NULL;
 
         if($test->flexitest->save()){
             return true;
@@ -1038,6 +1064,7 @@ class TestRepository{
             $this->wellsBank->right_leg = isset($data['right_leg']) ? $data['right_leg'] : NULL;
             $this->wellsBank->left_leg = isset($data['left_leg']) ? $data['left_leg'] : NULL;
             $this->wellsBank->trunk = isset($data['trunk']) ? $data['trunk'] : NULL;
+            $this->wellsBank->obs = isset($data['obs']) ? $data['obs'] : NULL;
             if($this->wellsBank->save()){
                 return true;
             }
@@ -1046,6 +1073,7 @@ class TestRepository{
         $test->wellsBank->right_leg = isset($data['right_leg']) ? $data['right_leg'] : NULL;
         $test->wellsBank->left_leg = isset($data['left_leg']) ? $data['left_leg'] : NULL;
         $test->wellsBank->trunk = isset($data['trunk']) ? $data['trunk'] : NULL;
+        $test->wellsBank->obs = isset($data['obs']) ? $data['obs'] : NULL;
 
         if($test->wellsBank->save()){
            return true;

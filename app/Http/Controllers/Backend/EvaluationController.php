@@ -16,6 +16,7 @@ use App\Http\Requests\Backend\Evaluation\UpdateAnalisePosturalLateralEsquerdaReq
 use App\Http\Requests\Backend\Evaluation\UpdateAnalisePosturalPosterior;
 use App\Http\Requests\Backend\Evaluation\UpdateRiscoCoronarioRequest;
 use App\Http\Requests\Backend\Evaluation\CreateEvaluationRequest;
+use App\Http\Requests\Backend\Evaluation\UpdateEvaluationRequest;
 use App\Services\UploadService\UploadService;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Auth;
@@ -68,6 +69,23 @@ class EvaluationController extends Controller
     }
 
     /**
+     * @param $id
+     * @param UpdateEvaluationRequest $request
+     * @return mixed
+     */
+    public function update($id, UpdateEvaluationRequest $request){
+        if($this->evaluationRepository->update($id, $request)){
+            return redirect()
+                ->route('backend.evaluations.edit', $id)
+                ->withFlashSuccess(trans('alerts.evaluations.update.success'));
+        }
+        return redirect()
+            ->route('backend.evaluations.create')
+            ->withInput()
+            ->withFlashSuccess(trans('alerts.evaluations.update.error'));
+    }
+
+    /**
      * @param CreateEvaluationRequest $request
      * @return mixed
      */
@@ -90,7 +108,8 @@ class EvaluationController extends Controller
      */
     public function edit($id){
         $evaluation = $this->evaluationRepository->findOrThrowException($id);
-        return view('backend.evaluations.edit', compact('evaluation'));
+        $users = $this->userRepository->allClients();
+        return view('backend.evaluations.edit', compact('evaluation', 'users'));
     }
 
     /**
@@ -104,7 +123,8 @@ class EvaluationController extends Controller
 
     /**
      * @param $id
-     * @param UpdateWeightAndHeightRequest $request
+     * @param Request $request
+     * @return json
      */
     public function updateAnthropometries($id, Request $request){
         if($this->evaluationRepository->updateAnthropometries($id, $request)){
