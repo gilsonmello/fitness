@@ -93,7 +93,7 @@ class TestController extends Controller
 
         $protocols = $this->testRepository->getProtocols();
 
-        $additionalData = $this->testRepository->getAdditionalData($test->evaluation->user->id);
+        $additionalData = $this->testRepository->getAdditionalData($test->evaluation->id);
 
         //ids dos protocolos utilizados do teste frequência cardíaca máxima
         $maximumHeartRates = $this->testRepository->getMaximumHeartRate($id)->pluck('protocol_id');
