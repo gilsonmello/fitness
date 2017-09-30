@@ -43,14 +43,14 @@ class SendEmailController extends Controller
             if($upload) {
                 foreach($data['email'] as $value){
                     Mail::send('emails.informative_text', [], function($message) use ($value, $path, $hash){
-                        $message->to($value, 'Teste');
-                        $message->subject('Test');
+                        $message->to($value);
+                        $message->subject('Relatório de Avaliação Física');
                         $message->attach($path.$hash);
                     });
                 }
             }
+            File::delete($path.$hash);
         }
-        File::delete($path.$hash);
     	return redirect()->route('backend.reports.simple')->withFlashSuccess('E-mail enviado com sucesso');
     }
 

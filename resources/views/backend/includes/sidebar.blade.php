@@ -46,7 +46,7 @@
                         </li>
                     </ul>
                 </li>
-                <li class="treeview {{ active('admin/evaluations') }}">
+                <li class="treeview {{ active(['admin/evaluations']) }}">
                     <a href="#">
                         <span>Avaliação Física</span>
                         <i class="fa fa-angle-left pull-right"></i>
@@ -58,7 +58,7 @@
                     </ul>
                 </li>
 
-                <li class="treeview {{ active(['admin/tests', 'admin/protocols']) }}">
+                <li class="treeview {{ active(['admin/tests', 'admin/protocols', 'admin/additional_data']) }}">
                     <a href="#">
                         <span>Testes</span>
                         <i class="fa fa-angle-left pull-right"></i>
@@ -95,7 +95,7 @@
                     </a>
                     <ul class="treeview-menu">
                         <li class="{{ active('admin/config') }}">
-                            <a href="{{route('backend.config.create')}}">Botão</a>
+                            <a href="{{route('backend.config.create')}}">Criar Botão Pagseguro</a>
                         </li>
                     </ul>
                 </li>

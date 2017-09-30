@@ -70,6 +70,7 @@ class EvaluationRepository{
         $evaluation->user_id = $data['user_id'];
         $evaluation->validity = isset($data['validity']) ? format_without_mask($data['validity'], '/').' 23:59:59' : NULL;
         $evaluation->objective = isset($data['objective']) && !empty($data['objective']) ? $data['objective'] : NULL;
+        $evaluation->final_consideration = isset($data['final_consideration']) && !empty($data['final_consideration']) ? $data['final_consideration'] : NULL;
         $evaluation->is_active = isset($data['is_active']) ? 1 : 0;
 
         if($evaluation->save()){
@@ -87,6 +88,7 @@ class EvaluationRepository{
         $this->evaluation->user_id = trim($data['user_id']);
         $this->evaluation->validity =  isset($data['validity']) ? format_without_mask($data['validity'], '/').' 23:59:59' : NULL;
         $this->evaluation->objective = isset($data['objective']) && !empty($data['objective']) ? $data['objective'] : NULL;
+        $this->evaluation->final_consideration = isset($data['final_consideration']) && !empty($data['final_consideration']) ? $data['final_consideration'] : NULL;
         $this->evaluation->is_active = isset($data['is_active']) ? 1 : 0;
         if($this->evaluation->save()){
             return true;

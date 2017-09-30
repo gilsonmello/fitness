@@ -19,6 +19,7 @@ class CreateEvaluationsTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->dateTime('validity')->nullable();
             $table->longText('objective')->nullable();
+            $table->longText('final_consideration')->nullable();
             $table->boolean('is_active')->default(1);
             $table->timestamps();
             $table->softDeletes();

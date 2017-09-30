@@ -10,6 +10,53 @@ if(!function_exists('access')) {
 
 }
 
+if(!function_exists('yesOrNo')) {
+	/**
+	 * @param $value
+	 * @return string
+	 */
+	function yesOrNo($value) {
+		return $value == 1 ? trans('strings.yes') : trans('strings.no');
+	}
+}
+
+if(!function_exists('referencesFlexitest')) {
+	/**
+	 * @param $value
+	 * @return string
+	 */
+	function referencesFlexitest($value) {
+		$rtn = '';
+		if($value == 1){
+			$rtn = 'Ruim';
+		}else if($value == 2){
+			$rtn = 'Razoável';
+		}else if($value == 3){
+			$rtn = 'Bom';
+		}else if($value == 4){
+			$rtn = 'Muito Bom';
+		}else{
+			$rtn = 'Não informado';
+		}
+		return $rtn;
+	}
+
+}
+
+if(!function_exists('hasObs')) {
+	/**
+	 * @param $param
+	 * @param $id
+	 * @return bool
+	 */
+	function hasObs($param){
+		if(!is_null($param)){
+			return $param;
+		}
+		return '<p style="text-align: center;">----</p>';
+	}
+}
+
 if(!function_exists('emailExists')) {
 
 	/**

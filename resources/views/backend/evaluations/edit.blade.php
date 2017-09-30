@@ -51,10 +51,16 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                     <div class="form-group">
                         {!! Form::label('objective', trans('strings.objective'), ['class' => '']) !!}
                         {!! Form::textarea('objective', $evaluation->objective, ['class' => 'form-control textarea', 'placeholder' => trans('strings.objective')]) !!}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                    <div class="form-group">
+                        {!! Form::label('final_consideration', trans('strings.final_consideration'), ['class' => '']) !!}
+                        {!! Form::textarea('final_consideration', $evaluation->final_consideration, ['class' => 'form-control textarea', 'placeholder' => trans('strings.final_consideration')]) !!}
                     </div>
                 </div>
             </div>
