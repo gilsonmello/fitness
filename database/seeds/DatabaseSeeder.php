@@ -290,7 +290,7 @@ class DatabaseSeeder extends Seeder
         DB::table('protocols')->insert([
             'id' => 1,
             'measure_id' => 4,
-            'name' => 'Karnovem',
+            'name' => 'Karvonem',
             'formula' => '220-idade',
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s')
