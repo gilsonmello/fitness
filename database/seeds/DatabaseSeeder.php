@@ -31,6 +31,14 @@ class DatabaseSeeder extends Seeder
             'updated_at' => date('Y-m-d H:i:s')
         ]);
 
+        DB::table('users')->insert([
+            'name' => 'Usuário Teste',
+            'email' => 'teste@teste.com',
+            'password' => bcrypt('teste'),
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ]);
+
         //$this->call(UsersTableSeeder::class);
 
 
@@ -75,6 +83,13 @@ class DatabaseSeeder extends Seeder
         DB::table('role_user')->insert([
             'user_id' => 2,
             'role_id' => 1,
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ]);
+        
+        DB::table('role_user')->insert([
+            'user_id' => 3,
+            'role_id' => 2,
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s')
         ]);

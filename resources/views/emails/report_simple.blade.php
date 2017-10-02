@@ -34,7 +34,13 @@
 		</style>
 	</head>
 	<body>
-		<?php $age = age($evaluation->user->birth_date); $gender = $evaluation->user->gender?>
+		<?php 
+			$age = !is_null($evaluation->user->birth_date) ? 
+					age($evaluation->user->birth_date) : 
+					'Não Informado'; 
+
+			$gender = !is_null($evaluation->user->gender) ? $evaluation->user->gender : NULL; 
+		?>
 		<table width="100%" border="0" cellpadding="0" cellspacing="0">
 			<tbody>
 				<tr>
@@ -55,6 +61,7 @@
     	<br>
     	<p style="margin: 0; border: 4px solid black; padding-top: 4px; padding-bottom: 4px"></p>
 		<br>
+		<?php $supplier = actualSupplier($evaluation->user->id);?>
     	<table width="100%" border="1" class="table" cellpadding="0" cellspacing="0">
     		<thead>
 				<tr>
@@ -67,21 +74,28 @@
 			</thead>
     		<tbody>
 	        	<tr>
-	        		<td><p>{{$evaluation->user->name}}</p></td>
-					<td><p>{{ $evaluation->user->email }}</p></td>
-	        		<td><p class="text-center">{{ !is_null($evaluation->user->birth_date) ? age($evaluation->user->birth_date) : 'Não informado'}}</p></td>
+	        		<td>
+	        			<p class="text-center">
+	        				{!! $evaluation->user->name !!}</p>
+	        			</td>
 					<td>
-						<table>
-							<tbody>
-								@foreach($evaluation->user->suppliers as $value)
-									<tr>
-										<td><p>{{$value->name}}</p></td>
-									</tr>
-								@endforeach
-							</tbody>
-						</table>
+						<p class="text-center">
+							{!! $evaluation->user->email !!}
+						</p>
 					</td>
-					<td><p>{{ !is_null($evaluation->user->cell_phone) ? $evaluation->user->cell_phone : 'Não informado' }}</p></td>
+	        		<td>
+        				<p class="text-center">
+	        				{!! $age !!}
+	        			</p>
+        			</td>
+					<td>
+						<p class="text-center">{!! $supplier->suppliers_name !!}</p>
+					</td>
+					<td>
+						<p class="text-center">
+							{{ !is_null($evaluation->user->cell_phone) ? $evaluation->user->cell_phone : 'Não informado' }}
+						</p>
+					</td>
 	        	</tr>
     		</tbody>
     	</table>
@@ -98,8 +112,14 @@
 			</thead>
 			<tbody>
 				<tr>
-					<td><p class="text-center">{{ format($evaluation->created_at, 'd/m/Y') }}</p></td>
-					<td><p class="text-center">{{ format($evaluation->validity, 'd/m/Y H:i') }}</p></td>
+					<td>
+						<p class="text-center">{{ format($evaluation->created_at, 'd/m/Y') }}</p>
+					</td>
+					<td>
+						<p class="text-center">
+							{{ addDaysToDate($evaluation->validity, 1, 'd/m/Y') }}
+						</p>
+					</td>
 				</tr>
 			</tbody>
 		</table>
@@ -116,11 +136,13 @@
     			</tr>
     		</thead>
     		<tbody>
+    			@if(!is_null($evaluation->anthropometry->osseous_weight))
 	        	<tr>
 	        		<td><p>{{ trans('strings.osseous_weight') }}</p></td>
-	        		<td><p class="text-center">{{ !is_null($evaluation->bioempedancia->osseous_weight) ? $evaluation->bioempedancia->osseous_weight : 'Não informado'}}</p></td>
-	        		<td><p></p></td>
+	        		<td colspan="2"><p class="text-center">{{ !is_null($evaluation->bioempedancia->osseous_weight) ? $evaluation->bioempedancia->osseous_weight : 'Não informado'}}</p></td>
 	        	</tr>
+	        	@endif
+	        	@if(!is_null($evaluation->bioempedancia->imc))
 	        	<tr>
 	        		<td><p>{{ trans('strings.imc') }}</p></td>
 	        		<td><p class="text-center">{{ !is_null($evaluation->bioempedancia->imc) ? $evaluation->bioempedancia->imc : 'Não informado'}}</p></td>
@@ -140,6 +162,8 @@
 	        			@endif
 	        		</td>
 	        	</tr>
+	        	@endif
+	        	@if(!is_null($evaluation->bioempedancia->fat))
 	        	<tr>
 	        		<td>
 	        			<p>{{ trans('strings.fat') }}</p>
@@ -257,6 +281,8 @@
 						@endif
 	        		</td>
 	        	</tr>
+	        	@endif
+	        	@if(!is_null($evaluation->bioempedancia->muscle_mass))
 	        	<tr>
 	        		<td>
 	        			<p>{{ trans('strings.muscle_mass') }}</p>
@@ -296,17 +322,18 @@
 						@endif
 	        		</td>
 	        	</tr>
+	        	@endif
+	        	@if(!is_null($evaluation->bioempedancia->body_water))
 	        	<tr>
 	        		<td>
 						<p>{{ trans('strings.body_water') }}</p>
 	        		</td>
-	        		<td>
+	        		<td colspan="2">
 	        			<p class="text-center">{{!is_null($evaluation->bioempedancia->body_water) ? $evaluation->bioempedancia->body_water.'%' : '----'}}</p>
 	        		</td>
-	        		<td>
-	        			<p></p>
-	        		</td>
 	        	</tr>
+	        	@endif
+	        	@if(!is_null($evaluation->anthropometry->weight))
 	        	<tr>
 	        		<td colspan="2">
 						<p>{{ trans('strings.weight') }}</p>
@@ -315,15 +342,40 @@
 	        			<p class="text-center">{{!is_null($evaluation->anthropometry->weight) ? $evaluation->anthropometry->weight.'KG' : '----'}}</p>
 	        		</td>
 	        	</tr>
+	        	@endif
 	        	<tr>
 	        		<td colspan="3">
-	        			<p><em>NOTA: ESTIMADA ATRAVÉS DA BALANÇA DE BIOEMPEDANCIA RS-47BLACK.</em></p>
+	        			<p class="text-center">
+	        				<em>NOTA: ESTIMADA ATRAVÉS DA BALANÇA DE BIOEMPEDANCIA RS-47BLACK.</em>
+	        			</p>
 	        		</td>
 	        	</tr>
     		</tbody>
     	</table>
 
-		@if($evaluation->analisePosturalAnterior)
+    	{{-- Verificando se há algum atributo diferente de NULL, se houver mostro --}}
+    	<?php 
+			$analisePosturalAnterior = $evaluation->analisePosturalAnterior->toArray();
+    		$exists = NULL;
+    		if(is_array($analisePosturalAnterior)){
+	 			unset($analisePosturalAnterior['id']);
+	 			unset($analisePosturalAnterior['evaluation_id']);
+	 			unset($analisePosturalAnterior['img']);
+	 			unset($analisePosturalAnterior['tmp_img']);
+	 			unset($analisePosturalAnterior['created_at']);
+	 			unset($analisePosturalAnterior['updated_at']);
+	 			unset($analisePosturalAnterior['deleted_at']);
+	 		}
+
+    		foreach($analisePosturalAnterior as $key => $value){
+    			if(!is_null($value)){
+    				$exists = 1;
+    				continue;
+    			}
+    		}
+    	?>
+
+		@if(!is_null($exists))
 			<br>
 			<p style="margin: 0; border: 4px solid black; padding-top: 4px; padding-bottom: 4px"></p>
 			<br>
@@ -334,6 +386,7 @@
 					<td><p class="text-center"><strong>VARIÁVEIS</strong></p></td>
 					<td><p class="text-center"><strong>{{ trans('strings.result') }}</strong></p></td>
 				</tr>
+				@if($evaluation->analisePosturalAnterior->arlcd == 1)
 				<tr>
 					<td>
 						<p>
@@ -344,6 +397,9 @@
 						<p>{!! yesOrNo($evaluation->analisePosturalAnterior->arlcd) !!}</p>
 					</td>
 				</tr>
+				@endif
+
+				@if($evaluation->analisePosturalAnterior->arlce == 1)
 				<tr>
 					<td>
 						<p>
@@ -354,6 +410,9 @@
 						<p>{!! yesOrNo($evaluation->analisePosturalAnterior->arlce) !!}</p>
 					</td>
 				</tr>
+				@endif
+
+				@if($evaluation->analisePosturalAnterior->ailcd == 1)
 				<tr>
 					<td>
 						<p>
@@ -364,6 +423,9 @@
 						<p>{!! yesOrNo($evaluation->analisePosturalAnterior->ailcd) !!}</p>
 					</td>
 				</tr>
+				@endif
+
+				@if($evaluation->analisePosturalAnterior->ailce == 1)
 				<tr>
 					<td>
 						<p>
@@ -374,12 +436,18 @@
 						<p>{!! yesOrNo($evaluation->analisePosturalAnterior->ailce) !!}</p>
 					</td>
 				</tr>
+				@endif
+
+				@if($evaluation->analisePosturalAnterior->aeod == 1)
 				<tr>
 					<td><p>Elevação do Ombro Dir.</p></td>
 					<td>
 						<p>{!! yesOrNo($evaluation->analisePosturalAnterior->aeod) !!}</p>
 					</td>
 				</tr>
+				@endif
+
+				@if($evaluation->analisePosturalAnterior->aeoe == 1)
 				<tr>
 					<td>
 						<p>
@@ -390,6 +458,9 @@
 						<p>{!! yesOrNo($evaluation->analisePosturalAnterior->aeoe) !!}</p>
 					</td>
 				</tr>
+				@endif
+
+				@if($evaluation->analisePosturalAnterior->armpd == 1)
 				<tr>
 					<td>
 						<p>
@@ -400,100 +471,168 @@
 						<p>{!! yesOrNo($evaluation->analisePosturalAnterior->armpd) !!}</p>
 					</td>
 				</tr>
+				@endif
+
+				@if($evaluation->analisePosturalAnterior->armpe == 1)
 				<tr>
 					<td><p>Rotação Medial do Punho Esq.</p></td>
 					<td>
 						<p>{!! yesOrNo($evaluation->analisePosturalAnterior->armpe) !!}</p>
 					</td>
 				</tr>
+				@endif
+
+				@if($evaluation->analisePosturalAnterior->admp == 1)
 				<tr>
 					<td><p>Desalinhamento de Mamilos e Peitoral.</p></td>
 					<td>
 						<p>{!! yesOrNo($evaluation->analisePosturalAnterior->admp) !!}</p>
 					</td>
 				</tr>
+				@endif
+
+				@if($evaluation->analisePosturalAnterior->adq)
 				<tr>
 					<td><p>Desequilíbrio de Quadril</p></td>
 					<td>
 						<p>{!! yesOrNo($evaluation->analisePosturalAnterior->adq) !!}</p>
 					</td>
 				</tr>
+				@endif
+
+				@if($evaluation->analisePosturalAnterior->aami == 1)
 				<tr>
 					<td><p>Assimetría de Membro Inferior</p></td>
 					<td>
 						<p>{!! yesOrNo($evaluation->analisePosturalAnterior->aami) !!}</p>
 					</td>
 				</tr>
+				@endif
+
+				@if($evaluation->analisePosturalAnterior->ajvaro == 1)
 				<tr>
 					<td><p>Joelho Varo</p></td>
 					<td>
 						<p>{!! yesOrNo($evaluation->analisePosturalAnterior->ajvaro) !!}</p>
 					</td>
 				</tr>
+				@endif
+
+				@if($evaluation->analisePosturalAnterior->ajvalgo == 1)
 				<tr>
 					<td><p>Joelho Valgo</p></td>
 					<td>
 						<p>{!! yesOrNo($evaluation->analisePosturalAnterior->ajvalgo) !!}</p>
 					</td>
 				</tr>
+				@endif
+
+				@if($evaluation->analisePosturalAnterior->arijde == 1)
 				<tr>
 					<td><p>Rotação Interna de Joelho Dir/Esq.</p></td>
 					<td>
 						<p>{!! yesOrNo($evaluation->analisePosturalAnterior->arijde) !!}</p>
 					</td>
 				</tr>
+				@endif
+
+				@if($evaluation->analisePosturalAnterior->apede == 1)
 				<tr>
 					<td><p>Pé em Eversão Dir/Esq.</p></td>
 					<td>
 						<p>{!! yesOrNo($evaluation->analisePosturalAnterior->apede) !!}</p>
 					</td>
 				</tr>
+				@endif
+
+				@if($evaluation->analisePosturalAnterior->apide == 1)
 				<tr>
 					<td><p>Pé em Inversão Dir/Esq.</p></td>
 					<td>
 						<p>{!! yesOrNo($evaluation->analisePosturalAnterior->apide) !!}</p>
 					</td>
 				</tr>
+				@endif
+
+				@if($evaluation->analisePosturalAnterior->apadutode == 1)
 				<tr>
 					<td><p>Pé Aduto Dir/Esq.</p></td>
 					<td>
 						<p>{!! yesOrNo($evaluation->analisePosturalAnterior->apadutode) !!}</p>
 					</td>
 				</tr>
+				@endif
+
+				@if($evaluation->analisePosturalAnterior->apabdutode)
 				<tr>
 					<td><p>Pé Abduto Dir/Esq.</p></td>
 					<td>
 						<p>{!! yesOrNo($evaluation->analisePosturalAnterior->apabdutode) !!}</p>
 					</td>
 				</tr>
+				@endif
+
+				@if($evaluation->analisePosturalAnterior->admi == 1)
 				<tr>
 					<td><p>Desalinhamento dos Maléolos Int.</p></td>
 					<td>
 						<p>{!! yesOrNo($evaluation->analisePosturalAnterior->admi) !!}</p>
 					</td>
 				</tr>
+				@endif
+
+				@if($evaluation->analisePosturalAnterior->ape == 1)
 				<tr>
 					<td><p>Pé Equino</p></td>
 					<td>
 						<p>{!! yesOrNo($evaluation->analisePosturalAnterior->ape) !!}</p>
 					</td>
 				</tr>
+				@endif
+
+				@if($evaluation->analisePosturalAnterior->aas == 1)
 				<tr>
 					<td><p>Aparentemente Saudável</p></td>
 					<td>
 						<p>{!! yesOrNo($evaluation->analisePosturalAnterior->aas) !!}</p>
 					</td>
 				</tr>
+				@endif
+
+				@if($evaluation->analisePosturalAnterior->obs == 1)
 				<tr>
 					<td><p><strong>{{ trans('strings.obs') }}</strong></p></td>
 					<td>{!! !is_null($evaluation->analisePosturalAnterior->obs) ? $evaluation->analisePosturalAnterior->obs : '<p>----</p>' !!}</td>
 				</tr>
+				@endif
+
 				</tbody>
 			</table>
 
 		@endif
 
-		@if($evaluation->analisePosturalLateralEsquerda)
+		{{-- Verificando se há algum atributo diferente de NULL, se houver mostro --}}
+    	<?php 
+			$analisePosturalLateralEsquerda = $evaluation->analisePosturalLateralEsquerda->toArray();
+    		$exists = NULL;
+    		if(is_array($analisePosturalLateralEsquerda)){
+	 			unset($analisePosturalLateralEsquerda['id']);
+	 			unset($analisePosturalLateralEsquerda['evaluation_id']);
+	 			unset($analisePosturalLateralEsquerda['img']);
+	 			unset($analisePosturalLateralEsquerda['tmp_img']);
+	 			unset($analisePosturalLateralEsquerda['created_at']);
+	 			unset($analisePosturalLateralEsquerda['updated_at']);
+	 			unset($analisePosturalLateralEsquerda['deleted_at']);
+	 		} 
+    		foreach($analisePosturalLateralEsquerda as $key => $value){
+    			if(!is_null($value)){
+    				$exists = 1;
+    				continue;
+    			}
+    		}
+    	?>
+
+		@if(!is_null($exists))
 			<br>
 			<p style="margin: 0; border: 4px solid black; padding-top: 4px; padding-bottom: 4px"></p>
 			<br>
@@ -504,6 +643,7 @@
 					<td><p class="text-center"><strong>VARIÁVEIS</strong></p></td>
 					<td><p class="text-center"><strong>{{ trans('strings.result') }}</strong></p></td>
 				</tr>
+				@if($analisePosturalLateralEsquerda->lehc == 1)
 				<tr>
 					<td>
 						<p>
@@ -511,66 +651,106 @@
 						</p>
 					</td>
 					<td>
-						<p>{!! yesOrNo($evaluation->analisePosturalLateralEsquerda->lehc) !!}</p>
+						<p>{!! yesOrNo($analisePosturalLateralEsquerda->lehc) !!}</p>
 					</td>
 				</tr>
+				@endif
+				@if($analisePosturalLateralEsquerda->leht == 1)
 				<tr>
 					<td><p>Hiperlordose Torácica</p></td>
 					<td>
-						<p>{!! yesOrNo($evaluation->analisePosturalLateralEsquerda->leht) !!}</p>
+						<p>{!! yesOrNo($analisePosturalLateralEsquerda->leht) !!}</p>
 					</td>
 				</tr>
+				@endif
+				@if($analisePosturalLateralEsquerda->lehl == 1)
 				<tr>
 					<td><p>Hiperlordose Lombar</p></td>
 					<td>
-						<p>{!! yesOrNo($evaluation->analisePosturalLateralEsquerda->lehl) !!}</p>
+						<p>{!! yesOrNo($analisePosturalLateralEsquerda->lehl) !!}</p>
 					</td>
 				</tr>
+				@endif
+				@if($analisePosturalLateralEsquerda->lecp == 1)
 				<tr>
 					<td><p>Costa Plana</p></td>
 					<td>
-						<p>{!! yesOrNo($evaluation->analisePosturalLateralEsquerda->lecp) !!}</p>
+						<p>{!! yesOrNo($analisePosturalLateralEsquerda->lecp) !!}</p>
 					</td>
 				</tr>
+				@endif
+				@if($analisePosturalLateralEsquerda->legr == 1)
 				<tr>
 					<td><p>Geno Recurvato</p></td>
 					<td>
-						<p>{!! yesOrNo($evaluation->analisePosturalLateralEsquerda->legr) !!}</p>
+						<p>{!! yesOrNo($analisePosturalLateralEsquerda->legr) !!}</p>
 					</td>
 				</tr>
+				@endif
+				@if($analisePosturalLateralEsquerda->legf == 1)
 				<tr>
 					<td><p>Geno Flexo</p></td>
 					<td>
-						<p>{!! yesOrNo($evaluation->analisePosturalLateralEsquerda->legf) !!}</p>
+						<p>{!! yesOrNo($analisePosturalLateralEsquerda->legf) !!}</p>
 					</td>
 				</tr>
+				@endif
+				@if($analisePosturalLateralEsquerda->leact == 1)
 				<tr>
 					<td><p>Atitude Citófica Torácica</p></td>
 					<td>
-						<p>{!! yesOrNo($evaluation->analisePosturalLateralEsquerda->leact) !!}</p>
+						<p>{!! yesOrNo($analisePosturalLateralEsquerda->leact) !!}</p>
 					</td>
 				</tr>
+				@endif
+				@if($analisePosturalLateralEsquerda->lell == 1)
 				<tr>
 					<td><p>Lordose Lombar</p></td>
 					<td>
-						<p>{!! yesOrNo($evaluation->analisePosturalLateralEsquerda->lell) !!}</p>
+						<p>{!! yesOrNo($analisePosturalLateralEsquerda->lell) !!}</p>
 					</td>
 				</tr>
+				@endif
+				@if($analisePosturalLateralEsquerda->leas == 1)
 				<tr>
 					<td><p>Aparentemente Saudável</p></td>
 					<td>
-						<p>{!! yesOrNo($evaluation->analisePosturalLateralEsquerda->leas) !!}</p>
+						<p>{!! yesOrNo($analisePosturalLateralEsquerda->leas) !!}</p>
 					</td>
 				</tr>
+				@endif
+				@if(!is_null($analisePosturalLateralEsquerda->obs))
 				<tr>
 					<td><p><strong>{{ trans('strings.obs') }}</strong></p></td>
-					<td>{!! hasObs($evaluation->analisePosturalLateralEsquerda->obs) !!}</td>
+					<td>{!! hasObs($analisePosturalLateralEsquerda->obs) !!}</td>
 				</tr>
+				@endif
 				</tbody>
 			</table>
 		@endif
 
-		@if($evaluation->analisePosturalLateralDireita)
+		{{-- Verificando se há algum atributo diferente de NULL, se houver mostro --}}
+    	<?php 
+			$analisePosturalLateralDireita = $evaluation->analisePosturalLateralDireita->toArray();
+    		$exists = NULL; 
+    		if(is_array($analisePosturalLateralDireita)){
+	 			unset($analisePosturalLateralDireita['id']);
+	 			unset($analisePosturalLateralDireita['evaluation_id']);
+	 			unset($analisePosturalLateralDireita['img']);
+	 			unset($analisePosturalLateralDireita['tmp_img']);
+	 			unset($analisePosturalLateralDireita['created_at']);
+	 			unset($analisePosturalLateralDireita['updated_at']);
+	 			unset($analisePosturalLateralDireita['deleted_at']);
+	 		} 
+    		foreach($analisePosturalLateralDireita as $key => $value){
+    			if(!is_null($value)){
+    				$exists = 1;
+    				continue;
+    			}
+    		}
+    	?>
+
+		@if(!is_null($exists))
 			<br>
 			<p style="margin: 0; border: 4px solid black; padding-top: 4px; padding-bottom: 4px"></p>
 			<br>
@@ -581,73 +761,110 @@
 					<td><p class="text-center"><strong>VARIÁVEIS</strong></p></td>
 					<td><p class="text-center"><strong>{{ trans('strings.result') }}</strong></p></td>
 				</tr>
+				@if($analisePosturalLateralDireita->ldhc == 1)
 				<tr>
-					<td>
-						<p>
-							Hiperlordose Cervical
-						</p>
-					</td>
+					<td><p>Hiperlordose Cervical</p></td>
 					<td>
 						<p>{!! yesOrNo($evaluation->analisePosturalLateralDireita->ldhc) !!}</p>
 					</td>
 				</tr>
+				@endif
+				@if($analisePosturalLateralDireita->ldht == 1)
 				<tr>
 					<td><p>Hiperlordose Torácica</p></td>
 					<td>
-						<p>{!! yesOrNo($evaluation->analisePosturalLateralDireita->ldht) !!}</p>
+						<p>{!! yesOrNo($analisePosturalLateralDireita->ldht) !!}</p>
 					</td>
 				</tr>
+				@endif
+				@if($analisePosturalLateralDireita->ldhl == 1)
 				<tr>
 					<td><p>Hiperlordose Lombar</p></td>
 					<td>
-						<p>{!! yesOrNo($evaluation->analisePosturalLateralDireita->ldhl) !!}</p>
+						<p>{!! yesOrNo($analisePosturalLateralDireita->ldhl) !!}</p>
 					</td>
 				</tr>
+				@endif
+				@if($analisePosturalLateralDireita->ldcp == 1)
 				<tr>
 					<td><p>Costa Plana</p></td>
 					<td>
 						<p>{!! yesOrNo($evaluation->analisePosturalLateralDireita->ldcp) !!}</p>
 					</td>
 				</tr>
+				@endif
+				@if($analisePosturalLateralDireita->ldgr == 1)
 				<tr>
 					<td><p>Geno Recurvato</p></td>
 					<td>
-						<p>{!! yesOrNo($evaluation->analisePosturalLateralDireita->ldgr) !!}</p>
+						<p>{!! yesOrNo($analisePosturalLateralDireita->ldgr) !!}</p>
 					</td>
 				</tr>
+				@endif
+				@if($analisePosturalLateralDireita->ldgf == 1)
 				<tr>
 					<td><p>Geno Flexo</p></td>
 					<td>
-						<p>{!! yesOrNo($evaluation->analisePosturalLateralDireita->ldgf) !!}</p>
+						<p>{!! yesOrNo($analisePosturalLateralDireita->ldgf) !!}</p>
 					</td>
 				</tr>
+				@endif
+				@if($analisePosturalLateralDireita->ldact == 1)
 				<tr>
 					<td><p>Atitude Citófica Torácica</p></td>
 					<td>
-						<p>{!! yesOrNo($evaluation->analisePosturalLateralDireita->ldact) !!}</p>
+						<p>{!! yesOrNo($analisePosturalLateralDireita->ldact) !!}</p>
 					</td>
 				</tr>
+				@endif
+				@if($analisePosturalLateralDireita->ldll == 1)
 				<tr>
 					<td><p>Lordose Lombar</p></td>
 					<td>
-						<p>{!! yesOrNo($evaluation->analisePosturalLateralDireita->ldll) !!}</p>
+						<p>{!! yesOrNo($analisePosturalLateralDireita->ldll) !!}</p>
 					</td>
 				</tr>
+				@endif
+				@if($analisePosturalLateralDireita->ldas == 1)
 				<tr>
 					<td><p>Aparentemente Saudável</p></td>
 					<td>
-						<p>{!! yesOrNo($evaluation->analisePosturalLateralDireita->ldas) !!}</p>
+						<p>{!! yesOrNo($analisePosturalLateralDireita->ldas) !!}</p>
 					</td>
 				</tr>
+				@endif
+				@if(!is_null($analisePosturalLateralDireita->obs))
 				<tr>
 					<td><p><strong>{{ trans('strings.obs') }}</strong></p></td>
-					<td>{!! hasObs($evaluation->analisePosturalLateralDireita->obs) !!}</td>
+					<td>{!! hasObs($analisePosturalLateralDireita->obs) !!}</td>
 				</tr>
+				@endif
 				</tbody>
 			</table>
 		@endif
 
-		@if($evaluation->analisePosturalPosterior)
+
+		{{-- Verificando se há algum atributo diferente de NULL, se houver mostro --}}
+    	<?php 
+			$analisePosturalPosterior = $evaluation->analisePosturalPosterior->toArray();
+    		$exists = NULL; 
+    		if(is_array($analisePosturalPosterior)){
+	 			unset($analisePosturalPosterior['id']);
+	 			unset($analisePosturalPosterior['evaluation_id']);
+	 			unset($analisePosturalPosterior['img']);
+	 			unset($analisePosturalPosterior['tmp_img']);
+	 			unset($analisePosturalPosterior['created_at']);
+	 			unset($analisePosturalPosterior['updated_at']);
+	 			unset($analisePosturalPosterior['deleted_at']);
+	 		} 
+    		foreach($analisePosturalPosterior as $key => $value){
+    			if(!is_null($value)){
+    				$exists = 1;
+    				continue;
+    			}
+    		}
+    	?>
+		@if(!is_null($exists))
 			<br>
 			<p style="margin: 0; border: 4px solid black; padding-top: 4px; padding-bottom: 4px"></p>
 			<br>
@@ -658,81 +875,105 @@
 					<td><p class="text-center"><strong>VARIÁVEIS</strong></p></td>
 					<td><p class="text-center"><strong>{{ trans('strings.result') }}</strong></p></td>
 				</tr>
+				@if($analisePosturalPosterior->pec == 1)
 				<tr>
 					<td><p>Escoliose Cervical</p></td>
 					<td>
-						<p>{!! yesOrNo($evaluation->analisePosturalPosterior->pec) !!}</p>
+						<p>{!! yesOrNo($analisePosturalPosterior->pec) !!}</p>
 					</td>
 				</tr>
+				@endif
+				@if($analisePosturalPosterior->pet == 1)
 				<tr>
 					<td><p>Escoliose Torácica</p></td>
 					<td>
-						<p>{!! yesOrNo($evaluation->analisePosturalPosterior->pel) !!}</p>
+						<p>{!! yesOrNo($analisePosturalPosterior->pet) !!}</p>
 					</td>
 				</tr>
+				@endif
+				@if($analisePosturalPosterior->pel ==1)
 				<tr>
 					<td><p>Escoliose Lombar</p></td>
 					<td>
-						<p>{!! yesOrNo($evaluation->analisePosturalPosterior->pel) !!}</p>
+						<p>{!! yesOrNo($analisePosturalPosterior->pel) !!}</p>
 					</td>
 				</tr>
+				@endif
+				@if($analisePosturalPosterior->pde == 1)
 				<tr>
 					<td><p>Desalinhamento de Escápulas</p></td>
 					<td>
-						<p>{!! yesOrNo($evaluation->analisePosturalPosterior->pde) !!}</p>
+						<p>{!! yesOrNo($analisePosturalPosterior->pde) !!}</p>
 					</td>
 				</tr>
+				@endif
+				@if($analisePosturalPosterior->peabduzidas == 1)
 				<tr>
 					<td><p>Escápulas Abduzidas</p></td>
 					<td>
-						<p>{!! yesOrNo($evaluation->analisePosturalPosterior->peabduzidas) !!}</p>
+						<p>{!! yesOrNo($analisePosturalPosterior->peabduzidas) !!}</p>
 					</td>
 				</tr>
+				@endif
+				@if($analisePosturalPosterior->peaduzidas == 1)
 				<tr>
 					<td><p>Escápulas Aduzidas</p></td>
 					<td>
-						<p>{!! yesOrNo($evaluation->analisePosturalPosterior->peaduzidas) !!}</p>
+						<p>{!! yesOrNo($analisePosturalPosterior->peaduzidas) !!}</p>
 					</td>
 				</tr>
+				@endif
+				@if($analisePosturalPosterior->pdda == 1)
 				<tr>
 					<td><p>Desalinhamento de Dobra Axilar</p></td>
 					<td>
-						<p>{!! yesOrNo($evaluation->analisePosturalPosterior->pdda) !!}</p>
+						<p>{!! yesOrNo($analisePosturalPosterior->pdda) !!}</p>
 					</td>
 				</tr>
+				@endif
+				@if($analisePosturalPosterior->pdq == 1)
 				<tr>
 					<td><p>Desalinhamento de Quadril</p></td>
 					<td>
-						<p>{!! yesOrNo($evaluation->analisePosturalPosterior->pdq) !!}</p>
+						<p>{!! yesOrNo($analisePosturalPosterior->pdq) !!}</p>
 					</td>
 				</tr>
+				@endif
+				@if($analisePosturalPosterior->pdpd == 1)
 				<tr>
 					<td><p>Dobra Poplítea Desalinhada</p></td>
 					<td>
-						<p>{!! yesOrNo($evaluation->analisePosturalPosterior->pdpd) !!}</p>
+						<p>{!! yesOrNo($analisePosturalPosterior->pdpd) !!}</p>
 					</td>
 				</tr>
+				@endif
+				@if($analisePosturalPosterior->prmp == 1)
 				<tr>
 					<td><p>Rotação Medial de Punhos</p></td>
 					<td>
-						<p>{!! yesOrNo($evaluation->analisePosturalPosterior->prmp) !!}</p>
+						<p>{!! yesOrNo($analisePosturalPosterior->prmp) !!}</p>
 					</td>
 				</tr>
+				@endif
+				@if($analisePosturalPosterior->pas == 1)
 				<tr>
 					<td><p>Aparentemente Saudável</p></td>
 					<td>
-						<p>{!! yesOrNo($evaluation->analisePosturalPosterior->pas) !!}</p>
+						<p>{!! yesOrNo($analisePosturalPosterior->pas) !!}</p>
 					</td>
 				</tr>
+				@endif
+				@if(!is_null($analisePosturalPosterior->obs))
 				<tr>
 					<td><p><strong>{{ trans('strings.obs') }}</strong></p></td>
-					<td>{!! hasObs($evaluation->analisePosturalPosterior->obs) !!}</td>
+					<td>{!! hasObs($analisePosturalPosterior->obs) !!}</td>
 				</tr>
+				@endif
 				</tbody>
 			</table>
 		@endif
 
-		@if($evaluation->test->maximumHeartRate)
+		@if(count($evaluation->test->maximumHeartRate) > 0)
 			<br>
 			<p style="margin: 0; border: 4px solid black; padding-top: 4px; padding-bottom: 4px"></p>
 			<br>
@@ -773,7 +1014,7 @@
 			</table>
 		@endif
 
-		@if($evaluation->test->minimumHeartRate)
+		@if(count($evaluation->test->minimumHeartRate) > 0)
 			<br>
 			<p style="margin: 0; border: 4px solid black; padding-top: 4px; padding-bottom: 4px"></p>
 			<br>
@@ -814,7 +1055,7 @@
 			</table>
 		@endif
 
-		@if($evaluation->test->reserveHeartRate)
+		@if(count($evaluation->test->reserveHeartRate) > 0)
 			<br>
 			<p style="margin: 0; border: 4px solid black; padding-top: 4px; padding-bottom: 4px"></p>
 			<br>
@@ -855,7 +1096,7 @@
 			</table>
 		@endif
 
-		@if($evaluation->test->maximumVo2)
+		@if(count($evaluation->test->maximumVo2) > 0)
 			<br>
 			<p style="margin: 0; border: 4px solid black; padding-top: 4px; padding-bottom: 4px"></p>
 			<br>
@@ -896,7 +1137,7 @@
 			</table>
 		@endif
 
-		@if($evaluation->test->trainingVo2)
+		@if(count($evaluation->test->trainingVo2) > 0)
 			<br>
 			<p style="margin: 0; border: 4px solid black; padding-top: 4px; padding-bottom: 4px"></p>
 			<br>
@@ -938,7 +1179,7 @@
 			</table>
 		@endif
 
-		@if($evaluation->test->targetZone)
+		@if(count($evaluation->test->targetZone) > 0)
 		<br>
 		<p style="margin: 0; border: 4px solid black; padding-top: 4px; padding-bottom: 4px"></p>
 		<br>
@@ -1000,7 +1241,7 @@
     			<tr>
 	        		<td>
         				<p>
-        					Teste Rm supino
+        					Teste RM supino
         				</p>
 	        		</td>
 	        		<td>
@@ -1017,7 +1258,7 @@
 	        	<tr>
 	        		<td>
         				<p>
-        					Teste Rm Agachamento 
+        					Teste RM Agachamento 
         				</p>
 	        		</td>
 	        		<td>
@@ -1033,19 +1274,38 @@
     		</tbody>
     	</table>
 		@endif
-    	
-    	@if($evaluation->test->flexitest)
+
+	 	<?php 
+	 		$flexitest = !is_null($evaluation->test->flexitest) ? $evaluation->test->flexitest->toArray() : NULL; 
+	 		if(is_array($flexitest)){
+	 			unset($flexitest['id']);
+	 			unset($flexitest['test_id']);
+	 			unset($flexitest['type_test_id']);
+	 			unset($flexitest['created_at']);
+	 			unset($flexitest['updated_at']);
+	 			unset($flexitest['deleted_at']);
+	 		}
+	 	?>
+    	@if(!is_null($flexitest))
 		<br>
 		<p style="margin: 0; border: 4px solid black; padding-top: 4px; padding-bottom: 4px"></p>
 		<br>
     	<p><strong>Analises de Flexibilidade </strong></p>
-    	<table width="100%" border="1" class="tabld" cellpadding="0" cellspacing="0">
+    	<table width="100%" border="1" class="table" cellpadding="0" cellspacing="0">
     		<tbody>
-				<tr>
+    			<tr>
 					<td><p class="text-center"><strong>VARIÁVEIS</strong></p></td>
 					<td><p class="text-center"><strong>{{ trans('strings.result') }}</strong></p></td>
 				</tr>
-    			<tr>
+    			@foreach($flexitest as $key => $value)
+    				@if(!is_null($value))
+    				<tr>
+    					<td><p>{{ trans('strings.'.$key) }}</p></td>
+    					<td><p>{!! referencesFlexitest($value) !!}</p></td>
+    				</tr>
+    				@endif
+    			@endforeach
+				{{-- <tr>
 	        		<td><p>{{ trans('strings.abduction_shoulders') }}</p></td>
 	        		<td><p>{{ referencesFlexitest($evaluation->test->flexitest->abduction_shoulders) }}</p></td>
 	        	</tr>  
@@ -1108,12 +1368,15 @@
 				<tr>
 					<td><p><strong>{{trans('strings.obs')}}</strong></p></td>
 					<td>{!! hasObs($evaluation->test->flexitest->obs) !!}</td>
-				</tr>
+				</tr> --}}
     		</tbody>
     	</table>
 		@endif
 
-		@if($evaluation->test->wellsBank)
+		<?php 
+			$wellsBank = !is_null($evaluation->test->wellsBank) ? $evaluation->test->wellsBank : NULL; 
+		?>
+		@if(!is_null($wellsBank))
 			<br>
 			<p style="margin: 0; border: 4px solid black; padding-top: 4px; padding-bottom: 4px"></p>
 			<br>
@@ -1126,21 +1389,28 @@
 					</tr>
 				</thead>
 				<tbody>
+					@if(!is_null($wellsBank->right_leg))
 					<tr>
 						<td><p>{{ trans('strings.right_leg') }}</p></td>
-						<td><p>{{ $evaluation->test->wellsBank->right_leg.'CM' }}</p></td>
+						<td><p>{{ $wellsBank->right_leg.'CM' }}</p></td>
 					</tr>
+					@endif
+					@if(!is_null($wellsBank->trunk))
 					<tr>
 						<td><p>{{ trans('strings.trunk') }}</p></td>
-						<td><p>{{ $evaluation->test->wellsBank->trunk.'CM' }}</p></td>
+						<td><p>{{ $wellsBank->trunk.'CM' }}</p></td>
 					</tr>
+					@endif
+					@if(!is_null($wellsBank->obs))
 					<tr>
 						<td><p><strong>{{ trans('strings.obs') }}</strong></p></td>
-						<td>{!! hasObs($evaluation->test->wellsBank->obs) !!} </td>
+						<td>{!! hasObs($wellsBank->obs) !!} </td>
 					</tr>
+					@endif
 				</tbody>
 			</table>
 		@endif
+
 
 		@if($evaluation->parq)
 			<br>
@@ -1183,7 +1453,10 @@
 					</tr>
 					<tr>
 						<td><p>Gostaria de comentar algum outro problema de saúde seja de ordem física ou psicológica que impeça a sua participação na atividade proposta?</p></td>
-						<td><p>{!! $evaluation->parq->question_8 == 1 ? $evaluation->parq->option_8 : 'Não'!!} </p></td>
+						<td>
+							<p>
+								{!! $evaluation->parq->question_8 == 1 ? $evaluation->parq->option_8 : 'Não'!!} </p>
+						</td>
 					</tr>
 				</tbody>
 			</table>
@@ -1196,12 +1469,6 @@
 			<h1 class="text-center">Considerações finais</h1>
 			{!! $evaluation->final_consideration !!}
 		@endif
-
-
-
-
-
-
 
 	</body>
 </html>

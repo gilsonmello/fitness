@@ -40,7 +40,7 @@
             {!! Form::label('obs', trans('strings.obs'), ['class' => '']) !!}
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-10 pull-right">
-            {!! Form::textarea('obs', $evaluation->analisePosturalLateralEsquerda->obs, ['width' => '100%', 'class' => 'form-control textarea', 'placeholder' => trans('strings.obs'). ' CM']) !!}
+            {!! Form::textarea('obs', $evaluation->analisePosturalLateralEsquerda->obs, ['width' => '100%', 'class' => 'form-control textarea', 'placeholder' => trans('strings.obs')]) !!}
         </div>
     </div>
     {!! Form::close() !!}

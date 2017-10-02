@@ -55,6 +55,9 @@
             <input type="checkbox" {{ !is_null($evaluation->analisePosturalAnterior) && $evaluation->analisePosturalAnterior->apide == 1 ? "checked" : "" }} id="apide" name="apide" value="1" class="minimal" />
             <label for="apide">Pé em Inversão Dir/Esq.</label>
             <br><br>
+            <input type="checkbox" {{ !is_null($evaluation->analisePosturalAnterior) && $evaluation->analisePosturalAnterior->apadutode == 1 ? "checked" : "" }} id="apadutode" name="apadutode" value="1" class="minimal" />
+            <label for="apadutode">Pé Aduto Dir/Esq.</label>
+            <br><br>
             <input type="checkbox" {{ !is_null($evaluation->analisePosturalAnterior) && $evaluation->analisePosturalAnterior->apabdutode == 1 ? "checked" : "" }} id="apabdutode" name="apabdutode" value="1" class="minimal" />
             <label for="apabdutode">Pé Abduto Dir/Esq.</label>
             <br><br>
@@ -74,7 +77,7 @@
             {!! Form::label('obs', trans('strings.obs'), ['class' => '']) !!}
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-10 pull-right">
-            {!! Form::textarea('obs', $evaluation->analisePosturalAnterior->obs, ['width' => '100%', 'class' => 'form-control textarea', 'placeholder' => trans('strings.obs'). ' CM']) !!}
+            {!! Form::textarea('obs', $evaluation->analisePosturalAnterior->obs, ['width' => '100%', 'class' => 'form-control textarea', 'placeholder' => trans('strings.obs')]) !!}
         </div>
     </div>
     {!! Form::close() !!}

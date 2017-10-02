@@ -32,7 +32,7 @@ class SendEmailController extends Controller
             }
 
             $user = $this->authRepository->find($id);
-        
+            $msg = !is_null($data['message']) ? $data['message'] : '<p>Olá, este é o seu relatório</p>';
             $hash = str_random(10).'_'.$user->email.'.pdf';
             $path = public_path().'/uploads/reports/tmp/';
             
@@ -42,7 +42,7 @@ class SendEmailController extends Controller
 
             if($upload) {
                 foreach($data['email'] as $value){
-                    Mail::send('emails.informative_text', [], function($message) use ($value, $path, $hash){
+                    Mail::send('emails.informative_text', ['msg' => $msg], function($message) use ($value, $path, $hash){
                         $message->to($value);
                         $message->subject('Relatório de Avaliação Física');
                         $message->attach($path.$hash);

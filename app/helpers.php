@@ -225,11 +225,14 @@ if(!function_exists('birth_date')){
 
 if(!function_exists('age')){
 	function age($date){
-		$date = explode('-', $date);
-		$date = Carbon\Carbon::create($date[0], $date[1], $date[2]);
-		$age = $date->diff(Carbon\Carbon::now())->y;
-		//$age = $date->diff(Carbon\Carbon::now())->format('%y Year, %m Months and %d Days');
-		return $age;
+		if(!is_null($date)){
+			$date = explode('-', $date);
+			$date = Carbon\Carbon::create($date[0], $date[1], $date[2]);
+			$age = $date->diff(Carbon\Carbon::now())->y;
+			//$age = $date->diff(Carbon\Carbon::now())->format('%y Year, %m Months and %d Days');
+			return $age;
+		}
+		return NULL;
 	}
 }
 
@@ -354,6 +357,34 @@ if (!function_exists('supine')) {
 				->get()
 				->first();
 		return $supine;
+	}
+}
+
+if (!function_exists('actualSupplier')) {
+	/**
+	 * @param $test_id
+	 * @return mixed
+	 */
+	function actualSupplier($user){
+		$suppliers = \App\User::select('suppliers.name AS suppliers_name')
+				->where('users.id', '=', $user)
+				->where('suppliers_has_users.actual', '=', 1)
+				->join('suppliers_has_users', 'suppliers_has_users.user_id', '=', 'users.id')
+				->join('suppliers', 'suppliers.id', '=', 'suppliers_has_users.supplier_id')
+				->get()
+				->first();
+		return $suppliers;
+	}
+}
+
+if(!function_exists('addDaysToDate')){
+	function addDaysToDate($date, $days, $format){
+		if(!is_null($date)){
+			$date = new DateTime($date);
+			$date->modify('+'.$days.' day');
+			return $date->format($format);
+		}
+		return NULL;
 	}
 }
 

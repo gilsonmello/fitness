@@ -339,6 +339,7 @@ class EvaluationRepository{
                 'apede' => isset($data['apede']) && !empty($data['apede']) ? $data['apede'] : NULL,
                 'apide' => isset($data['apide']) && !empty($data['apide']) ? $data['apide'] : NULL,
                 'apabdutode' => isset($data['apabdutode']) && !empty($data['apabdutode']) ? $data['apabdutode'] : NULL,
+                'apadutode' => isset($data['apadutode']) && !empty($data['apadutode']) ? $data['apadutode'] : NULL,
                 'admi' => isset($data['admi']) && !empty($data['admi']) ? $data['admi'] : NULL,
                 'ape' => isset($data['ape']) && !empty($data['ape']) ? $data['ape'] : NULL,
                 'aas' => isset($data['aas']) && !empty($data['aas']) ? $data['aas'] : NULL,

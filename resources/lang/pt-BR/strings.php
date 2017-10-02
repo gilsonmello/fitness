@@ -11,6 +11,7 @@ return [
       | found in a intuitive way.
       |
      */
+    'text' => 'Texto',  
 	'maximum_heart_rate' => 'Frequência Cardíaca Máxima',
 	'objective' => 'Objetivo',
 	'minimum_heart_rate' => 'Frequência Cardíaca Mínima',
