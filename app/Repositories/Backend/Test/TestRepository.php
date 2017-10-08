@@ -855,28 +855,43 @@ class TestRepository{
             ->first();
 
         if(!is_null($rm)){
-            $rm->load_estimed = $data['load_estimed'];
-            $rm->option_1 = $data['option_1'];
-            $rm->option_2 = $data['option_2'];
-            $rm->option_3 = $data['option_3'];
-            $rm->option_4 = $data['option_4'];
-            $rm->maximum_repeat = $data['maximum_repeat'];
-            $rm->obs = $data['obs'];
+            
+            if(isset($data['load_estimed']))
+                $rm->load_estimed = $data['load_estimed'];
+
+            if(isset($data['option_1']))
+                $rm->option_1 = $data['option_1'];
+
+            if(isset($data['option_2']))
+                $rm->option_2 = $data['option_2'];
+
+            if(isset($data['option_3']))
+                $rm->option_3 = $data['option_3'];
+
+            if(isset($data['option_4']))
+                $rm->option_4 = $data['option_4'];
+
+            if(isset($data['maximum_repeat']))
+                $rm->maximum_repeat = $data['maximum_repeat'];
+            
+            if(isset($data['obs']))
+                $rm->obs = $data['obs'];
+
             if($rm->save()){
                 return true;
             }
         }
-
         $this->maximumRepeat->test_id = $test->id;
+        $this->maximumRepeat->protocol_id = 10;
         $this->maximumRepeat->type_resistance = $type_resistance;
         $this->maximumRepeat->type_test_id = 1;
-        $this->maximumRepeat->load_estimed = $data['load_estimed'];
-        $this->maximumRepeat->option_1 = $data['option_1'];
-        $this->maximumRepeat->option_2 = $data['option_2'];
-        $this->maximumRepeat->option_3 = $data['option_3'];
-        $this->maximumRepeat->option_4 = $data['option_4'];
-        $this->maximumRepeat->maximum_repeat = $data['maximum_repeat'];
-        $this->maximumRepeat->obs = $data['obs'];
+        $this->maximumRepeat->load_estimed = !is_null($data['load_estimed']) ? $data['load_estimed'] : NULL;
+        $this->maximumRepeat->option_1 = !is_null($data['option_1']) ? $data['option_1'] : NULL;
+        $this->maximumRepeat->option_2 = !is_null($data['option_2']) ? $data['option_2'] : NULL;
+        $this->maximumRepeat->option_3 = !is_null($data['option_3']) ? $data['option_3'] : NULL;
+        $this->maximumRepeat->option_4 = !is_null($data['option_4']) ? $data['option_4'] : NULL;
+        $this->maximumRepeat->maximum_repeat = !is_null($data['maximum_repeat']) ? $data['maximum_repeat'] : NULL;
+        $this->maximumRepeat->obs = !is_null($data['obs']) ? $data['obs'] : NULL;
         if($this->maximumRepeat->save()){
             return true;
         }
@@ -1002,6 +1017,7 @@ class TestRepository{
         if(is_null($test->flexitest)) {
             $this->flexitest->test_id = $id;
             $this->flexitest->type_test_id = 2;
+            $this->flexitest->protocol_id = 9;
             $this->flexitest->abduction_shoulders = isset($data['abduction_shoulders']) ? $data['abduction_shoulders'] : NULL;
             $this->flexitest->lateral_trunk_flexion = isset($data['lateral_trunk_flexion']) ? $data['lateral_trunk_flexion'] : NULL;
             $this->flexitest->leg_hyperextension = isset($data['leg_hyperextension']) ? $data['leg_hyperextension'] : NULL;
@@ -1023,7 +1039,17 @@ class TestRepository{
             }
         }
 
-        $test->flexitest->abduction_shoulders = isset($data['abduction_shoulders']) ? $data['abduction_shoulders'] : NULL;
+        if(isset($data['abduction_shoulders'])){
+            $test->flexitest->abduction_shoulders = $data['abduction_shoulders'];
+        }else{
+            $data['abduction_shoulders'] = NULL;
+        }
+
+        if(isset($data['lateral_trunk_flexion'])){
+            $test->flexitest->lateral_trunk_flexion = $data['lateral_trunk_flexion'];
+        }else{
+            $data['lateral_trunk_flexion'] = NULL;
+        }
         $test->flexitest->lateral_trunk_flexion = isset($data['lateral_trunk_flexion']) ? $data['lateral_trunk_flexion'] : NULL;
         $test->flexitest->leg_hyperextension = isset($data['leg_hyperextension']) ? $data['leg_hyperextension'] : NULL;
         $test->flexitest->elbow_flexion = isset($data['elbow_flexion']) ? $data['elbow_flexion'] : NULL;
@@ -1045,7 +1071,6 @@ class TestRepository{
         }
 
         return false;
-
     }
 
     /**
@@ -1062,6 +1087,7 @@ class TestRepository{
         if(is_null($test->wellsBank)) {
             $this->wellsBank->test_id = $id;
             $this->wellsBank->type_test_id = 2;
+            $this->wellsBank->protocol_id = 8;
             $this->wellsBank->right_leg = isset($data['right_leg']) ? $data['right_leg'] : NULL;
             $this->wellsBank->left_leg = isset($data['left_leg']) ? $data['left_leg'] : NULL;
             $this->wellsBank->trunk = isset($data['trunk']) ? $data['trunk'] : NULL;

@@ -302,6 +302,22 @@ class DatabaseSeeder extends Seeder
             'updated_at' => date('Y-m-d H:i:s')
         ]);
 
+        DB::table('measures')->insert([
+            'id' => 11,
+            'name' => 'Banco de Wells',
+            'initials' => 'BW',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ]);
+
+         DB::table('measures')->insert([
+            'id' => 12,
+            'name' => 'Flexiteste',
+            'initials' => 'FLT',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ]);
+
         DB::table('protocols')->insert([
             'id' => 1,
             'measure_id' => 4,
@@ -325,6 +341,69 @@ class DatabaseSeeder extends Seeder
             'measure_id' => 6,
             'name' => 'Zona Alvo',
             'formula' => '(rfc*porcentagem_objetivo)+fcr',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ]);
+
+        DB::table('protocols')->insert([
+            'id' => 4,
+            'measure_id' => 7,
+            'name' => 'Vo 2 Máximo',
+            'formula' => 'vo2_maximo',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ]);
+
+        DB::table('protocols')->insert([
+            'id' => 5,
+            'measure_id' => 8,
+            'name' => 'Frequência Cardíaca Reserva',
+            'formula' => 'fcm-fcn',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ]);
+
+        DB::table('protocols')->insert([
+            'id' => 6,
+            'measure_id' => 4,
+            'name' => 'Frequencia Cardíaca Máxima',
+            'formula' => 'fcm',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ]);
+
+        DB::table('protocols')->insert([
+            'id' => 7,
+            'measure_id' => 10,
+            'name' => 'Frequencia Cardíaca Mínima',
+            'formula' => 'fcn',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ]);
+
+        DB::table('protocols')->insert([
+            'id' => 8,
+            'measure_id' => 11,
+            'name' => 'Banco de Wells',
+            'formula' => 'banco_wells',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ]);
+
+        DB::table('protocols')->insert([
+            'id' => 9,
+            'measure_id' => 12,
+            'name' => 'Flexisteste',
+            'formula' => 'flexisteste',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ]);
+
+        DB::table('protocols')->insert([
+            'id' => 10,
+            'measure_id' => 9,
+            'name' => 'Repetição Máxima',
+            'formula' => 'repeticao_maxima',
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s')
         ]);
@@ -377,6 +456,7 @@ class DatabaseSeeder extends Seeder
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s')
         ]);
+
         DB::table('type_tests')->insert([
             'id' => 8,
             'name' => 'Zona Alvo',
@@ -386,5 +466,12 @@ class DatabaseSeeder extends Seeder
 
         $this->call(SuppliersTableSeeder::class);
         $this->call(PackagesTableSeeder::class);
+
+        DB::table('evaluations')->insert([
+            'user_id' => 3,
+            'validity' => date('Y-m-d H:i:s'),
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ]);
     }
 }

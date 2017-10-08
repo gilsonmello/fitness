@@ -17,7 +17,8 @@ class CreateFlexitestsTable extends Migration
             $table->engine = "InnoDB";
             $table->increments('id');
             $table->integer('test_id')->unsigned();
-            $table->tinyInteger('type_test_id');
+            $table->integer('type_test_id')->unsigned();
+            $table->integer('protocol_id')->unsigned();
             $table->tinyInteger('abduction_shoulders')->nullable();
             $table->tinyInteger('lateral_trunk_flexion')->nullable();
             $table->tinyInteger('leg_hyperextension')->nullable();
@@ -38,6 +39,12 @@ class CreateFlexitestsTable extends Migration
             $table->softDeletes();
             $table->foreign('test_id')
                 ->on('tests')
+                ->references('id');
+            $table->foreign('type_test_id')
+                ->on('type_tests')
+                ->references('id');
+            $table->foreign('protocol_id')
+                ->on('protocols')
                 ->references('id');
         });
     }

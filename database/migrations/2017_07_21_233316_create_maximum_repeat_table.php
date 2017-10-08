@@ -17,8 +17,9 @@ class CreateMaximumRepeatTable extends Migration
             $table->engine = "InnoDB";
             $table->increments('id');
             $table->integer('test_id')->unsigned();
+            $table->integer('protocol_id')->unsigned();
             $table->tinyInteger('type_resistance');
-            $table->tinyInteger('type_test_id');
+            $table->integer('type_test_id')->unsigned();
             $table->decimal('load_estimed')->nullable();
             $table->decimal('option_1')->nullable();
             $table->decimal('option_2')->nullable();
@@ -30,6 +31,12 @@ class CreateMaximumRepeatTable extends Migration
             $table->softDeletes();
             $table->foreign('test_id')
                 ->on('tests')
+                ->references('id');
+            $table->foreign('protocol_id')
+                ->on('protocols')
+                ->references('id');
+            $table->foreign('type_test_id')
+                ->on('type_tests')
                 ->references('id');
         });
     }
