@@ -76,12 +76,12 @@ mix.styles([
 
 
 
-/*mix.js([
+mix.js([
     'resources/assets/js/app.js'
 ], 'public/js/app.js')
     .sass('resources/assets/sass/app.scss', 'public/css/app.css');
 
-mix.js([
+/*mix.js([
     'resources/assets/js/painel.js'
 ], 'public/js/painel.js');*/
 
