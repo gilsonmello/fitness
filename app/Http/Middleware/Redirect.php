@@ -22,9 +22,6 @@ class Redirect
      */
     public function handle($request, Closure $next, $params = null)
     {
-        if(env('APP_URL') !== 'http://localhost:8000'){
-            return redirect()->route('errors.under_construction');
-        }
         return $next($request);
     }
 }

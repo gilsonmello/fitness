@@ -40,13 +40,14 @@ class UserRepository{
         $data = $request->all();
         $this->user->name = $data['name'];
         $this->user->email = $data['email'];
+        $this->user->gender = isset($data['gender']) ? $data['gender'] : 0;
         $this->user->password = bcrypt($data['password']);
         $this->user->remember_token = str_random(10);
 
         if($this->user->save()){
             $user = $this->user;
-            $token = User::find($user->id)->createToken('token')->accessToken;
-            return $token;
+            $token = User::find($user->id)->createToken('Miranda Fitness')->accessToken;
+            return ['token' => $token];
         }
 
         return false;

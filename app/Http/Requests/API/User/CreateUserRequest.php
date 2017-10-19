@@ -28,7 +28,7 @@ class CreateUserRequest extends FormRequest
             'email' => 'required|email',
             'password' => 'required|min:6',
             'confirm_password' => 'required|min:6|same:password',
-            'birth_date' => 'required',
+            //'birth_date' => 'required',
         ];
     }
 
@@ -49,7 +49,7 @@ class CreateUserRequest extends FormRequest
             'confirm_password.required' => 'O campo Confirme a senha é obrigatório',
             'confirm_password.same' => 'O campo Confirme a senha deverá ser igual a senha',
             'confirm_password.min' => 'O campo Confirme a senha deverá conter no mínimo 6 caracteres.',
-            'birth_date.required' => 'O campo Data de Nascimento é obrigatório',
+            //'birth_date.required' => 'O campo Data de Nascimento é obrigatório',
         ];
     }
 }

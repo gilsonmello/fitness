@@ -26,9 +26,9 @@ class ParqRepository{
      * @param parq $parq
      * @param parqAnswer $parqAnswer
      */
-    public function __construct(Parq $parq)
+    public function __construct()
     {
-        $this->parq = $parq;
+        $this->parq = new Parq();
     }
 
     /**

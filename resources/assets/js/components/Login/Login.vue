@@ -34,7 +34,7 @@
 				const data = {
 		            grant_type: 'password',
 		            client_id: 2,
-		            client_secret: 'rf6H1uBKL5TjylgaljUxHFh5tLQ06DLG7PHTvSP8',
+		            client_secret: 'LGbti3QiyHEv3RURLckseKR1laX6v2zDCqpkr6LG',
 		            username: this.login.email,
 		            password: this.login.password,
 		            scope: '',
@@ -48,11 +48,11 @@
 
 						//Fazendo busca do usuário logado, para setar na estrutura de dados
 						axios.get(userUrl, {headers: getHeader()}).then(response => {
-		                  	authUser.email = response.data.email
+		                  	/*authUser.email = response.data.email
 		                  	authUser.name = response.data.name
 		                  	window.localStorage.setItem('authUser', JSON.stringify(authUser))
 		                  	this.$store.dispatch('setUserObject', authUser)
-		                  	window.location.href = "/painel"
+		                  	window.location.href = "/painel"*/
 		                })
 					}
 				});

@@ -24,6 +24,7 @@ Route::get('test', function(Request $request){
     return response($request->all(), 200);
 });
 
+
 Route::group(['namespace' => 'API'], function(){
     
 	Route::resource('users', 'UserController', [
@@ -39,7 +40,8 @@ Route::group(['namespace' => 'API'], function(){
 	        'destroy' => 'api.users.destroy',
 	    ]
 	]);
-	Route::get('users', 'UserController@all');
+	//Route::get('users', 'UserController@all');
+	Route::post('create_user', 'UserController@createUser');
 
 });
 

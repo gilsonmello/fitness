@@ -4,6 +4,8 @@ Route::get('errors/under_construction', function(){
 	return view('frontend.errors.under_construction');
 })->name('errors.under_construction');
 
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -63,12 +65,6 @@ Route::group(['namespace' => 'Backend'], function () {
 
 			//Rota principal
 			Route::get('/', 'DashboardController@index')->name('backend.dashboard');
-
-			//Rotas para questions
-			require(__DIR__ . "/Backend/Question.php");
-
-			//Rotas para question_group
-			require(__DIR__ . "/Backend/QuestionGroup.php");
 
 			//Rotas para as notícias
 			require_once __DIR__.'/Backend/News.php';

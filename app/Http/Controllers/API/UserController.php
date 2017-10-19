@@ -23,11 +23,22 @@ class UserController extends Controller
     	return response()->json('false', 400);
     }
 
+    public function createUser(CreateUserRequest $request){
+        if($result = $this->userRepository->create($request)){
+            return response()->json($result, 200);
+        }
+        return response()->json('false', 400);
+    }
+
     public function find($id){
 
     }
 
-    public function all(){
+    public function edit($id){
+        return $this->userRepository->findOrThrowException($id);
+    }
+
+    public function index(){
         return response()->json($this->userRepository->all(), 200);
     }
 
