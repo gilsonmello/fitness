@@ -28,9 +28,9 @@ class CreateWellsBanksTable extends Migration
             $table->foreign('test_id')
                 ->on('tests')
                 ->references('id');
-            $table->foreign('type_test_id')
+            /*$table->foreign('type_test_id')
                 ->on('type_tests')
-                ->references('id');
+                ->references('id');*/
             $table->foreign('protocol_id')
                 ->on('protocols')
                 ->references('id');
