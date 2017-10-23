@@ -28,9 +28,6 @@ Route::get('test', function(Request $request){
 Route::group(['namespace' => 'API'], function(){
     
 	Route::resource('users', 'UserController', [
-	    'except' => [
-	        'show'
-	    ],
 	    'names' => [
 	        'index' => 'api.users.index',
 	        'create' => 'api.users.create',
@@ -38,10 +35,23 @@ Route::group(['namespace' => 'API'], function(){
 	        'edit' => 'api.users.edit',
 	        'update' => 'api.users.update',
 	        'destroy' => 'api.users.destroy',
+	        'show' => 'api.users.show',
 	    ]
 	]);
 	//Route::get('users', 'UserController@all');
 	Route::post('create_user', 'UserController@createUser');
+
+	Route::resource('packages', 'PackageController', [
+	    'names' => [
+	        'index' => 'api.packages.index',
+	        'create' => 'api.packages.create',
+	        'store' => 'api.packages.store',
+	        'edit' => 'api.packages.edit',
+	        'update' => 'api.packages.update',
+	        'destroy' => 'api.packages.destroy',
+	        'show' => 'api.packages.show',
+	    ]
+	]);
 
 });
 
