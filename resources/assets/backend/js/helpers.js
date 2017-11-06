@@ -609,7 +609,9 @@ $(function () {
 
     //Timepicker
     $(".timepicker").timepicker({
-        showInputs: false
+        //showInputs: false,
+        showMeridian: false,
+        disableFocus: true
     });
 
 

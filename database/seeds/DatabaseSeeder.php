@@ -464,8 +464,10 @@ class DatabaseSeeder extends Seeder
             'updated_at' => date('Y-m-d H:i:s')
         ]);
 
+        $this->call(StatusPaymentTableSeeder::class);
         $this->call(SuppliersTableSeeder::class);
         $this->call(PackagesTableSeeder::class);
+        $this->call(DiariesTableSeeder::class);
 
         DB::table('evaluations')->insert([
             'user_id' => 3,

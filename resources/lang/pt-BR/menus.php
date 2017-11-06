@@ -12,6 +12,7 @@ return [
       |
      */
 
+    'diary' => 'Agenda',  
     'crm' => "Relacionamento",
     'simple' => 'Simples',
     'questions' => [
@@ -481,4 +482,22 @@ return [
         'index' => 'Dados Adicionais',
         'edit' => 'Editar Dado Adicional'
     ],
+
+    'diaries' => [
+        'create' => 'Criar Agenda',
+        'index' => 'Agendas',
+        'edit' => 'Editar Agenda',
+        'delete' => 'Deletar Agenda',
+    ],
+
+    'diary_hours' => [
+        'create' => 'Criar hora para a agenda',
+        'index' => 'Horas da agenda',
+        'edit' => 'Editar horas da agenda',
+        'delete' => 'Deletar horas da agenda',
+    ],
+
+    'hours' => 'Horas',
+
+    
 ];

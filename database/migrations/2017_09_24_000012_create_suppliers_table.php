@@ -17,6 +17,10 @@ class CreateSuppliersTable extends Migration
             $table->engine = "InnoDB";
             $table->increments('id');
             $table->string('name');
+            $table->string('adress')->nullable();
+            $table->string('district')->nullable();
+            $table->string('zip', 9)->nullable();
+            $table->string('complement')->nullable();
             $table->boolean('is_active')->default(1);
             $table->timestamps();
             $table->softDeletes();

@@ -11,6 +11,13 @@ return [
       | found in a intuitive way.
       |
      */
+    'hour' => 'Hora',
+    'hours' => 'Horas',
+    'suppliers' => 'Fornecedores',
+    'supplier' => 'Fornecedor',
+    'available_date' => 'Data Disponível',
+    'diary' => 'Agenda',
+    'diaries' => 'Agendas',
     'text' => 'Texto',  
 	'maximum_heart_rate' => 'Frequência Cardíaca Máxima',
 	'objective' => 'Objetivo',
@@ -501,7 +508,6 @@ return [
     'occupation' => 'Ocupação',
     'minimum_grade' => 'Nota mínima esperada',
     'available_days_after_enrollment' => 'Início após matrícula (dias)',
-    'available_date' => 'Data de início fixa',
     'available_days_after_workshop' => 'Início (dias após início da oficina)',
     'submit_deadline_days' => 'Prazo de Resposta (dias após início da oficina)',
     'submit_deadline_date' => 'Prazo fixo para Resposta',

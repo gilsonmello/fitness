@@ -96,6 +96,12 @@ Route::group(['namespace' => 'Backend'], function () {
 			//Rotas para auth
 			require_once __DIR__.'/Backend/Auth.php';
 
+			//Rotas para a agenda
+			require_once __DIR__.'/Backend/Diary.php';
+
+			//Rotas para horas da agenda
+			require_once __DIR__.'/Backend/DiaryHour.php';
+
 	});
 });
 

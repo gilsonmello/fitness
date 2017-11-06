@@ -405,6 +405,31 @@ return [
         'edit' => ['success' => 'Usuário editado com sucesso', 'error' => 'Erro ao editar usuário']
     ],
 
+    'diaries' => [
+        'save' => ['success' => 'Agenda criada com sucesso', 'error' => 'Erro ao criar agenda'],
+        'create' => ['success' => 'Agenda criada com sucesso', 'error' => 'Erro ao criar agenda'],
+        'edit' => ['success' => 'Agenda editada com sucesso', 'error' => 'Erro ao editar Agenda'],
+        'delete' => [
+            'error' => 'Erro ao deletadar Agenda.',
+            'success' => 'Agenda deletado com sucesso.',
+        ],
+    ],
+
+    'diary_hours' => [
+        'create' => [
+            'success' => 'Horário para a agenda criada com sucesso.', 
+            'error' => 'Erro ao criar horário para a agenda.'
+        ],
+        'edit' => [
+            'success' => 'Horário para a agenda editada com sucesso.', 
+            'error' => 'Erro ao editar horário para a agenda.'
+        ],
+        'delete' => [
+            'error' => 'Erro ao deletadar horário da agenda.',
+            'success' => 'Horário da agenda deletado com sucesso.',
+        ],
+    ],
+
 
     
 

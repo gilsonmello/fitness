@@ -88,6 +88,25 @@
                     </ul>
                 </li>
 
+                <li class="treeview {{ active(['admin/diaries', 'admin/diary_hours']) }}">
+                    <a href="#">
+                        <span>{{ trans('strings.diary') }}</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li class="{{ active(['admin/diaries']) }}">
+                            <a href="{{route('backend.diaries.index')}}">
+                                {{ trans('menus.diary') }}
+                            </a>
+                        </li>
+                        <li class="{{ active(['admin/diary_hour']) }}">
+                            <a href="{{route('backend.diary_hours.index')}}">
+                                {{ trans('menus.hours') }}
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
                 <li class="treeview {{ active(['admin/config']) }}">
                     <a href="#">
                         <span>Pagseguro</span>
