@@ -11,6 +11,12 @@ return [
       | found in a intuitive way.
       |
      */
+    'finalize_payment' => 'Finalizar pagamento',  
+    'card_cvv' => 'Código de Segurança',
+    'card_month' => 'Mês de vencimento',
+    'card_year' => 'Ano de vencimento',
+    'card_name' => 'Nome do Titular',
+    'card_number' => 'Número do Cartão',
     'hour' => 'Hora',
     'hours' => 'Horas',
     'suppliers' => 'Fornecedores',

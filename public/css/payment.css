@@ -1,0 +1,23 @@
+#conteudo {
+  background-color: #ccc;
+  width: 50%;
+}
+
+#msg {
+  color:red;
+}
+
+input.error{
+  border: 1px solid rgba(255, 0, 0, 0.61);
+}
+input.error:focus{
+  border: 1px solid rgba(255, 0, 0, 0.61);
+}
+
+label.error{
+  color: rgba(255, 0, 0, 0.61);
+}
+
+.ok {
+  color: green;
+}

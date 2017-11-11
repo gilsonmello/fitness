@@ -13,5 +13,7 @@
   "/css/plugins.css": "/css/plugins.css",
   "/js/painel.js": "/js/painel.js",
   "/css/painel.css": "/css/painel.css",
-  "/js/gentelella.js": "/js/gentelella.js"
+  "/js/gentelella.js": "/js/gentelella.js",
+  "/js/payment.js": "/js/payment.js",
+  "/css/payment.css": "/css/payment.css"
 }

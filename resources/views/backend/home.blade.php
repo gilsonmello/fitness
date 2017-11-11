@@ -74,6 +74,7 @@
     </div>
 
     <script type="text/javascript">
+        window.console.log(PagSeguroDirectPayment);
         PagSeguroDirectPayment.setSessionId('{!! $session_id !!}');
         PagSeguroDirectPayment.createCardToken({
             cardNumber: '4271671604887028',
