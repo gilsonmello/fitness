@@ -27,6 +27,9 @@
 
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+
+    <script type="text/javascript" src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js">
+        </script>
 </head>
 <body class="skin-blue">
     <div class="wrapper">
@@ -101,5 +104,44 @@
     <!-- Optionally, you can add Slimscroll and FastClick plugins.
     Both of these plugins are recommended to enhance the
     user experience -->
+
+    <script type="text/javascript">
+
+        $(function(){
+            $.ajax({
+                method: 'POST',
+                url: 'https://ws.sandbox.pagseguro.uol.com.br/v2/sessions',
+                data: {
+                    email: 'miranda.fitness.avaliacao@gmail.com',
+                    token: '619A9082A5374BD1917745ABC9D471FF'
+                },
+                success: function(data){
+                    window.console.log(data);
+                },
+                error: function(error){
+
+                }
+            });
+        });
+        /*var hash = PagSeguroDirectPayment.getSenderHash();
+        window.console.log(hash);
+        PagSeguroDirectPayment.setSessionId(hash);
+        PagSeguroDirectPayment.createCardToken({
+            cardNumber: '4539621470969291',
+            brand: 'visa',
+            cvv: '500',
+            expirationMonth: '10',
+            expirationYear: '2018',
+            success: function(response){
+                window.console.log(response);
+            },
+            error: function(response){
+                window.console.log('error '+response);
+            },
+            complete: function(response){
+                window.console.log(response);
+            }
+        });*/
+        </script>
 </body>
 </html>
