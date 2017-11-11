@@ -111,6 +111,10 @@
             $.ajax({
                 method: 'POST',
                 url: 'https://ws.sandbox.pagseguro.uol.com.br/v2/sessions',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Accept: 'application/xml;charset=ISO-8859-1'
+                },
                 data: {
                     email: 'miranda.fitness.avaliacao@gmail.com',
                     token: 'FD2429ED813A48E282617012EB5399FC'
