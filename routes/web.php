@@ -31,6 +31,9 @@ Route::group(['namespace' => 'Frontend', 'middleware' => 'redirect'], function()
 	});*/
 	Route::get('/', 'FrontendController@index')->name('frontend.index');
 
+
+	Route::get('/pagseguro/get_session_id', 'PagseguroController@getSessionId')->name('frontend.pagseguro.getSessionId');
+
 	/*Route::get('/services', 'ServicesController@index')->name('services.index');
 	Route::get('/services/{slug}', 'ServicesController@view')->name('services.view');*/
 });
