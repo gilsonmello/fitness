@@ -17,6 +17,7 @@
 @extends('layouts.backend.app')
 
 @section('content')
+    <input type="hidden" name="pedido_id" value="{{ $session_id }}">
     <div class="row">
         <div class="col-md-3 col-sm-6 col-xs-12">
             <div class="info-box">
@@ -71,4 +72,27 @@
         </div>
         <!-- /.col -->
     </div>
+
+    <script type="text/javascript">
+        PagSeguroDirectPayment.setSessionId('{!! $session_id !!}');
+        PagSeguroDirectPayment.createCardToken({
+            cardNumber: '4271671604887028',
+            cvv: '063',
+            expirationMonth: '09',
+            expirationYear: '2021',
+            success: function(response){
+                window.console.log('success');
+                window.console.log(response);
+            },
+            error: function(response){
+                window.console.log('error');
+                window.console.log(response);
+            },
+            complete: function(response){
+
+                window.console.log('complete');
+                window.console.log(response);
+            }
+        });
+    </script>
 @endsection

@@ -14,7 +14,7 @@ class PagseguroController extends Controller
             'email' => 'miranda.fitness.avaliacao@gmail.com',
             'token' => 'C900DDAA8A04452AA119B81709A67FA9'
         );
-        
+
         $data = '';
         foreach ($credentials as $key => $value) {
             $data .= $key . '=' . $value . '&';
@@ -36,13 +36,14 @@ class PagseguroController extends Controller
         if (FALSE === $result)
             throw new GeneralException(curl_error($ch) . curl_errno($ch));
 
-
-
         $result = simplexml_load_string(curl_exec($ch));
+        
         curl_close($ch);
-        $result = json_decode(json_encode($result));
+        
+        $result = (array) $result;
+
         //Session::put('pagseguro.sessionId', $result->id);
-        return $result->id;
+        return response()->json($result, 200);
     }
 
     /**
