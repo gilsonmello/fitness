@@ -113,7 +113,7 @@
                 url: 'https://ws.sandbox.pagseguro.uol.com.br/v2/sessions',
                 data: {
                     email: 'miranda.fitness.avaliacao@gmail.com',
-                    token: '619A9082A5374BD1917745ABC9D471FF'
+                    token: 'FD2429ED813A48E282617012EB5399FC'
                 },
                 success: function(data){
                     window.console.log(data);
