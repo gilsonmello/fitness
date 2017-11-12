@@ -2,11 +2,47 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Model\Frontend\Order;
 use Illuminate\Http\Request;
+use App\Model\Frontend\Diary;
+use App\Model\Frontend\DiaryHour;
 use App\Http\Controllers\Controller;
 
 class PagseguroController extends Controller
 {
+
+    public function generateOrder(Request $request){
+        
+        $data = $request->all();
+
+        $available_date = $data['year'].'-'.$data['month'].'-'.$data['day'];
+
+        $available_hour = $data['hour'].':'.$data['minute'];
+        
+        $diary = Diary::where('available_date', '=', $available_date)->first()->get();
+
+        $diary_hour = DiaryHour::where('available_hour', '=', $available_hour)
+        ->where('diary_id', '=', $diary->id)
+        ->first()
+        ->get();
+        
+        $order = new Order();
+
+        $order->user_id = $data['user_id'];
+        $order->diary_id = $diary->id;
+        $order->diary_hour_id = $diary_hour->id;
+        $order->value = $data['value'];
+        $order->coupon_id = NULL;
+
+
+        if($order->save()){
+            $order->packages()->attach($data['package_id']);
+            return $order->id;
+        }
+
+        return response()->json('false', 200);
+
+    }
 
     public function getView(){
         $session_id = $this->getSessionId();

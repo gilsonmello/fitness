@@ -16,12 +16,11 @@ const mix  = require('laravel-mix');
 //mix.minify('resources/assets/css/backend/bootstrap/css/bootstrap.css');
 
 mix.scripts([
-    'public/bower_components/external-plugins/jquery-validate/jquery.validate.min.js',
-    'public/bower_components/admin-lte/plugins/input-mask/jquery.inputmask.js',
     'resources/assets/js/payment.js',
 ], 'public/js/payment.js');
 
 mix.styles([
+    'public/bower_components/admin-lte/plugins/select2/select2.min.css',
     'public/bower_components/external-plugins/jquery-validate/jquery.validate.css',
 ], 'public/css/payment.css');
 

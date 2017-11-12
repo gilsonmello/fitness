@@ -5287,3 +5287,7 @@ label.error{
 .ok {
   color: green;
 }
+
+.form-control{
+	text-align: left !important;
+}

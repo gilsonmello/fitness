@@ -63,8 +63,6 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $session_id = $this->getSessionId();
-        $session_id = $session_id->getData()->id;
-        return view('backend.home', compact('session_id'));
+        return view('backend.home');
     }
 }

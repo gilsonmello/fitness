@@ -5051,6 +5051,10 @@ label.error{
 .ok {
   color: green;
 }
+
+.form-control{
+	text-align: left !important;
+}
 .toast-title {
   font-weight: bold;
 }

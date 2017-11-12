@@ -1,50 +1,83 @@
 PagSeguroDirectPayment.setSessionId(document.querySelector("[name='session_id']").value);
 
+var items = Payment.getItems();
+var auth = Payment.getAuth();
+auth = JSON.parse(auth);
+items = JSON.parse(items);
+
+$('body').append(items);
+
+$(function(){
+
+	$.ajax({
+		method: 'POST',
+		url: 'http://10.0.0.104:8000/pagseguro/generate_order',
+		headers: {
+            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+        },
+		data: {
+			user_id: user.id,
+			year: items.year,
+			month: items.month,
+			day: items.day,
+			hour: items.hour,
+			minute: items.minute,
+			second: items.second,
+            package_id: items.package.id
+		},
+		success: function (data) {
+			$('[name="order_id"]').val(data);
+			$('body').append(data);
+        },
+		error: function (errors) {
+			$('body').append(errors);
+        }
+	});
+});
+
+
 function setSenderHash() {
-    var form = document.querySelector('#pay');
+    var form = document.querySelector('#payment-pagseguro');
     var hash = PagSeguroDirectPayment.getSenderHash();
 
-    if (document.querySelector("input[name=senderHash]") == null) {
+    if (document.querySelector("input[name=sender_hash]") == null) {
         var senderHash = document.createElement('input');
-        senderHash.setAttribute('name', "senderHash");
+        senderHash.setAttribute('name', "sender_hash");
         senderHash.setAttribute('type', "hidden");
         senderHash.setAttribute('value', hash);
         form.appendChild(senderHash);
     }
 }
 
-function validateCPF(cpf){
-    var numbers, digits, sum, i, result, equal_digits;
-    equal_digits = 1;
-    if (cpf.length < 11)
-        return false;
-    for (i = 0; i < cpf.length - 1; i++)
-        if (cpf.charAt(i) != cpf.charAt(i + 1))
-        {
-            equal_digits = 0;
-            break;
+function setCardToken() {
+    var parametros = {
+        cardNumber: document.getElementById('card_number').value,
+        brand: document.querySelector("input[name=card_brand]").value,
+        cvv: document.querySelector("input[name=card_cvv]").value,
+        expirationMonth: document.querySelector('input[name=card_month]').value,
+        expirationYear: document.querySelector('input[name=card_year]').value,
+        success: function (data) {
+
+            window.console.log(data);
+
+            var form = document.querySelector('#payment-pagseguro');
+            var token = JSON.stringify(data.card.token).replace(/"/g, '');
+            if (document.querySelector("input[name=card_token]") == null) {
+                var cardToken = document.createElement('input');
+                cardToken.setAttribute('name', "card_token");
+                cardToken.setAttribute('type', "hidden");
+                cardToken.setAttribute('value', token);
+                form.appendChild(cardToken);
+            } else {
+                document.querySelector("input[name=card_token]").value = token;
+            }
+        },
+        error: function (data) {
+//            console.log('Ocorreu um erro na validação do cartão');
+//            console.log(JSON.stringify(data));
         }
-    if (!equal_digits)
-    {
-        numbers = cpf.substring(0,9);
-        digits = cpf.substring(9);
-        sum = 0;
-        for (i = 10; i > 1; i--)
-            sum += numbers.charAt(10 - i) * i;
-        result = sum % 11 < 2 ? 0 : 11 - sum % 11;
-        if (result != digits.charAt(0))
-            return false;
-        numbers = cpf.substring(0,10);
-        sum = 0;
-        for (i = 11; i > 1; i--)
-            sum += numbers.charAt(11 - i) * i;
-        result = sum % 11 < 2 ? 0 : 11 - sum % 11;
-        if (result != digits.charAt(1))
-            return false;
-        return true;
-    }
-    else
-        return false;
+    };
+    PagSeguroDirectPayment.createCardToken(parametros);
 }
 
 $(function(){
@@ -57,20 +90,55 @@ $(function(){
 	var input_card_year = $('#card_year');
 	var input_card_month = $('#card_month');
 
+
+    $(".select2").select2();
+
 	$('#card_month').inputmask("99");
+
+	$('#card_personal_id').inputmask("999.999.999-99");
 
 	$('#card_year').inputmask("9999");
 
-	$('#card_cvv').inputmask("999");
+    $('.zip')
+        .inputmask("99999-999")
+        .blur(function(event){
+            var value = $(this).val().replace('-', '');
+            $.ajax({
+                method: 'GET',
+                url: 'https://viacep.com.br/ws/'+value+'/json/',
+                data: {},
+                success: function (data) {
+                    $('[name="address"]').val(data.logradouro);
+                    $('[name="city"]').val(data.localidade);
+                    $('[name="state"]').val(data.uf);
+                    $('[name="district"]').val(data.bairro);
+                },
+                error: function (errors) {
+
+                }
+            });
+        });
+
+	$('#card_cvv').inputmask({
+		mask: 9, 
+		repeat: 5,
+		greedy: false,
+		rightAlign: false
+	});
+
+	$('#card_number').inputmask({ 
+		mask: 9, 
+		repeat: 20,
+		greedy: false,
+		rightAlign: false
+	});
 
 	$('#card_number').blur(function(event){
         var cardNumber = $(this).val();
-        window.console.log(cardNumber);
 		if(cardNumber != ''){
 			PagSeguroDirectPayment.getBrand({
                 cardBin: cardNumber.replace(/ /g, ''),
                 success: function (data) {
-                	input_card_number.val(data.brand.name);
                     var brand = JSON.stringify(data.brand.name).replace(/"/g, '');
                     if (document.querySelector("input[name=card_brand]") == null) {
                         var cardBrand = document.createElement('input');
@@ -93,23 +161,32 @@ $(function(){
 		}
 	});
 
+
+    $('#payment-pagseguro').on('submit', function (event) {
+        event.preventDefault();
+        document.querySelector('[name="method"]').setAttribute('value', 'creditCard');
+        var isValid = $("#payment-pagseguro").valid();
+		if(isValid){
+            setCardToken();
+        }
+    });
+
 	$('#payment-pagseguro').validate({
-		submitHandler: function(frm){
-			//frm.submit();
-		},
 		rules: {
 			card_name: {
 				required: true
 			},
 			card_personal_id: {
-				required: true
+				required: true,
+				isCPF: true
 			},
 			card_number: {
 				required: true
 			},
 			card_month: {
 				required: true,
-				minlength: 2
+				minlength: 2,
+				maxlength: 2,
 			},
 			card_year: {
 				required: true,
@@ -125,7 +202,8 @@ $(function(){
 				required: 'Campo obrigatório'
 			},
 			card_personal_id: {
-				required: 'Campo obrigatório'
+				required: 'Campo obrigatório',
+				isCPF: 'CPF Inválido'
 			},
 			card_number: {
 				required: 'Campo obrigatório'

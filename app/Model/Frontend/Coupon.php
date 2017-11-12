@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Model\Backend;
+namespace App\Model\Frontend;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -32,7 +32,7 @@ class Coupon extends Model
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function orders(){
-        return $this->hasMany(\App\Model\Backend\Order::class);
+        return $this->hasMany(\App\Model\Frontend\Order::class);
     }
 
     /**
@@ -46,6 +46,6 @@ class Coupon extends Model
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function packages(){
-        return $this->belongsToMany(\App\Model\Backend\Package::class, 'coupons_has_packages', 'package_id', 'coupon_id');
+        return $this->belongsToMany(\App\Model\Frontend\Package::class, 'coupons_has_packages', 'package_id', 'coupon_id');
     }
 }

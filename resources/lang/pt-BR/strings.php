@@ -11,6 +11,10 @@ return [
       | found in a intuitive way.
       |
      */
+    'address_complement' => 'Complemento',
+    'number' => 'Número',
+    'parcels' => 'Parcelas',
+    'card_parcels' => 'Número de Parcelas',
     'finalize_payment' => 'Finalizar pagamento',  
     'card_cvv' => 'Código de Segurança',
     'card_month' => 'Mês de vencimento',

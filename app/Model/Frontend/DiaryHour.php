@@ -5,11 +5,11 @@ namespace App\Model\Frontend;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Order extends Model
+class DiaryHour extends Model
 {
     use SoftDeletes;
-	
-     /**
+
+    /**
      * @var bool
      */
     public $timestamps = true;
@@ -19,7 +19,7 @@ class Order extends Model
      *
      * @var string
      */
-    protected $table = 'orders';
+    protected $table = 'diary_hours';
 
     /**
      * The attributes that are not mass assignable.
@@ -28,15 +28,10 @@ class Order extends Model
      */
     protected $guarded = ['id'];
 
-    public function user(){
-        return $this->belongsTo(\App\User::class);
-    }
-
-    public function coupon(){
-        return $this->belongsTo(\App\Model\Frontend\Coupon::class);
-    }
-
-    public function packages(){
-        return $this->belongsToMany(\App\Model\Frontend\Package::class, 'orders_has_packages', 'package_id', 'order_id');
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function diary(){
+        return $this->belongsTo(\App\Model\Frontend\Diary::class);
     }
 }
