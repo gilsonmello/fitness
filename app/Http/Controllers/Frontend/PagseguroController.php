@@ -11,7 +11,7 @@ use App\User;
 use App\Schedule;
 use App\Http\Controllers\Controller;
 use App\Services\Frontend\Payment\PaymentService;
-use Log;
+use Illuminate\Support\Facades\Log;
 
 class PagseguroController extends Controller
 {
@@ -90,8 +90,6 @@ class PagseguroController extends Controller
     }
 
     public function notifications(Request $request){
-        $data = print_r($_POST, true);
-
         //file_put_contents(public_path() . '/teste/'.date('d_m_Y__H_i_s'), $data);
         ////////////// To tests //////////////
 
@@ -109,14 +107,19 @@ class PagseguroController extends Controller
             ]
         ];
 
-        $response = \HttpClient::get($request);
-        $dataXml = $response->xml();
+        $request = Request::create( $request['url'], 'get', $request['params'] );
+        $response = Route::dispatch( $request );
+
+        Log::inf($response);
+
+        //$response = \HttpClient::get($request);
+        //$dataXml = $response->xml();
 
         //$result = simplexml_load_string($dataXml);
         
         //$result = (array) $result;
 
-        $this->updateFromPagseguroFeedback($dataXml);
+        //$this->updateFromPagseguroFeedback($dataXml);
 
     }
 
