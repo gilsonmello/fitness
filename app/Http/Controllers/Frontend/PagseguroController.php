@@ -113,7 +113,6 @@ class PagseguroController extends Controller
 
         //Log::inf($response);
 
-        dd($request['url']);
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, 'https://ws.sandbox.pagseguro.uol.com.br/v2/transactions/'.$request['url']);
         curl_setopt($ch, CURLOPT_HTTPHEADER, [ 'application/x-www-form-urlencoded; charset=ISO-8859-1']);
@@ -127,6 +126,9 @@ class PagseguroController extends Controller
         }
 
         $result = curl_exec($ch);
+
+
+        dd($result);
 
         //$response = \HttpClient::get($request);
         //$dataXml = $response->xml();
