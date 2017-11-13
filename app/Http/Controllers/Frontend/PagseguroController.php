@@ -101,7 +101,7 @@ class PagseguroController extends Controller
         //$code = '7F7AA96F474A474A222664BC9F8EFA8680C4';
 
         $request = [
-            'url' => 'https://ws.pagseguro.uol.com.br/v2/transactions/notifications/' . $code,
+            'url' => 'https://ws.pagseguro.uol.com.br/v2/transactions/notifications/'.$code.'?email=miranda.fitness.avaliacao@gmail.com&token=C900DDAA8A04452AA119B81709A67FA9',
             'params' => [
                 'email' => 'miranda.fitness.avaliacao@gmail.com',
                 'token' => 'C900DDAA8A04452AA119B81709A67FA9'
@@ -113,11 +113,26 @@ class PagseguroController extends Controller
 
         //Log::inf($response);
 
-        $response = \HttpClient::get($request);
-        $dataXml = $response->xml();
+        $ch = curl_init();
 
-        $result = simplexml_load_string($dataXml);
-        Log::info($response);
+        curl_setopt($ch, CURLOPT_URL, 'https://ws.sandbox.pagseguro.uol.com.br/v2/transactions/'.$request['url']);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [ 'application/x-www-form-urlencoded; charset=ISO-8859-1']);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+        if (app()->environment() == 'production') {
+            curl_setopt($ch, CURLUSESSL_TRY, true);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
+        } else {
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        }
+
+        $result = curl_exec($ch);
+
+        //$response = \HttpClient::get($request);
+        //$dataXml = $response->xml();
+
+        $result = simplexml_load_string($result);
+        Log::info($result);
         
         //$result = (array) $result;
 
