@@ -12,6 +12,7 @@ use App\Schedule;
 use App\Http\Controllers\Controller;
 use App\Services\Frontend\Payment\PaymentService;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Route;
 
 class PagseguroController extends Controller
 {
@@ -107,8 +108,8 @@ class PagseguroController extends Controller
             ]
         ];
 
-        $request = \Request::create( $request['url'], 'get', $request['params'] );
-        $response = \Route::dispatch( $request );
+        $request = Request::create($request['url'], 'get', $request['params']);
+        $response = Route::dispatch( $request );
 
         Log::inf($response);
 
