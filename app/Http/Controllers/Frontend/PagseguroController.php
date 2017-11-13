@@ -108,15 +108,16 @@ class PagseguroController extends Controller
             ]
         ];
 
-        $request = Request::create($request['url'], 'get', $request['params']);
-        $response = Route::dispatch( $request );
+        //$request = Request::create($request['url'], 'get', $request['params']);
+        //$response = Route::dispatch( $request );
 
-        Log::inf($response);
+        //Log::inf($response);
 
-        //$response = \HttpClient::get($request);
-        //$dataXml = $response->xml();
+        $response = \HttpClient::get($request);
+        $dataXml = $response->xml();
 
-        //$result = simplexml_load_string($dataXml);
+        $result = simplexml_load_string($dataXml);
+        Log::info($response);
         
         //$result = (array) $result;
 
