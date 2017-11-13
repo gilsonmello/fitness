@@ -11,6 +11,7 @@ return [
       | found in a intuitive way.
       |
      */
+    'card_birth_date' => 'Data de Nascimento',
     'address_complement' => 'Complemento',
     'number' => 'Número',
     'parcels' => 'Parcelas',

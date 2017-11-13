@@ -32,7 +32,8 @@ class Diary extends Model
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function hours(){
-        return $this->hasMany(\App\Model\Frontend\DiaryHour::class);
+        return $this->hasMany(\App\Model\Frontend\DiaryHour::class)
+        ->where('is_active', '=', 1);
     }
 
     /**

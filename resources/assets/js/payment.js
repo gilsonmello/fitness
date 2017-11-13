@@ -1,38 +1,43 @@
 PagSeguroDirectPayment.setSessionId(document.querySelector("[name='session_id']").value);
 
-var items = Payment.getItems();
-var auth = Payment.getAuth();
-auth = JSON.parse(auth);
-items = JSON.parse(items);
+//var items = Payment.getItems();
+//var auth = Payment.getAuth();
+//auth = JSON.parse(auth);
+//items = JSON.parse(items);
 
-$('body').append(items);
-
-$(function(){
-
-	$.ajax({
-		method: 'POST',
-		url: 'http://10.0.0.104:8000/pagseguro/generate_order',
-		headers: {
-            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-        },
-		data: {
-			user_id: user.id,
-			year: items.year,
-			month: items.month,
-			day: items.day,
-			hour: items.hour,
-			minute: items.minute,
-			second: items.second,
-            package_id: items.package.id
-		},
-		success: function (data) {
-			$('[name="order_id"]').val(data);
-			$('body').append(data);
-        },
-		error: function (errors) {
-			$('body').append(errors);
-        }
-	});
+$.ajax({
+	method: 'POST',
+	url: '/pagseguro/generate_order',
+	headers: {
+        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+    },
+    data: {
+		user_id: 1,
+		year: '2017',
+		month: '11',
+		day: '12',
+		hour: '22',
+		minute: '54',
+		second: '00',
+        package_id: 1
+	},
+	/*data: {
+		user_id: auth.id,
+		year: items.year,
+		month: items.month,
+		day: items.day,
+		hour: items.hour,
+		minute: items.minute,
+		second: items.second,
+        package_id: items.package.id
+	},*/
+	success: function (data) {
+		$('[name="order_id"]').val(data.order_id);
+		$('[name="item_id"]').val(data.items.id);
+		$('[name="user_id"]').val(1);
+    },
+	error: function (errors) {
+    }
 });
 
 
@@ -57,9 +62,6 @@ function setCardToken() {
         expirationMonth: document.querySelector('input[name=card_month]').value,
         expirationYear: document.querySelector('input[name=card_year]').value,
         success: function (data) {
-
-            window.console.log(data);
-
             var form = document.querySelector('#payment-pagseguro');
             var token = JSON.stringify(data.card.token).replace(/"/g, '');
             if (document.querySelector("input[name=card_token]") == null) {
@@ -95,9 +97,13 @@ $(function(){
 
 	$('#card_month').inputmask("99");
 
+	$('.card_birth_date').inputmask('99/99/9999');
+
 	$('#card_personal_id').inputmask("999.999.999-99");
 
 	$('#card_year').inputmask("9999");
+
+	$('#cel').inputmask("(99) 99999-9999");
 
     $('.zip')
         .inputmask("99999-999")
@@ -166,9 +172,47 @@ $(function(){
         event.preventDefault();
         document.querySelector('[name="method"]').setAttribute('value', 'creditCard');
         var isValid = $("#payment-pagseguro").valid();
-		if(isValid){
-            setCardToken();
-        }
+		
+			setCardToken();
+            setSenderHash();
+		
+
+
+        $.ajax({
+        	method: 'POST',
+        	url: $('#payment-pagseguro').attr('action'),
+        	data: $('#payment-pagseguro').serialize(),
+        	headers: {
+		        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+		    },
+		    beforeSend: function(){
+				setTimeout(function() {
+				}, 3000);
+		    },
+        	success: function(data){
+        		window.console.log(data);
+				var xmlDOM = new DOMParser().parseFromString(data, 'text/xml');
+        		data = xmlToJson(xmlDOM);
+        		$.ajax({
+        			method: 'POST',
+		        	url: '/pagseguro/notifications',
+		        	data: {content: data},
+					headers: {
+				        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+				    },
+				    success: function(val){
+
+				    },
+				    error: function(val){
+
+				    }
+        		});
+        	},
+        	error: function(errors){
+
+        	}
+        });
+
     });
 
 	$('#payment-pagseguro').validate({
@@ -195,6 +239,27 @@ $(function(){
 			card_cvv: {
 				required: true,
 				minlength: 3
+			},
+			number: {
+				required: true
+			},
+			cel: {
+				required: true
+			},
+			address: {
+				required: true
+			},
+			city: {
+				required: true
+			},
+			district: {
+				required: true
+			},
+			state: {
+				required: true
+			},
+			zip: {
+				required: true
 			}
 		},
 		messages: {
@@ -219,6 +284,27 @@ $(function(){
 			card_cvv: {
 				required: 'Campo obrigatório',
 				minlength: 'Tamanho mínimo de 3 digitos'
+			},
+			number: {
+				required: 'Campo obrigatório'
+			},
+			cel: {
+				required: 'Campo obrigatório'
+			},
+			address: {
+				required: 'Campo obrigatório'
+			},
+			city: {
+				required: 'Campo obrigatório'
+			},
+			district: {
+				required: 'Campo obrigatório'
+			},
+			state: {
+				required: 'Campo obrigatório'
+			},
+			zip: {
+				required: 'Campo obrigatório'
 			}
 		}
 	});

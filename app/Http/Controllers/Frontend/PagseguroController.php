@@ -6,42 +6,156 @@ use App\Model\Frontend\Order;
 use Illuminate\Http\Request;
 use App\Model\Frontend\Diary;
 use App\Model\Frontend\DiaryHour;
+use App\Model\Frontend\Package;
+use App\User;
 use App\Http\Controllers\Controller;
+use App\Services\Frontend\Payment\PaymentService;
+use Log;
 
 class PagseguroController extends Controller
 {
+    use PaymentService;
+
+    private function updateFromPagseguroFeedback($dataXml) {
+        $order = Order::find($dataXml->reference);
+
+        if (isset($dataXml->code)) {
+            $transaction = new Transaction;
+            $transaction->order_id = $dataXml->reference;
+            $transaction->payment_hub = 'pagseguro';
+            $transaction->payment_id = $dataXml->code;
+            $transaction->payment_method = $dataXml->paymentMethod->type;
+            $transaction->payment_code = $dataXml->paymentMethod->code;
+            $transaction->installment_fee_amount = $dataXml->installmentFeeAmount;
+            $transaction->installment_count = $dataXml->installmentCount;
+            $transaction->discount_amount = $dataXml->discountAmount;
+            $transaction->status_id = $dataXml->status;
+            $transaction->gross_amount = $dataXml->grossAmount;
+            $transaction->net_amount = $dataXml->netAmount;
+            $transaction->operational_fee_amount = $dataXml->operationalFeeAmount;
+            $transaction->intermediation_fee_amount = $dataXml->intermediationFeeAmount;
+            $transaction->intermediation_fee_rate = $dataXml->intermediationRateAmount;
+            $transaction->escrow_date = $dataXml->escrowEndDate;
+            $transaction->save();
+        }
+
+    }
+
+    public function notifications(Request $request){
+
+        $str = $request->all()['content']['transaction'];
+        return $str;
+        $xml = simplexml_load_string($request->all(), "SimpleXMLElement", LIBXML_NOCDATA);
+
+        return $t;
+        $data = simplexml_load_string();
+
+        return dd($data);
+
+        $data = print_r($_POST, true);
+
+        //file_put_contents(public_path() . '/teste/'.date('d_m_Y__H_i_s'), $data);
+        ////////////// To tests //////////////
+
+        Log::info($_POST);
+        $code = $_POST['notificationCode'];
+
+        ////////////// To tests //////////////
+        //$code = '7F7AA96F474A474A222664BC9F8EFA8680C4';
+
+        $request = [
+            'url' => 'https://ws.pagseguro.uol.com.br/v2/transactions/notifications/' . $code,
+            'params' => [
+                'email' => 'miranda.fitness.avaliacao@gmail.com',
+                'token' => 'C900DDAA8A04452AA119B81709A67FA9'
+            ]
+        ];
+
+        $response = \HttpClient::get($request);
+        $dataXml = $response->xml();
+
+        $result = simplexml_load_string($dataXml);
+        
+        $result = (array) $result;
+
+        $this->updateFromPagseguroFeedback($dataXml);
+    }
+
+    public function payment(Request $request){
+        $items = $this->getCheckout($request->all());
+        
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL, 'https://ws.sandbox.pagseguro.uol.com.br/v2/transactions');
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [ 'application/x-www-form-urlencoded; charset=ISO-8859-1']);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($items));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+        if (app()->environment() == 'production') {
+            curl_setopt($ch, CURLUSESSL_TRY, true);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
+        } else {
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        }
+
+        $result = curl_exec($ch);
+        return response()->json($result, 200);
+    }
 
     public function generateOrder(Request $request){
         
         $data = $request->all();
 
+        $user = User::find($data['user_id']);
+
         $available_date = $data['year'].'-'.$data['month'].'-'.$data['day'];
 
         $available_hour = $data['hour'].':'.$data['minute'];
         
-        $diary = Diary::where('available_date', '=', $available_date)->first()->get();
+        $diary = Diary::where('available_date', '=', $available_date)
+        ->where('is_active', '=', 1)
+        ->get()
+        ->first();
 
         $diary_hour = DiaryHour::where('available_hour', '=', $available_hour)
         ->where('diary_id', '=', $diary->id)
-        ->first()
-        ->get();
+        ->where('is_active', '=', 1)
+        ->get()
+        ->first();
+        
+        $package = Package::find($data['package_id']);
         
         $order = new Order();
-
-        $order->user_id = $data['user_id'];
+        $order->user_id = $user->id;
         $order->diary_id = $diary->id;
         $order->diary_hour_id = $diary_hour->id;
-        $order->value = $data['value'];
+        $order->value = $package->value;
         $order->coupon_id = NULL;
 
 
+        //$diary_hour->is_active = 0;
+        //$diary_hour->save();
+
+        //if($diary->hours->count() == 0){
+            //$diary->is_active = 0;
+            //$diary->save();
+        //}
+
         if($order->save()){
-            $order->packages()->attach($data['package_id']);
-            return $order->id;
+            $order->packages()->attach($package->id, [
+                'price' => $package->value,
+                'discount_price' => null
+            ]);
+
+
+            $arr = [];
+            $arr['order_id'] = $order->id;
+            $arr['user'] = $user;
+            $arr['items'] = $package;
+            return response()->json($arr, 200);
         }
-
         return response()->json('false', 200);
-
     }
 
     public function getView(){

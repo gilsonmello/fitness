@@ -37,6 +37,6 @@ class Order extends Model
     }
 
     public function packages(){
-        return $this->belongsToMany(\App\Model\Frontend\Package::class, 'orders_has_packages', 'package_id', 'order_id');
+        return $this->belongsToMany(\App\Model\Frontend\Package::class, 'orders_has_packages', 'order_id', 'package_id');
     }
 }

@@ -11,7 +11,7 @@
 </head>
 <body>
 	<div class="container">
-		{!! Form::open(['route' => 'frontend.payment.pagseguro', 'id' => 'payment-pagseguro', 'method' => 'post']) !!}
+		{!! Form::open(['route' => 'frontend.pagseguro.payment', 'id' => 'payment-pagseguro', 'method' => 'post']) !!}
 		<h4>Pagamento via Pagseguro</h4>
 		<div class="row">
 			<div class="col-lg-4 col-xs-12">
@@ -30,12 +30,20 @@
 			</div>
 		</div>
 		<div class="row">
+			<div class="col-lg-4 col-xs12">
+				<div class="form-group">
+					{!! Form::label('card_birth_date', trans('strings.card_birth_date'), []) !!}
+					{{ Form::text('card_birth_date', null, ['class' => 'birth_date form-control']) }}
+				</div>
+			</div>
+		</div>
+		<div class="row">
 			<div class="col-lg-4 col-xs-12">
 				<div class="form-group">
 					{!! Form::hidden('card_brand', null) !!}
 					{!! Form::label('card_number', trans('strings.card_number'), []) !!}
 					<div class="input-group">
-                   	 	{{ Form::text('card_number', null, ['dir' => "rtl",'class' => 'form-control']) }}
+                   	 	{{ Form::text('card_number', null, ['class' => 'form-control']) }}
                     	<span class="input-group-addon fa fa-credit-card-alt"></span>
                 	</div>
 				</div>
@@ -71,7 +79,7 @@
 			<div class="col-xs-6">
 				<div class="form-group">
 					{!! Form::label('card_parcels', trans('strings.card_parcels'), []) !!}
-					{!! Form::select('card_parcels', [1, 2], null, ['class' => 'form-control']) !!}
+					{!! Form::select('card_parcels', [1 => 1, 2 => 2], [0], ['class' => 'form-control']) !!}
 				</div>
 			</div>
 		</div>
@@ -155,6 +163,9 @@
 			<input type="hidden" id="method" name="method" value="">
 			<input type="hidden" id="amount" name="amount" value="">
 			{!! Form::hidden('order_id', null) !!}
+			{!! Form::hidden('item_id', null) !!}
+			{!! Form::hidden('user_id', null) !!}
+			{!! Form::hidden('card_token', null) !!}
 		{!! Form::close() !!}
 	</div>
 
