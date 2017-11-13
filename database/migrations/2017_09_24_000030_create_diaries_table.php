@@ -14,7 +14,7 @@ class CreateDiariesTable extends Migration
     public function up()
     {
         Schema::create('diaries', function (Blueprint $table) {
-            $table->engine="InnoDB";
+            $table->engine = "InnoDB";
             $table->increments('id');
             $table->integer('supplier_id')->unsigned()->nullable();
             $table->date('available_date');
@@ -28,7 +28,7 @@ class CreateDiariesTable extends Migration
         });
         
         Schema::create('diary_hours', function (Blueprint $table) {
-            $table->engine="InnoDB";
+            $table->engine = "InnoDB";
             $table->increments('id');
             $table->integer('diary_id')->unsigned();
             $table->time('available_hour');

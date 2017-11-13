@@ -14,6 +14,7 @@ class CreateTransactionsTable extends Migration
     public function up()
     {
         Schema::create('transactions', function(Blueprint $table) {
+            $table->engine = "InnoDB";
             $table->increments('id');
             $table->integer('order_id'); //reference
             $table->string('payment_hub'); // fixo - 'pagseguro'

@@ -32,6 +32,14 @@ class Order extends Model
         return $this->belongsTo(\App\User::class);
     }
 
+    public function diary(){
+        return $this->belongsTo(\App\Model\Frontend\Diary::class);
+    }
+
+    public function diaryHour(){
+        return $this->belongsTo(\App\Model\Frontend\DiaryHour::class);
+    }
+
     public function coupon(){
         return $this->belongsTo(\App\Model\Frontend\Coupon::class);
     }

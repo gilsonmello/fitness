@@ -8,6 +8,7 @@ use App\Model\Frontend\Diary;
 use App\Model\Frontend\DiaryHour;
 use App\Model\Frontend\Package;
 use App\User;
+use App\Schedule;
 use App\Http\Controllers\Controller;
 use App\Services\Frontend\Payment\PaymentService;
 use Log;
@@ -17,8 +18,6 @@ class PagseguroController extends Controller
     use PaymentService;
 
     private function updateFromPagseguroFeedback($dataXml) {
-        $order = Order::find($dataXml->reference);
-
         if (isset($dataXml->code)) {
             $transaction = new Transaction;
             $transaction->order_id = $dataXml->reference;
@@ -39,19 +38,58 @@ class PagseguroController extends Controller
             $transaction->save();
         }
 
+            
+        //Pegando o id do pedido            
+        $order = Order::find($dataXml->reference);
+
+        if (in_array($dataXml->reference, [1, 2])){
+            $order->status_payment_id = $dataXml->reference;
+        }
+
+        if ($order->date_confirmation == null) {
+            $order->date_confirmation = Carbon::now();
+        }
+
+        if (in_array($dataXml->status, [5, 6, 7])) {
+            $order->status_payment_id = $dataXml->status;
+
+            // Disable enrollments
+            $schedules = Schedule::where('order_id', $order->id)->get();
+            if (count($schedules) > 0) {
+                foreach ($schedules as $schedule) {
+                    $schedule->is_active = 0;
+                    $schedule->save();
+                }
+            }
+        }
+
+        //Verifico se o pagamento foi aprovado
+        if (in_array($dataXml->status, [3, 4]) && ($order->status_payment_id != 4 || $order->status_payment_id != 3)) {
+            $order->status_payment_id = $dataXml->status;
+            if (count($order->packages) > 0) {
+                $items = Package::whereIn('package_id', $order->packages->lists('package_id'))->get();
+                $this->createSchedule($items, $order);
+            }
+        }
+    }
+
+    private function createSchedule($items, $order){
+        foreach($items as $item){
+            $schedule = new Schedule;
+            $schedule->order_id = $order->id;
+            $schedule->user_id = $order->user->id;
+            $schedule->diary_id = $order->diary->id;
+            $schedule->diary_hour_id = $order->diaryHour->id;
+            $schedule->package_id = $item->id;
+            $schedule->date_begin = Carbon::now();
+            $schedule->date_end = Carbon::now()->addDays(30);
+            $schedule->is_active = 1;
+
+            $schedule->save();
+        }
     }
 
     public function notifications(Request $request){
-
-        $str = $request->all()['content']['transaction'];
-        return $str;
-        $xml = simplexml_load_string($request->all(), "SimpleXMLElement", LIBXML_NOCDATA);
-
-        return $t;
-        $data = simplexml_load_string();
-
-        return dd($data);
-
         $data = print_r($_POST, true);
 
         //file_put_contents(public_path() . '/teste/'.date('d_m_Y__H_i_s'), $data);
@@ -74,11 +112,12 @@ class PagseguroController extends Controller
         $response = \HttpClient::get($request);
         $dataXml = $response->xml();
 
-        $result = simplexml_load_string($dataXml);
+        //$result = simplexml_load_string($dataXml);
         
-        $result = (array) $result;
+        //$result = (array) $result;
 
         $this->updateFromPagseguroFeedback($dataXml);
+
     }
 
     public function payment(Request $request){
@@ -131,6 +170,7 @@ class PagseguroController extends Controller
         $order->diary_id = $diary->id;
         $order->diary_hour_id = $diary_hour->id;
         $order->value = $package->value;
+        $order->value_discount = $package->value;
         $order->coupon_id = NULL;
 
 
@@ -145,7 +185,7 @@ class PagseguroController extends Controller
         if($order->save()){
             $order->packages()->attach($package->id, [
                 'price' => $package->value,
-                'discount_price' => null
+                'discount_price' => $package->value
             ]);
 
 

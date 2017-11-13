@@ -15,9 +15,9 @@ $.ajax({
 		user_id: 1,
 		year: '2017',
 		month: '11',
-		day: '12',
-		hour: '22',
-		minute: '54',
+		day: '13',
+		hour: '20',
+		minute: '52',
 		second: '00',
         package_id: 1
 	},
@@ -173,25 +173,22 @@ $(function(){
         document.querySelector('[name="method"]').setAttribute('value', 'creditCard');
         var isValid = $("#payment-pagseguro").valid();
 		
-			setCardToken();
-            setSenderHash();
+		setCardToken();
+        setSenderHash();
 		
-
-
-        $.ajax({
+		$.ajax({
         	method: 'POST',
+        	async: false,
         	url: $('#payment-pagseguro').attr('action'),
         	data: $('#payment-pagseguro').serialize(),
         	headers: {
 		        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
 		    },
 		    beforeSend: function(){
-				setTimeout(function() {
-				}, 3000);
 		    },
         	success: function(data){
         		window.console.log(data);
-				var xmlDOM = new DOMParser().parseFromString(data, 'text/xml');
+				/*var xmlDOM = new DOMParser().parseFromString(data, 'text/xml');
         		data = xmlToJson(xmlDOM);
         		$.ajax({
         			method: 'POST',
@@ -206,7 +203,7 @@ $(function(){
 				    error: function(val){
 
 				    }
-        		});
+        		});*/
         	},
         	error: function(errors){
 
