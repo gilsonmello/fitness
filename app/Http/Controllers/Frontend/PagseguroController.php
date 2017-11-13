@@ -107,8 +107,8 @@ class PagseguroController extends Controller
             ]
         ];
 
-        $request = Request::create( $request['url'], 'get', $request['params'] );
-        $response = Route::dispatch( $request );
+        $request = \Request::create( $request['url'], 'get', $request['params'] );
+        $response = \Route::dispatch( $request );
 
         Log::inf($response);
 
