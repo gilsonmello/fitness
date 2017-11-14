@@ -26,6 +26,7 @@ class CreateTransactionsTable extends Migration
             $table->decimal('discount_amount', 7, 2); //discountAmount
             $table->decimal('gross_amount', 7, 2); //grossAmount
             $table->integer('net_amount'); //netAmount
+            $table->integer('status_payment_id'); //status__id
             $table->decimal('operational_fee_amount', 7, 2)->nullable(); // operationalFeeAmount
             $table->decimal('intermediation_fee_amount', 7, 2)->nullable(); //intermediationFeeAmount
             $table->decimal('intermediation_fee_rate', 7, 2)->nullable(); // intermediationRateAmount
