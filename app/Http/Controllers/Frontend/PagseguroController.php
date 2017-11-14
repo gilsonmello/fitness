@@ -52,7 +52,6 @@ class PagseguroController extends Controller
             $order->status_payment_id = $dataXml->status;
         }
         
-        dd($order);
 
         if ($order->date_confirmation == null) {
             $order->date_confirmation = Carbon::now();
