@@ -35,9 +35,9 @@ class PagseguroController extends Controller
             $transaction->status_payment_id = $dataXml->status;
             $transaction->gross_amount = $dataXml->grossAmount;
             $transaction->net_amount = $dataXml->netAmount;
-            $transaction->operational_fee_amount = $dataXml->operationalFeeAmount;
-            $transaction->intermediation_fee_amount = $dataXml->intermediationFeeAmount;
-            $transaction->intermediation_fee_rate = $dataXml->intermediationRateAmount;
+            $transaction->operational_fee_amount = isset($dataXml->operationalFeeAmount) ? $dataXml->operationalFeeAmount : null;
+            $transaction->intermediation_fee_amount = isset($dataXml->creditorFees->intermediationFeeAmount) ? $dataXml->creditorFees->intermediationFeeAmount : null;
+            $transaction->intermediation_fee_rate = isset($dataXml->intermediationRateAmount) ? $dataXml->intermediationFeeAmount : null;
             $transaction->escrow_date = $dataXml->escrowEndDate;
             $transaction->save();
         }
