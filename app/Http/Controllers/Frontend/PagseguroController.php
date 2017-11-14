@@ -48,8 +48,8 @@ class PagseguroController extends Controller
         //Pegando o id do pedido            
         $order = Order::find($dataXml->reference);
 
-        if (in_array($dataXml->reference, [1, 2])){
-            $order->status_payment_id = $dataXml->reference;
+        if (in_array($dataXml->status, [1, 2])){
+            $order->status_payment_id = $dataXml->status;
         }
 
         if ($order->date_confirmation == null) {
