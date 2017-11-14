@@ -3,12 +3,13 @@
 namespace App\Model\Frontend;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Schedule extends Model
 {
     use SoftDeletes;
 	
-     /**
+ 	/**
      * @var bool
      */
     public $timestamps = true;

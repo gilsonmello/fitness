@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Model\Frontend\Diary;
 use App\Model\Frontend\DiaryHour;
 use App\Model\Frontend\Package;
+use App\Model\Frontend\Transaction;
 use App\User;
 use App\Schedule;
 use App\Http\Controllers\Controller;

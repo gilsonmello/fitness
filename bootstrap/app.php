@@ -10,7 +10,6 @@
 | the IoC container for the system binding all of the various parts.
 |
 */
-header("access-control-allow-origin: https://sandbox.pagseguro.uol.com.br");
 
 $app = new Illuminate\Foundation\Application(
     realpath(__DIR__.'/../')
