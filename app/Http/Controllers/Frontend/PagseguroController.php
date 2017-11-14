@@ -140,7 +140,7 @@ class PagseguroController extends Controller
 
         $result = (array) $dataXml;
 
-        dd($result);
+        dd($dataXml->code);
 
         
         //$result = (array) $result;
