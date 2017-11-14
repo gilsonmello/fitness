@@ -20,7 +20,7 @@ class PagseguroController extends Controller
     use PaymentService;
 
     private function updateFromPagseguroFeedback($dataXml) {
-        
+
         if (isset($dataXml->code)) {
             $transaction = new Transaction;
             $transaction->order_id = $dataXml->reference;
@@ -31,7 +31,7 @@ class PagseguroController extends Controller
             $transaction->installment_fee_amount = $dataXml->installmentFeeAmount;
             $transaction->installment_count = $dataXml->installmentCount;
             $transaction->discount_amount = $dataXml->discountAmount;
-            $transaction->status_id = $dataXml->status;
+            $transaction->status_payment_id = $dataXml->status;
             $transaction->gross_amount = $dataXml->grossAmount;
             $transaction->net_amount = $dataXml->netAmount;
             $transaction->operational_fee_amount = $dataXml->operationalFeeAmount;
