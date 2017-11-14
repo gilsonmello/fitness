@@ -127,8 +127,6 @@ class PagseguroController extends Controller
 
         $result = curl_exec($ch);
 
-        dd($result, $request);
-
         //$response = \HttpClient::get($request);
         //$dataXml = $response->xml();
 
