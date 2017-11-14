@@ -205,7 +205,7 @@ $(function(){
 	}
 
 
-    /*$('#payment-pagseguro').on('submit', function (event) {
+    $('#payment-pagseguro').on('submit', function (event) {
         event.preventDefault();
         document.querySelector('[name="method"]').setAttribute('value', 'creditCard');
         var isValid = $("#payment-pagseguro").valid();
@@ -221,12 +221,9 @@ $(function(){
     	}
 		
 
-    });*/
+    });
 
 	$('#payment-pagseguro').validate({
-		submitHandler: function(frm){
-			
-		},
 		rules: {
 			card_name: {
 				required: true
