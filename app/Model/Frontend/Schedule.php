@@ -28,7 +28,7 @@ class Schedule extends Model
      */
     protected $guarded = ['id'];
 
-    public function order(){
+    public function user(){
     	return $this->belongsTo(\App\User::class);
     }
 
