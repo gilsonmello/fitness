@@ -101,7 +101,7 @@ class PagseguroController extends Controller
         //$code = '7F7AA96F474A474A222664BC9F8EFA8680C4';
 
         $request = [
-            'url' => 'https://ws.pagseguro.uol.com.br/v3/transactions/notifications/'.$code.'?email=miranda.fitness.avaliacao@gmail.com&token=C900DDAA8A04452AA119B81709A67FA9',
+            'url' => 'https://ws.sandbox.pagseguro.uol.com.br/v3/transactions/notifications/'.$code.'?email=miranda.fitness.avaliacao@gmail.com&token=C900DDAA8A04452AA119B81709A67FA9',
             'params' => [
                 'email' => 'miranda.fitness.avaliacao@gmail.com',
                 'token' => 'C900DDAA8A04452AA119B81709A67FA9'
