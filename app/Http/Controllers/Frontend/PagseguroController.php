@@ -21,7 +21,6 @@ class PagseguroController extends Controller
 
     private function updateFromPagseguroFeedback($dataXml) {
 
-        dd($dataXml);
         if (isset($dataXml->code)) {
             $transaction = new Transaction;
             $transaction->order_id = $dataXml->reference;
