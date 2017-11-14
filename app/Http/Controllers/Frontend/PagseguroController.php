@@ -39,7 +39,7 @@ class PagseguroController extends Controller
             $transaction->intermediation_fee_amount = isset($dataXml->creditorFees->intermediationFeeAmount) ? $dataXml->creditorFees->intermediationFeeAmount : null;
             $transaction->intermediation_fee_rate = isset($dataXml->intermediationRateAmount) ? $dataXml->intermediationFeeAmount : null;
             var_dump($dataXml->escrowEndDate);
-            $datetz = new Datetime($dataXml->escrowEndDate);
+            $datetz = new DateTimeZone($dataXml->escrowEndDate);
 
             dd($datetz);
 
