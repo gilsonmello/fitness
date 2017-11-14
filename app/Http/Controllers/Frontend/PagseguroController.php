@@ -39,11 +39,8 @@ class PagseguroController extends Controller
             $transaction->intermediation_fee_amount = isset($dataXml->creditorFees->intermediationFeeAmount) ? $dataXml->creditorFees->intermediationFeeAmount : null;
             $transaction->intermediation_fee_rate = isset($dataXml->intermediationRateAmount) ? $dataXml->intermediationFeeAmount : null;
 
-
             $carbon = Carbon::parse($dataXml->escrowEndDate);
-            
-            dd($carbon->toDateTimeString());  
-            $transaction->escrow_date = $dataXml->escrowEndDate;
+            $transaction->escrow_date = $carbon->toDateTimeString();
             $transaction->save();
         }
 
