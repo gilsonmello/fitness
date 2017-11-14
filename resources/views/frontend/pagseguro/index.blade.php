@@ -33,7 +33,7 @@
 			<div class="col-lg-4 col-xs12">
 				<div class="form-group">
 					{!! Form::label('card_birth_date', trans('strings.card_birth_date'), []) !!}
-					{{ Form::text('card_birth_date', null, ['class' => 'birth_date form-control']) }}
+					{{ Form::text('card_birth_date', null, ['class' => 'form-control']) }}
 				</div>
 			</div>
 		</div>
