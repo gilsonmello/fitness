@@ -51,7 +51,7 @@ class PagseguroController extends Controller
         if (in_array($dataXml->status, [1, 2])){
             $order->status_payment_id = $dataXml->status;
         }
-        
+
 
         if ($order->date_confirmation == null) {
             $order->date_confirmation = Carbon::now();
@@ -73,10 +73,12 @@ class PagseguroController extends Controller
         if (in_array($dataXml->status, [3, 4]) && ($order->status_payment_id != 4 || $order->status_payment_id != 3)) {
             $order->status_payment_id = $dataXml->status;
             if (count($order->packages) > 0) {
-                $items = Package::whereIn('package_id', $order->packages->lists('package_id'))->get();
+                $items = Package::whereIn('package_id', $order->packages->pluck('package_id'))->get();
                 $this->createSchedule($items, $order);
             }
         }
+
+        $order->save();
     }
 
     private function createSchedule($items, $order){
