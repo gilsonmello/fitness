@@ -167,15 +167,7 @@ $(function(){
 		}
 	});
 
-
-    $('#payment-pagseguro').on('submit', function (event) {
-        event.preventDefault();
-        document.querySelector('[name="method"]').setAttribute('value', 'creditCard');
-        var isValid = $("#payment-pagseguro").valid();
-		
-		setCardToken();
-        setSenderHash();
-		
+	function executePayment(){
 		$.ajax({
         	method: 'POST',
         	async: false,
@@ -188,6 +180,7 @@ $(function(){
 		    },
         	success: function(data){
         		$('body').append(data);
+        		Payment.redirect();
 				/*var xmlDOM = new DOMParser().parseFromString(data, 'text/xml');
         		data = xmlToJson(xmlDOM);
         		$.ajax({
@@ -209,6 +202,23 @@ $(function(){
 
         	}
         });
+	}
+
+
+    $('#payment-pagseguro').on('submit', function (event) {
+        event.preventDefault();
+        document.querySelector('[name="method"]').setAttribute('value', 'creditCard');
+        var isValid = $("#payment-pagseguro").valid();
+		
+		setCardToken();
+        setSenderHash();
+
+        if(isValid){
+	        setTimeout(function () {
+		        executePayment();
+	    	}, 3000);
+    	}
+		
 
     });
 
