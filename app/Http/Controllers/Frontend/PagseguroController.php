@@ -19,6 +19,7 @@ class PagseguroController extends Controller
     use PaymentService;
 
     private function updateFromPagseguroFeedback($dataXml) {
+        dd($dataXml->code);
         if (isset($dataXml->code)) {
             $transaction = new Transaction;
             $transaction->order_id = $dataXml->reference;
@@ -132,12 +133,10 @@ class PagseguroController extends Controller
 
         $dataXml = simplexml_load_string($result);
 
-        dd($dataXml);
-        Log::info($dataXml);
         
         //$result = (array) $result;
 
-        //$this->updateFromPagseguroFeedback($dataXml);
+        $this->updateFromPagseguroFeedback($dataXml);
 
     }
 
