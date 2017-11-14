@@ -130,17 +130,15 @@ class PagseguroController extends Controller
 
         curl_close($ch);
         
-        $result = null;
-
         //$response = \HttpClient::get($request);
         //$dataXml = $response->xml();
 
         $dataXml = simplexml_load_string($result);
 
 
-        //$result = (array) $dataXml;
+        $dataXml = (array) $dataXml;
 
-        dd($dataXml->code);
+        dd($dataXml);
 
         
         //$result = (array) $result;
