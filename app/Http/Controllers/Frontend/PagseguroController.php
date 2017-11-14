@@ -9,7 +9,7 @@ use App\Model\Frontend\DiaryHour;
 use App\Model\Frontend\Package;
 use App\Model\Frontend\Transaction;
 use App\User;
-use App\Schedule;
+use App\Model\Frontend\Schedule;
 use App\Http\Controllers\Controller;
 use App\Services\Frontend\Payment\PaymentService;
 use Illuminate\Support\Facades\Log;
