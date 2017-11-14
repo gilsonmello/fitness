@@ -10,7 +10,7 @@ $.ajax({
 	url: '/pagseguro/generate_order',
 	headers: {
         'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-    },
+    },/*,
     data: {
 		user_id: 1,
 		year: '2017',
@@ -20,8 +20,8 @@ $.ajax({
 		minute: '52',
 		second: '00',
         package_id: 1
-	},
-	/*data: {
+	},*/
+	data: {
 		user_id: auth.id,
 		year: items.year,
 		month: items.month,
@@ -30,7 +30,7 @@ $.ajax({
 		minute: items.minute,
 		second: items.second,
         package_id: items.package.id
-	},*/
+	},
 	success: function (data) {
 		$('[name="order_id"]').val(data.order_id);
 		$('[name="item_id"]').val(data.items.id);
@@ -187,7 +187,7 @@ $(function(){
 		    beforeSend: function(){
 		    },
         	success: function(data){
-        		window.console.log(data);
+        		$('body').append(data);
 				/*var xmlDOM = new DOMParser().parseFromString(data, 'text/xml');
         		data = xmlToJson(xmlDOM);
         		$.ajax({
