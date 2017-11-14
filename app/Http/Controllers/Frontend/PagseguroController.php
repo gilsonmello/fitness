@@ -138,7 +138,7 @@ class PagseguroController extends Controller
         $dataXml = simplexml_load_string($result);
 
 
-        $result = (array) $dataXml;
+        //$result = (array) $dataXml;
 
         dd($dataXml->code);
 
