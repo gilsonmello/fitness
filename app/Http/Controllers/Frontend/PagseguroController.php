@@ -73,7 +73,7 @@ class PagseguroController extends Controller
         if (in_array($dataXml->status, [3, 4]) && ($order->status_payment_id != 4 || $order->status_payment_id != 3)) {
             $order->status_payment_id = $dataXml->status;
             if (count($order->packages) > 0) {
-                $items = Package::whereIn('package_id', $order->packages->pluck('package_id'))->get();
+                $items = Package::whereIn('package_id', $order->packages->pluck('id'))->get();
                 $this->createSchedule($items, $order);
             }
         }
