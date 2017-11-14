@@ -28,7 +28,7 @@ class PagseguroController extends Controller
             $transaction->payment_id = $dataXml->code;
             $transaction->payment_method = $dataXml->paymentMethod->type;
             $transaction->payment_code = $dataXml->paymentMethod->code;
-            $transaction->installment_fee_amount = $dataXml->installmentFeeAmount;
+            $transaction->installment_fee_amount = isset($dataXml->installmentFeeAmount) ? $dataXml->installmentFeeAmount : null;
             $transaction->installment_count = $dataXml->installmentCount;
             $transaction->discount_amount = $dataXml->discountAmount;
             $transaction->status_payment_id = $dataXml->status;
