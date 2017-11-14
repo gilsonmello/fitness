@@ -137,6 +137,7 @@ class PagseguroController extends Controller
 
 
         //$dataXml = (array) $dataXml;
+        echo $dataXml->date;
 
         dd($dataXml->date);
 
