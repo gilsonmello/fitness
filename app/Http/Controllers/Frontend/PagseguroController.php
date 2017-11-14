@@ -101,7 +101,7 @@ class PagseguroController extends Controller
         //$code = '7F7AA96F474A474A222664BC9F8EFA8680C4';
 
         $request = [
-            'url' => 'https://ws.pagseguro.uol.com.br/v2/transactions/notifications/'.$code.'?email=miranda.fitness.avaliacao@gmail.com&token=C900DDAA8A04452AA119B81709A67FA9',
+            'url' => 'https://ws.pagseguro.uol.com.br/v3/transactions/notifications/'.$code.'?email=miranda.fitness.avaliacao@gmail.com&token=C900DDAA8A04452AA119B81709A67FA9',
             'params' => [
                 'email' => 'miranda.fitness.avaliacao@gmail.com',
                 'token' => 'C900DDAA8A04452AA119B81709A67FA9'
@@ -114,7 +114,7 @@ class PagseguroController extends Controller
         //Log::inf($response);
 
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, 'https://ws.sandbox.pagseguro.uol.com.br/v2/transactions/'.$request['url']);
+        curl_setopt($ch, CURLOPT_URL, $request['url']);
         curl_setopt($ch, CURLOPT_HTTPHEADER, [ 'application/x-www-form-urlencoded; charset=ISO-8859-1']);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 
@@ -128,13 +128,11 @@ class PagseguroController extends Controller
         $result = curl_exec($ch);
 
 
-        dd($result);
-
         //$response = \HttpClient::get($request);
         //$dataXml = $response->xml();
 
-        $result = simplexml_load_string($result);
-        Log::info($result);
+        $dataXml = simplexml_load_string($result);
+        Log::info($dataXml);
         
         //$result = (array) $result;
 
