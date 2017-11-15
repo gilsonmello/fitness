@@ -11,13 +11,14 @@ $.ajax({
 	headers: {
         'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
     },
-    /*data: {
+    /*
+    data: {
 		user_id: 1,
 		year: '2017',
 		month: '11',
-		day: '14',
-		hour: '22',
-		minute: '10',
+		day: '15',
+		hour: '17',
+		minute: '12',
 		second: '00',
         package_id: 1
 	},*/
@@ -34,7 +35,7 @@ $.ajax({
 	success: function (data) {
 		$('[name="order_id"]').val(data.order_id);
 		$('[name="item_id"]').val(data.items.id);
-		$('[name="user_id"]').val(1);
+		$('[name="user_id"]').val(auth.id);
     },
 	error: function (errors) {
     }
@@ -75,8 +76,12 @@ function setCardToken() {
             }
         },
         error: function (data) {
+        	window.console.log(data);
 //            console.log('Ocorreu um erro na validação do cartão');
 //            console.log(JSON.stringify(data));
+        },
+        complete: function(data){
+
         }
     };
     PagSeguroDirectPayment.createCardToken(parametros);
@@ -91,6 +96,7 @@ $(function(){
 	var input_card_cvv = $('#card_cvv');
 	var input_card_year = $('#card_year');
 	var input_card_month = $('#card_month');
+	var card_token = $('[name="card_token"]');
 
 
     $(".select2").select2();
@@ -157,10 +163,11 @@ $(function(){
                         document.querySelector("input[name=card_brand]").value = brand;
                     }
                     $(".fa-credit-card-alt").removeClass('fa-credit-card-alt').addClass('fa-cc-' + brand);
-                    
-                },
+				},
                 error: function (data, error, other) {
                     
+                },
+                complete: function(){
                 }
             });
 
@@ -168,50 +175,74 @@ $(function(){
 	});
 
 	function executePayment(){
-		$.ajax({
-        	method: 'POST',
-        	async: false,
-        	url: $('#payment-pagseguro').attr('action'),
-        	data: $('#payment-pagseguro').serialize(),
-        	headers: {
-		        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-		    },
-		    beforeSend: function(){
-		    },
-        	success: function(data){
-        		//$('body').append(data);
-        		
-        		swal({
-				  	title: "Pedido Efeituado!",
-			     	text: "Em breve você será redirecionado",
-			     	type: "success",
-			     	timer: 3000
-				}, function(inputValue){
-				  	Payment.redirect();
-				});
+		setTimeout(function () {
+			if(card_token.val() == ''){
+				swal({
+	                title: "Dados do cartão informado <br> está inválido tente novamente.",
+	                type: "error",
+	                cancelButtonText: "Cancelar",
+	                html: true,
+	                showCancelButton: false,
+	                confirmButtonColor: "#00a65a",
+	                confirmButtonText: "Tente novamente",
+	                closeOnConfirm: true,
+	                showLoaderOnConfirm: false
+	            }, function(inputValue){
 
-        		
-				/*var xmlDOM = new DOMParser().parseFromString(data, 'text/xml');
-        		data = xmlToJson(xmlDOM);
-        		$.ajax({
-        			method: 'POST',
-		        	url: '/pagseguro/notifications',
-		        	data: {content: data},
-					headers: {
+	            });
+			}else{
+				$.ajax({
+		        	method: 'POST',
+		        	async: false,
+		        	url: $('#payment-pagseguro').attr('action'),
+		        	data: $('#payment-pagseguro').serialize(),
+		        	headers: {
 				        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
 				    },
-				    success: function(val){
-
+				    beforeSend: function(){
+						$('[type="submit"]').attr('disabled', 'disabled');
 				    },
-				    error: function(val){
+		        	success: function(data){
+		        		//$('body').append(data);
+		        		
+		        		swal({
+						  	title: "Pedido efeituado",
+			                type: "success",
+			                text: 'Confirme para redirecionar à página do cliente',
+			                html: true,
+			                showCancelButton: false,
+			                confirmButtonColor: "#00a65a",
+			                confirmButtonText: "Confirmar",
+			                closeOnConfirm: false,
+			                showLoaderOnConfirm: false
+						}, function(inputValue){
+						  	Payment.redirect();
+						});
 
-				    }
-        		});*/
-        	},
-        	error: function(errors){
+		        		
+						/*var xmlDOM = new DOMParser().parseFromString(data, 'text/xml');
+		        		data = xmlToJson(xmlDOM);
+		        		$.ajax({
+		        			method: 'POST',
+				        	url: '/pagseguro/notifications',
+				        	data: {content: data},
+							headers: {
+						        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+						    },
+						    success: function(val){
 
-        	}
-        });
+						    },
+						    error: function(val){
+
+						    }
+		        		});*/
+		        	},
+		        	error: function(errors){
+
+		        	}
+		        });
+			}
+		}, 3000);
 	}
 
 
@@ -221,29 +252,26 @@ $(function(){
         var isValid = $("#payment-pagseguro").valid();
 		
 		$('body').append('isValid '+isValid);
-		
-    	setCardToken();
-        setSenderHash();
-		$('[type="submit"]').attr('disabled', 'disabled');
+
 
         if(isValid){
         	if(!validateCPF($('#card_personal_id').val())) {
 				swal("Oops...", "CPF Inválido!", "error");
         	}else{
-		        setTimeout(function () {
-			        swal({
-		                title: "Deseja continuar?",
-		                type: "info",
-		                cancelButtonText: "Cancelar",
-		                showCancelButton: true,
-		                confirmButtonColor: "#00a65a",
-		                confirmButtonText: "Continuar",
-		                closeOnConfirm: false,
-		                showLoaderOnConfirm: true,
-			            },function(type){
-		            	 	executePayment();
-		            	});
-		    	}, 3000);
+		        swal({
+	                title: "Deseja continuar?",
+	                type: "info",
+	                cancelButtonText: "Cancelar",
+	                showCancelButton: true,
+	                confirmButtonColor: "#00a65a",
+	                confirmButtonText: "Continuar",
+	                closeOnConfirm: false,
+	                showLoaderOnConfirm: true,
+	            },function(type){
+			        setSenderHash();
+					setCardToken();
+            	 	executePayment();
+            	});
 		    }
     	}
 		
