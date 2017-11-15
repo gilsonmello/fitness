@@ -182,17 +182,14 @@ $(function(){
         		//$('body').append(data);
         		
         		swal({
-				  	title: "Deleted!",
-			     	text: "Your row has been deleted.",
+				  	title: "Pedido Efeituado!",
+			     	text: "Em breve você será redirecionado",
 			     	type: "success",
 			     	timer: 3000
 				}, function(inputValue){
-				  	$('body').html('<p>aa</p>');
+				  	Payment.redirect();
 				});
 
-        		setTimeout(function(){
-        			Payment.redirect();
-        		}, 5000);
         		
 				/*var xmlDOM = new DOMParser().parseFromString(data, 'text/xml');
         		data = xmlToJson(xmlDOM);
