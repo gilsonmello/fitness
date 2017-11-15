@@ -221,13 +221,15 @@ $(function(){
         var isValid = $("#payment-pagseguro").valid();
 		
 		$('body').append('isValid '+isValid);
+		
+    	setCardToken();
+        setSenderHash();
+		$('[type="submit"]').attr('disabled', 'disabled');
 
         if(isValid){
         	if(!validateCPF($('#card_personal_id').val())) {
 				swal("Oops...", "CPF Inválido!", "error");
         	}else{
-	        	setCardToken();
-		        setSenderHash();
 		        setTimeout(function () {
 			        swal({
 		                title: "Deseja continuar?",
@@ -238,8 +240,7 @@ $(function(){
 		                confirmButtonText: "Continuar",
 		                closeOnConfirm: false,
 		                showLoaderOnConfirm: true,
-			            },function(){
-        					$('[type="submit"]').attr('disabled', 'disabled');
+			            },function(type){
 		            	 	executePayment();
 		            	});
 		    	}, 3000);
