@@ -1,9 +1,9 @@
 PagSeguroDirectPayment.setSessionId(document.querySelector("[name='session_id']").value);
 
-/*var items = Payment.getItems();
+var items = Payment.getItems();
 var auth = Payment.getAuth();
 auth = JSON.parse(auth);
-items = JSON.parse(items);*/
+items = JSON.parse(items);
 
 $.ajax({
 	method: 'POST',
@@ -12,7 +12,7 @@ $.ajax({
         'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
     },
     
-    data: {
+    /*data: {
 		user_id: 1,
 		year: '2017',
 		month: '11',
@@ -21,8 +21,8 @@ $.ajax({
 		minute: '12',
 		second: '00',
         package_id: 1
-	},
-	/*data: {
+	},*/
+	data: {
 		user_id: auth.id,
 		year: items.year,
 		month: items.month,
@@ -31,11 +31,11 @@ $.ajax({
 		minute: items.minute,
 		second: items.second,
         package_id: items.package.id
-	},*/
+	},
 	success: function (data) {
 		$('[name="order_id"]').val(data.order_id);
 		$('[name="item_id"]').val(data.items.id);
-		$('[name="user_id"]').val(1);
+		$('[name="user_id"]').val(auth.id);
     },
 	error: function (errors) {
     }
