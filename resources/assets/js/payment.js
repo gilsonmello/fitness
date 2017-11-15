@@ -180,8 +180,15 @@ $(function(){
 		    },
         	success: function(data){
         		//$('body').append(data);
-        		swal("Pedido realizado com sucesso!", "", "success");
-        		Payment.redirect();
+        		swal({
+        			text: 'Pedido efeituado com sucesso!',
+        			confirmButtonColor: "#DD6B55",
+  					confirmButtonText: "Voltar",
+  					type: "success",
+  					showCancelButton: false,
+        		}, function(){
+        			Payment.redirect();
+        		});
 				/*var xmlDOM = new DOMParser().parseFromString(data, 'text/xml');
         		data = xmlToJson(xmlDOM);
         		$.ajax({
@@ -217,16 +224,16 @@ $(function(){
 
         if(isValid){
         	if(!validateCPF($('#card_personal_id').val())) {
-				swal("Oops...", "Something went wrong!", "error");
+				swal("Oops...", "CPF Inválido!", "error");
         	}else{
 		        setTimeout(function () {
 			        swal({
-		                title: "Você confirma todos os dados informados?",
+		                title: "Deseja continuar?",
 		                type: "info",
 		                cancelButtonText: "Cancelar",
 		                showCancelButton: true,
 		                confirmButtonColor: "#00a65a",
-		                confirmButtonText: "Efeituar pagamento",
+		                confirmButtonText: "Continuar",
 		                closeOnConfirm: false,
 		                showLoaderOnConfirm: true,
 			            },function(){
