@@ -1,9 +1,9 @@
 PagSeguroDirectPayment.setSessionId(document.querySelector("[name='session_id']").value);
 
-//var items = Payment.getItems();
-//var auth = Payment.getAuth();
-//auth = JSON.parse(auth);
-//items = JSON.parse(items);
+var items = Payment.getItems();
+var auth = Payment.getAuth();
+auth = JSON.parse(auth);
+items = JSON.parse(items);
 
 $.ajax({
 	method: 'POST',

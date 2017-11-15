@@ -24,7 +24,7 @@ class CreateOrdersTable extends Migration
             $table->decimal('value_discount')->nullable();
             $table->dateTime('date_confirmation')->nullable();
             $table->dateTime('date_cancel')->nullable();
-            $table->integer('status_payment_id')->unsigned()->default(4);
+            $table->integer('status_payment_id')->unsigned()->nullable();
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('user_id')
