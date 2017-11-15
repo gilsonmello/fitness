@@ -180,15 +180,14 @@ $(function(){
 		    },
         	success: function(data){
         		//$('body').append(data);
-        		swal({
-        			text: 'Pedido efeituado com sucesso!',
-        			confirmButtonColor: "#DD6B55",
-  					confirmButtonText: "Voltar",
-  					type: "success",
-  					showCancelButton: false
-        		}, function(){
-        			//Payment.redirect();
-        		});
+        		
+        		swal("Deleted!",
+				  "Your imaginary file has been deleted.",
+				  "success");
+        		setTimeout(function () {
+        			Payment.redirect();
+        		}, 10000);
+        		
 				/*var xmlDOM = new DOMParser().parseFromString(data, 'text/xml');
         		data = xmlToJson(xmlDOM);
         		$.ajax({
