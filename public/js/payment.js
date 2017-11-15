@@ -216,20 +216,24 @@ $(function(){
 		$('body').append('isValid '+isValid);
 
         if(isValid){
-	        setTimeout(function () {
-		        swal({
-                title: "Você realmente deseja atualizar os dados?",
-                type: "info",
-                cancelButtonText: "Cancelar",
-                showCancelButton: true,
-                confirmButtonColor: "#00a65a",
-                confirmButtonText: "Salvar",
-                closeOnConfirm: false,
-                showLoaderOnConfirm: true,
-	            },function(){
-            	 	executePayment();
-	            });
-	    	}, 3000);
+        	if(validateCPF($('#card_personal_id').val())) {
+				swal("CPF Inválido!", "", "error");
+        	}else{
+		        setTimeout(function () {
+			        swal({
+		                title: "Você realmente deseja atualizar os dados?",
+		                type: "info",
+		                cancelButtonText: "Cancelar",
+		                showCancelButton: true,
+		                confirmButtonColor: "#00a65a",
+		                confirmButtonText: "Salvar",
+		                closeOnConfirm: false,
+		                showLoaderOnConfirm: true,
+			            },function(){
+		            	 	executePayment();
+		            	});
+		    	}, 3000);
+		    }
     	}
 		
 
@@ -241,8 +245,8 @@ $(function(){
 				required: true
 			},
 			card_personal_id: {
-				required: true,
-				isCPF: true
+				required: true/*,
+				isCPF: true*/
 			},
 			card_birth_date:{
 				required: true
@@ -290,8 +294,8 @@ $(function(){
 				required: 'Campo obrigatório'
 			},
 			card_personal_id: {
-				required: 'Campo obrigatório',
-				isCPF: 'CPF Inválido'
+				required: 'Campo obrigatório'/*,
+				isCPF: 'CPF Inválido'*/
 			},
 			card_birth_date:{
 				required: 'Campo obrigatório'
