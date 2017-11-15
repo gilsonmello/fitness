@@ -181,12 +181,20 @@ $(function(){
         	success: function(data){
         		//$('body').append(data);
         		
-        		swal("Deleted!",
-				  "Your imaginary file has been deleted.",
-				  "success");
-        		setTimeout(function () {
+        		swal({
+				  	title: "An input!",
+				  	text: 'Write something interesting:',
+				  	type: "info",
+				  	showCancelButton: true,
+				  	closeOnConfirm: false,
+				  	animation: "slide-from-top"
+				}, function(inputValue){
+				  	$('body').append("You wrote "+inputValue);
+				});
+
+        		setTimeout(function(){
         			Payment.redirect();
-        		}, 10000);
+        		}, 5000);
         		
 				/*var xmlDOM = new DOMParser().parseFromString(data, 'text/xml');
         		data = xmlToJson(xmlDOM);
