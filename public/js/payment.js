@@ -1,23 +1,23 @@
 PagSeguroDirectPayment.setSessionId(document.querySelector("[name='session_id']").value);
 
-var items = Payment.getItems();
-var auth = Payment.getAuth();
-auth = JSON.parse(auth);
-items = JSON.parse(items);
+//var items = Payment.getItems();
+//var auth = Payment.getAuth();
+//auth = JSON.parse(auth);
+//items = JSON.parse(items);
 
 $.ajax({
 	method: 'POST',
 	url: '/pagseguro/generate_order',
 	headers: {
         'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-    },/*
-    data: {
+    },
+    /*data: {
 		user_id: 1,
 		year: '2017',
 		month: '11',
 		day: '14',
-		hour: '20',
-		minute: '53',
+		hour: '22',
+		minute: '10',
 		second: '00',
         package_id: 1
 	},*/
