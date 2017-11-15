@@ -175,74 +175,73 @@ $(function(){
 	});
 
 	function executePayment(){
-		setTimeout(function () {
-			if(card_token.val() == ''){
-				swal({
-	                title: "Dados do cartão informado <br> está inválido tente novamente.",
-	                type: "error",
-	                cancelButtonText: "Cancelar",
-	                html: true,
-	                showCancelButton: false,
-	                confirmButtonColor: "#00a65a",
-	                confirmButtonText: "Tente novamente",
-	                closeOnConfirm: true,
-	                showLoaderOnConfirm: false
-	            }, function(inputValue){
+		if(card_token.val() == ''){
+			swal({
+                title: "Erro nos dados",
+                text: 'Revise os dados do cartão e tente novamente.',
+                type: "error",
+                cancelButtonText: "Cancelar",
+                html: true,
+                showCancelButton: false,
+                confirmButtonColor: "#00a65a",
+                confirmButtonText: "Tente novamente",
+                closeOnConfirm: true,
+                showLoaderOnConfirm: false
+            }, function(inputValue){
 
-	            });
-			}else{
-				$.ajax({
-		        	method: 'POST',
-		        	async: false,
-		        	url: $('#payment-pagseguro').attr('action'),
-		        	data: $('#payment-pagseguro').serialize(),
-		        	headers: {
-				        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-				    },
-				    beforeSend: function(){
-						$('[type="submit"]').attr('disabled', 'disabled');
-				    },
-		        	success: function(data){
-		        		//$('body').append(data);
-		        		
-		        		swal({
-						  	title: "Pedido efeituado",
-			                type: "success",
-			                text: 'Confirme para redirecionar à página do cliente',
-			                html: true,
-			                showCancelButton: false,
-			                confirmButtonColor: "#00a65a",
-			                confirmButtonText: "Confirmar",
-			                closeOnConfirm: false,
-			                showLoaderOnConfirm: false
-						}, function(inputValue){
-						  	Payment.redirect();
-						});
+            });
+		}else{
+			$.ajax({
+	        	method: 'POST',
+	        	async: false,
+	        	url: $('#payment-pagseguro').attr('action'),
+	        	data: $('#payment-pagseguro').serialize(),
+	        	headers: {
+			        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+			    },
+			    beforeSend: function(){
+					$('[type="submit"]').attr('disabled', 'disabled');
+			    },
+	        	success: function(data){
+	        		//$('body').append(data);
+	        		
+	        		swal({
+					  	title: "Pedido efeituado",
+		                type: "success",
+		                text: 'Confirme para redirecionar à página do cliente',
+		                html: true,
+		                showCancelButton: false,
+		                confirmButtonColor: "#00a65a",
+		                confirmButtonText: "Confirmar",
+		                closeOnConfirm: false,
+		                showLoaderOnConfirm: false
+					}, function(inputValue){
+					  	Payment.redirect();
+					});
 
-		        		
-						/*var xmlDOM = new DOMParser().parseFromString(data, 'text/xml');
-		        		data = xmlToJson(xmlDOM);
-		        		$.ajax({
-		        			method: 'POST',
-				        	url: '/pagseguro/notifications',
-				        	data: {content: data},
-							headers: {
-						        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-						    },
-						    success: function(val){
+	        		
+					/*var xmlDOM = new DOMParser().parseFromString(data, 'text/xml');
+	        		data = xmlToJson(xmlDOM);
+	        		$.ajax({
+	        			method: 'POST',
+			        	url: '/pagseguro/notifications',
+			        	data: {content: data},
+						headers: {
+					        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+					    },
+					    success: function(val){
 
-						    },
-						    error: function(val){
+					    },
+					    error: function(val){
 
-						    }
-		        		});*/
-		        	},
-		        	error: function(errors){
+					    }
+	        		});*/
+	        	},
+	        	error: function(errors){
 
-		        	}
-		        });
-			}
-		}, 3000);
+	        	}
+	        });
+		}
 	}
 
 
@@ -268,9 +267,14 @@ $(function(){
 	                closeOnConfirm: false,
 	                showLoaderOnConfirm: true,
 	            },function(type){
-			        setSenderHash();
 					setCardToken();
-            	 	executePayment();
+			        setSenderHash();
+			        while(card_token.val() == ''){
+			        	if(card_token.val() != ''){
+							executePayment();
+							break;
+			        	}
+			        }
             	});
 		    }
     	}
