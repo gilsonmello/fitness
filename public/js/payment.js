@@ -216,7 +216,7 @@ $(function(){
 		$('body').append('isValid '+isValid);
 
         if(isValid){
-        	if(validateCPF($('#card_personal_id').val())) {
+        	if(!validateCPF($('#card_personal_id').val())) {
 				swal("Oops...", "Something went wrong!", "error");
         	}else{
 		        setTimeout(function () {
