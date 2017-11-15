@@ -226,22 +226,22 @@ $(function(){
         	if(!validateCPF($('#card_personal_id').val())) {
 				swal("Oops...", "CPF Inválido!", "error");
         	}else{
-		        
 	        	setCardToken();
 		        setSenderHash();
-		        swal({
-	                title: "Deseja continuar?",
-	                type: "info",
-	                cancelButtonText: "Cancelar",
-	                showCancelButton: true,
-	                confirmButtonColor: "#00a65a",
-	                confirmButtonText: "Continuar",
-	                closeOnConfirm: false,
-	                showLoaderOnConfirm: true,
-		            },function(){
-	            	 	executePayment();
-	            	});
-		    	
+		        setTimeout(function () {
+			        swal({
+		                title: "Deseja continuar?",
+		                type: "info",
+		                cancelButtonText: "Cancelar",
+		                showCancelButton: true,
+		                confirmButtonColor: "#00a65a",
+		                confirmButtonText: "Continuar",
+		                closeOnConfirm: false,
+		                showLoaderOnConfirm: true,
+			            },function(){
+		            	 	executePayment();
+		            	});
+		    	}, 2000);
 		    }
     	}
 		
