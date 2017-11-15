@@ -180,6 +180,7 @@ $(function(){
 		    },
         	success: function(data){
         		//$('body').append(data);
+        		swal("Pedido realizado com sucesso!", "", "success");
         		Payment.redirect();
 				/*var xmlDOM = new DOMParser().parseFromString(data, 'text/xml');
         		data = xmlToJson(xmlDOM);
@@ -216,7 +217,18 @@ $(function(){
 
         if(isValid){
 	        setTimeout(function () {
-		        executePayment();
+		        swal({
+                title: "Você realmente deseja atualizar os dados?",
+                type: "info",
+                cancelButtonText: "Cancelar",
+                showCancelButton: true,
+                confirmButtonColor: "#00a65a",
+                confirmButtonText: "Salvar",
+                closeOnConfirm: false,
+                showLoaderOnConfirm: true,
+	            },function(){
+            	 	executePayment();
+	            });
 	    	}, 3000);
     	}
 		
@@ -229,8 +241,11 @@ $(function(){
 				required: true
 			},
 			card_personal_id: {
-				required: true/*,
-				isCPF: true*/
+				required: true,
+				isCPF: true
+			},
+			card_birth_date:{
+				required: true
 			},
 			card_number: {
 				required: true
@@ -275,8 +290,11 @@ $(function(){
 				required: 'Campo obrigatório'
 			},
 			card_personal_id: {
-				required: 'Campo obrigatório'/*,
-				isCPF: 'CPF Inválido'*/
+				required: 'Campo obrigatório',
+				isCPF: 'CPF Inválido'
+			},
+			card_birth_date:{
+				required: 'Campo obrigatório'
 			},
 			card_number: {
 				required: 'Campo obrigatório'
