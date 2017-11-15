@@ -84,9 +84,10 @@ $(function(){
 	//            console.log(JSON.stringify(data));
 	        },
 	        complete: function(data){
+	        	$('body').append(data);
 	        	setTimeout(function(){
 	        		executePayment();
-				}, 1500);
+				}, 3000);
 	        }
 	    };
 	    PagSeguroDirectPayment.createCardToken(parametros);
