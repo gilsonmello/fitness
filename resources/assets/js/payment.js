@@ -1,9 +1,9 @@
 PagSeguroDirectPayment.setSessionId(document.querySelector("[name='session_id']").value);
 
-var items = Payment.getItems();
+/*var items = Payment.getItems();
 var auth = Payment.getAuth();
 auth = JSON.parse(auth);
-items = JSON.parse(items);
+items = JSON.parse(items);*/
 
 $.ajax({
 	method: 'POST',
@@ -11,7 +11,7 @@ $.ajax({
 	headers: {
         'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
     },
-    /*
+    
     data: {
 		user_id: 1,
 		year: '2017',
@@ -21,8 +21,8 @@ $.ajax({
 		minute: '12',
 		second: '00',
         package_id: 1
-	},*/
-	data: {
+	},
+	/*data: {
 		user_id: auth.id,
 		year: items.year,
 		month: items.month,
@@ -31,11 +31,11 @@ $.ajax({
 		minute: items.minute,
 		second: items.second,
         package_id: items.package.id
-	},
+	},*/
 	success: function (data) {
 		$('[name="order_id"]').val(data.order_id);
 		$('[name="item_id"]').val(data.items.id);
-		$('[name="user_id"]').val(auth.id);
+		$('[name="user_id"]').val(1);
     },
 	error: function (errors) {
     }
@@ -55,39 +55,42 @@ function setSenderHash() {
     }
 }
 
-function setCardToken() {
-    var parametros = {
-        cardNumber: document.getElementById('card_number').value,
-        brand: document.querySelector("input[name=card_brand]").value,
-        cvv: document.querySelector("input[name=card_cvv]").value,
-        expirationMonth: document.querySelector('input[name=card_month]').value,
-        expirationYear: document.querySelector('input[name=card_year]').value,
-        success: function (data) {
-            var form = document.querySelector('#payment-pagseguro');
-            var token = JSON.stringify(data.card.token).replace(/"/g, '');
-            if (document.querySelector("input[name=card_token]") == null) {
-                var cardToken = document.createElement('input');
-                cardToken.setAttribute('name', "card_token");
-                cardToken.setAttribute('type', "hidden");
-                cardToken.setAttribute('value', token);
-                form.appendChild(cardToken);
-            } else {
-                document.querySelector("input[name=card_token]").value = token;
-            }
-        },
-        error: function (data) {
-        	window.console.log(data);
-//            console.log('Ocorreu um erro na validação do cartão');
-//            console.log(JSON.stringify(data));
-        },
-        complete: function(data){
-
-        }
-    };
-    PagSeguroDirectPayment.createCardToken(parametros);
-}
 
 $(function(){
+
+	function setCardToken() {
+	    var parametros = {
+	        cardNumber: document.getElementById('card_number').value,
+	        brand: document.querySelector("input[name=card_brand]").value,
+	        cvv: document.querySelector("input[name=card_cvv]").value,
+	        expirationMonth: document.querySelector('input[name=card_month]').value,
+	        expirationYear: document.querySelector('input[name=card_year]').value,
+	        success: function (data) {
+	            var form = document.querySelector('#payment-pagseguro');
+	            var token = JSON.stringify(data.card.token).replace(/"/g, '');
+	            if (document.querySelector("input[name=card_token]") == null) {
+	                var cardToken = document.createElement('input');
+	                cardToken.setAttribute('name', "card_token");
+	                cardToken.setAttribute('type', "hidden");
+	                cardToken.setAttribute('value', token);
+	                form.appendChild(cardToken);
+	            } else {
+	                document.querySelector("input[name=card_token]").value = token;
+	            }
+	        },
+	        error: function (data) {
+	        	window.console.log(data);
+	//            console.log('Ocorreu um erro na validação do cartão');
+	//            console.log(JSON.stringify(data));
+	        },
+	        complete: function(data){
+	        	setTimeout(function(){
+	        		executePayment();
+				}, 1500);
+	        }
+	    };
+	    PagSeguroDirectPayment.createCardToken(parametros);
+	}
 	
 	var sessionId = $('[name="session_id"]').val();
 
@@ -216,7 +219,7 @@ $(function(){
 		                closeOnConfirm: false,
 		                showLoaderOnConfirm: false
 					}, function(inputValue){
-					  	Payment.redirect();
+					  	//Payment.redirect();
 					});
 
 	        		
@@ -269,12 +272,6 @@ $(function(){
 	            },function(type){
 					setCardToken();
 			        setSenderHash();
-			        while(card_token.val() == ''){
-			        	if(card_token.val() != ''){
-							executePayment();
-							break;
-			        	}
-			        }
             	});
 		    }
     	}
