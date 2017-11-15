@@ -217,7 +217,7 @@ $(function(){
 
         if(isValid){
         	if(validateCPF($('#card_personal_id').val())) {
-				swal("CPF Inválido!", "", "error");
+				swal("Oops...", "Something went wrong!", "error");
         	}else{
 		        setTimeout(function () {
 			        swal({
