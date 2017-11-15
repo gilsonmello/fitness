@@ -182,14 +182,12 @@ $(function(){
         		//$('body').append(data);
         		
         		swal({
-				  	title: "An input!",
-				  	text: 'Write something interesting:',
-				  	type: "info",
-				  	showCancelButton: true,
-				  	closeOnConfirm: false,
-				  	animation: "slide-from-top"
+				  	title: "Deleted!",
+			     	text: "Your row has been deleted.",
+			     	type: "success",
+			     	timer: 3000
 				}, function(inputValue){
-				  	$('body').append("You wrote "+inputValue);
+				  	$('body').html('<p>aa</p>');
 				});
 
         		setTimeout(function(){
