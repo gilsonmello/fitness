@@ -185,9 +185,9 @@ $(function(){
         			confirmButtonColor: "#DD6B55",
   					confirmButtonText: "Voltar",
   					type: "success",
-  					showCancelButton: false,
+  					showCancelButton: false
         		}, function(){
-        			Payment.redirect();
+        			//Payment.redirect();
         		});
 				/*var xmlDOM = new DOMParser().parseFromString(data, 'text/xml');
         		data = xmlToJson(xmlDOM);
