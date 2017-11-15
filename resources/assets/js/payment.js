@@ -220,28 +220,28 @@ $(function(){
         document.querySelector('[name="method"]').setAttribute('value', 'creditCard');
         var isValid = $("#payment-pagseguro").valid();
 		
-		setCardToken();
-        setSenderHash();
 		$('body').append('isValid '+isValid);
 
         if(isValid){
         	if(!validateCPF($('#card_personal_id').val())) {
 				swal("Oops...", "CPF Inválido!", "error");
         	}else{
-		        setTimeout(function () {
-			        swal({
-		                title: "Deseja continuar?",
-		                type: "info",
-		                cancelButtonText: "Cancelar",
-		                showCancelButton: true,
-		                confirmButtonColor: "#00a65a",
-		                confirmButtonText: "Continuar",
-		                closeOnConfirm: false,
-		                showLoaderOnConfirm: true,
-			            },function(){
-		            	 	executePayment();
-		            	});
-		    	}, 3000);
+		        
+	        	setCardToken();
+		        setSenderHash();
+		        swal({
+	                title: "Deseja continuar?",
+	                type: "info",
+	                cancelButtonText: "Cancelar",
+	                showCancelButton: true,
+	                confirmButtonColor: "#00a65a",
+	                confirmButtonText: "Continuar",
+	                closeOnConfirm: false,
+	                showLoaderOnConfirm: true,
+		            },function(){
+	            	 	executePayment();
+	            	});
+		    	
 		    }
     	}
 		
