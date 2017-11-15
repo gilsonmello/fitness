@@ -220,7 +220,7 @@ $(function(){
 		                closeOnConfirm: false,
 		                showLoaderOnConfirm: false
 					}, function(inputValue){
-					  	//Payment.redirect();
+					  	Payment.redirect();
 					});
 
 	        		
