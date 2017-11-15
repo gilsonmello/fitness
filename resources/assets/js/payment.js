@@ -226,6 +226,7 @@ $(function(){
         	if(!validateCPF($('#card_personal_id').val())) {
 				swal("Oops...", "CPF Inválido!", "error");
         	}else{
+        		$('[type="submit"]').attr('disabled', 'disabled');
 	        	setCardToken();
 		        setSenderHash();
 		        setTimeout(function () {
@@ -241,7 +242,7 @@ $(function(){
 			            },function(){
 		            	 	executePayment();
 		            	});
-		    	}, 2000);
+		    	}, 3000);
 		    }
     	}
 		
