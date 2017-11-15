@@ -221,12 +221,12 @@ $(function(){
         	}else{
 		        setTimeout(function () {
 			        swal({
-		                title: "Você realmente deseja atualizar os dados?",
+		                title: "Você confirma todos os dados informados?",
 		                type: "info",
 		                cancelButtonText: "Cancelar",
 		                showCancelButton: true,
 		                confirmButtonColor: "#00a65a",
-		                confirmButtonText: "Salvar",
+		                confirmButtonText: "Efeituar pagamento",
 		                closeOnConfirm: false,
 		                showLoaderOnConfirm: true,
 			            },function(){

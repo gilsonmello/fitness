@@ -7,8 +7,6 @@
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Bootstrap 3.3.2 -->
     <link href="{{ mix('backend/css/bootstrap.css') }}" rel="stylesheet" type="text/css" />
-    <!-- Theme style -->
-    <link href="{{ mix('backend/css/app.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{ mix('css/payment.css') }}" rel="stylesheet" type="text/css" />
 </head>
 <body>

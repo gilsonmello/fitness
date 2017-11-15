@@ -22,6 +22,7 @@ mix.scripts([
 mix.styles([
     'public/bower_components/admin-lte/plugins/select2/select2.min.css',
     'public/bower_components/external-plugins/jquery-validate/jquery.validate.css',
+    'public/bower_components/external-plugins/sweetalert-master/dist/sweetalert.css',
 ], 'public/css/payment.css');
 
 mix.scripts([
