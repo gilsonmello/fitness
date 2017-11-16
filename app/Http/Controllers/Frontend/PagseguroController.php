@@ -82,19 +82,37 @@ class PagseguroController extends Controller
     }
 
     private function createSchedule($items, $order){
+        $save = false;
         foreach($items as $item){
             $schedule = new Schedule;
             $schedule->order_id = $order->id;
             $schedule->user_id = $order->user->id;
             $schedule->diary_id = $order->diary->id;
+            $schedule->supplier_id = $order->supplier->id;
             $schedule->diary_hour_id = $order->diaryHour->id;
             $schedule->package_id = $item->id;
             $schedule->date_begin = Carbon::now();
             $schedule->date_end = Carbon::now()->addDays(30);
             $schedule->is_active = 1;
 
-            $schedule->save();
+            if($schedule->save()){
+                $save = true;
+            }
         }
+
+        if($save){
+            $diary = Diary::find($order->diary->id);
+            $diaryHour = DiaryHour::find($order->diaryHour->id);
+            
+            $diaryHour->is_active = 0;
+            $diaryHour->save();
+
+            if($diary->hours->count() == 0){
+                $diary->is_active = 0;
+                $diary->save();
+            }
+        }
+
     }
 
     public function notifications(Request $request){

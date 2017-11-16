@@ -21,6 +21,7 @@ class CreateSchedulesTable extends Migration
             $table->integer('package_id')->unsigned();
             $table->integer('diary_id')->unsigned();
             $table->integer('diary_hour_id')->unsigned();
+            $table->integer('supplier_id')->unsigned();
             $table->dateTime('date_begin')->nullable();
             $table->dateTime('date_end')->nullable();
             $table->boolean('is_active')->default(1);
@@ -40,6 +41,9 @@ class CreateSchedulesTable extends Migration
                 ->references('id');
             $table->foreign('diary_hour_id')
                 ->on('diary_hours')
+                ->references('id');
+            $table->foreign('supplier_id')
+                ->on('suppliers')
                 ->references('id');
         });
     }

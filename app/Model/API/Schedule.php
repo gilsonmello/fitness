@@ -31,21 +31,24 @@ class Schedule extends Model
     public function user(){
     	return $this->belongsTo(\App\User::class);
     }
-
-
-    public function order(){
-    	return $this->belongsTo(\App\Model\Frontend\Order::class);
+	
+	public function order(){
+    	return $this->belongsTo(\App\Model\API\Order::class);
     }
 
     public function diary(){
-    	return $this->belongsTo(\App\Model\Frontend\Diary::class);
+    	return $this->belongsTo(\App\Model\API\Diary::class);
     }
 
     public function diaryHour(){
-    	return $this->belongsTo(\App\Model\Frontend\DiaryHour::class);
+    	return $this->belongsTo(\App\Model\API\DiaryHour::class);
     }
 
     public function package(){
-    	return $this->belongsTo(\App\Model\Frontend\Package::class);
+    	return $this->belongsTo(\App\Model\API\Package::class);
+    }
+
+    public function supplier(){
+    	return $this->belongsTo(\App\Model\API\Supplier::class);
     }
 }

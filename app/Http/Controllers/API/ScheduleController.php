@@ -15,10 +15,7 @@ class ScheduleController extends Controller
      */
     public function index(Request $request)
     {
-        $data = $request->all();
-
         $schedules = Schedule::where('is_active', '=', 1)
-        ->where('user_id', '=', $data['user_id'])
         ->get();
 
         if(!$schedules->isEmpty()){
@@ -40,6 +37,7 @@ class ScheduleController extends Controller
         ->with('order')
         ->with('diary')
         ->with('diaryHour')
+        ->with('supplier')
         ->where('is_active', '=', 1)
         ->where('user_id', '=', $id)
         ->get();
