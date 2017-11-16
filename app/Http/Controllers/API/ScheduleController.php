@@ -39,7 +39,7 @@ class ScheduleController extends Controller
         ->with('package')
         ->with('order')
         ->with('diary')
-        ->with('diary_hour')
+        ->with('diaryHour')
         ->where('is_active', '=', 1)
         ->where('user_id', '=', $id)
         ->get();
