@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use App\Model\Frontend\Order;
+use App\Model\API\Order;
 use Illuminate\Http\Request;
 use App\Model\API\Diary;
 use App\Model\API\DiaryHour;

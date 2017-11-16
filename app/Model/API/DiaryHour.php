@@ -34,4 +34,11 @@ class DiaryHour extends Model
     public function diary(){
         return $this->belongsTo(\App\Model\API\Diary::class);
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function orders(){
+        return $this->hasMany(\App\Model\Frontend\Order::class);
+    }
 }

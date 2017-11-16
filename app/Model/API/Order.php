@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Order extends Model
 {
-    use SoftDeletes;
-
-    /**
+     use SoftDeletes;
+    
+     /**
      * @var bool
      */
     public $timestamps = true;
@@ -27,5 +27,29 @@ class Order extends Model
      * @var array
      */
     protected $guarded = ['id'];
+
+    public function user(){
+        return $this->belongsTo(\App\User::class);
+    }
+
+    public function diary(){
+        return $this->belongsTo(\App\Model\API\Diary::class);
+    }
+
+    public function diaryHour(){
+        return $this->belongsTo(\App\Model\API\DiaryHour::class);
+    }
+
+    public function coupon(){
+        return $this->belongsTo(\App\Model\API\Coupon::class);
+    }
+
+    public function supplier(){
+        return $this->belongsTo(\App\Model\API\Supplier::class);
+    }
+
+    public function packages(){
+        return $this->belongsToMany(\App\Model\Frontend\Package::class, 'orders_has_packages', 'order_id', 'package_id');
+    }
 
 }
