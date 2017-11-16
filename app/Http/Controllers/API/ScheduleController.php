@@ -29,6 +29,42 @@ class ScheduleController extends Controller
     }
 
     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getSchedulesUser(Request $request, $id)
+    {
+        $schedules = Schedule::where('is_active', '=', 1)
+        ->where('user_id', '=', $id)
+        ->get();
+
+        if(!$schedules->isEmpty()){
+            return response()->json($schedules, 200);
+        }
+
+        return response()->json('false', 200);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function find(Request $request, $id)
+    {
+        $schedules = Schedule::where('is_active', '=', 1)
+        ->where('user_id', '=', $id)
+        ->get();
+
+        if(!$schedules->isEmpty()){
+            return response()->json($schedules, 200);
+        }
+
+        return response()->json('false', 200);
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response

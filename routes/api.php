@@ -51,6 +51,9 @@ Route::group(['namespace' => 'API'], function(){
 	    ]
 	]);
 
+
+	Route::get('schedules/get_schedules_user/{id}', 'ScheduleController@getSchedulesUser');
+
 	//Route::get('users', 'UserController@all');
 	Route::post('create_user', 'UserController@createUser');
 
