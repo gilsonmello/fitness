@@ -35,7 +35,8 @@ class ScheduleController extends Controller
      */
     public function getSchedulesUser(Request $request, $id)
     {
-        $schedules = Schedule::where('is_active', '=', 1)
+        $schedules = Schedule::with('user')
+        ->where('is_active', '=', 1)
         ->where('user_id', '=', $id)
         ->get();
 
