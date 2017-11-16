@@ -38,6 +38,19 @@ Route::group(['namespace' => 'API'], function(){
 	        'show' => 'api.users.show',
 	    ]
 	]);
+
+	Route::resource('schedules', 'ScheduleController', [
+	    'names' => [
+	        'index' => 'api.schedules.index',
+	        'create' => 'api.schedules.create',
+	        'store' => 'api.schedules.store',
+	        'edit' => 'api.schedules.edit',
+	        'update' => 'api.schedules.update',
+	        'destroy' => 'api.schedules.destroy',
+	        'show' => 'api.schedules.show',
+	    ]
+	]);
+
 	//Route::get('users', 'UserController@all');
 	Route::post('create_user', 'UserController@createUser');
 
