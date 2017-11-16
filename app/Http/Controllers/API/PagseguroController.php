@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Frontend;
+namespace App\Http\Controllers\API;
 
 use App\Model\Frontend\Order;
 use Illuminate\Http\Request;
