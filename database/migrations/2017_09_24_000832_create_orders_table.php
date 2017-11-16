@@ -20,6 +20,7 @@ class CreateOrdersTable extends Migration
             $table->integer('coupon_id')->unsigned()->nullable();
             $table->integer('diary_id')->unsigned();
             $table->integer('diary_hour_id')->unsigned();
+            $table->integer('supplier_id')->unsigned();
             $table->decimal('value');
             $table->decimal('value_discount')->nullable();
             $table->dateTime('date_confirmation')->nullable();
@@ -38,6 +39,9 @@ class CreateOrdersTable extends Migration
                 ->references('id');
             $table->foreign('diary_hour_id')
                 ->on('diary_hours')
+                ->references('id');
+            $table->foreign('supplier_id')
+                ->on('suppliers')
                 ->references('id');
             $table->foreign('status_payment_id')
                 ->on('status_payment')

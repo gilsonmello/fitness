@@ -212,6 +212,7 @@ class PagseguroController extends Controller
         
         $order = new Order();
         $order->user_id = $user->id;
+        $order->supplier_id = $diary->supplier->id;
         $order->diary_id = $diary->id;
         $order->diary_hour_id = $diary_hour->id;
         $order->value = $package->value;

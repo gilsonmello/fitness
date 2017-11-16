@@ -24,7 +24,7 @@ class CreateSuppliersTable extends Migration
             $table->string('state')->nullable();
             $table->string('country')->nullable();
             $table->string('number')->nullable();
-            $table->string('adress_complement')->nullable();
+            $table->string('address_complement')->nullable();
             $table->string('cell_phone', 15)->nullable();
             $table->string('phone', 15)->nullable();
             $table->text('operation')->nullable();
