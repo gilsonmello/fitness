@@ -57,14 +57,14 @@ class OrderController extends Controller
         if(isset($data['available_date']) && !empty($data['available_date'])){
             $diary = Diary::where('available_date', '=', $data['available_date'])->get()->first();
 
-            dd($diary);
-            
             $order->where('diary_id', '=', $diary->id);
         }
 
         if(isset($data['available_hour']) && !empty($data['available_hour'])){
             $diaryHour = DiaryHour::where('available_hour', '=', $data['available_hour'])->get()->first();
 
+
+            dd($diaryHour);
             $order->where('diary_hour_id', '=', $diaryHour->id);
         }
 
