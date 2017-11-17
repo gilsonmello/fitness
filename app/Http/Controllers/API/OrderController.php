@@ -68,6 +68,8 @@ class OrderController extends Controller
 
         $order = $order->get()->first();
 
+        dd($order, count($order));
+
 
         if(!$order->isEmpty()){
             return response()->json($order, 200);
