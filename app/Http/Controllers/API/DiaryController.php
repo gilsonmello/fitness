@@ -25,9 +25,7 @@ class DiaryController extends Controller
             return !$item->hours->isEmpty();
         });
 
-        dd($filtered_collection);
-
-        return response()->json($diaries, 200);
+        return response()->json($filtered_collection, 200);
     }
 
     /**
