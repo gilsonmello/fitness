@@ -76,7 +76,7 @@ class OrderController extends Controller
             return response()->json("Por favor, clique em editar para escolher outra data e horário para agendamento.", 200);
         }
 
-        return response()->json('false', 404);
+        return response()->json('false', 400);
 
     }
     /**
@@ -114,7 +114,7 @@ class OrderController extends Controller
             return response()->json($order, 200);
         }
 
-        return response()->json('false', 200);
+        return response()->json('false', 400);
 
     }
 
