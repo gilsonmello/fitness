@@ -22,7 +22,8 @@ class DiaryController extends Controller
 
 
         $filtered_collection = $diaries->filter(function ($item) {
-            var_dump($item);
+            echo '<pre>';
+            var_dump($item->hours->isEmpty());
             return !$item->hours->isEmpty();
         });
 
