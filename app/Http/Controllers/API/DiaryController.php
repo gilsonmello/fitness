@@ -32,7 +32,7 @@ class DiaryController extends Controller
         $response = [];
         $response['message'] = 'false';
 
-        return response()->json($response, 200);
+        return response()->json($response, 400);
 
     }
 
