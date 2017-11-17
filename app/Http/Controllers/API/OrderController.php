@@ -66,11 +66,11 @@ class OrderController extends Controller
             $order->where('diary_hour_id', '=', $diaryHour->id);
         }
 
-        dd($order->get());
+        $order = $order->get();
 
 
         //if(!$order->isEmpty()){
-            return response()->json($order, 200);
+            return response()->json($order->isEmpty(), 200);
         //}
 
         return response()->json('false', 200);
