@@ -56,6 +56,8 @@ class OrderController extends Controller
 
         if(isset($data['available_date']) && !empty($data['available_date'])){
             $diary = Diary::where('available_date', '=', $data['available_date'])->get()->first();
+
+            dd($diary);
             
             $order->where('diary_id', '=', $diary->id);
         }
@@ -68,10 +70,7 @@ class OrderController extends Controller
 
         $order = $order->get()->first();
 
-        dd($order, count($order));
-
-
-        if(!$order->isEmpty()){
+        if(!is_null($order)){
             return response()->json($order, 200);
         }
 
