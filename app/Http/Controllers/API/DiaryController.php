@@ -23,7 +23,7 @@ class DiaryController extends Controller
 
         $filtered_collection = $diaries->filter(function ($item) {
             return $item->hours->count() > 0 ? true : false;
-        })->values();
+        });
 
         dd($filtered_collection);
 
