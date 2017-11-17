@@ -15,13 +15,18 @@ class DiaryController extends Controller
      */
     public function index()
     {
-        return response()->json(
-            Diary::with('hours')
-                ->where('is_active', '=', 1)
-                ->where('available_date', '>=', date('Y-m-d'))
-                ->get(), 
-            200
-        );
+        $diaries = Diary::with('hours')
+        ->where('is_active', '=', 1)
+        ->where('available_date', '>=', date('Y-m-d'))
+        ->get();
+
+
+        if($diaries->hours->count() == 0){
+            return response()->json($response['message' => 'false'], 400);
+        }
+
+
+        return response()->json($diaries, 200);
     }
 
     /**
