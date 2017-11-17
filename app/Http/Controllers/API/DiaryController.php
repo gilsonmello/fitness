@@ -25,7 +25,7 @@ class DiaryController extends Controller
             return !$item->hours->isEmpty();
         });
 
-        var_dump($filtered_collection);
+        var_dump($filtered_collection->count());
 
         if($filtered_collection->count() > 0){
             return response()->json($filtered_collection->all(), 200);
