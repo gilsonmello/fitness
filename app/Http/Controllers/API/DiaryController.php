@@ -24,9 +24,9 @@ class DiaryController extends Controller
 
         $filtered_collection = $diaries->filter(function ($item) {
             return $item->hours->isEmpty();
-        })->values();
+        });
 
-        dd($filtered_collection);
+        dd($filtered_collection->all());
 
         return response()->json($diaries, 200);
     }
