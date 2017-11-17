@@ -17,13 +17,14 @@ class DiaryController extends Controller
     {
         $diaries = Diary::with('hours')
         ->where('is_active', '=', 1)
+        ->with('hours')
         ->where('available_date', '>=', date('Y-m-d'))
         ->get();
 
+dd($diaries);
 
         $filtered_collection = $diaries->filter(function ($item) {
-            echo '<pre>';
-            var_dump($item->hours->isEmpty());
+
             return !$item->hours->isEmpty();
         });
 
