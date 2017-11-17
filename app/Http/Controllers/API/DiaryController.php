@@ -23,7 +23,7 @@ class DiaryController extends Controller
 
 
         $filtered_collection = $diaries->filter(function ($item) {
-            return $item->hours->isEmpty();
+            return !$item->hours->isEmpty();
         });
 
         dd($filtered_collection->all());
