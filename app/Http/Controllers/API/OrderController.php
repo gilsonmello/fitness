@@ -62,13 +62,16 @@ class OrderController extends Controller
 
         if(isset($data['available_hour']) && !empty($data['available_hour'])){
             $diaryHour = DiaryHour::where('available_hour', '=', $data['available_hour'])->get()->first();
-
-
-            dd($diaryHour);
             $order->where('diary_hour_id', '=', $diaryHour->id);
         }
 
-        $order = $order->get()->first();
+        $order = $order
+        ->with('supplier')
+        ->with('diary')
+        ->with('diaryHour')
+        ->with('user')
+        ->get()
+        ->first();
 
         if(!is_null($order)){
             return response()->json($order, 200);
