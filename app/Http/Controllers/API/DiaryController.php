@@ -21,11 +21,8 @@ class DiaryController extends Controller
         ->where('available_date', '>=', date('Y-m-d'))
         ->get();
 
-dd($diaries);
-
         $filtered_collection = $diaries->filter(function ($item) {
-
-            return !$item->hours->isEmpty();
+            return $item->hours->isEmpty();
         });
 
         dd($filtered_collection->all());
