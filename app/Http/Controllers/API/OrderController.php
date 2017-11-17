@@ -63,6 +63,9 @@ class OrderController extends Controller
         ->get()
         ->first();
 
+        
+        dd($diary, $diaryHour);
+
 
         if(is_null($diary)){
             return response()->json("Por favor, clique em editar para escolher outra data para agendamento.", 400);
