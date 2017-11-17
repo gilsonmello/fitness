@@ -21,14 +21,6 @@ class DiaryController extends Controller
         ->where('available_date', '>=', date('Y-m-d'))
         ->get();
 
-        $response = [];
-
-        if($diaries->hours->count() == 0){
-            $response['message'] = 'false';
-            return response()->json($response, 400);
-        }
-
-
         return response()->json($diaries, 200);
     }
 
