@@ -69,6 +69,18 @@ Route::group(['namespace' => 'API'], function(){
 	    ]
 	]);
 
+	Route::resource('orders', 'OrderController', [
+	    'names' => [
+	        'index' => 'api.orders.index',
+	        'create' => 'api.orders.create',
+	        'store' => 'api.orders.store',
+	        'edit' => 'api.orders.edit',
+	        'update' => 'api.orders.update',
+	        'destroy' => 'api.orders.destroy',
+	        'show' => 'api.orders.show',
+	    ]
+	]);
+
 	//Rotas para as diários
 	require_once __DIR__.'/API/Diary.php';
 
