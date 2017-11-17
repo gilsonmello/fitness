@@ -18,7 +18,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        dd('s');
     }
 
     /**
@@ -51,7 +51,6 @@ class OrderController extends Controller
     public function verifyDateAndHour(Request $request)
     {
         $data = $request->all();
-        dd('a');
 
 
         $diary = Diary::where('available_date', '=', $data['available_date'])
