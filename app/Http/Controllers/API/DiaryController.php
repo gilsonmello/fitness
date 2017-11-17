@@ -21,6 +21,12 @@ class DiaryController extends Controller
         ->where('available_date', '>=', date('Y-m-d'))
         ->get();
 
+        $filtered_collection = $diaries->filter(function ($item) {
+            return $diaries->hours->count() > 0 ? $diaries->hours->count() : $item;
+        })->values();
+
+        dd($filtered_collection);
+
         return response()->json($diaries, 200);
     }
 
