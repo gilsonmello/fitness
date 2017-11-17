@@ -68,9 +68,9 @@ class OrderController extends Controller
 
         $order->get();
 
-        if(!$order->isEmpty()){
+        //if(!$order->isEmpty()){
             return response()->json($order, 200);
-        }
+        //}
 
         return response()->json('false', 200);
 
