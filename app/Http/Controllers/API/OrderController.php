@@ -18,7 +18,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        dd('s');
+        //
     }
 
     /**
@@ -64,9 +64,6 @@ class OrderController extends Controller
         ->first();
 
 
-        dd($diary, $diaryHour);
-
-
         if(is_null($diary)){
             return response()->json("Por favor, clique em editar para escolher outra data para agendamento.", 400);
         }
@@ -79,11 +76,10 @@ class OrderController extends Controller
             return response()->json("Por favor, clique em editar para escolher outra data e horário para agendamento.", 400);
         }
 
-        dd($diary, $diaryHour);
-
         return response()->json('false', 400);
 
     }
+
     /**
      * Display the specified resource.
      *

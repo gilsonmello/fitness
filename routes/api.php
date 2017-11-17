@@ -58,6 +58,8 @@ Route::group(['namespace' => 'API'], function(){
 	//Route::get('users', 'UserController@all');
 	Route::post('create_user', 'UserController@createUser');
 
+	Route::get('orders/verify_date_and_hour', 'OrderController@verifyDateAndHour');
+
 	Route::resource('packages', 'PackageController', [
 	    'names' => [
 	        'index' => 'api.packages.index',
@@ -82,7 +84,6 @@ Route::group(['namespace' => 'API'], function(){
 	    ]
 	]);
 
-	Route::get('orders/verify_date_and_hour', 'OrderController@verifyDateAndHour');
 
 	//Rotas para as diários
 	require_once __DIR__.'/API/Diary.php';
