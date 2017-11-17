@@ -48,6 +48,39 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    public function verifyDateAndHour(Request $request)
+    {
+        $data = $request->all();
+
+
+        $diary = Diary::where('available_date', '=', $data['available_date'])
+        ->where('is_active', '=', 1)
+        ->get()
+        ->first();
+
+        $diaryHour = DiaryHour::where('available_hour', '=', $data['available_hour'])
+        ->where('is_active', '=', 1)
+        ->get()
+        ->first();
+
+
+        if(is_null($diary)){
+            return response()->json("Por favor, clique em editar para escolher outra data para agendamento.", 200);
+        }
+
+        if(is_null($diaryHour)){
+            return response()->json("Por favor, clique em editar para escolher outra hora para agendamento.", 200);
+        }
+
+        return response()->json('false', 200);
+
+    }
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function show(Request $request, $user_id)
     {
         $data = $request->all();

@@ -54,6 +54,7 @@ Route::group(['namespace' => 'API'], function(){
 
 	Route::get('schedules/get_schedules_user/{id}', 'ScheduleController@getSchedulesUser');
 
+
 	//Route::get('users', 'UserController@all');
 	Route::post('create_user', 'UserController@createUser');
 
@@ -80,6 +81,8 @@ Route::group(['namespace' => 'API'], function(){
 	        'show' => 'api.orders.show',
 	    ]
 	]);
+
+	Route::get('orders/verify_date_and_hour', 'OrderController@verifyDateAndHour');
 
 	//Rotas para as diários
 	require_once __DIR__.'/API/Diary.php';
