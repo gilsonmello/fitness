@@ -17,6 +17,7 @@ class DiaryController extends Controller
     {
         $diaries = Diary::with('hours')
         ->where('is_active', '=', 1)
+        ->with('hours')
         ->where('available_date', '>=', date('Y-m-d'))
         ->get();
 
