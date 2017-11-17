@@ -85,6 +85,19 @@ Route::group(['namespace' => 'API'], function(){
 	]);
 
 
+	Route::get('evaluations/get_evaluations_user/{id}', 'EvaluationController@getEvaluationsUser');
+	Route::resource('evaluations', 'EvaluationController', [
+	    'names' => [
+	        'index' => 'api.evaluations.index',
+	        'create' => 'api.evaluations.create',
+	        'store' => 'api.evaluations.store',
+	        'edit' => 'api.evaluations.edit',
+	        'update' => 'api.evaluations.update',
+	        'destroy' => 'api.evaluations.destroy',
+	        'show' => 'api.evaluations.show',
+	    ]
+	]);
+
 	//Rotas para as diários
 	require_once __DIR__.'/API/Diary.php';
 
