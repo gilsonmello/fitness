@@ -72,6 +72,10 @@ class OrderController extends Controller
             return response()->json("Por favor, clique em editar para escolher outra hora para agendamento.", 200);
         }
 
+        if(is_null($diary) && is_null($diaryHour)){
+            return response()->json("Por favor, clique em editar para escolher outra data e horário para agendamento.", 200);
+        }
+
         return response()->json('false', 200);
 
     }
