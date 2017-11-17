@@ -22,8 +22,7 @@ class DiaryController extends Controller
         ->get();
 
         $filtered_collection = $diaries->filter(function ($item) {
-            dd($item->hours->count());
-            return $item->hours->count() > 0 ? $item : false;
+            return !$item->hours->isEmpty();
         })->values();
 
         dd($filtered_collection);
