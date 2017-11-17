@@ -21,8 +21,10 @@ class DiaryController extends Controller
         ->get();
 
 
+        dd($diaries);
+
         $filtered_collection = $diaries->filter(function ($item) {
-            var_dump($item)
+            var_dump($item);
             return !$item->hours->isEmpty();
         });
 
