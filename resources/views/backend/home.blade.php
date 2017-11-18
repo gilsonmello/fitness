@@ -17,7 +17,6 @@
 @extends('layouts.backend.app')
 
 @section('content')
-    <input type="hidden" name="pedido_id" value="{{ $session_id }}">
     <div class="row">
         <div class="col-md-3 col-sm-6 col-xs-12">
             <div class="info-box">
