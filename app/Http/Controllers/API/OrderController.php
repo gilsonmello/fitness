@@ -63,7 +63,8 @@ class OrderController extends Controller
         ->get()
         ->first();
 
-        $response = [];
+        $response = [];        
+        $response['response'] = 'false';
 
         if(is_null($diary)){
             $response['response'] = 'Por favor, clique em editar para escolher outra data para agendamento.';
@@ -78,11 +79,10 @@ class OrderController extends Controller
         if(is_null($diary) && is_null($diaryHour)){
             $response['response'] = 'Por favor, clique em editar para escolher outra data e horário para agendamento.';
             return response()->json($response, 400);
+        }else{
+            $response['response'] = 'true';
         }
-
-        $response['response'] = 'false';
         return response()->json($response, 400);
-
     }
 
     /**
