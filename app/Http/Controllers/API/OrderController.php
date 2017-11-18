@@ -65,6 +65,7 @@ class OrderController extends Controller
 
         $response = [];        
         $response['response'] = 'false';
+        $response['code'] = 400;
 
         if(is_null($diary)){
             $response['response'] = 'Por favor, clique em editar para escolher outra data para agendamento.';
@@ -81,8 +82,9 @@ class OrderController extends Controller
             return response()->json($response, 400);
         }else{
             $response['response'] = 'true';
+            $response['code'] = 200;
         }
-        return response()->json($response, 400);
+        return response()->json($response, $response['code']);
     }
 
     /**
