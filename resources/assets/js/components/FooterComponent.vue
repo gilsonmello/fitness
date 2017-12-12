@@ -2,9 +2,9 @@
 	<footer class="container">
 		<div class="row">
 			<div class="col-lg-4">
-				<h4 class="">
+				<h1 class="page-header">
 					Miranda Fitness
-				</h4>
+				</h1>
 				<a class="btn btn-social-icon btn-facebook">
 					<i class="fa fa-facebook"></i>
 				</a>
@@ -19,52 +19,23 @@
 				</a>
 			</div>
 			<div class="col-lg-4">
-				<h4 class="">
+				<h1 class="page-header">
 					Sobre
-				</h4>
+				</h1>
 				<hr class="my-4">
 				<ul class="list-group">
 					<li class="list-group-item">
-						<router-link to="/sobre">
+						<router-link :to="{ name: 'aboutus' }">
 							Sobre nós
 						</router-link>
 					</li>
 					<li class="list-group-item">
-						<router-link to="/login">
+						<router-link :to="{ name: 'login' }">
 							Login
 						</router-link>
 					</li>
 					<li class="list-group-item">
-						<router-link to="/cadastro">
-							Cadastra-se
-						</router-link>
-					</li>
-					<li class="list-group-item">
-						<router-link to="/contatenos">
-							Contate-nos
-						</router-link>
-					</li>
-				</ul>
-				
-			</div>
-			<div class="col-lg-4">
-				<h4 class="">
-					Sobre
-				</h4>
-				<hr class="my-4">
-				<ul class="list-group">
-					<li class="list-group-item">
-						<router-link to="/sobre">
-							Sobre nós
-						</router-link>
-					</li>
-					<li class="list-group-item">
-						<router-link to="/login">
-							Login
-						</router-link>
-					</li>
-					<li class="list-group-item">
-						<router-link to="/cadastro">
+						<router-link :to="{ name: 'users.create' }">
 							Cadastre-se
 						</router-link>
 					</li>

@@ -6,7 +6,7 @@
         <title>Miranda Fitness</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
-        <meta name="csrf-token" content="{{csrf_token()}}">
+        <meta name="_token" content="{{csrf_token()}}">
         <link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ asset('css/plugins.css') }}" rel="stylesheet" type="text/css">
         
@@ -30,12 +30,10 @@
     <!-- Conteúdo -->
     <div id="app">
         @yield('content')
-        <app></app>
     </div>
     <!-- Fim conteúdo -->
 
     <script src="{{ asset('js/app.js') }}"></script> 
-    <script src="{{ asset('js/plugins.js') }}"></script>
 
     <!-- <script src="/bower_components/gentelella/vendors/jquery/dist/jquery.min.js"></script>
     

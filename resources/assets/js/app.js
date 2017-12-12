@@ -10,6 +10,8 @@ import Vue from 'vue'
 import VueResource from 'vue-resource'
 import VueRouter from 'vue-router'
 import store from './store'
+import Select2 from './components/Select2.vue'
+import Datepicker from 'vuejs-datepicker'
 
 import App from './App.vue'
 /*window.Vue = require('vue');
@@ -17,23 +19,55 @@ window.axios = require('axios')
 window.VueAxios = require('vue-axios');
 window.VueMaterial = require('vue-material');*/
 /*Vue.use(VueMaterial)*/
-Vue.use(VueRouter)
-Vue.use(VueResource)
+Vue.use(VueRouter);
+Vue.use(VueResource);
 
 
-Vue.component('app', App)
+Vue.component('app', App);
+Vue.component('select2', Select2);
+Vue.component('datepicker', Datepicker);
 
 const routes = [
-    { path: '/', component: require('./components/Home/HomeComponent.vue'), name: 'home' },
-    { path: '/users/create', component: require('./components/Users/Create.vue') },
-    { path: '/login', component: require('./components/Login/Login.vue')}
-]
+    { 
+        path: '/', 
+        component: require('./components/Home/HomeComponent.vue'), 
+        name: 'home' 
+    },
+    { 
+        name: 'users.create',
+        path: '/users/create', 
+        component: require('./components/Users/Create.vue') 
+    },
+    { 
+        path: '/login', 
+        name: 'login',
+        component: require('./components/Login/Login.vue')
+    },    
+    {   path: '/packages',
+        name: 'packages.index', 
+        component: require('./components/Package/Index.vue')
+    },
+    {
+        name: 'packages.show',
+        path: '/packages/:slug',
+        props: true,
+        component: require('./components/Package/Show.vue')
+    },
+    {
+        name: 'aboutus',
+        path: '/sobre',
+        props: true,
+        component: require('./components/AboutUs.vue')
+    }
+];
 
 const router = new VueRouter({
-    routes
+    routes,
+    linkExactActiveClass: 'active'
 })
 
 router.beforeEach((to, from, next) => {
+
     if(to.meta.requiresAuth == true){
         const authUser = JSON.parse(window.localStorage.getItem('authUser'))
         if(authUser){
@@ -44,8 +78,8 @@ router.beforeEach((to, from, next) => {
             })
         }
     }
-    next()
-})
+    next();
+});
 
 /*Vue.material.registerTheme('default', {
   primary: 'blue',
@@ -73,15 +107,25 @@ Vue.component('my-component', {
   }
 });*/
 
-new Vue({
+const app = new Vue({
     router,
     store,
+    el: '#app',
+    components: {
+    },
+    mounted: function(){
+
+    },
+    methods: {
+        
+    },
+    render: h => h(App),
     data: function(){
         return {
         }
     },
     created: function(){
-        window.console.log(window.location.host)
+        //window.console.log(window.location.host)
         /*const data = {
             grant_type: 'password',
             client_id: 2,
@@ -136,7 +180,11 @@ var authOptions = {
             }
         });*/
     }
-}).$mount('#app');
+});
+
+router.afterEach((to, from, next) => {
+    var vm = app;
+});
 
 
 

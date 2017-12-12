@@ -3,10 +3,11 @@ export const loginUrl = '/oauth/token'
 export const userUrl = '/api/user'
 
 export const getHeader = function () {
-  	const tokenData = JSON.parse(window.localStorage.getItem('authUser'))
+  	const tokenData = JSON.parse(window.localStorage.getItem('authUser'));
+  	const token = (typeof tokenData.access_token == 'object') ? tokenData.access_token.token : tokenData.access_token;
  	const headers = {
 	    'Accept': 'application/json',
-	    'Authorization': 'Bearer ' + tokenData.access_token
+	    'Authorization': 'Bearer ' + token
   	}
   return headers
 }

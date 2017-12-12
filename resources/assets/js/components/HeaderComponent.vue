@@ -11,43 +11,33 @@
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
-                    <li class="active">
-                    <router-link to="/">Home</router-link></li>
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            Produtos 
-                            <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <router-link to="/simples">Page 1-1</router-link>
-                            </li>
-                            <li><a href="#">Page 1-2</a></li>
-                            <li><a href="#">Page 1-3</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="#">Page 2</a></li>
-                    <li><a href="#">Page 3</a></li>
-                    <form class="navbar-form navbar-left">
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search">
-                            <div class="input-group-btn">
-                                <button class="btn btn-default" type="submit">
-                                    <i class="glyphicon glyphicon-search"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+                    <router-link tag="li" :to="{ name: 'home' }">
+                        <a>Home</a>
+                    </router-link>                               
+                    <router-link tag="li" :to="{ name: 'packages.index' }">
+                        <a>Pacotes</a>
+                    </router-link>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
+                    <li >
+                        <form class="navbar-form navbar-left">
+                            <div class="input-group">
+                                <!-- <input type="text" class="form-control" placeholder="Search"> -->
+                                <div class="input-group-btn">
+                                    <button class="btn btn-default" type="submit">
+                                        <i class="glyphicon glyphicon-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </li>
+
                     <li class="dropdown" v-if="User.authUser !== null && User.authUser.access_token">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">Área do cliente
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
                             <li><a href="/painel/">Dash</a></li>
-                            <li><a href="#">Extras</a></li>
-                            <li><a href="#">Media</a></li> 
                         </ul>
                     </li>
 
@@ -81,12 +71,47 @@
                 User: state => state.Users
             })
         },
+        components: {
+            
+        },
+        data: function(){
+            return {
+                packages: []
+            }
+        },
         methods: {
             handleLogout: function(){
                 this.$store.dispatch('clearAuthUser')
                 window.localStorage.removeItem('authUser')
                 this.$router.push({name: 'home'})
+            },
+            handleClickPackages: function(){
+                if(this.packages.length == 0){
+                    axios.get('/packages', {}).then(response => {
+                        if(response.status === 200){
+                            this.packages = response.data;
+                        }
+                    });
+                }
             }
+        },
+        mounted: function(){
+
         }
     }
 </script>
+
+<style type="text/css">
+    .navbar-inverse{
+        background-color: #096658;
+    }
+    .navbar-inverse .navbar-nav > li > a{
+        color: black;
+    }
+    .navbar-inverse .navbar-brand{
+        color: black;
+    }
+    .navbar{
+        border-radius: 0;
+    }
+</style>

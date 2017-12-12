@@ -17,13 +17,11 @@ Route::group(['middleware' => 'auth:api', 'namespace' => 'API'], function(){
     Route::get('user', function(Request $request){
     	return $request->user();
     });
-
 });
 
 Route::get('test', function(Request $request){
     return response($request->all(), 200);
 });
-
 
 Route::group(['namespace' => 'API'], function(){
     

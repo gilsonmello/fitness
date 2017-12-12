@@ -42,6 +42,7 @@ class UserRepository{
         $this->user->email = $data['email'];
         $this->user->gender = isset($data['gender']) ? $data['gender'] : 0;
         $this->user->password = bcrypt($data['password']);
+        $this->user->birth_date = format_without_mask($data['birth_date'], '/');
         $this->user->remember_token = str_random(10);
 
         if($this->user->save()){

@@ -1,17 +1,12 @@
 <template>
-	<main class="container">
+	<main>
 		<header-component></header-component>
-		<hr>
-		<slider-component></slider-component>
-		<hr>
-		<transition name="fade">
-		  	<keep-alive>
-				<router-view></router-view>
-		  	</keep-alive>
-		</transition>
-		<hr>
+        <transition name="fade">
+            <keep-alive>
+                <router-view></router-view>
+            </keep-alive>
+        </transition>
 		<newsletter-component></newsletter-component>
-		<hr>
 		<footer-component></footer-component>
 	</main>
 </template>
@@ -20,7 +15,6 @@
 <script>
 	import {loginUrl, getHeader, userUrl} from './config'
 	import HeaderComponent from './components/HeaderComponent.vue'
-	import SliderComponent from './components/SliderComponent.vue'
 	import NewsletterComponent from './components/NewsletterComponent.vue'
 	import FooterComponent from './components/FooterComponent.vue'
 	import {mapState} from 'vuex'
@@ -38,7 +32,6 @@
 		components: {
 			HeaderComponent,
 			NewsletterComponent,
-			SliderComponent,
 			FooterComponent
 		},
 		props: ['path'],
@@ -48,14 +41,41 @@
 			})
 		},
 	  	methods: {
+
 	  	},
 	  	created: function(){
-	  		const userObj = JSON.parse(window.localStorage.getItem('authUser'))
-	  		this.$store.dispatch('setUserObject', userObj)
+	  		const userObj = JSON.parse(window.localStorage.getItem('authUser'));
+	  		this.$store.dispatch('setUserObject', userObj);
 	  	},
 	    mounted() {
-	        window.console.log('Component mounted.')
+	        //window.console.log('Component mounted.')
 	    }
 	}
 	
 </script>
+
+<style>
+	.fade-enter-active, .fade-leave-active {
+	  	transition-property: opacity;
+	  	transition-duration: .25s;
+	}
+
+	.fade-enter-active {
+	  	transition-delay: .25s;
+	}
+
+	.fade-enter, .fade-leave-active {
+	  	opacity: 0
+	}
+	.flexBox{
+		display: flex; 
+		flex-flow: row wrap; 
+		justify-content: center;
+	}
+	.vdp-datepicker input{
+		width: 100%;
+	}
+	[v-cloak] {
+	  	display: none;
+	}
+</style>
