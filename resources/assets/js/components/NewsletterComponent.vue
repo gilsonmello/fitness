@@ -1,9 +1,9 @@
 <template>
 	<div class="container">
-		<div class="content" v-if="loading">
+		<div class="content" v-show="newsletter_load">
 			<load></load>
 		</div>
-		<div class="content" v-else>
+		<div class="content" v-show="!newsletter_load">
 			<form method="POST" v-on:submit.prevent="handleSubmitForm()">
 				<div class="row">
 					<div class="col-lg-12">
@@ -53,7 +53,7 @@
         	return {
         		email: '',
         		name: '',
-  				loading: false,
+  				newsletter_load: false,
   				errors: []
         	}
         },
@@ -61,7 +61,7 @@
         	handleSubmitForm: function(){
 
         		axios.interceptors.request.use(config => {
-		        	this.loading = true;
+		        	this.newsletter_load = true;
 				  	return config;
 				});
 
@@ -74,14 +74,14 @@
 					this.name = '';
 					this.errors = [];
         			if(response.status === 200){
-        				this.loading = false;
+        				this.newsletter_load = false;
         				toastr.success('Cadastrado com sucesso');
         			}
 				}).catch((error) => {
-					this.loading = false;
+					this.newsletter_load = false;
 					this.errors = error.response.data;
 				});
-				this.loading = false;
+				this.newsletter_load = false;
         	}
         },
         mounted: function(){

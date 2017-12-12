@@ -55,6 +55,13 @@
 </script>
 
 <style>
+	body{
+		background-color: #000;
+		color: #009a6e;
+	}
+	.page-header{
+		color: #009a6e;
+	}
 	.fade-enter-active, .fade-leave-active {
 	  	transition-property: opacity;
 	  	transition-duration: .25s;

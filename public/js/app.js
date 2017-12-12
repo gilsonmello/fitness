@@ -428,6 +428,40 @@ module.exports = {
 
 /***/ }),
 /* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(0)(
+  /* script */
+  __webpack_require__(76),
+  /* template */
+  __webpack_require__(77),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "C:\\wamp64\\www\\fitness\\resources\\assets\\js\\components\\Load.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Load.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-56616f76", Component.options)
+  } else {
+    hotAPI.reload("data-v-56616f76", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 3 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1318,40 +1352,6 @@ var index_esm = {
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (index_esm);
-
-
-/***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Component = __webpack_require__(0)(
-  /* script */
-  __webpack_require__(76),
-  /* template */
-  __webpack_require__(77),
-  /* scopeId */
-  null,
-  /* cssModules */
-  null
-)
-Component.options.__file = "/var/www/html/fitness/resources/assets/js/components/Load.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] Load.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-56616f76", Component.options)
-  } else {
-    hotAPI.reload("data-v-56616f76", Component.options)
-  }
-})()}
-
-module.exports = Component.exports
 
 
 /***/ }),
@@ -22747,7 +22747,7 @@ var routes = [{
     name: 'home'
 }, {
     name: 'users.create',
-    path: '/users/create',
+    path: '/register',
     component: __webpack_require__(89)
 }, {
     path: '/login',
@@ -22766,6 +22766,11 @@ var routes = [{
     path: '/sobre',
     props: true,
     component: __webpack_require__(101)
+}, {
+    name: 'contactus',
+    path: '/contactus',
+    props: true,
+    component: __webpack_require__(117)
 }];
 
 var router = new __WEBPACK_IMPORTED_MODULE_2_vue_router__["a" /* default */]({
@@ -22836,11 +22841,11 @@ var app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
         };
         axios.post('oauth/token', qs.stringify(data)).then((response) => {
             window.console.log(response);
-             const header = {
+              const header = {
                 'Accept': 'appliaction/json',
                 'Authorization': 'Bearer '+ response.data.access_token
             };
-             axios.get('api/user', {headers: header}).then((response) => {
+              axios.get('api/user', {headers: header}).then((response) => {
                 window.console.log(response);
             });
         });*/
@@ -53172,7 +53177,7 @@ if (inBrowser && window.Vue) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__modules_users_main__ = __webpack_require__(53);
 
 
@@ -53266,7 +53271,7 @@ var Component = __webpack_require__(0)(
   /* cssModules */
   null
 )
-Component.options.__file = "/var/www/html/fitness/resources/assets/js/components/Select2.vue"
+Component.options.__file = "C:\\wamp64\\www\\fitness\\resources\\assets\\js\\components\\Select2.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Select2.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -59300,7 +59305,7 @@ var Component = __webpack_require__(0)(
   /* cssModules */
   null
 )
-Component.options.__file = "/var/www/html/fitness/resources/assets/js/App.vue"
+Component.options.__file = "C:\\wamp64\\www\\fitness\\resources\\assets\\js\\App.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] App.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -59351,7 +59356,7 @@ if(false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(6)();
-exports.push([module.i, "\n.fade-enter-active, .fade-leave-active {\n  \ttransition-property: opacity;\n  \ttransition-duration: .25s;\n}\n.fade-enter-active {\n  \ttransition-delay: .25s;\n}\n.fade-enter, .fade-leave-active {\n  \topacity: 0\n}\n.flexBox{\n\tdisplay: -webkit-box;\n\tdisplay: -ms-flexbox;\n\tdisplay: flex; \n\t-webkit-box-orient: horizontal; \n\t-webkit-box-direction: normal; \n\t    -ms-flex-flow: row wrap; \n\t        flex-flow: row wrap; \n\t-webkit-box-pack: center; \n\t    -ms-flex-pack: center; \n\t        justify-content: center;\n}\n.vdp-datepicker input{\n\twidth: 100%;\n}\n[v-cloak] {\n  \tdisplay: none;\n}\n", ""]);
+exports.push([module.i, "\nbody{\n\tbackground-color: #000;\n\tcolor: #009a6e;\n}\n.page-header{\n\tcolor: #009a6e;\n}\n.fade-enter-active, .fade-leave-active {\n  \ttransition-property: opacity;\n  \ttransition-duration: .25s;\n}\n.fade-enter-active {\n  \ttransition-delay: .25s;\n}\n.fade-enter, .fade-leave-active {\n  \topacity: 0\n}\n.flexBox{\n\tdisplay: -webkit-box;\n\tdisplay: -ms-flexbox;\n\tdisplay: flex; \n\t-webkit-box-orient: horizontal; \n\t-webkit-box-direction: normal; \n\t    -ms-flex-flow: row wrap; \n\t        flex-flow: row wrap; \n\t-webkit-box-pack: center; \n\t    -ms-flex-pack: center; \n\t        justify-content: center;\n}\n.vdp-datepicker input{\n\twidth: 100%;\n}\n[v-cloak] {\n  \tdisplay: none;\n}\n", ""]);
 
 /***/ }),
 /* 68 */
@@ -59366,7 +59371,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_NewsletterComponent_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__components_NewsletterComponent_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_FooterComponent_vue__ = __webpack_require__(79);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_FooterComponent_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__components_FooterComponent_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vuex__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vuex__ = __webpack_require__(3);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 //
@@ -59440,7 +59445,7 @@ var Component = __webpack_require__(0)(
   /* cssModules */
   null
 )
-Component.options.__file = "/var/www/html/fitness/resources/assets/js/components/HeaderComponent.vue"
+Component.options.__file = "C:\\wamp64\\www\\fitness\\resources\\assets\\js\\components\\HeaderComponent.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] HeaderComponent.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -59491,7 +59496,7 @@ if(false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(6)();
-exports.push([module.i, "\n.navbar-inverse{\n    background-color: #096658;\n}\n.navbar-inverse .navbar-nav > li > a{\n    color: black;\n}\n.navbar-inverse .navbar-brand{\n    color: black;\n}\n.navbar{\n    border-radius: 0;\n}\n", ""]);
+exports.push([module.i, "\n.navbar-inverse{\n    background-color: #000;\n}\n.navbar-inverse .navbar-nav > li > a{\n    color: #009a6e;\n}\n.navbar-inverse .navbar-brand{\n    color: #009a6e;\n}\n.navbar{\n    border-radius: 0;\n}\n", ""]);
 
 /***/ }),
 /* 72 */
@@ -59499,7 +59504,7 @@ exports.push([module.i, "\n.navbar-inverse{\n    background-color: #096658;\n}\n
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(3);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 //
@@ -59645,7 +59650,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "dropdown"
   }, [_vm._m(2), _vm._v(" "), _vm._m(3)]) : _c('li', [_c('router-link', {
     attrs: {
-      "to": "/users/create"
+      "to": {
+        name: 'users.create'
+      }
     }
   }, [_c('span', {
     staticClass: "glyphicon glyphicon-user"
@@ -59663,7 +59670,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "glyphicon glyphicon-log-in"
   }), _vm._v(" Sair\n                    ")])]) : _c('li', [_c('router-link', {
     attrs: {
-      "to": "/login"
+      "to": {
+        name: 'login'
+      }
     }
   }, [_c('span', {
     staticClass: "glyphicon glyphicon-log-in"
@@ -59739,7 +59748,7 @@ var Component = __webpack_require__(0)(
   /* cssModules */
   null
 )
-Component.options.__file = "/var/www/html/fitness/resources/assets/js/components/NewsletterComponent.vue"
+Component.options.__file = "C:\\wamp64\\www\\fitness\\resources\\assets\\js\\components\\NewsletterComponent.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] NewsletterComponent.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -59765,7 +59774,7 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Load__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Load__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Load___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Load__);
 //
 //
@@ -59822,7 +59831,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             email: '',
             name: '',
-            loading: false,
+            newsletter_load: false,
             errors: []
         };
     },
@@ -59831,7 +59840,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this = this;
 
             axios.interceptors.request.use(function (config) {
-                _this.loading = true;
+                _this.newsletter_load = true;
                 return config;
             });
 
@@ -59844,14 +59853,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this.name = '';
                 _this.errors = [];
                 if (response.status === 200) {
-                    _this.loading = false;
+                    _this.newsletter_load = false;
                     toastr.success('Cadastrado com sucesso');
                 }
             }).catch(function (error) {
-                _this.loading = false;
+                _this.newsletter_load = false;
                 _this.errors = error.response.data;
             });
-            this.loading = false;
+            this.newsletter_load = false;
         }
     },
     mounted: function mounted() {},
@@ -59904,9 +59913,21 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "container"
-  }, [(_vm.loading) ? _c('div', {
+  }, [_c('div', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.newsletter_load),
+      expression: "newsletter_load"
+    }],
     staticClass: "content"
-  }, [_c('load')], 1) : _c('div', {
+  }, [_c('load')], 1), _vm._v(" "), _c('div', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (!_vm.newsletter_load),
+      expression: "!newsletter_load"
+    }],
     staticClass: "content"
   }, [_c('form', {
     attrs: {
@@ -60035,7 +60056,7 @@ var Component = __webpack_require__(0)(
   /* cssModules */
   null
 )
-Component.options.__file = "/var/www/html/fitness/resources/assets/js/components/FooterComponent.vue"
+Component.options.__file = "C:\\wamp64\\www\\fitness\\resources\\assets\\js\\components\\FooterComponent.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] FooterComponent.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -60114,7 +60135,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({});
 
@@ -60131,9 +60151,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "col-lg-4"
   }, [_c('h1', {
     staticClass: "page-header"
-  }, [_vm._v("\n\t\t\t\tSobre\n\t\t\t")]), _vm._v(" "), _c('hr', {
-    staticClass: "my-4"
-  }), _vm._v(" "), _c('ul', {
+  }, [_vm._v("\n\t\t\t\tSobre\n\t\t\t")]), _vm._v(" "), _c('ul', {
     staticClass: "list-group"
   }, [_c('li', {
     staticClass: "list-group-item"
@@ -60163,7 +60181,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "list-group-item"
   }, [_c('router-link', {
     attrs: {
-      "to": "/contatenos"
+      "to": {
+        name: 'contactus'
+      }
     }
   }, [_vm._v("\n\t\t\t\t\t\tContate-nos\n\t\t\t\t\t")])], 1)])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -60230,7 +60250,7 @@ var Component = __webpack_require__(0)(
   /* cssModules */
   null
 )
-Component.options.__file = "/var/www/html/fitness/resources/assets/js/components/Home/HomeComponent.vue"
+Component.options.__file = "C:\\wamp64\\www\\fitness\\resources\\assets\\js\\components\\Home\\HomeComponent.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] HomeComponent.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -60258,7 +60278,7 @@ module.exports = Component.exports
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__SliderComponent_vue__ = __webpack_require__(85);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__SliderComponent_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__SliderComponent_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Load__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Load__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Load___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__Load__);
 //
 //
@@ -60277,7 +60297,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
 		return {
-			loading: true
+			home_load: true
 		};
 	},
 	beforeRouteUpdate: function beforeRouteUpdate(to, from, next) {},
@@ -60286,7 +60306,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		Load: __WEBPACK_IMPORTED_MODULE_1__Load___default.a
 	},
 	mounted: function mounted() {
-		this.loading = false;
+		this.home_load = false;
 	}
 });
 
@@ -60304,7 +60324,7 @@ var Component = __webpack_require__(0)(
   /* cssModules */
   null
 )
-Component.options.__file = "/var/www/html/fitness/resources/assets/js/components/SliderComponent.vue"
+Component.options.__file = "C:\\wamp64\\www\\fitness\\resources\\assets\\js\\components\\SliderComponent.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] SliderComponent.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -60505,9 +60525,21 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "content"
-  }, [(_vm.loading) ? _c('div', {
+  }, [_c('div', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.home_load),
+      expression: "home_load"
+    }],
     staticClass: "container"
-  }, [_c('load')], 1) : _c('div', {
+  }, [_c('load')], 1), _vm._v(" "), _c('div', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (!_vm.home_load),
+      expression: "!home_load"
+    }],
     staticClass: "container"
   }, [_c('slider-component')], 1)])
 },staticRenderFns: []}
@@ -60533,7 +60565,7 @@ var Component = __webpack_require__(0)(
   /* cssModules */
   null
 )
-Component.options.__file = "/var/www/html/fitness/resources/assets/js/components/Users/Create.vue"
+Component.options.__file = "C:\\wamp64\\www\\fitness\\resources\\assets\\js\\components\\Users\\Create.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Create.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -60560,8 +60592,8 @@ module.exports = Component.exports
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__config__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Load__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Load__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Load___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__Load__);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -60677,10 +60709,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 		next();
 	},
 	methods: {
-		handleInput: function handleInput() {
-			window.console.log('aqui');
-		},
-
 		create: function create() {
 			var _this = this;
 
@@ -60946,12 +60974,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "value": (_vm.birth_date)
     },
     on: {
-      "input": [function($event) {
+      "input": function($event) {
         if ($event.target.composing) { return; }
         _vm.birth_date = $event.target.value
-      }, function($event) {
-        _vm.handleInput($event.target.value)
-      }]
+      }
     }
   }), _vm._v(" "), (_vm.errors.birth_date) ? _c('div', {
     staticClass: "alert alert-danger"
@@ -61013,7 +61039,7 @@ var Component = __webpack_require__(0)(
   /* cssModules */
   null
 )
-Component.options.__file = "/var/www/html/fitness/resources/assets/js/components/Login/Login.vue"
+Component.options.__file = "C:\\wamp64\\www\\fitness\\resources\\assets\\js\\components\\Login\\Login.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Login.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -61040,8 +61066,8 @@ module.exports = Component.exports
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__config__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Load__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Load__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Load___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__Load__);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -61670,7 +61696,7 @@ var Component = __webpack_require__(0)(
   /* cssModules */
   null
 )
-Component.options.__file = "/var/www/html/fitness/resources/assets/js/components/Package/Index.vue"
+Component.options.__file = "C:\\wamp64\\www\\fitness\\resources\\assets\\js\\components\\Package\\Index.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Index.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -61696,7 +61722,7 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Load__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Load__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Load___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Load__);
 //
 //
@@ -61803,7 +61829,7 @@ var Component = __webpack_require__(0)(
   /* cssModules */
   null
 )
-Component.options.__file = "/var/www/html/fitness/resources/assets/js/components/Package/Show.vue"
+Component.options.__file = "C:\\wamp64\\www\\fitness\\resources\\assets\\js\\components\\Package\\Show.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Show.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -61829,7 +61855,7 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Load__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Load__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Load___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Load__);
 //
 //
@@ -61941,7 +61967,7 @@ var Component = __webpack_require__(0)(
   /* cssModules */
   null
 )
-Component.options.__file = "/var/www/html/fitness/resources/assets/js/components/AboutUs.vue"
+Component.options.__file = "C:\\wamp64\\www\\fitness\\resources\\assets\\js\\components\\AboutUs.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] AboutUs.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -62021,6 +62047,102 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 105 */,
+/* 106 */,
+/* 107 */,
+/* 108 */,
+/* 109 */,
+/* 110 */,
+/* 111 */,
+/* 112 */,
+/* 113 */,
+/* 114 */,
+/* 115 */,
+/* 116 */,
+/* 117 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(0)(
+  /* script */
+  __webpack_require__(118),
+  /* template */
+  __webpack_require__(119),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "C:\\wamp64\\www\\fitness\\resources\\assets\\js\\components\\ContactUs.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] ContactUs.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-a5780b04", Component.options)
+  } else {
+    hotAPI.reload("data-v-a5780b04", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 118 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+	name: 'contactus',
+	methods: {},
+	mounted: function mounted() {}
+});
+
+/***/ }),
+/* 119 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _vm._m(0)
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "container"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-lg-12 col-md-12 col-xs-12 col-sm-12"
+  }, [_c('h1', {
+    staticClass: "page-header"
+  }, [_vm._v("\n\t\t\t\tContate-nos\n\t\t\t")]), _vm._v(" "), _c('p', [_vm._v("Teste")])])])])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-a5780b04", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

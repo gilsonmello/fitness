@@ -35,7 +35,7 @@ const routes = [
     },
     { 
         name: 'users.create',
-        path: '/users/create', 
+        path: '/register', 
         component: require('./components/Users/Create.vue') 
     },
     { 
@@ -58,6 +58,12 @@ const routes = [
         path: '/sobre',
         props: true,
         component: require('./components/AboutUs.vue')
+    },
+    {
+        name: 'contactus',
+        path: '/contactus',
+        props: true,
+        component: require('./components/ContactUs.vue')
     }
 ];
 

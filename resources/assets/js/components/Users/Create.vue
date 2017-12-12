@@ -52,7 +52,7 @@
 		    	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 		    		<div class="form-group">
 					    <label for="birth_date">Data de Nascimento</label>
-					    <input type="text" @input="handleInput($event.target.value)" class="form-control" id="birth_date" v-model="birth_date" placeholder="Data de Nascimento">
+					    <input type="text" class="form-control" id="birth_date" v-model="birth_date" placeholder="Data de Nascimento">
 					    <div class="alert alert-danger" v-if="errors.birth_date">
 						  	<div v-for="birth_date in errors.birth_date">{{ birth_date }}</div>
 						</div>
@@ -110,9 +110,6 @@
 			next();
         },
 		methods: {
-			handleInput(){
-				window.console.log('aqui');
-		    },
 			create: function(){
 				axios.interceptors.request.use(config => {
 		        	this.user_load_create = true;

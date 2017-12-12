@@ -1,10 +1,10 @@
 <template>
 	<div class="content">		
-		<div class="container" v-if="loading">
+		<div class="container" v-show="home_load">
 			<load></load>	
 		</div>
 		
-		<div class="container" v-else>
+		<div class="container" v-show="!home_load">
         	<slider-component></slider-component>
         </div>
 	</div>
@@ -15,7 +15,7 @@
 	export default{
 		data: function(){
 			return {
-				loading: true
+				home_load: true
 			}
 		},
 		beforeRouteUpdate: function(to, from, next) {
@@ -26,7 +26,7 @@
             Load
         },
         mounted: function(){
-        	this.loading = false;
+        	this.home_load = false;
         }
 	}
 </script>

@@ -42,7 +42,7 @@
                     </li>
 
                     <li v-else>
-                        <router-link to="/users/create">
+                        <router-link :to="{ name: 'users.create' }">
                             <span class="glyphicon glyphicon-user"></span> Cadastre-se
                         </router-link>
                     </li>
@@ -53,7 +53,7 @@
                         </a>
                     </li>
                     <li v-else>
-                        <router-link to="/login">
+                        <router-link :to="{ name: 'login' }">
                             <span class="glyphicon glyphicon-log-in"></span> Login
                         </router-link>
                     </li>
@@ -103,13 +103,13 @@
 
 <style type="text/css">
     .navbar-inverse{
-        background-color: #096658;
+        background-color: #000;
     }
     .navbar-inverse .navbar-nav > li > a{
-        color: black;
+        color: #009a6e;
     }
     .navbar-inverse .navbar-brand{
-        color: black;
+        color: #009a6e;
     }
     .navbar{
         border-radius: 0;

@@ -22,7 +22,6 @@
 				<h1 class="page-header">
 					Sobre
 				</h1>
-				<hr class="my-4">
 				<ul class="list-group">
 					<li class="list-group-item">
 						<router-link :to="{ name: 'aboutus' }">
@@ -40,7 +39,7 @@
 						</router-link>
 					</li>
 					<li class="list-group-item">
-						<router-link to="/contatenos">
+						<router-link :to="{ name: 'contactus' }">
 							Contate-nos
 						</router-link>
 					</li>
