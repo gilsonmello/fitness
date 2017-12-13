@@ -105,7 +105,9 @@ class User extends Authenticatable
     }
 
     public function suppliers(){
-        return $this->belongsToMany(\App\Model\Backend\Supplier::class, 'suppliers_has_users', 'user_id', 'supplier_id');
+        return $this->belongsToMany(\App\Model\Backend\Supplier::class, 'suppliers_has_users', 'user_id', 'supplier_id')
+        ->withPivot(['actual'])
+        ->withTimestamps();
     }
 
     public function schedules(){

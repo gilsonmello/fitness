@@ -27,4 +27,9 @@ class Supplier extends Model
      * @var array
      */
     protected $guarded = ['id'];
+
+
+    public function users(){
+        return $this->belongsToMany(\App\User::class, 'suppliers_has_users', 'supplier_id', 'user_id');
+    }
 }

@@ -61,7 +61,7 @@
 		    	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 		    		<div class="form-group">
 					    <label for="birth_date">Academia</label>
-					    <select2 :options="gym" v-model="selectedGym">
+					    <select2 :options="options" v-model="selected">
 					    </select2>
 					    <!-- <select class="select2 form-control" v-model="selectedGym">
 					    	<option v-for="value in gym" v-bind:value="value.id">
@@ -100,8 +100,11 @@
 				password: '',
 				confirm_password: '',
 				birth_date: '',
-				gym: [],
-				selectedGym: '',
+				selected: 2,
+			    options: [
+			      
+			    ],
+				selectedGym: 3,
 				errors: [],
 				user_load_create: false
 			}
@@ -121,7 +124,8 @@
 					email: this.email,
 					password: this.password,
 					confirm_password: this.confirm_password,
-					birth_date: this.birth_date
+					birth_date: this.birth_date,
+					supplier_id: this.selected
 				})).then((response) => {
 					if(response.status === 200){
 						const authUser = {};
@@ -166,7 +170,12 @@
 			var url = '/suppliers';
 			axios.get(url, {}).then(response => {
 				if(response.status === 200){
-					this.gym = response.data;
+					response.data.unshift({
+						id: 0,
+						text: 'Selecione a academia',
+						disabled: 'disabled'
+					});
+					this.options = response.data;
 				}
 			});
 		},

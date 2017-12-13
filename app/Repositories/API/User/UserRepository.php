@@ -45,7 +45,14 @@ class UserRepository{
         $this->user->birth_date = format_without_mask($data['birth_date'], '/');
         $this->user->remember_token = str_random(10);
 
+        $suppliers_id[] = $data['supplier_id'];
+
         if($this->user->save()){
+            $this->user->suppliers()->attach($suppliers_id, [
+                'actual' => 1,
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s')
+            ]);
             $user = $this->user;
             $token = User::find($user->id)->createToken('Miranda Fitness')->accessToken;
             return ['token' => $token];
