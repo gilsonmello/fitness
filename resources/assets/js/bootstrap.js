@@ -14,7 +14,7 @@ try {
     window.$ = window.jQuery = require('jquery');
     require('bootstrap-sass');
     require('jquery.inputmask/dist/jquery.inputmask.bundle.js');
-    require('bootstrap-datepicker');
+    //require('bootstrap-datepicker');
     window.toastr = require('toastr');
     //require('select2');
     //require('select2/dist/css/select2.css');

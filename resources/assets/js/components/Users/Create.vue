@@ -17,7 +17,7 @@
 			  	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 			  		<div class="form-group">
 					    <label for="email">E-mail</label>
-					    <input type="email" class="form-control" id="email" v-model="email" placeholder="E-mail">
+					    <input @blur="verifyEmail()" type="email" class="form-control" id="email" v-model="email" placeholder="E-mail">
 							<div class="alert alert-danger" v-if="errors.email">
 						  	<div v-for="email in errors.email" >{{email}}</div>
 						</div>
@@ -37,11 +37,7 @@
 			  	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 			  		<div class="form-group">
 					    <label for="password">Confirme a senha</label>
-					    
 					    <input type="password" class="form-control" id="confirm_password" v-model="confirm_password" placeholder="Confirme a senha">
-					    
-
-
 					    <div class="alert alert-danger" v-if="errors.confirm_password">
 						  	<div v-for="confirm_password in errors.confirm_password" >{{confirm_password}}</div>
 						</div>
@@ -52,7 +48,7 @@
 		    	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 		    		<div class="form-group">
 					    <label for="birth_date">Data de Nascimento</label>
-					    <input type="text" class="form-control" id="birth_date" v-model="birth_date" placeholder="Data de Nascimento">
+					    <input-mask placeholder="Data de Nascimento" mask="99/99/9999" v-model="birth_date"></input-mask>
 					    <div class="alert alert-danger" v-if="errors.birth_date">
 						  	<div v-for="birth_date in errors.birth_date">{{ birth_date }}</div>
 						</div>
@@ -61,13 +57,7 @@
 		    	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 		    		<div class="form-group">
 					    <label for="birth_date">Academia</label>
-					    <select2 :options="options" v-model="selected">
-					    </select2>
-					    <!-- <select class="select2 form-control" v-model="selectedGym">
-					    	<option v-for="value in gym" v-bind:value="value.id">
-					    		{{ value.name }}
-					    	</option>
-					    </select> -->
+					    <select2 :options="options" v-model="selected"></select2>
 				  	</div>
 		    	</div>
 		    </div>
@@ -93,6 +83,11 @@
                 User: state => state.Users
             })
         },
+        watch: {
+        	'$route' (to, from) {
+		      	this.user_load_create = false;
+		    }
+        },
 		data: function(){
 			return {
 				name: '',
@@ -100,19 +95,22 @@
 				password: '',
 				confirm_password: '',
 				birth_date: '',
-				selected: 2,
+				selected: '',
 			    options: [
 			      
 			    ],
 				selectedGym: 3,
 				errors: [],
-				user_load_create: false
+				user_load_create: null
 			}
 		},
 		beforeRouteEnter: function(from, to, next){
 			next();
         },
 		methods: {
+			verifyEmail: function(){
+				window.console.log('aqui');
+			},
 			create: function(){
 				axios.interceptors.request.use(config => {
 		        	this.user_load_create = true;
@@ -144,12 +142,12 @@
 		                  	authUser.name = response.data.name
 		                  	window.localStorage.setItem('authUser', JSON.stringify(authUser))
 		                  	this.$store.dispatch('setUserObject', authUser)
-		                  	this.$router.push({name: 'dashboard'})
+		                  	//this.$router.push({name: 'dashboard'})
 							toastr.success('Cadastrado com sucesso');
 		                })
 					}
 				}).catch(error => {
-					this.errors = error.response.data
+					this.errors = error.response.data.errors
 					this.user_load_create = false;
 				})
 			}
@@ -159,14 +157,15 @@
 		},
 		mounted: function(){
 			var vm = this;
-			$(vm.$el).find('#birth_date').inputmask({
+			this.user_load_create = false;
+			/*$(vm.$el).find('#birth_date').inputmask({
 				mask: '99/99/9999',
 				onBeforeWrite: function(event, buffer, caretPos, opts){
 					if(event.target != undefined){
 						vm.birth_date = event.target.value;
 					}
 				}
-			});
+			});*/
 			var url = '/suppliers';
 			axios.get(url, {}).then(response => {
 				if(response.status === 200){

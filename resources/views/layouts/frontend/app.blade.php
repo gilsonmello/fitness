@@ -32,8 +32,11 @@
         @yield('content')
     </div>
     <!-- Fim conteúdo -->
+    <script>
+        var baseUrl = '{!! env('APP_URL') !!}';
+    </script>
+    <script src="{{ asset('js/app.js') }}"></script>
 
-    <script src="{{ asset('js/app.js') }}"></script> 
 
     <!-- <script src="/bower_components/gentelella/vendors/jquery/dist/jquery.min.js"></script>
     

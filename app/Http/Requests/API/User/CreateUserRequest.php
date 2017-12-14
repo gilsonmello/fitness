@@ -24,11 +24,12 @@ class CreateUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|min:10|regex:/^([a-zA-z\ ]+)$/u',
+            'name' => 'required|min:10|regex:/^([\pL\s\ ]+)$/u',
             'email' => 'required|email',
             'password' => 'required|min:6',
             'confirm_password' => 'required|min:6|same:password',
             'birth_date' => 'required',
+            'supplier_id'  => 'required',
         ];
     }
 
@@ -50,6 +51,7 @@ class CreateUserRequest extends FormRequest
             'confirm_password.same' => 'O campo Confirme a senha deverá ser igual a senha',
             'confirm_password.min' => 'O campo Confirme a senha deverá conter no mínimo 6 caracteres.',
             'birth_date.required' => 'O campo Data de Nascimento é obrigatório',
+            'supplier_id.required' => 'O campo Academia é Obrigatório',
         ];
     }
 }

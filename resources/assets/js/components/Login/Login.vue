@@ -34,7 +34,7 @@
 						<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
 						  	<div class="form-group">
 							    <label for="name">Nome</label>
-							    <input type="text" class="form-control" id="name" v-model="name" placeholder="Nome">
+							    <input type="text" required="required" class="form-control" id="name" v-model="name" placeholder="Nome">
 							    <div class="alert alert-danger" v-if="errors.name">
 								  	<label v-for="name in errors.name" >{{name}}</label>
 								</div>
@@ -43,7 +43,7 @@
 					  	<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
 					  		<div class="form-group">
 							    <label for="email">E-mail</label>
-							    <input type="email" class="form-control" id="email" v-model="email" placeholder="E-mail">
+							    <input @blur="verifyEmail()" type="email" required="required" class="form-control" id="email" v-model="email" placeholder="E-mail">
 									<div class="alert alert-danger" v-if="errors.email">
 								  	<label v-for="email in errors.email" >{{ email }}</label>
 								</div>
@@ -54,7 +54,7 @@
 				    	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 					  		<div class="form-group">
 							    <label for="password">Senha</label>
-							    <input type="password" class="form-control" id="password" v-model="password" placeholder="Senha">
+							    <input type="password" required="required" class="form-control" id="password" v-model="password" placeholder="Senha">
 							    <div class="alert alert-danger" v-if="errors.password">
 								  	<label v-for="password in errors.password" >{{password}}</label>
 								</div>
@@ -63,7 +63,7 @@
 					  	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 					  		<div class="form-group">
 							    <label for="password">Confirme a senha</label>
-							    <input type="password" class="form-control" id="confirm_password" v-model="confirm_password" placeholder="Confirme a senha">
+							    <input type="password" required="required" class="form-control" id="confirm_password" v-model="confirm_password" placeholder="Confirme a senha">
 							    <div class="alert alert-danger" v-if="errors.confirm_password">
 								  	<label v-for="confirm_password in errors.confirm_password" >
 							  	 		{{ confirm_password }}
@@ -76,7 +76,7 @@
 				    	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 				    		<div class="form-group">
 							    <label for="birth_date">Data de Nascimento</label>
-							    <input type="text" class="datepicker birth_date form-control" id="birth_date" v-model="birth_date" placeholder="Data de Nascimento">
+							    <input-mask placeholder="Data de Nascimento" mask="99/99/9999" v-model="birth_date"></input-mask>
 							    <div class="alert alert-danger" v-if="errors.birth_date">
 								  	<div v-for="birth_date in errors.birth_date">{{birth_date}}</div>
 								</div>
@@ -86,14 +86,12 @@
 				    	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 				    		<div class="form-group">
 							    <label for="birth_date">Academia</label>
-							    <select2 :options="gym" v-model="selectedGym">
-							    	<option value=""></option>
-							    </select2>
-							    <!-- <select class="select2 form-control" v-model="selectedGym">
-							    	<option v-for="value in gym" v-bind:value="value.id">
-							    		{{ value.name }}
-							    	</option>
-							    </select> -->
+							    <select2 :options="gym" v-model="selected"></select2>
+							    <div class="alert alert-danger" v-if="errors.supplier_id">
+								  	<div v-for="supplier in errors.supplier_id">
+								  		{{supplier}}
+								  	</div>
+								</div>
 						  	</div>
 				    	</div>
 				    </div>
@@ -126,21 +124,30 @@
         	next();
         },
         watch: {
-        	loading(val, oldVal){
-        		window.console.log('novo valor: '+val, 'valor antigo: '+oldVal);
-        	}
+        	'$route' (to, from) {
+		      	this.login_load = false;
+		    }
         },
         mounted: function(){
         	var vm = this;
-			$(vm.$el).find('#birth_date').inputmask('99/99/9999');
+			//$(vm.$el).find('#birth_date').inputmask('99/99/9999');
 			var url = '/suppliers';
 			axios.get(url, {}).then(response => {
 				if(response.status === 200){
+					response.data.unshift({
+						id: 0,
+						text: 'Selecione a academia'
+					})
 					this.gym = response.data;
 				}
 			});
         },
 		methods: {
+			verifyEmail: function(){
+				axios.get(baseUrl+ '/users/verify_email', {}).then(response => {
+
+				})
+			},
 			handleLoginFormSubmit: function(){
 				const data = {
 		            grant_type: 'password',
@@ -198,7 +205,7 @@
 					password: this.password,
 					confirm_password: this.confirm_password,
 					birth_date: this.birth_date,
-					supplier_id: this.selectedGym
+					supplier_id: this.selected
 				})).then((response) => {
 					if(response.status === 200){
 						const authUser = {};
@@ -223,14 +230,9 @@
 					}
 				}).catch(error => {			
 					this.login_load = false;
-					this.errors = error.response.data;
-					setTimeout(() => {
-						var vm = this;
-						$(vm.$el).find('#birth_date').inputmask('99/99/9999');
-					}, 500);
-
+					this.errors = error.response.data.errors;
+					window.console.log(this.errors)
 				})
-				this.login_load = false;
 			}
 		},
 		data: function(){
@@ -247,7 +249,7 @@
 				errors: [],
 				login_load: false,
 				gym: [],
-				selectedGym: null
+				selected: null
 			}
 		},
 		components: {

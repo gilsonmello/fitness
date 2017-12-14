@@ -11,6 +11,7 @@ import VueResource from 'vue-resource'
 import VueRouter from 'vue-router'
 import store from './store'
 import Select2 from './components/Select2.vue'
+import InputMask from './components/InputMask.vue'
 import Datepicker from 'vuejs-datepicker'
 
 import App from './App.vue'
@@ -26,6 +27,7 @@ Vue.use(VueResource);
 Vue.component('app', App);
 Vue.component('select2', Select2);
 Vue.component('datepicker', Datepicker);
+Vue.component('input-mask', InputMask);
 
 const routes = [
     { 
@@ -72,20 +74,6 @@ const router = new VueRouter({
     linkExactActiveClass: 'active'
 })
 
-router.beforeEach((to, from, next) => {
-
-    if(to.meta.requiresAuth == true){
-        const authUser = JSON.parse(window.localStorage.getItem('authUser'))
-        if(authUser){
-            next()
-        }else{
-            next({
-                name: 'home'
-            })
-        }
-    }
-    next();
-});
 
 /*Vue.material.registerTheme('default', {
   primary: 'blue',
@@ -128,6 +116,7 @@ const app = new Vue({
     render: h => h(App),
     data: function(){
         return {
+            load: false
         }
     },
     created: function(){
@@ -190,6 +179,23 @@ var authOptions = {
 
 router.afterEach((to, from, next) => {
     var vm = app;
+    app.load = true;
+});
+
+
+
+router.beforeEach((to, from, next) => {
+    if(to.meta.requiresAuth == true){
+        const authUser = JSON.parse(window.localStorage.getItem('authUser'))
+        if(authUser){
+            next()
+        }else{
+            next({
+                name: 'home'
+            })
+        }
+    }
+    next();
 });
 
 

@@ -18,20 +18,19 @@
 		mounted: function () {
 		    var vm = this
 		    $(this.$el).select2({ 
-		    	data: this.options,
-		    	placeholder:'Select - None'
+		    	data: this.options
 		    })
 	      	.val(this.value)
 	      	.trigger('change')
 	      	// emit event on change.
 	      	.on('change', function (val) {
-	        	vm.$emit('input', this.value)
+	        	vm.$emit('input', this.value);
 	      	})
 	  	},
 	  	watch: {
 	    	value: function (value) {
 	      		// update value
-	      		$(this.$el).val(value)
+	      		$(this.$el).val(value);
 	    	},
 	    	options: function (options) {
 	      		// update options
@@ -42,7 +41,7 @@
 			}
 	  	},
 	  	destroyed: function () {
-	    	$(this.$el).off().select2('destroy')
+	    	$(this.$el).off().select2('destroy');
 	  	}
 	}
 

@@ -1,9 +1,9 @@
 <template>
 	<div class="container">
-		<div class="content" v-if="loading">
+		<div class="content" v-show="package_load_show">
 			<load></load>	
 		</div>		
-		<div class="content" v-else>
+		<div class="content" v-show="!package_load_show">
 			<div class="row">
 				<div class="col-lg-12">
 					<h1 class="page-header">Pacotes</h1>
@@ -25,32 +25,38 @@
 		data: function(){
 			return {
 				packages: [],
-				loading: true
+				package_load_show: false,
+				errors: []
 			}
 		},
 		components: {
 			Load
 		},
+		watch: {
+        	'$route' (to, from) {
+		      	this.package_load_show = false;
+		    }
+        },
 		methods: {
 
 		},
-		beforeRouteUpdate: function(to, from, next) {
-		    const params = to.params;
-            next();
-	  	},
-	  	afterRouteUpdate: function(to, from, next){
-	  		next();
-	  	},
 		created: function(){
 		},
 		props: [],
 		mounted: function(){
             var url = '/packages';
+            axios.interceptors.request.use(config => {
+	        	this.package_load_show = true;
+			  	return config;
+			});
             axios.get(url, {}).then(response => {
                 if(response.status === 200){
 				    this.packages = response.data;
-                    this.loading = false;
+                    this.package_load_show = false;
                 }
+            }).catch((error) => {
+            	this.errors = error.response.data
+				this.package_load_show = false;
             });
 		}
 	}
