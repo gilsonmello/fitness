@@ -76,7 +76,7 @@
 				    	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 				    		<div class="form-group">
 							    <label for="birth_date">Data de Nascimento</label>
-							    <input-mask placeholder="Data de Nascimento" mask="99/99/9999" v-model="birth_date"></input-mask>
+							    <input-mask required="required" placeholder="Data de Nascimento" mask="99/99/9999" v-model="birth_date"></input-mask>
 							    <div class="alert alert-danger" v-if="errors.birth_date">
 								  	<div v-for="birth_date in errors.birth_date">{{birth_date}}</div>
 								</div>
@@ -152,7 +152,7 @@
 				const data = {
 		            grant_type: 'password',
 		            client_id: 2,
-		            client_secret: 'RNqUlVDBpP8QsMtbq96HEnFI2rpr8jJp0622QHw9',
+		            client_secret: 'VnB0XbwyxgmzZHGWO6Z88cJ1MB6kbYffvtEKqopV',
 		            username: this.login.email,
 		            password: this.login.password,
 		            scope: '',
@@ -231,7 +231,6 @@
 				}).catch(error => {			
 					this.login_load = false;
 					this.errors = error.response.data.errors;
-					window.console.log(this.errors)
 				})
 			}
 		},

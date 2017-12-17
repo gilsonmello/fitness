@@ -16,6 +16,7 @@ class CreatePackagesTable extends Migration
         Schema::create('packages', function (Blueprint $table) {
             $table->engine = "InnoDB";
             $table->increments('id');
+            $table->integer('categorie_id')->unsigned();
             $table->string('name');
             $table->string('slug');
             $table->longText('description')->nullable();
@@ -31,6 +32,9 @@ class CreatePackagesTable extends Migration
             $table->text('meta_title')->nullable();
             $table->timestamps();
             $table->softDeletes();
+            $table->foreign('categorie_id')
+                ->on('categories')
+                ->references('id');
         });
 
         Schema::create('coupons_has_packages', function (Blueprint $table) {

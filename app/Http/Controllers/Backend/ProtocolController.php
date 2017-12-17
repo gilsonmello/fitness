@@ -26,7 +26,7 @@ class ProtocolController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(Request $request){
-        $request->session()->put('lastpage', $request->only('page')['page']);
+        //$request->session()->put('lastpage', $request->only('page')['page']);
 
         $f_submit = $request->input('f_submit', '');
 

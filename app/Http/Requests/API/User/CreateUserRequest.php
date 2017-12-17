@@ -3,9 +3,16 @@
 namespace App\Http\Requests\API\User;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Factory;
 
 class CreateUserRequest extends FormRequest
 {
+    public function __construct(Factory $factory){
+        $factory->extend('greater_than_field', function ($attribute, $value, $parameters){
+            return $value > 0;
+        });
+    }
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -29,7 +36,7 @@ class CreateUserRequest extends FormRequest
             'password' => 'required|min:6',
             'confirm_password' => 'required|min:6|same:password',
             'birth_date' => 'required',
-            'supplier_id'  => 'required',
+            'supplier_id'  => 'required|greater_than_field:1',
         ];
     }
 
@@ -52,6 +59,7 @@ class CreateUserRequest extends FormRequest
             'confirm_password.min' => 'O campo Confirme a senha deverá conter no mínimo 6 caracteres.',
             'birth_date.required' => 'O campo Data de Nascimento é obrigatório',
             'supplier_id.required' => 'O campo Academia é Obrigatório',
+            'supplier_id.greater_than_field' => 'O campo Academia é Obrigatório',
         ];
     }
 }

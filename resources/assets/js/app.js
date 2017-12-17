@@ -44,7 +44,16 @@ const routes = [
         path: '/login', 
         name: 'login',
         component: require('./components/Login/Login.vue')
+    },
+    {   path: '/categories',
+        name: 'categories.index', 
+        component: require('./components/Categorie/Index.vue')
     },    
+    {   path: '/categories/:slug',
+        name: 'categories.show', 
+        props: true,
+        component: require('./components/Categorie/Show.vue')
+    }, 
     {   path: '/packages',
         name: 'packages.index', 
         component: require('./components/Package/Index.vue')

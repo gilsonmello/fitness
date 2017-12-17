@@ -14,8 +14,15 @@
                     <router-link tag="li" :to="{ name: 'home' }">
                         <a>Home</a>
                     </router-link>                               
-                    <router-link tag="li" :to="{ name: 'packages.index' }">
-                        <a>Pacotes</a>
+                    <router-link tag="li" class="dropdown-open-hover" :to="{ name: 'categories.index' }">
+                        <a>Modalidades</a>
+                        <ul class="dropdown-menu" v-if="this.categories.length > 0">
+                            <li v-for="categories in this.categories">
+                                <router-link :to="{ name: 'categories.show', params: { slug: categories.slug } }">
+                                    {{ categories.name }}
+                                </router-link>
+                            </li>
+                        </ul>
                     </router-link>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
@@ -76,10 +83,18 @@
         },
         data: function(){
             return {
-                packages: []
+                packages: [],
+                categories: []
             }
         },
         methods: {
+            getCategories: function(){
+                axios.get('/categories', {}).then(response => {
+                    if(response.status === 200){
+                        this.categories = response.data;
+                    }
+                });
+            },
             handleLogout: function(){
                 this.$store.dispatch('clearAuthUser')
                 window.localStorage.removeItem('authUser')
@@ -96,7 +111,7 @@
             }
         },
         mounted: function(){
-
+            this.getCategories();
         }
     }
 </script>
@@ -113,5 +128,9 @@
     }
     .navbar{
         border-radius: 0;
+    }
+
+    .dropdown-open-hover:hover .dropdown-menu {
+        display: block;
     }
 </style>

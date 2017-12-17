@@ -5,11 +5,11 @@ namespace App\Model\Frontend;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Package extends Model
+class Categorie extends Model
 {
-	use SoftDeletes;
-	
-     /**
+    use SoftDeletes;
+
+    /**
      * @var bool
      */
     public $timestamps = true;
@@ -19,7 +19,7 @@ class Package extends Model
      *
      * @var string
      */
-    protected $table = 'packages';
+    protected $table = 'categories';
 
     /**
      * The attributes that are not mass assignable.
@@ -28,7 +28,7 @@ class Package extends Model
      */
     protected $guarded = ['id'];
 
-    public function categorie(){
-        return $this->belongsTo(\App\Model\Frontend\Categorie::class);
+    public function packages(){
+    	return $this->hasMany(\App\Model\Frontend\Package::class);
     }
 }

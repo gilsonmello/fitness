@@ -23,7 +23,7 @@ class AuthController extends Controller
     public function index(Request $request){
         //$users = $this->authRepository->users();
 
-        $request->session()->put('lastpage', $request->only('page')['page']);
+        //$request->session()->put('lastpage', $request->only('page')['page']);
         $f_submit = $request->input('f_submit', '');
         $name = getValueSession($request, 'Backend/AuthController@index:name', '', $f_submit, '');
         $email = getValueSession($request, 'Backend/AuthController@index:email', '', $f_submit, '');
