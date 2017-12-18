@@ -7,7 +7,7 @@
  */
 
 //Rota padrão
-Route::resource('categories', 'Categoryontroller', [
+Route::resource('categories', 'CategoryController', [
     'except' => [
         'show'
     ],
