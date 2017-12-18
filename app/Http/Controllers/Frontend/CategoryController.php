@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Frontend;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Model\Frontend\Categorie;
+use App\Model\Frontend\Category;
 
-class CategorieController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class CategorieController extends Controller
      */
     public function index()
     {
-        $categories = Categorie::where('is_active', '=', 1)->get();
+        $categories = Category::where('is_active', '=', 1)->get();
         if(!$categories->isEmpty()){
             return response()->json($categories, 200);
         }
@@ -51,9 +51,9 @@ class CategorieController extends Controller
      */
     public function show($slug)
     {
-        $categorie = Categorie::where('slug', '=', $slug)->get()->first();
-        if(!is_null($categorie)){
-            return response()->json($categorie, 200);
+        $category = Category::where('slug', '=', $slug)->get()->first();
+        if(!is_null($category)){
+            return response()->json($category, 200);
         }
         return response()->json([], 200);
     }

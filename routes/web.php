@@ -25,7 +25,7 @@ Route::group(['namespace' => 'Frontend', 'middleware' => 'redirect'], function()
 	Route::get('/auth', 'UserController@page')->name('frontend.auth');
 
 	require(__DIR__ . "/Frontend/User.php");
-	require(__DIR__ . "/Frontend/Categorie.php");
+	require(__DIR__ . "/Frontend/Category.php");
 	require(__DIR__ . "/Frontend/Package.php");
 	require(__DIR__ . "/Frontend/Supplier.php");
 	require(__DIR__ . "/Frontend/Newsletter.php");

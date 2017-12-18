@@ -99,5 +99,8 @@ Route::group(['namespace' => 'API'], function(){
 	//Rotas para as diários
 	require_once __DIR__.'/API/Diary.php';
 
+	//Rotas para as categorias
+	require_once __DIR__.'/API/Category.php';
+
 });
 
