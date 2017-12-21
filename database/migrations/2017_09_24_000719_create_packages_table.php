@@ -16,7 +16,6 @@ class CreatePackagesTable extends Migration
         Schema::create('packages', function (Blueprint $table) {
             $table->engine = "InnoDB";
             $table->increments('id');
-            $table->integer('categorie_id')->unsigned();
             $table->string('name');
             $table->string('slug');
             $table->longText('description')->nullable();
@@ -32,9 +31,6 @@ class CreatePackagesTable extends Migration
             $table->text('meta_title')->nullable();
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('categorie_id')
-                ->on('categories')
-                ->references('id');
         });
 
         Schema::create('coupons_has_packages', function (Blueprint $table) {
@@ -44,6 +40,19 @@ class CreatePackagesTable extends Migration
             $table->integer('package_id')->unsigned();
             $table->foreign('coupon_id')
                 ->on('coupons')
+                ->references('id');
+            $table->foreign('package_id')
+                ->on('packages')
+                ->references('id');
+        });
+
+        Schema::create('categories_has_packages', function (Blueprint $table) {
+            $table->engine = "InnoDB";
+            $table->increments('id');
+            $table->integer('categorie_id')->unsigned();
+            $table->integer('package_id')->unsigned();
+            $table->foreign('categorie_id')
+                ->on('categories')
                 ->references('id');
             $table->foreign('package_id')
                 ->on('packages')
@@ -74,6 +83,7 @@ class CreatePackagesTable extends Migration
     public function down()
     {
         Schema::dropIfExists('discount_suppliers_packages');
+        Schema::dropIfExists('categories_has_packages');
         Schema::dropIfExists('coupons_has_packages');
         Schema::dropIfExists('packages');
     }

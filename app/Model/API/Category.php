@@ -29,6 +29,6 @@ class Category extends Model
     protected $guarded = ['id'];
 
     public function packages(){
-    	return $this->hasMany(\App\Model\API\Package::class);
+    	return $this->belongsToMany(\App\Model\API\Package::class, 'categories_has_packages', 'categorie_id', 'package_id');
     }
 }

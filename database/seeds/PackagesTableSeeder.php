@@ -12,7 +12,7 @@ class PackagesTableSeeder extends Seeder
     public function run()
     {
         DB::table('packages')->insert([
-            'categorie_id' => 1,
+            'id' => 1,
             'name' => 'Simples',
             'slug' => 'simples',
             'description' => 'Pacote Simples',
@@ -23,7 +23,7 @@ class PackagesTableSeeder extends Seeder
         ]);
 
         DB::table('packages')->insert([
-            'categorie_id' => 2,
+            'id' => 2,
             'name' => 'Completo',
             'slug' => 'completo',
             'description' => 'Pacote Completo',
@@ -34,7 +34,7 @@ class PackagesTableSeeder extends Seeder
         ]);
 
         DB::table('packages')->insert([
-            'categorie_id' => 3,
+            'id' => 3,
             'name' => 'Premium',
             'slug' => 'premium',
             'description' => 'Pacote Premium',
@@ -43,5 +43,21 @@ class PackagesTableSeeder extends Seeder
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s')
         ]);
+
+        DB::table('categories_has_packages')->insert([
+            'categorie_id' => 1,
+            'package_id' => 1,
+        ]);
+
+        DB::table('categories_has_packages')->insert([
+            'categorie_id' => 2,
+            'package_id' => 2,
+        ]);
+
+        DB::table('categories_has_packages')->insert([
+            'categorie_id' => 3,
+            'package_id' => 3,
+        ]);
+
     }
 }

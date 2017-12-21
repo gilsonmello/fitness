@@ -15,7 +15,7 @@ class CategoryController extends Controller
      */
     public function index(Request $request)
     {
-        $categories = Category::where('is_active', '=', 1)->get();
+        $categories = Category::with('packages')->where('is_active', '=', 1)->get();
         if(!$categories->isEmpty()){
             return response()->json($categories, 200);
         }
@@ -51,7 +51,7 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        $category = Category::find($id);
+        $category = Category::find($id)->with('packages');
         if(!is_null($category)){
             return response()->json($category, 200);
         }
