@@ -1,5 +1,5 @@
 <template>
-	<div class="content">		
+	<div class="content" id="box">		
 		<div class="container" v-show="home_load">
 			<load></load>	
 		</div>
@@ -16,6 +16,11 @@
 		data: function(){
 			return {
 				home_load: true
+			}
+		},
+		watch: {
+			$route: function(to, from){
+				this.home_load = false;
 			}
 		},
 		beforeRouteUpdate: function(to, from, next) {

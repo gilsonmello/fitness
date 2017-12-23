@@ -53,6 +53,30 @@
 
 <script>
     export default {
-        
+        watch: {
+			$route: function(to, from){
+				this.footer_load = false;
+			}
+		},
+		data: function(){
+			return {
+				footer_load: false
+			}
+		}
     }
 </script>
+
+<style>
+	.list-group-item{
+		background-color: #000;
+	}
+	.list-group-item a{
+		color: #009a6e
+	}
+	.list-group-item a:hover{
+		color: #fff
+	}
+	.list-group-item a:focus{
+		color: #fff
+	}
+</style>

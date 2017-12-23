@@ -1,6 +1,6 @@
 <?php
 
-Route::resource('categories', 'CategorieController', [
+Route::resource('categories', 'CategoryController', [
     'names' => [
         'index' => 'frontend.categories.index',
         'create' => 'frontend.categories.create',

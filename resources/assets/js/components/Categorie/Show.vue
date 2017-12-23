@@ -1,5 +1,5 @@
 <template>
-	<div class="container">
+	<div class="container" id="box">
 
 		<div class="content" v-show="categorie_load_show">
 			<load></load>	
@@ -41,8 +41,7 @@
 			const params = to.params.slug;
 			axios.get('/categories/'+ params, {}).then(response => {
                 if(response.status === 200){
-                	console.log(response.data);
-                    this.categorie = response.data;
+                	this.categorie = response.data;
                 }
                 this.categorie_load_show = false;
             }).catch((error) => {
@@ -54,7 +53,6 @@
 			const params = this.slug;
 			axios.get('/categories/'+ params, {}).then(response => {
                 if(response.status === 200){
-                	console.log(response.data);
                     this.categorie = response.data;
                 }
                 this.categorie_load_show = false;

@@ -28,7 +28,7 @@ class Package extends Model
      */
     protected $guarded = ['id'];
 
-    public function categorie(){
-        return $this->belongsTo(\App\Model\Frontend\Categorie::class);
+    public function categories(){
+        return $this->belongsToMany(\App\Model\Frontend\Category::class, 'categories_has_packages', 'package_id', 'categorie_id');
     }
 }

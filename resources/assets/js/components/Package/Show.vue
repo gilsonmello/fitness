@@ -1,5 +1,5 @@
 <template>
-	<div class="container">
+	<div class="container" id="box">
 		<div class="content" v-show="package_load_show">
 			<load></load>	
 		</div>
@@ -25,6 +25,11 @@
 		},
 		methods: {
 
+		},
+		watch: {
+			$route: function(to, from){
+				this.package_load_show = false;
+			}
 		},
 		beforeRouteUpdate: function(to, from, next) {
 			const params = to.params.slug;

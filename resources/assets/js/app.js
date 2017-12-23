@@ -187,8 +187,18 @@ var authOptions = {
 });
 
 router.afterEach((to, from, next) => {
-    var vm = app;
-    app.load = true;
+    var height = $('#box').prop('scrollHeight');
+
+    $('body').find('.dropdown-menu ul').fadeOut('toggle');
+    $('body').find('.dropdown-menu a.category').removeClass('open');
+    $('body').find('.dropdown-submenu a.category').removeClass('open');
+    $('body').find('.dropdown-submenu ul').fadeOut('toggle');
+    $('body').find('.dropdown-submenu a span').addClass('fa-caret-down').removeClass('fa-caret-right');
+
+    $('body').animate({
+        scrollTop: height
+    },  500);
+
 });
 
 

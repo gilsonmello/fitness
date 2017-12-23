@@ -56,11 +56,11 @@
 
 <style>
 	body{
-		background-color: #000;
-		color: #009a6e;
+		background-color: #fff;
+		color: #000;
 	}
 	.page-header{
-		color: #009a6e;
+		color: #000;
 	}
 	.fade-enter-active, .fade-leave-active {
 	  	transition-property: opacity;
@@ -69,6 +69,10 @@
 
 	.fade-enter-active {
 	  	transition-delay: .25s;
+	}
+
+	#box{
+		margin-top: 70px
 	}
 
 	.fade-enter, .fade-leave-active {

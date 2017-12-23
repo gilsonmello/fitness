@@ -1,5 +1,5 @@
 <template>
-	<div class="container">
+	<div class="container" id="box">
 		<div class="content" v-show="package_load_show">
 			<load></load>	
 		</div>		
