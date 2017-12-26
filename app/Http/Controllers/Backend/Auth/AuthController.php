@@ -26,7 +26,9 @@ class AuthController extends Controller
         //$request->session()->put('lastpage', $request->only('page')['page']);
         $f_submit = $request->input('f_submit', '');
         $name = getValueSession($request, 'Backend/AuthController@index:name', '', $f_submit, '');
+        $name = trim($name);
         $email = getValueSession($request, 'Backend/AuthController@index:email', '', $f_submit, '');
+        $email = trim($name);
         $cpf = getValueSession($request, 'Backend/AuthController@index:cpf', '', $f_submit, '');
         $rg = getValueSession($request, 'Backend/AuthController@index:rg', '', $f_submit, '');
         $profile = getValueSession($request, 'Backend/AuthController@index:profile', '', $f_submit, '');
@@ -42,6 +44,7 @@ class AuthController extends Controller
             'rg' => ['op' => '=', 'value' => $rg],
             'role_id' => ['op' => 'In', 'value' => $profile]
         ], ['roles' => 'client']);
+
         return view('backend.auth.index', compact(
             'roles', 'users', 'name', 'email', 'cpf', 'rg', 'profile'
         ));

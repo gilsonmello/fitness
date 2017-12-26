@@ -1,7 +1,7 @@
 <?php namespace App\Repositories\API\User;
 
 use App\Exceptions\GeneralException;
-use App\Model\Backend\User;
+use App\User;
 
 /**
  * Class UserRepository
@@ -50,6 +50,10 @@ class UserRepository{
         if($this->user->save()){
             $this->user->suppliers()->attach($suppliers_id, [
                 'actual' => 1,
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s')
+            ]);
+            $this->user->roles()->attach(2, [
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s')
             ]);

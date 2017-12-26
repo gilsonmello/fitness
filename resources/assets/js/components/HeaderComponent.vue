@@ -20,12 +20,12 @@
                         </a>
                         <ul class="dropdown-menu">                            
                             <li class="dropdown-submenu" v-if="category.packages.length > 0" v-for="category in categories">
-                                <a class="category dropdown-toggle" tabindex="-1" href="#">
+                                <a class="category dropdown-toggle" :category-slug="category.slug" tabindex="-1" href="#">
                                     {{ category.name }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="fa fa-caret-down"></span>
                                 </a>
-                                <ul class="dropdown-menu" v-if="category.packages.length > 0" v-for="packages in category.packages"  >
+                                <ul class="dropdown-menu sub-menu" v-if="category.packages.length > 0" v-for="packages in category.packages"  >
                                     <li>
-                                        <router-link :to="{ name:'packages.show', params: {slug: packages.slug} }">
+                                        <router-link :to="{ name:'packages.show', params: {slug: packages.slug, category: category.slug} }">
                                             {{ packages.name }}
                                         </router-link>
                                     </li>
@@ -97,7 +97,26 @@
         },
         watch: {
             $route: function(to, from){
-                
+                var paramsTo = to.params;
+                var paramsFrom = from.params;
+                var dropdownSubMenu = $('body').find('.dropdown-menu');
+
+                dropdownSubMenu.find('.dropdown-submenu a').each(function(i, v){
+                    if($(this).attr('category-slug') != paramsTo.category){
+                        $(this).find('span').addClass('fa-caret-down').removeClass('fa-caret-right');
+                        $(this).find('ul').fadeOut('toggle');
+                        $(this).find('.dropdown-submenu ul').fadeOut('toggle');
+                    }else{
+                        $(this).find('.sub-menu li > a').addClass('active');
+                    }
+                });
+
+                if(window.innerWidth <= 768) {
+                    $('body').find('#myNavbar').fadeOut(500, function(){
+                        $(this).removeClass('in');
+                        $(this).removeAttr('style');
+                    });
+                }   
             }
         },
         data: function(){
@@ -226,9 +245,34 @@
         background-color: #fff;
     }
 
+    .dropdown-menu > li > a.active{
+        background-color: #fff;
+        color: #009a6e;
+    }
+
     .dropdown-submenu .dropdown-menu {
         top: 0;
         left: 100%;
         margin-top: -1px;
+    }
+
+    @media (max-width: 768px) {
+        .navbar-inverse .navbar-nav .open .dropdown-menu .sub-menu > li > a:focus{
+            color: #009a6e;
+        }
+        .navbar-inverse .navbar-nav .open .dropdown-menu .sub-menu > li > a:hover{
+            color: #009a6e;
+        }
+       
+        .dropdown-menu .sub-menu{
+            padding-left: 10px;
+        }
+        .dropdown-menu .sub-menu > li > a{
+            color: white !important;
+        }
+        .dropdown-menu li a.open{
+            color: #009a6e !important;
+            background-color: transparent;
+        }
     }
 </style>

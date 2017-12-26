@@ -1,7 +1,7 @@
 <template>
 	<footer class="container">
 		<div class="row">
-			<div class="col-lg-4">
+			<div class="col-lg-4 col-md-4 col-xs-12 col-sm-4">
 				<h1 class="page-header">
 					Miranda Fitness
 				</h1>
@@ -18,7 +18,7 @@
 					<i class="fa fa-youtube"></i>
 				</a>
 			</div>
-			<div class="col-lg-4">
+			<div class="col-lg-4 col-md-4 col-xs-12 col-sm-4">
 				<h1 class="page-header">
 					Sobre
 				</h1>
@@ -43,8 +43,7 @@
 							Contate-nos
 						</router-link>
 					</li>
-				</ul>
-				
+				</ul>				
 			</div>
 		</div>
 	</footer>
@@ -68,15 +67,15 @@
 
 <style>
 	.list-group-item{
-		background-color: #000;
+		
 	}
 	.list-group-item a{
-		color: #009a6e
+		color: #000
 	}
 	.list-group-item a:hover{
-		color: #fff
+		color: #009a6e
 	}
 	.list-group-item a:focus{
-		color: #fff
+		color: #009a6e
 	}
 </style>

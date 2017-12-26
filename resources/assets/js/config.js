@@ -14,8 +14,8 @@ export const getHeader = function () {
 
 export const rt = {
 	users: {
-		create: '/api/users',
-		edit: '/api/{id}/user',
-		logged: '/api/user'
+		create: '/users',
+		edit: '/{id}/user',
+		logged: '/users/logged'
 	}
 };

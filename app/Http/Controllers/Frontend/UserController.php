@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\Frontend\User\UserRepository;
+use App\Http\Requests\Frontend\User\CreateUserRequest;
 use App\Model\Backend\User;
 
 /**
@@ -17,11 +18,15 @@ class UserController extends Controller
      * UserController constructor.
      */
     public function __construct(){
-        $this->user = new UserRepository;
+        $this->userRepository = new UserRepository;
     }
 
     public function page(){
         return view('frontend.users.index');
+    }
+
+    public function verifyEmail(){
+        return response()->json('true', 200);
     }
 
 
@@ -30,7 +35,11 @@ class UserController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(Request $request){
-        return $this->user->all();
+        return $this->userRepository->all();
+    }
+
+    public function logged(Request $request){
+        return $request->user();
     }
 
     /**
@@ -40,20 +49,30 @@ class UserController extends Controller
         return view('frontend.users.create');
     }
 
+    public function createUser(CreateUserRequest $request){
+        if($result = $this->userRepository->create($request)){
+            return response()->json($result, 200);
+        }
+        return response()->json('false', 400);
+    }
+
     /**
      * @param CreateProtocolRequest $request
      * @return mixed
      */
-    public function store(){
+    public function store(CreateUserRequest $request){
+        if($result = $this->userRepository->create($request)){
+            return response()->json($result, 200);
+        }
+        return response()->json('false', 400);
     }
-
     /**
      * @param $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @throws \App\Exceptions\GeneralException
      */
     public function edit($id){
-        return $this->user->find($id);
+        return $this->userRepository->find($id);
     }
 
     /**

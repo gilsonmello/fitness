@@ -48,7 +48,7 @@
 		created: function(){
 
 		},
-		props: ['slug'],
+		props: ['slug', 'category'],
 		mounted: function(){
 			const params = this.slug;
 			axios.interceptors.request.use(config => {

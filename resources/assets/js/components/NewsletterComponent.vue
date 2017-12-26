@@ -6,7 +6,7 @@
 		<div class="content" v-show="!newsletter_load">
 			<form method="POST" v-on:submit.prevent="handleSubmitForm()">
 				<div class="row">
-					<div class="col-lg-12">
+					<div class="col-lg-12 col-xs-12 col-md-12 col-sm-12">
 						<h1 class="page-header">Inscreva-se na nossa newsltter para novas notícias</h1>
 					</div>
 				</div>

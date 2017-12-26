@@ -108,7 +108,7 @@
                                 <tr>
                                     <td>{!! $value->name !!}</td>
                                     <td>{!! $value->email !!}</td>
-                                    <td>{!! format_datebr($value->birth_date) !!}</td>
+                                    <td>{!! $value->birth_date != null ? format_datebr($value->birth_date) : 'Não Informado' !!}</td>
                                     <td>{!! $value->action_buttons !!}</td>
                                 </tr>
                             @empty

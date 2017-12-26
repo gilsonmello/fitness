@@ -9,7 +9,7 @@
 			<div class="col-lg-6 col-xs-12 col-sm-6 col-md-6" >
 				<h1 class="page-header">Fazer login</h1>
 				<form action="/login" method="POST" @submit.prevent="handleLoginFormSubmit()">
-					<div class="alert alert-danger" v-if="errors.credentials">
+					<div class="alert alert-danger" v-if="errors.credentials != null">
 						<label>{{ errors.credentials }}</label>
 					</div>
 					<div class="form-group">
@@ -44,7 +44,7 @@
 					  		<div class="form-group">
 							    <label for="email">E-mail</label>
 							    <input @blur="verifyEmail()" type="email" required="required" class="form-control" id="email" v-model="email" placeholder="E-mail">
-									<div class="alert alert-danger" v-if="errors.email">
+								<div class="alert alert-danger" v-if="errors.email">
 								  	<label v-for="email in errors.email" >{{ email }}</label>
 								</div>
 						  	</div>
@@ -88,8 +88,8 @@
 							    <label for="birth_date">Academia</label>
 							    <select2 :options="gym" v-model="selected"></select2>
 							    <div class="alert alert-danger" v-if="errors.supplier_id">
-								  	<div v-for="supplier in errors.supplier_id">
-								  		{{supplier}}
+								  	<div v-if="errors.supplier_id">
+								  		<label v-for="supplier in errors.supplier_id" >{{supplier}}</label>					  		
 								  	</div>
 								</div>
 						  	</div>
@@ -120,11 +120,8 @@
                 User: state => state.Users
             })
         },
-        beforeRouteEnter: function(from, to, next){
-        	next();
-        },
         watch: {
-        	'$route' (to, from) {
+        	$route (to, from) {
 		      	this.login_load = false;
 		    }
         },
@@ -146,13 +143,13 @@
 			verifyEmail: function(){
 				axios.get(baseUrl+ '/users/verify_email', {}).then(response => {
 
-				})
+				});
 			},
 			handleLoginFormSubmit: function(){
 				const data = {
 		            grant_type: 'password',
 		            client_id: 2,
-		            client_secret: 'VnB0XbwyxgmzZHGWO6Z88cJ1MB6kbYffvtEKqopV',
+		            client_secret: 'mgwjCHXj6hOhkFn1DrqeiPpBlKwDCKIGaO6pgFLq',
 		            username: this.login.email,
 		            password: this.login.password,
 		            scope: '',
@@ -224,7 +221,7 @@
 		                  	authUser.name = response.data.name;
 		                  	window.localStorage.setItem('authUser', JSON.stringify(authUser))
 		                  	this.$store.dispatch('setUserObject', authUser)
-		                  	this.$router.push({name: 'dashboard'})
+		                  	this.$router.push({name: 'home'})
 							toastr.success('Cadastrado com sucesso');
 		                })
 					}

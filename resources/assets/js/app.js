@@ -43,6 +43,7 @@ const routes = [
     { 
         path: '/login', 
         name: 'login',
+        //meta: { requiresAuth: true },
         component: require('./components/Login/Login.vue')
     },
     {   path: '/categories',
@@ -186,26 +187,16 @@ var authOptions = {
     }
 });
 
-router.afterEach((to, from, next) => {
+router.afterEach((to, from) => {
     var height = $('#box').prop('scrollHeight');
-
-    $('body').find('.dropdown-menu ul').fadeOut('toggle');
-    $('body').find('.dropdown-menu a.category').removeClass('open');
-    $('body').find('.dropdown-submenu a.category').removeClass('open');
-    $('body').find('.dropdown-submenu ul').fadeOut('toggle');
-    $('body').find('.dropdown-submenu a span').addClass('fa-caret-down').removeClass('fa-caret-right');
-
     $('body').animate({
         scrollTop: height
     },  500);
-
 });
 
-
-
 router.beforeEach((to, from, next) => {
+    const authUser = JSON.parse(window.localStorage.getItem('authUser'));
     if(to.meta.requiresAuth == true){
-        const authUser = JSON.parse(window.localStorage.getItem('authUser'))
         if(authUser){
             next()
         }else{
@@ -214,7 +205,14 @@ router.beforeEach((to, from, next) => {
             })
         }
     }
-    next();
+    if(to.name == 'login' && (authUser != undefined || authUser != '' || authUser != null)){
+        toastr.info('Você já está logado.');
+        next({
+            name: 'home'
+        });
+    }else{
+        next();
+    }
 });
 
 

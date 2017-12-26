@@ -127,7 +127,7 @@ class AuthRepository{
      * @return mixed
      */
     public function roles(){
-        return Role::where('is_active', '=', 1)->get();
+        return Role::where('is_active', '=', 1)->where('name', '!=', 'adm')->get();
     }
 
     /**
