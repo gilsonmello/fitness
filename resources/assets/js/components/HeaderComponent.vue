@@ -58,7 +58,7 @@
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="/painel/">Dash</a></li>
+                            <li><a @click.prevent="redirect($event)" href="http://localhost:8080/">Dash</a></li>
                         </ul>
                     </li>
 
@@ -126,6 +126,26 @@
             }
         },
         methods: {
+            redirect: function(el){
+                const authUser = JSON.parse(window.localStorage.getItem('authUser'));
+                
+                //popup window
+                var domain = el.target.getAttribute('href');
+                var popUp = window.open(domain,'');
+
+                popUp.parent.postMessage(
+                    {
+                        event_id: 'my_cors_message',
+                        data: {
+                            v1: 'value1', 
+                            v2: 'value2'
+                        }
+                    }, 
+                    domain
+                ); 
+                 //sending the message
+                //window.location.href = el.target.getAttribute('href');
+            },
             handleClickDropdown: function(){
                 var vm = this.$el;
                 $(this.$el).find('.dropdown-submenu a.category').on("click", function(e){

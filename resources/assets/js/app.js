@@ -205,7 +205,7 @@ router.beforeEach((to, from, next) => {
             })
         }
     }
-    if(to.name == 'login' && (authUser != undefined || authUser != '' || authUser != null)){
+    if(to.name == 'login' && authUser){
         toastr.info('Você já está logado.');
         next({
             name: 'home'
