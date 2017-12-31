@@ -22958,6 +22958,9 @@ new Vue({
 /* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
+var enviroment = "production";
+var url = enviroment == "production" ? "http://mirandafitness.com.br" : "http://localhost:8000";
+var urlPainel = enviroment == "production" ? "http://painel.mirandafitness.com.br" : "http://localhost:8080";
 
 window._ = __webpack_require__(20);
 
@@ -57744,8 +57747,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             var authUser = JSON.parse(window.localStorage.getItem('authUser'));
             //popup window
             window.document.cookie = "access_token=" + authUser.access_token;
+
             //sending the message
-            //window.location.href = el.target.getAttribute('href');
+            window.location.href = urlPainel;
         },
         handleClickDropdown: function handleClickDropdown() {
             var vm = this.$el;
@@ -57879,7 +57883,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "dropdown-menu"
   }, [_c('li', [_c('a', {
     attrs: {
-      "href": "http://localhost:8080/"
+      "href": "#"
     },
     on: {
       "click": function($event) {
@@ -58509,11 +58513,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('main', {
-    attrs: {
-      "id": "app"
-    }
-  }, [_c('header-component'), _vm._v(" "), _c('transition', {
+  return _c('main', [_c('header-component'), _vm._v(" "), _c('transition', {
     attrs: {
       "name": "fade"
     }

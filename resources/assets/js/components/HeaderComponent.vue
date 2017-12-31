@@ -58,7 +58,7 @@
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a @click="redirect($event)" href="http://localhost:8080/">Dash</a></li>
+                            <li><a @click="redirect($event)" href="#">Dash</a></li>
                         </ul>
                     </li>
 
@@ -130,8 +130,9 @@
                 const authUser = JSON.parse(window.localStorage.getItem('authUser'));
                 //popup window
                 window.document.cookie = "access_token="+ authUser.access_token;
+
                 //sending the message
-                //window.location.href = el.target.getAttribute('href');
+                window.location.href = urlPainel;
             },
             handleClickDropdown: function(){
                 var vm = this.$el;

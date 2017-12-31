@@ -1,5 +1,5 @@
 <template>
-	<main id="app">
+	<main>
 		<header-component></header-component>
         <transition name="fade">
             <keep-alive>
