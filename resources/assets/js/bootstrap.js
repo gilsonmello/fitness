@@ -1,6 +1,6 @@
 var enviroment = "production";
 var url = enviroment == "production" ? "http://mirandafitness.com.br" : "http://localhost:8000";
-var urlPainel = enviroment == "production" ? "http://painel.mirandafitness.com.br" : "http://localhost:8080";
+window.urlPainel = enviroment == "production" ? "http://www.painel.mirandafitness.com.br" : "http://localhost:8080";
 
 window._ = require('lodash');
 

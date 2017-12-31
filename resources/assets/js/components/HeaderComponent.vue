@@ -58,7 +58,7 @@
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a @click="redirect($event)" href="#">Dash</a></li>
+                            <li><a @click="redirect($event)" :href="painel">Dash</a></li>
                         </ul>
                     </li>
 
@@ -122,7 +122,8 @@
         data: function(){
             return {
                 packages: [],
-                categories: []
+                categories: [],
+                painel: window.urlPainel
             }
         },
         methods: {
@@ -130,9 +131,6 @@
                 const authUser = JSON.parse(window.localStorage.getItem('authUser'));
                 //popup window
                 window.document.cookie = "access_token="+ authUser.access_token;
-
-                //sending the message
-                window.location.href = window.urlPainel;
             },
             handleClickDropdown: function(){
                 var vm = this.$el;
