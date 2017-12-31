@@ -22958,7 +22958,7 @@ new Vue({
 /* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var enviroment = "local";
+var enviroment = "production";
 var url = enviroment == "production" ? "http://mirandafitness.com.br" : "http://localhost:8000";
 window.urlPainel = enviroment == "production" ? "http://www.painel.mirandafitness.com.br" : "http://localhost:8080";
 
