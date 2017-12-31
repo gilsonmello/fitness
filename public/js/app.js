@@ -59525,7 +59525,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 			var data = {
 				grant_type: 'password',
 				client_id: 2,
-				client_secret: 'IiJlm1WLh9Pk5uIj6ABJCv7gy2k2FlUugwgfb4m5',
+				client_secret: 'RkohvyMvNAjViUDlTdQjx5dvSw2dlYaUTvu5CvGq',
 				username: this.login.email,
 				password: this.login.password,
 				scope: ''
