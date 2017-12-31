@@ -22884,7 +22884,7 @@ var app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
 });
 
 router.afterEach(function (to, from) {
-    var height = $('#box').prop('scrollHeight');
+    var height = $('[role="main"]').prop('scrollHeight');
     $('body').animate({
         scrollTop: height
     }, 500);
@@ -22970,13 +22970,13 @@ window.qs = __webpack_require__(22);
  */
 
 try {
-  window.$ = window.jQuery = __webpack_require__(6);
-  __webpack_require__(25);
-  __webpack_require__(26);
-  //require('bootstrap-datepicker');
-  window.toastr = __webpack_require__(27);
-  //require('select2');
-  //require('select2/dist/css/select2.css');
+    window.$ = window.jQuery = __webpack_require__(6);
+    __webpack_require__(25);
+    __webpack_require__(26);
+    //require('bootstrap-datepicker');
+    window.toastr = __webpack_require__(27);
+    //require('select2');
+    //require('select2/dist/css/select2.css');
 } catch (e) {}
 
 /**
@@ -22998,10 +22998,37 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 var token = document.head.querySelector('meta[name="_token"]');
 
 if (token) {
-  window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+    window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
 } else {
-  console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
+    console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
+
+window.getCookie = function (name) {
+    var cookies = window.document.cookie;
+    var prefix = name + "=";
+    var begin = cookies.indexOf("; " + prefix);
+    if (begin == -1) {
+        begin = cookies.indexOf(prefix);
+        if (begin != 0) {
+            return null;
+        }
+    } else {
+        begin += 2;
+    }
+    var end = cookies.indexOf(";", begin);
+    if (end == -1) {
+        end = cookies.length;
+    }
+    return unescape(cookies.substring(begin + prefix.length, end));
+};
+
+window.deleteCookie = function (name) {
+    if (getCookie(name)) {
+        document.cookie = name + "=" + "; expires=Thu, 01-Jan-70 00:00:01 GMT";
+        return true;
+    }
+    return false;
+};
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
@@ -57715,18 +57742,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     methods: {
         redirect: function redirect(el) {
             var authUser = JSON.parse(window.localStorage.getItem('authUser'));
-
             //popup window
-            var domain = el.target.getAttribute('href');
-            var popUp = window.open(domain, '');
-
-            popUp.parent.postMessage({
-                event_id: 'my_cors_message',
-                data: {
-                    v1: 'value1',
-                    v2: 'value2'
-                }
-            }, domain);
+            window.document.cookie = "access_token=" + authUser.access_token;
             //sending the message
             //window.location.href = el.target.getAttribute('href');
         },
@@ -57771,6 +57788,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         },
         handleLogout: function handleLogout() {
             this.$store.dispatch('clearAuthUser');
+            window.deleteCookie('access_token');
             window.localStorage.removeItem('authUser');
             this.$router.push({ name: 'home' });
         },
@@ -57865,7 +57883,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     },
     on: {
       "click": function($event) {
-        $event.preventDefault();
         _vm.redirect($event)
       }
     }
@@ -58492,7 +58509,11 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('main', [_c('header-component'), _vm._v(" "), _c('transition', {
+  return _c('main', {
+    attrs: {
+      "id": "app"
+    }
+  }, [_c('header-component'), _vm._v(" "), _c('transition', {
     attrs: {
       "name": "fade"
     }

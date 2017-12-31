@@ -44,6 +44,34 @@ if (token) {
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
 
+window.getCookie = function(name){
+	var cookies = window.document.cookie;
+	var prefix = name + "=";
+    var begin = cookies.indexOf("; " + prefix);
+	if (begin == -1) {
+ 		begin = cookies.indexOf(prefix);         
+        if (begin != 0) {
+            return null;
+        }
+ 
+    } else {
+        begin += 2;
+    }
+    var end = cookies.indexOf(";", begin);
+    if (end == -1) {
+        end = cookies.length;                        
+    }
+    return unescape(cookies.substring(begin + prefix.length, end));
+};
+
+window.deleteCookie = function(name) {
+   	if (getCookie(name)) {
+      	document.cookie = name + "=" + "; expires=Thu, 01-Jan-70 00:00:01 GMT";
+      	return true;
+   	}
+   	return false;
+}
+
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting

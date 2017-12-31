@@ -188,7 +188,7 @@ var authOptions = {
 });
 
 router.afterEach((to, from) => {
-    var height = $('#box').prop('scrollHeight');
+    var height = $('[role="main"]').prop('scrollHeight');
     $('body').animate({
         scrollTop: height
     },  500);

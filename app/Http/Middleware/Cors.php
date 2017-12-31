@@ -16,7 +16,7 @@ class Cors
     public function handle($request, Closure $next)
     {
         if(isset($request->server()['HTTP_ORIGIN'])){
-            $domains = ['http://localhost:8000'];
+            $domains = ['http://localhost:8000', 'http://localhost:8080'];
             $origin = $request->server()['HTTP_ORIGIN'];
             if(in_array($origin, $domains)){
                 header('Access-Control-Allow-Origin:'. $origin);
