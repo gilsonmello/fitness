@@ -57749,7 +57749,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             window.document.cookie = "access_token=" + authUser.access_token;
 
             //sending the message
-            window.location.href = urlPainel;
+            window.location.href = window.urlPainel;
         },
         handleClickDropdown: function handleClickDropdown() {
             var vm = this.$el;

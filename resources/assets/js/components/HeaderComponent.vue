@@ -132,7 +132,7 @@
                 window.document.cookie = "access_token="+ authUser.access_token;
 
                 //sending the message
-                window.location.href = urlPainel;
+                window.location.href = window.urlPainel;
             },
             handleClickDropdown: function(){
                 var vm = this.$el;
