@@ -116,6 +116,10 @@
                         $(this).removeClass('in');
                         $(this).removeAttr('style');
                     });
+                }
+                const authUser = JSON.parse(window.sessionStorage.getItem('authUser'));
+                if(authUser){
+                    this.painel = window.urlPainel+"?access_token="+auth.access_token;
                 }   
             }
         },
@@ -123,13 +127,12 @@
             return {
                 packages: [],
                 categories: [],
-                painel: window.urlPainel+"?access_token="+JSON.parse(window.localStorage.getItem('authUser')).access_token
+                painel: ''
             }
         },
         methods: {
             redirect: function(el){
-                const authUser = JSON.parse(window.localStorage.getItem('authUser'));
-                //popup window
+                
             },
             handleClickDropdown: function(){
                 var vm = this.$el;
@@ -150,7 +153,6 @@
 
                         el.find('span').removeClass('fa-caret-down').addClass('fa-caret-right');
                         el.addClass('open');
-                                             
                         ul.fadeIn('toggle');
                     }
                     
@@ -185,7 +187,9 @@
             }
         },
         created: function(){
-            
+            if(JSON.parse(window.localStorage.getItem('authUser'))){
+                this.painel = window.urlPainel+"?access_token="+JSON.parse(window.localStorage.getItem('authUser')).access_token;
+            }
         },
         mounted: function(){
             this.getCategories();            

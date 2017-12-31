@@ -22962,6 +22962,12 @@ var enviroment = "production";
 var url = enviroment == "production" ? "http://mirandafitness.com.br" : "http://localhost:8000";
 window.urlPainel = enviroment == "production" ? "http://www.painel.mirandafitness.com.br" : "http://localhost:8080";
 
+//Evento para escutar se foi excluído o localstorage
+window.addEventListener('storage', function (e) {
+    if (event.key == "authUser" && e.newValue == null) {
+        window.location.href = url;
+    }
+});
 function getParamsUrl() {
     var s1 = location.search.substring(1, location.search.length).split('&'),
         r = {},
@@ -57748,20 +57754,21 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                     $(this).removeAttr('style');
                 });
             }
+            var authUser = JSON.parse(window.sessionStorage.getItem('authUser'));
+            if (authUser) {
+                this.painel = window.urlPainel + "?access_token=" + auth.access_token;
+            }
         }
     },
     data: function data() {
         return {
             packages: [],
             categories: [],
-            painel: window.urlPainel + "?access_token=" + JSON.parse(window.localStorage.getItem('authUser')).access_token
+            painel: ''
         };
     },
     methods: {
-        redirect: function redirect(el) {
-            var authUser = JSON.parse(window.localStorage.getItem('authUser'));
-            //popup window
-        },
+        redirect: function redirect(el) {},
         handleClickDropdown: function handleClickDropdown() {
             var vm = this.$el;
             $(this.$el).find('.dropdown-submenu a.category').on("click", function (e) {
@@ -57781,7 +57788,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
                     el.find('span').removeClass('fa-caret-down').addClass('fa-caret-right');
                     el.addClass('open');
-
                     ul.fadeIn('toggle');
                 }
 
@@ -57819,7 +57825,11 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             }
         }
     },
-    created: function created() {},
+    created: function created() {
+        if (JSON.parse(window.localStorage.getItem('authUser'))) {
+            this.painel = window.urlPainel + "?access_token=" + JSON.parse(window.localStorage.getItem('authUser')).access_token;
+        }
+    },
     mounted: function mounted() {
         this.getCategories();
     }
@@ -59536,7 +59546,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 			var data = {
 				grant_type: 'password',
 				client_id: 2,
-				client_secret: 'RkohvyMvNAjViUDlTdQjx5dvSw2dlYaUTvu5CvGq',
+				client_secret: 'IiJlm1WLh9Pk5uIj6ABJCv7gy2k2FlUugwgfb4m5',
 				username: this.login.email,
 				password: this.login.password,
 				scope: ''
