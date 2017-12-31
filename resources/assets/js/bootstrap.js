@@ -1,6 +1,18 @@
-var enviroment = "production";
+var enviroment = "local";
 var url = enviroment == "production" ? "http://mirandafitness.com.br" : "http://localhost:8000";
 window.urlPainel = enviroment == "production" ? "http://www.painel.mirandafitness.com.br" : "http://localhost:8080";
+
+function getParamsUrl() {
+    var s1 = location.search.substring(1, location.search.length).split('&'),
+        r = {}, s2, i;
+    for (i = 0; i < s1.length; i += 1) {
+        s2 = s1[i].split('=');
+        r[decodeURIComponent(s2[0]).toLowerCase()] = decodeURIComponent(s2[1]);
+    }
+    return r;
+};
+
+window.QueryString = getParamsUrl();
 
 window._ = require('lodash');
 

@@ -22958,9 +22958,23 @@ new Vue({
 /* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var enviroment = "production";
+var enviroment = "local";
 var url = enviroment == "production" ? "http://mirandafitness.com.br" : "http://localhost:8000";
 window.urlPainel = enviroment == "production" ? "http://www.painel.mirandafitness.com.br" : "http://localhost:8080";
+
+function getParamsUrl() {
+    var s1 = location.search.substring(1, location.search.length).split('&'),
+        r = {},
+        s2,
+        i;
+    for (i = 0; i < s1.length; i += 1) {
+        s2 = s1[i].split('=');
+        r[decodeURIComponent(s2[0]).toLowerCase()] = decodeURIComponent(s2[1]);
+    }
+    return r;
+};
+
+window.QueryString = getParamsUrl();
 
 window._ = __webpack_require__(20);
 
@@ -57740,14 +57754,13 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         return {
             packages: [],
             categories: [],
-            painel: window.urlPainel
+            painel: window.urlPainel + "?access_token=" + JSON.parse(window.localStorage.getItem('authUser')).access_token
         };
     },
     methods: {
         redirect: function redirect(el) {
             var authUser = JSON.parse(window.localStorage.getItem('authUser'));
             //popup window
-            window.document.cookie = "access_token=" + authUser.access_token;
         },
         handleClickDropdown: function handleClickDropdown() {
             var vm = this.$el;

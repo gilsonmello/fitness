@@ -123,14 +123,13 @@
             return {
                 packages: [],
                 categories: [],
-                painel: window.urlPainel
+                painel: window.urlPainel+"?access_token="+JSON.parse(window.localStorage.getItem('authUser')).access_token
             }
         },
         methods: {
             redirect: function(el){
                 const authUser = JSON.parse(window.localStorage.getItem('authUser'));
                 //popup window
-                window.document.cookie = "access_token="+ authUser.access_token;
             },
             handleClickDropdown: function(){
                 var vm = this.$el;
