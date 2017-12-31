@@ -22959,7 +22959,7 @@ new Vue({
 /***/ (function(module, exports, __webpack_require__) {
 
 var enviroment = "production";
-var url = enviroment == "production" ? "http://mirandafitness.com.br" : "http://localhost:8000";
+var url = enviroment == "production" ? "http://pi.mirandafitness.com.br" : "http://localhost:8000";
 window.urlPainel = enviroment == "production" ? "http://www.painel.mirandafitness.com.br" : "http://localhost:8080";
 
 //Evento para escutar se foi excluído o localstorage
