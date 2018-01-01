@@ -1,3 +1,4 @@
+export const protocol = "http://"
 export const apiDomain = window.location.host
 export const loginUrl = '/oauth/token'
 export const userUrl = '/api/user'
@@ -16,6 +17,7 @@ export const rt = {
 	users: {
 		create: '/users',
 		edit: '/{id}/user',
-		logged: '/users/logged'
+		logged: '/users/logged',
+		logout: protocol+apiDomain+'/users/logout'
 	}
 };

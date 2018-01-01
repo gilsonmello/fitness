@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Repositories\Frontend\User\UserRepository;
 use App\Http\Requests\Frontend\User\CreateUserRequest;
 use App\Model\Backend\User;
+use Auth;
 
 /**
  * Class UserController
@@ -19,6 +20,13 @@ class UserController extends Controller
      */
     public function __construct(){
         $this->userRepository = new UserRepository;
+    }
+    
+    public function logout(Request $request){
+        $request->user()->token()->revoke();
+        $request->session()->flush();
+        $request->session()->regenerate();
+        return response()->json(['status' => 'success'], 200);
     }
 
     public function page(){
@@ -39,7 +47,7 @@ class UserController extends Controller
     }
 
     public function logged(Request $request){
-        return $request->user();
+        return response()->json(['message' => true], 200) ? $request->user() : response()->json(['message' => false], 400);
     }
 
     /**

@@ -58,7 +58,7 @@
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a @click="redirect($event)" :href="painel">Dash</a></li>
+                            <li><a @click="redirect($event)" id="access_painel" :href="painel">Dash</a></li>
                         </ul>
                     </li>
 
@@ -86,6 +86,7 @@
 
 <script>
     import {mapState} from 'vuex'
+    import {loginUrl, getHeader, userUrl, rt} from '../config'
     export default {
         computed: {
             ...mapState({
@@ -117,10 +118,6 @@
                         $(this).removeAttr('style');
                     });
                 }
-                const authUser = JSON.parse(window.sessionStorage.getItem('authUser'));
-                if(authUser){
-                    this.painel = window.urlPainel+"?access_token="+auth.access_token;
-                }   
             }
         },
         data: function(){
@@ -171,10 +168,15 @@
                 });
             },
             handleLogout: function(){
-                this.$store.dispatch('clearAuthUser')
-                window.deleteCookie('access_token');
-                window.localStorage.removeItem('authUser')
-                this.$router.push({name: 'home'})
+                //Fazendo busca do usuário logado, para setar na estrutura de dados
+                axios.get(rt.users.logout, {headers: getHeader()}).then(response => {
+                    if(response.status === 200){
+                        this.$store.dispatch('clearAuthUser')
+                        window.localStorage.removeItem('authUser')
+                        this.$router.push({name: 'home'})
+                    }
+                })
+
             },
             handleClickPackages: function(){
                 if(this.packages.length == 0){

@@ -4,9 +4,9 @@ window.urlPainel = enviroment == "production" ? "http://www.painel.mirandafitnes
 
 //Evento para escutar se foi excluído o localstorage
 window.addEventListener('storage',function(e){
-   if(event.key == "authUser" && e.newValue == null){
+    if(event.key == "authUser" && e.newValue == null){
    		window.location.href = url;
-   }
+    }
 });
 function getParamsUrl() {
     var s1 = location.search.substring(1, location.search.length).split('&'),

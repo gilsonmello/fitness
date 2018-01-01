@@ -123,7 +123,9 @@
         watch: {
         	$route (to, from) {
 		      	this.login_load = false;
-		    }
+		      	const authUser = JSON.parse(window.localStorage.getItem('authUser'));
+				$('#access_painel').attr('href', window.urlPainel+"?access_token="+authUser.access_token);	
+			}
         },
         mounted: function(){
         	var vm = this;
