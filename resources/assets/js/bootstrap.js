@@ -1,4 +1,4 @@
-var enviroment = "production";
+var enviroment = "local";
 var url = enviroment == "production" ? "http://pi.mirandafitness.com.br" : "http://localhost:8000";
 window.urlPainel = enviroment == "production" ? "http://www.painel.mirandafitness.com.br" : "http://localhost:8080";
 
