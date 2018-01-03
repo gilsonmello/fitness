@@ -1,11 +1,11 @@
 export const enviroment = "production";
-export const url = enviroment == "production" ? "http://pi.mirandafitness.com.br" : "http://localhost:8000";
+export const host = enviroment == "production" ? "http://pi.mirandafitness.com.br" : "http://localhost:8000";
 window.urlPainel = enviroment == "production" ? "http://www.painel.mirandafitness.com.br" : "http://localhost:8080";
 
 //Evento para escutar se foi excluído o localstorage
 window.addEventListener('storage',function(e){
     if(event.key == "authUser" && e.newValue == null){
-   		window.location.href = url;
+   		window.location.href = host;
     }
 });
 function getParamsUrl() {

@@ -1,8 +1,8 @@
-import {access_token, url} from './bootstrap'
+import {access_token, host} from './bootstrap'
 export const protocol = "http://"
-export const apiDomain = url
-export const loginUrl = url+'/oauth/token'
-export const userUrl = url+'/api/user'
+export const apiDomain = host
+export const loginUrl = host+'/oauth/token'
+export const userUrl = host+'/api/user'
 
 export const getHeader = function () {
   	const tokenData = JSON.parse(window.localStorage.getItem('authUser'));
@@ -16,9 +16,9 @@ export const getHeader = function () {
 
 export const rt = {
 	users: {
-		create: protocol+apiDomain+'/users',
-		edit: protocol+apiDomain+'/{id}/user',
-		logged: protocol+apiDomain+'/users/logged',
-		logout: protocol+apiDomain+'/users/logout'
+		create: host+'/users',
+		edit: host+'/{id}/user',
+		logged: host+'/users/logged',
+		logout: host+'/users/logout'
 	}
 };
