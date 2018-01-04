@@ -19,6 +19,7 @@ class CategoryController extends Controller
         if(!$categories->isEmpty()){
             return response()->json($categories, 200);
         }
+        
         return response()->json([], 200);
     }
 
