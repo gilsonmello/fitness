@@ -373,6 +373,11 @@ if (!function_exists('actualSupplier')) {
 				->join('suppliers', 'suppliers.id', '=', 'suppliers_has_users.supplier_id')
 				->get()
 				->first();
+		if($suppliers){
+			return $suppliers;
+		}
+		$suppliers = new stdClass();
+		$suppliers->suppliers_name = "Não Informado";
 		return $suppliers;
 	}
 }
