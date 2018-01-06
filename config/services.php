@@ -15,7 +15,7 @@ return [
     */
 
     'mailgun' => [
-        'domain' => env('mirandafitness.com.br'),
+        'domain' => env('MAILGUN_DOMAIN'),
         'secret' => env('MAILGUN_SECRET'),
     ],
 
