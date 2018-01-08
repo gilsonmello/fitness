@@ -1,9 +1,6 @@
 <template>
 	<div class="container" id="box">
-		<div class="content" v-show="user_load_create">
-			<load></load>	
-		</div>
-		<form method="POST" v-on:submit.prevent="create()" v-show="!user_load_create">
+		<form method="POST" v-on:submit.prevent="create()">
 			<div class="row">
 				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 				  	<div class="form-group">
@@ -84,8 +81,8 @@
             })
         },
         watch: {
-        	'$route' (to, from) {
-		      	this.user_load_create = false;
+        	$route: function (to, from) {
+		      	this.$nextTick(() => {});
 		    }
         },
 		data: function(){

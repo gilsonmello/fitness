@@ -1,9 +1,6 @@
 <template>
 	<div class="container">
-		<div class="content" v-show="newsletter_load">
-			<load></load>
-		</div>
-		<div class="content" v-show="!newsletter_load">
+		<div class="content">
 			<form method="POST" v-on:submit.prevent="handleSubmitForm()">
 				<div class="row">
 					<div class="col-lg-12 col-xs-12 col-md-12 col-sm-12">
@@ -13,8 +10,8 @@
 				<div class="row">
 					<div class="col-lg-4">
 						<div class="form-group">
-						    <label for="name">Nome</label>
-						    <input v-model="name" id="name" type="text" required class="form-control" placeholder="Nome">
+						    <label for="newsletter_name">Nome</label>
+						    <input v-model="name" id="newsletter_name" type="text" required class="form-control" placeholder="Nome">
 						    <div class="alert alert-danger" v-if="errors.name">
 							  	<div v-for="name in errors.name" >
 							  		{{ name }}
@@ -26,8 +23,8 @@
 				<div class="row">
 					<div class="col-lg-4">
 						<div class="form-group">
-						    <label for="email">E-mail</label>
-						    <input v-model="email" id="email" type="email" required class="form-control" placeholder="E-mail">
+						    <label for="newsletter_email">E-mail</label>
+						    <input v-model="email" id="newsletter_email" type="email" required class="form-control" placeholder="E-mail">
 						    <div class="alert alert-danger" v-if="errors.email">
 							  	<div v-for="email in errors.email" >
 							  		{{ email }}
@@ -88,7 +85,7 @@
 
         },
         components: {
-        	Load
+        	
         }
     }
 </script>

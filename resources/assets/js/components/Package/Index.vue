@@ -1,9 +1,6 @@
 <template>
-	<div class="container" id="box">
-		<div class="content" v-show="package_load_show">
-			<load></load>	
-		</div>		
-		<div class="content" v-show="!package_load_show">
+	<div class="container" id="box">	
+		<div class="content">
 			<div class="row">
 				<div class="col-lg-12">
 					<h1 class="page-header">Pacotes</h1>

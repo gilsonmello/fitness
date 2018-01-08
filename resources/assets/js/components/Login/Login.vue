@@ -1,14 +1,9 @@
 <template>
 	<div class="container" id="box">
-		<div class="row" v-show="login_load">
-			<div class="col-lg-12 col-xs-12 col-md-12 col-sm-12">
-				<load></load>
-			</div>
-		</div>
-		<div class="row" v-show="!login_load">
-			<div class="col-lg-6 col-xs-12 col-sm-6 col-md-6" >
-				<h1 class="page-header">Fazer login</h1>
+		<div class="row">
+			<div class="col-lg-12 col-xs-12 col-sm-12 col-md-12" >
 				<form action="/login" method="POST" @submit.prevent="handleLoginFormSubmit()">
+					<h1 class="page-header">Fazer login</h1>
 					<div class="alert alert-danger" v-if="errors.credentials != null">
 						<label>{{ errors.credentials }}</label>
 					</div>
@@ -27,7 +22,7 @@
 				    </div>
 				</form>
 			</div>
-			<div class="col-lg-6 col-xs-12 col-sm-6 col-md-6" style="border-left: 1px solid #ccc">
+			<!-- <div class="col-lg-6 col-xs-12 col-sm-6 col-md-6" style="border-left: 1px solid #ccc">
 				<h1 class="page-header">Cadastre-se</h1>
 				<form method="POST" v-on:submit.prevent="create()">
 					<div class="row">
@@ -103,7 +98,7 @@
 					    </div>
 				    </div>
 				</form>
-			</div>
+			</div> -->
 		</div>
 	</div>
 </template>
@@ -111,7 +106,6 @@
 
 	import {loginUrl, getHeader, userUrl, rt} from '../../config'
 	import {mapState} from 'vuex'
-	import Load from '../Load'
 	
 	export default {
 		name: 'login',
@@ -122,15 +116,13 @@
         },
         watch: {
         	$route (to, from) {
-		      	this.login_load = false;
-		      	const authUser = JSON.parse(window.localStorage.getItem('authUser'));
-				$('#access_painel').attr('href', window.urlPainel+"?access_token="+authUser.access_token);	
+		      		
 			}
         },
         mounted: function(){
         	var vm = this;
 			//$(vm.$el).find('#birth_date').inputmask('99/99/9999');
-			var url = '/suppliers';
+			/*var url = '/suppliers';
 			axios.get(url, {}).then(response => {
 				if(response.status === 200){
 					response.data.unshift({
@@ -139,7 +131,7 @@
 					})
 					this.gym = response.data;
 				}
-			});
+			});*/
         },
 		methods: {
 			verifyEmail: function(){
@@ -251,8 +243,15 @@
 			}
 		},
 		components: {
-			Load
+			
 		}
 	}
 	
 </script>
+
+<style scoped>
+	form{
+		width: 70%;
+		margin: 0 auto;
+	}
+</style>

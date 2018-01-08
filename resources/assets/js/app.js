@@ -13,6 +13,7 @@ import store from './store'
 import Select2 from './components/Select2.vue'
 import InputMask from './components/InputMask.vue'
 import Datepicker from 'vuejs-datepicker'
+import router from './router'
 
 import App from './App.vue'
 /*window.Vue = require('vue');
@@ -29,7 +30,7 @@ Vue.component('select2', Select2);
 Vue.component('datepicker', Datepicker);
 Vue.component('input-mask', InputMask);
 
-const routes = [
+/*const routes = [
     { 
         path: '/', 
         component: require('./components/Home/HomeComponent.vue'), 
@@ -82,7 +83,7 @@ const routes = [
 const router = new VueRouter({
     routes,
     linkExactActiveClass: 'active'
-})
+})*/
 
 
 /*Vue.material.registerTheme('default', {
@@ -126,7 +127,8 @@ const app = new Vue({
     render: h => h(App),
     data: function(){
         return {
-            load: false
+            load: false,
+            key: null
         }
     },
     created: function(){

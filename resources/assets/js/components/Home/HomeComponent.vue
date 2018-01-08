@@ -1,37 +1,38 @@
 <template>
-	<div class="content" id="box">		
-		<div class="container" v-show="home_load">
-			<load></load>	
-		</div>
-		
-		<div class="container" v-show="!home_load">
+	<div class="content" id="box">			
+		<div class="container">
         	<slider-component></slider-component>
         </div>
 	</div>
 </template>
 <script>
     import SliderComponent from '../SliderComponent.vue'
-    import Load from '../Load'
-	export default{
+    import router from '../../router'
+    export default{
 		data: function(){
 			return {
-				home_load: true
+				
 			}
 		},
 		watch: {
 			$route: function(to, from){
-				this.home_load = false;
+			
 			}
 		},
 		beforeRouteUpdate: function(to, from, next) {
 		    
 	  	},
 		components: {
-            SliderComponent,
-            Load
+            SliderComponent
         },
         mounted: function(){
-        	this.home_load = false;
-        }
+	       
+        },
+        activated: function(){
+        	
+        },
+        destroyed () {
+		    console.log('destroyed pending')
+	  	},
 	}
 </script>

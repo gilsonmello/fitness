@@ -26,7 +26,7 @@
 
         <link rel="shortcut icon" type="image/png" href="/favicon.ico"/>
    </head>
-<body class="nav-md">
+<body class="">
     <!-- Conteúdo -->
     <div id="app">
         @yield('content')

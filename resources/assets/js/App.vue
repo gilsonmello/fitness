@@ -1,14 +1,20 @@
 <template>
-	<main>
+	
+	<main v-if="loading">
+		<load-component style=" position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"></load-component>
+	</main>
+
+	<main v-else>
 		<header-component></header-component>
-        <transition name="fade">
+        <transition name="fade" mode="out-in" appea>
             <keep-alive>
-                <router-view></router-view>
+                <router-view :key="key"></router-view>
             </keep-alive>
         </transition>
 		<newsletter-component></newsletter-component>
 		<footer-component></footer-component>
 	</main>
+
 </template>
 
 
@@ -17,7 +23,9 @@
 	import HeaderComponent from './components/HeaderComponent.vue'
 	import NewsletterComponent from './components/NewsletterComponent.vue'
 	import FooterComponent from './components/FooterComponent.vue'
+	import LoadComponent from './components/Load.vue'
 	import {mapState} from 'vuex'
+	import router from './router'
 
 	export default {
 		name: 'Miranda',
@@ -26,13 +34,25 @@
 				login: {
 					email: '',
 					password: ''
-				}
+				},
+				loading: true,
+				key: null,
 			}
 		},
+		watch: {
+			$route: function(to, from){
+				const authUser = JSON.parse(window.localStorage.getItem('authUser'));
+				if(authUser){
+					$('#access_painel').attr('href', window.urlPainel+"?access_token="+authUser.access_token);
+				}
+
+			}
+		},	
 		components: {
 			HeaderComponent,
 			NewsletterComponent,
-			FooterComponent
+			FooterComponent,
+			LoadComponent
 		},
 		props: ['path'],
 		computed: {
@@ -49,7 +69,27 @@
 	  	},
 	    mounted() {
 	        //window.console.log('Component mounted.')
-	    }
+	        router.beforeEach((to, from, next) => {
+	        	if (to.matched.some(record => record.meta.reuse === false)) {
+				    this.key = to.path
+			  	} else {
+				    this.key = null
+			  	}
+	        	this.loading = true
+                next()
+
+                // $('.body').addClass('fade-enter-active');
+                // $('.body').removeClass('fade-leave-active');
+
+            })
+            router.afterEach((to, from) => {
+            	this.loading = false
+			})
+			this.loading = false
+	    },
+        updated: function(createElement){
+    	 	
+        }
 	}
 	
 </script>

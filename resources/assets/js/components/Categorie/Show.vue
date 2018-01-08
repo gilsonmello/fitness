@@ -1,11 +1,6 @@
 <template>
 	<div class="container" id="box">
-
-		<div class="content" v-show="categorie_load_show">
-			<load></load>	
-		</div>
-
-		<div class="content" v-show="!categorie_load_show">
+		<div class="content">
 			<div class="row">
 				<div class="col-lg-12">
 					{{ categorie.name }}
@@ -16,7 +11,6 @@
 </template>
 
 <script>
-	import Load from '../Load'
 	export default{
 		data: function(){
 			return {
@@ -25,11 +19,11 @@
 			}
 		},
 		components: {
-			Load
+			
 		},
 		watch: {
 			'$route': function(to, from){
-				this.categorie_load_show = false;
+				
 			}
 		},
 		props: ['slug'],

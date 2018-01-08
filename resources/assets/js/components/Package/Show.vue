@@ -1,9 +1,6 @@
 <template>
 	<div class="container" id="box">
-		<div class="content" v-show="package_load_show">
-			<load></load>	
-		</div>
-		<div class="content" v-show="!package_load_show">
+		<div class="content">
 			<p v-if="package != null">
 				{{ package.name }}
 			</p>
