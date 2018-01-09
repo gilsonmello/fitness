@@ -1,18 +1,18 @@
 <template>
 	
-	<main v-if="loading">
-		<load-component style=" position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"></load-component>
-	</main>
-
-	<main v-else>
+	<main v-if="!loading">
 		<header-component></header-component>
-        <transition name="fade" mode="out-in" appea>
+        <transition name="fade" mode="out-in">
             <keep-alive>
                 <router-view :key="key"></router-view>
             </keep-alive>
         </transition>
 		<newsletter-component></newsletter-component>
 		<footer-component></footer-component>
+	</main>
+
+	<main v-else>
+		<load-component style=" position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"></load-component>
 	</main>
 
 </template>
@@ -70,13 +70,28 @@
 	    mounted() {
 	        //window.console.log('Component mounted.')
 	        router.beforeEach((to, from, next) => {
-	        	if (to.matched.some(record => record.meta.reuse === false)) {
-				    this.key = to.path
-			  	} else {
-				    this.key = null
-			  	}
 	        	this.loading = true
-                next()
+	        	setTimeout(() => {
+					const authUser = JSON.parse(window.localStorage.getItem('authUser'));
+				    if(to.meta.requiresAuth == true){
+				        if(authUser){
+				            next()
+				        }else{
+				            next({
+				                name: 'home'
+				            })
+				        }
+				    }
+				    if(to.name == 'login' && authUser){
+				        toastr.info('Você já está logado.');
+				        next({
+				            name: 'home'
+				        });
+				    }else{
+				        next();
+				    }
+
+			    }, 500)
 
                 // $('.body').addClass('fade-enter-active');
                 // $('.body').removeClass('fade-leave-active');
@@ -128,5 +143,9 @@
 	}
 	[v-cloak] {
 	  	display: none;
+	}
+
+	.datepicker{
+		background-color: #fff !important;
 	}
 </style>

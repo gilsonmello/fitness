@@ -45,7 +45,9 @@
 		    	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 		    		<div class="form-group">
 					    <label for="birth_date">Data de Nascimento</label>
-					    <input-mask placeholder="Data de Nascimento" mask="99/99/9999" v-model="birth_date"></input-mask>
+					    <!-- <input-mask placeholder="Data de Nascimento" mask="99/99/9999" v-model="birth_date"></input-mask> -->
+					    <!-- <input type="text" class="form-control datepicker" name="birth_date"> -->
+					    <datepicker placeholder="Data de Nascimento" :options="datepicker_options" v-model="birth_date" class="form-control"></datepicker>
 					    <div class="alert alert-danger" v-if="errors.birth_date">
 						  	<div v-for="birth_date in errors.birth_date">{{ birth_date }}</div>
 						</div>
@@ -98,7 +100,10 @@
 			    ],
 				selectedGym: 3,
 				errors: [],
-				user_load_create: null
+				user_load_create: null,
+				datepicker_options: {
+					
+				}
 			}
 		},
 		beforeRouteEnter: function(from, to, next){
@@ -152,9 +157,9 @@
 		created: function(){
 
 		},
-		mounted: function(){
-			var vm = this;
-			this.user_load_create = false;
+		activated: function(){
+	    	var vm = this;
+	    	$(vm.$el).find('.datepicker').datepicker();
 			/*$(vm.$el).find('#birth_date').inputmask({
 				mask: '99/99/9999',
 				onBeforeWrite: function(event, buffer, caretPos, opts){
@@ -174,6 +179,9 @@
 					this.options = response.data;
 				}
 			});
+	    },
+		mounted: function(){
+			
 		},
 		components: {
 			Load

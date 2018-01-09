@@ -44,13 +44,12 @@
 </template>
 
 <script>
-	import Load from './Load'
+	
     export default {
         data: function(){
         	return {
         		email: '',
         		name: '',
-  				newsletter_load: false,
   				errors: []
         	}
         },
@@ -58,8 +57,7 @@
         	handleSubmitForm: function(){
 
         		axios.interceptors.request.use(config => {
-		        	this.newsletter_load = true;
-				  	return config;
+		        	return config;
 				});
 
         		var url = '/newsletters/';
@@ -71,14 +69,12 @@
 					this.name = '';
 					this.errors = [];
         			if(response.status === 200){
-        				this.newsletter_load = false;
         				toastr.success('Cadastrado com sucesso');
         			}
 				}).catch((error) => {
-					this.newsletter_load = false;
 					this.errors = error.response.data;
 				});
-				this.newsletter_load = false;
+				
         	}
         },
         mounted: function(){

@@ -10,8 +10,9 @@ import Vue from 'vue'
 import VueResource from 'vue-resource'
 import VueRouter from 'vue-router'
 import store from './store'
-import Select2 from './components/Select2.vue'
-import InputMask from './components/InputMask.vue'
+import Select2 from './components/Select2Component.vue'
+import InputMask from './components/InputMaskComponent.vue'
+import DatepickerComponent from './components/DatepickerComponent.vue'
 import Datepicker from 'vuejs-datepicker'
 import router from './router'
 
@@ -29,6 +30,7 @@ Vue.component('app', App);
 Vue.component('select2', Select2);
 Vue.component('datepicker', Datepicker);
 Vue.component('input-mask', InputMask);
+Vue.component('datepicker', DatepickerComponent);
 
 /*const routes = [
     { 
@@ -196,7 +198,7 @@ router.afterEach((to, from) => {
     },  500);
 });
 
-router.beforeEach((to, from, next) => {
+/*router.beforeEach((to, from, next) => {
     const authUser = JSON.parse(window.localStorage.getItem('authUser'));
     if(to.meta.requiresAuth == true){
         if(authUser){
@@ -215,7 +217,7 @@ router.beforeEach((to, from, next) => {
     }else{
         next();
     }
-});
+});*/
 
 
 

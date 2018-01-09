@@ -54,7 +54,7 @@ mix.scripts([
 ], 'public/js/plugins.js');
 
 mix.styles([
-    'public/bower_components/external-plugins/ionicons/ionicons.min.css',
+    /*'public/bower_components/external-plugins/ionicons/ionicons.min.css',
     'public/bower_components/admin-lte/bootstrap/css/font-awesome.min.css',
     'public/bower_components/admin-lte/plugins/daterangepicker/daterangepicker.css',
     'public/bower_components/admin-lte/plugins/datepicker/datepicker3.css',
@@ -72,7 +72,7 @@ mix.styles([
     'public/bower_components/admin-lte/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css',
     'public/bower_components/admin-lte/plugins/datatables/dataTables.bootstrap.css',
     'public/bower_components/external-plugins/sweetalert-master/dist/sweetalert.css',
-    'public/bower_components/external-plugins/jquery-validate/jquery.validate.css',
+    'public/bower_components/external-plugins/jquery-validate/jquery.validate.css',*/
     'public/bower_components/external-plugins/toastr/toastr.css',
 
     /*

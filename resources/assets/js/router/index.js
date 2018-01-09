@@ -8,19 +8,19 @@ export default new Router({
 	        path: '/', 
 	        component: require('../components/Home/HomeComponent.vue'), 
 	        name: 'home',
-	        meta: { reuse: false },
+	        meta: { },
 	    },
 	    { 
 	        name: 'users.create',
 	        path: '/register', 
 	        component: require('../components/Users/Create.vue'),
-	        meta: { reuse: false },
+	        meta: { },
 	    },
 	    { 
 	        path: '/login', 
 	        name: 'login',
 	        //meta: { requiresAuth: true },
-	        meta: { reuse: false },
+	        meta: { },
 	        component: require('../components/Login/Login.vue')
 	    },
 	    {   path: '/categories',

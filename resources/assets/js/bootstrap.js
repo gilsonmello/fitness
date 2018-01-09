@@ -1,4 +1,4 @@
-export const enviroment = "production";
+export const enviroment = "local";
 export const host = enviroment == "production" ? "http://pi.mirandafitness.com.br" : "http://localhost:8000";
 window.urlPainel = enviroment == "production" ? "http://www.painel.mirandafitness.com.br" : "http://localhost:8080";
 
@@ -34,10 +34,12 @@ try {
     window.$ = window.jQuery = require('jquery');
     require('bootstrap-sass');
     require('jquery.inputmask/dist/jquery.inputmask.bundle.js');
+    require('bootstrap-datepicker');
+    require('bootstrap-datepicker/dist/css/bootstrap-datepicker3.min.css');
     //require('bootstrap-datepicker');
     window.toastr = require('toastr');
-    //require('select2');
-    //require('select2/dist/css/select2.css');
+    require('select2');
+    require('select2/dist/css/select2.css');
 } catch (e) {}
 
 /**

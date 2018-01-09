@@ -194,7 +194,7 @@
             }
         },
         mounted: function(){
-            this.getCategories();            
+            this.getCategories();
         }
     }
 </script>

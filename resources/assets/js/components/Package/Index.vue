@@ -17,21 +17,19 @@
 </template>
 
 <script>
-	import Load from '../Load'
 	export default {
 		data: function(){
 			return {
 				packages: [],
-				package_load_show: false,
 				errors: []
 			}
 		},
 		components: {
-			Load
+			
 		},
 		watch: {
-        	'$route' (to, from) {
-		      	this.package_load_show = false;
+        	$route: function(to, from) {
+		      	
 		    }
         },
 		methods: {
@@ -41,20 +39,20 @@
 		},
 		props: [],
 		mounted: function(){
-            var url = '/packages';
+            
+		},
+		activated: function(){
+			var url = '/packages';
             axios.interceptors.request.use(config => {
-	        	this.package_load_show = true;
-			  	return config;
+	        	return config;
 			});
             axios.get(url, {}).then(response => {
                 if(response.status === 200){
 				    this.packages = response.data;
-                    this.package_load_show = false;
                 }
             }).catch((error) => {
             	this.errors = error.response.data
-				this.package_load_show = false;
-            });
-		}
+			});
+        }
 	}
 </script>

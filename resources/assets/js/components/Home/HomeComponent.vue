@@ -28,11 +28,11 @@
         mounted: function(){
 	       
         },
-        activated: function(){
-        	
-        },
+        activated:function(){
+	    	
+	    },
         destroyed () {
-		    console.log('destroyed pending')
+		    
 	  	},
 	}
 </script>
