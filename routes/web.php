@@ -49,10 +49,8 @@ Route::group(['namespace' => 'Frontend', 'middleware' => 'redirect'], function()
 	Route::get('/services/{slug}', 'ServicesController@view')->name('services.view');*/
 });
 
-Route::group(['prefix' => 'painel'], function(){
-	Route::get('/', function(){
-		return view('layouts.frontend.dashboard.app');
-	});
+Route::group(['namespace' => 'Painel', 'middleware' => 'auth:api', 'prefix' => 'painel'], function(){
+	require(__DIR__ . "/Painel/Profile.php");
 });
 
 Route::get('/admin/error', function(){
