@@ -59922,7 +59922,7 @@ if(false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)();
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 /***/ }),
 /* 76 */
@@ -59944,6 +59944,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	props: ['options'],
 	mounted: function mounted() {
 		var vm = this;
+		$.fn.datepicker.dates['pt-br'] = {
+			days: ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"],
+			daysShort: ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sab"],
+			daysMin: ["Do", "Se", "Te", "Qua", "Qui", "Se", "Sa"],
+			months: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
+			monthsShort: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
+			today: "Hoje",
+			clear: "Limpar",
+			format: "dd/mm/yyyy",
+			titleFormat: "MM yyyy",
+			weekStart: 0
+		};
+		this.options['language'] = 'pt-br';
 		$(this.$el).datepicker(this.options).on("change", function (event) {
 			vm.$emit('input', event.target.value);
 		});
@@ -60424,7 +60437,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 			selectedGym: 3,
 			errors: [],
 			user_load_create: null,
-			datepicker_options: {}
+			datepicker_options: {
+				container: '#container_birth_date'
+			}
 		};
 	},
 	beforeRouteEnter: function beforeRouteEnter(from, to, next) {
@@ -60712,7 +60727,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })) : _vm._e()])])]), _vm._v(" "), _c('div', {
     staticClass: "row"
   }, [_c('div', {
-    staticClass: "col-lg-6 col-md-6 col-sm-6 col-xs-12"
+    staticClass: "col-lg-6 col-md-6 col-sm-6 col-xs-12",
+    attrs: {
+      "id": "container_birth_date"
+    }
   }, [_c('div', {
     staticClass: "form-group"
   }, [_c('label', {
@@ -60722,6 +60740,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("Data de Nascimento")]), _vm._v(" "), _c('datepicker', {
     staticClass: "form-control",
     attrs: {
+      "id": "birth_date",
       "placeholder": "Data de Nascimento",
       "options": _vm.datepicker_options
     },

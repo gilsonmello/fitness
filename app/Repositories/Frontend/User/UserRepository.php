@@ -7,7 +7,9 @@
  */
 
 namespace App\Repositories\Frontend\User;
-use App\Model\Backend\User;
+use App\User;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\CreateUser;
 
 /**
  * Class UserRepository
@@ -63,6 +65,7 @@ class UserRepository
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s')
             ]);
+            Mail::to($this->user->email)->send(new CreateUser($this->user));
             $user = $this->user;
             $token = User::find($user->id)->createToken('Miranda Fitness')->accessToken;
             return ['token' => $token];

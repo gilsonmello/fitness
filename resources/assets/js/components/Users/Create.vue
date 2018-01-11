@@ -42,12 +42,12 @@
 			  	</div>
 		    </div>
 		    <div class="row">
-		    	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+		    	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" id="container_birth_date">
 		    		<div class="form-group">
 					    <label for="birth_date">Data de Nascimento</label>
 					    <!-- <input-mask placeholder="Data de Nascimento" mask="99/99/9999" v-model="birth_date"></input-mask> -->
 					    <!-- <input type="text" class="form-control datepicker" name="birth_date"> -->
-					    <datepicker placeholder="Data de Nascimento" :options="datepicker_options" v-model="birth_date" class="form-control"></datepicker>
+					    <datepicker id="birth_date" placeholder="Data de Nascimento" :options="datepicker_options" v-model="birth_date" class="form-control"></datepicker>
 					    <div class="alert alert-danger" v-if="errors.birth_date">
 						  	<div v-for="birth_date in errors.birth_date">{{ birth_date }}</div>
 						</div>
@@ -102,7 +102,7 @@
 				errors: [],
 				user_load_create: null,
 				datepicker_options: {
-					
+					container:'#container_birth_date'
 				}
 			}
 		},
