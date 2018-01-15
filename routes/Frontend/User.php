@@ -20,7 +20,9 @@ Route::resource('users', 'UserController', [
         'destroy' => 'frontend.users.destroy',
     ]
 ]);
+
 Route::get('users/verify_email', 'UserController@verifyEmail');
+Route::get('users/active/{token}', 'UserController@active')->name('frontend.users.active');
 
 Route::group(['middleware' => 'auth:api'], function(){
     Route::get('users/logged', 'UserController@logged');

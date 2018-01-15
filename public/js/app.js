@@ -709,9 +709,9 @@ function applyToTag (styleElement, obj) {
 
 "use strict";
 /* unused harmony export Store */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return mapState; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return mapState; });
 /* unused harmony export mapMutations */
-/* unused harmony export mapGetters */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return mapGetters; });
 /* unused harmony export mapActions */
 /* unused harmony export createNamespacedHelpers */
 /**
@@ -60415,7 +60415,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	name: 'users-create',
-	computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapState */])({
+	computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["c" /* mapState */])({
 		User: function User(state) {
 			return state.Users;
 		}
@@ -60466,25 +60466,27 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 				supplier_id: this.selected
 			})).then(function (response) {
 				if (response.status === 200) {
-					var authUser = {};
-					authUser.access_token = response.data;
-					window.localStorage.setItem('authUser', JSON.stringify(authUser));
-					//Fazendo busca do usuário logado, para setar na estrutura de dados authUser
-					axios.get(__WEBPACK_IMPORTED_MODULE_0__config__["c" /* rt */].users.logged, { headers: Object(__WEBPACK_IMPORTED_MODULE_0__config__["a" /* getHeader */])() }).then(function (response) {
-						_this.name = '';
-						_this.email = '';
-						_this.password = '';
-						_this.confirm_password = '';
-						_this.birth_date = '';
-						_this.errors = [];
-						_this.user_load_create = false;
-						authUser.email = response.data.email;
-						authUser.name = response.data.name;
-						window.localStorage.setItem('authUser', JSON.stringify(authUser));
-						_this.$store.dispatch('setUserObject', authUser);
-						//this.$router.push({name: 'dashboard'})
-						toastr.success('Cadastrado com sucesso');
-					});
+					_this.$router.push({ name: 'home' });
+					toastr.success('Enviamos e-mail de confirmação.');
+					/*const authUser = {};
+             			authUser.access_token = response.data
+     window.localStorage.setItem('authUser', JSON.stringify(authUser))
+     //Fazendo busca do usuário logado, para setar na estrutura de dados authUser
+     axios.get(rt.users.logged, {headers: getHeader()}).then(response => {
+     	this.name = '';
+     	this.email = '';
+     	this.password = '';
+     	this.confirm_password = '';
+     	this.birth_date = '';
+     	this.errors = [];
+     	this.user_load_create = false;
+                   	authUser.email = response.data.email
+                   	authUser.name = response.data.name
+                   	window.localStorage.setItem('authUser', JSON.stringify(authUser))
+                   	this.$store.dispatch('setUserObject', authUser)
+                   	//this.$router.push({name: 'dashboard'})
+     	toastr.success('Cadastrado com sucesso');
+                 })*/
 				}
 			}).catch(function (error) {
 				_this.errors = error.response.data.errors;
@@ -60989,7 +60991,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	name: 'login',
-	computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapState */])({
+	computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["c" /* mapState */])({
 		User: function User(state) {
 			return state.Users;
 		}
@@ -61927,16 +61929,17 @@ exports.push([module.i, "\nbody{\n\tbackground-color: #fff;\n\tcolor: #000;\n}\n
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__config__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_HeaderComponent_vue__ = __webpack_require__(117);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_HeaderComponent_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__components_HeaderComponent_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_NewsletterComponent_vue__ = __webpack_require__(122);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_NewsletterComponent_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__components_NewsletterComponent_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_FooterComponent_vue__ = __webpack_require__(125);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_FooterComponent_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__components_FooterComponent_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_Load_vue__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_Load_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__components_Load_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_vuex__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__router__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__bootstrap__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_HeaderComponent_vue__ = __webpack_require__(117);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_HeaderComponent_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__components_HeaderComponent_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_NewsletterComponent_vue__ = __webpack_require__(122);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_NewsletterComponent_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__components_NewsletterComponent_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_FooterComponent_vue__ = __webpack_require__(125);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_FooterComponent_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__components_FooterComponent_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_Load_vue__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_Load_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__components_Load_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_vuex__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__router__ = __webpack_require__(9);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 //
@@ -61968,6 +61971,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
 	name: 'Miranda',
 	data: function data() {
@@ -61990,13 +61994,13 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 		}
 	},
 	components: {
-		HeaderComponent: __WEBPACK_IMPORTED_MODULE_1__components_HeaderComponent_vue___default.a,
-		NewsletterComponent: __WEBPACK_IMPORTED_MODULE_2__components_NewsletterComponent_vue___default.a,
-		FooterComponent: __WEBPACK_IMPORTED_MODULE_3__components_FooterComponent_vue___default.a,
-		LoadComponent: __WEBPACK_IMPORTED_MODULE_4__components_Load_vue___default.a
+		HeaderComponent: __WEBPACK_IMPORTED_MODULE_2__components_HeaderComponent_vue___default.a,
+		NewsletterComponent: __WEBPACK_IMPORTED_MODULE_3__components_NewsletterComponent_vue___default.a,
+		FooterComponent: __WEBPACK_IMPORTED_MODULE_4__components_FooterComponent_vue___default.a,
+		LoadComponent: __WEBPACK_IMPORTED_MODULE_5__components_Load_vue___default.a
 	},
 	props: ['path'],
-	computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_5_vuex__["b" /* mapState */])({
+	computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_6_vuex__["c" /* mapState */])({
 		User: function User(state) {
 			return state.Users;
 		}
@@ -62009,8 +62013,27 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 	mounted: function mounted() {
 		var _this = this;
 
+		__WEBPACK_IMPORTED_MODULE_7__router__["a" /* default */].onReady(function () {
+			if (QueryString.access_token) {
+				axios.get(__WEBPACK_IMPORTED_MODULE_1__bootstrap__["host"] + '/users/logged', {
+					headers: {
+						'Accept': 'application/json',
+						'Authorization': 'Bearer ' + QueryString.access_token
+					}
+				}).then(function (response) {
+					var authUser = {};
+					authUser.access_token = QueryString.access_token;
+					authUser.email = response.data.email;
+					authUser.name = response.data.name;
+					_this.$store.dispatch('setUserObject', authUser);
+					window.localStorage.setItem('authUser', JSON.stringify(authUser));
+					window.history.pushState({ url: "/" }, '', '/#/');
+				});
+			}
+		});
+
 		//window.console.log('Component mounted.')
-		__WEBPACK_IMPORTED_MODULE_6__router__["a" /* default */].beforeEach(function (to, from, next) {
+		__WEBPACK_IMPORTED_MODULE_7__router__["a" /* default */].beforeEach(function (to, from, next) {
 			_this.loading = true;
 			setTimeout(function () {
 				var authUser = JSON.parse(window.localStorage.getItem('authUser'));
@@ -62036,7 +62059,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 			// $('.body').addClass('fade-enter-active');
 			// $('.body').removeClass('fade-leave-active');
 		});
-		__WEBPACK_IMPORTED_MODULE_6__router__["a" /* default */].afterEach(function (to, from) {
+		__WEBPACK_IMPORTED_MODULE_7__router__["a" /* default */].afterEach(function (to, from) {
 			_this.loading = false;
 		});
 		this.loading = false;
@@ -62216,11 +62239,11 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapState */])({
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["c" /* mapState */])({
         User: function User(state) {
             return state.Users;
         }
-    })),
+    }), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapGetters */])(['auth'])),
     components: {},
     watch: {
         $route: function $route(to, from) {
@@ -62244,6 +62267,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                     $(this).removeAttr('style');
                 });
             }
+        },
+        'User.authUser': function UserAuthUser(newValue, oldValue) {
+            this.painel = window.urlPainel + "?access_token=" + newValue.access_token;
         }
     },
     data: function data() {
@@ -62318,7 +62344,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         }
     },
     created: function created() {
-        if (JSON.parse(window.localStorage.getItem('authUser'))) {
+        var authUser = JSON.parse(window.localStorage.getItem('authUser'));
+        if (authUser) {
+            this.$store.dispatch('setUserObject', authUser);
             this.painel = window.urlPainel + "?access_token=" + JSON.parse(window.localStorage.getItem('authUser')).access_token;
         }
     },

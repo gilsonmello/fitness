@@ -15,5 +15,12 @@ const actions = {
 }
 
 export default {
-	state, mutations, actions
+	state, 
+	mutations, 
+	actions,
+	getters: {
+	    auth : state => {
+	      	return state.authUser
+	    }
+  	}
 }

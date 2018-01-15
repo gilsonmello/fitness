@@ -29,7 +29,7 @@ class CreateUser extends Mailable
      */
     public function build()
     {
-        $msg = "teste"; 
-        return $this->view('emails.users_create', compact('msg'));
+        $user = $this->user;
+        return $this->view('emails.users_create', compact('user'));
     }
 }

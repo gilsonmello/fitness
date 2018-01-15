@@ -37,6 +37,29 @@ class UserController extends Controller
         return response()->json('true', 200);
     }
 
+    public function active(Request $request, $token){
+        
+        if(!empty($token) && isset($token)){
+            $user = User::where('remember_token', '=', $token)->get()->first();
+            if($user->is_active == 1){
+                return redirect()->route('frontend.index');
+            }
+            if($user){
+                $user->is_active = 1;
+                $user->ip_address = $request->server('REMOTE_ADDR');
+                if($user->save()){
+                    $token = User::find($user->id)->createToken('Miranda Fitness')->accessToken;
+                    //return ['token' => $token];
+                    return redirect()->route('frontend.index', ['access_token' => $token]);
+                }
+            }else{
+                abort('Conta não encontrada', 400);
+            }
+        }
+         
+        return abort('Token inválido', 400);
+    }
+
 
     /**
      * @param Request $request

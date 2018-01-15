@@ -67,8 +67,9 @@ class UserRepository
             ]);
             Mail::to($this->user->email)->send(new CreateUser($this->user));
             $user = $this->user;
-            $token = User::find($user->id)->createToken('Miranda Fitness')->accessToken;
-            return ['token' => $token];
+            //$token = User::find($user->id)->createToken('Miranda Fitness')->accessToken;
+            //return ['token' => $token];
+            return ['msg' => 'success'];
         }
 
         return false;

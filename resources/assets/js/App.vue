@@ -19,7 +19,8 @@
 
 
 <script>
-	import {loginUrl, getHeader, userUrl} from './config'
+	import {loginUrl, getHeader, userUrl, rt} from './config'
+	import {host} from './bootstrap'
 	import HeaderComponent from './components/HeaderComponent.vue'
 	import NewsletterComponent from './components/NewsletterComponent.vue'
 	import FooterComponent from './components/FooterComponent.vue'
@@ -68,6 +69,25 @@
 	  		this.$store.dispatch('setUserObject', userObj);
 	  	},
 	    mounted() {
+			router.onReady(() => {
+				if(QueryString.access_token){
+				    axios.get(host+'/users/logged', {
+				        headers: {
+				            'Accept': 'application/json',
+				            'Authorization': 'Bearer ' + QueryString.access_token
+				        }
+				    }).then(response => {
+				        const authUser = {};
+				        authUser.access_token = QueryString.access_token
+				        authUser.email = response.data.email
+				        authUser.name = response.data.name
+				        this.$store.dispatch('setUserObject', authUser);
+				        window.localStorage.setItem('authUser', JSON.stringify(authUser))
+				        window.history.pushState({url: "/"}, '', '/#/');
+				    })
+				}
+	    	})
+
 	        //window.console.log('Component mounted.')
 	        router.beforeEach((to, from, next) => {
 	        	this.loading = true

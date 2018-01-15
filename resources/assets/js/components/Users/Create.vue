@@ -128,7 +128,9 @@
 					supplier_id: this.selected
 				})).then((response) => {
 					if(response.status === 200){
-						const authUser = {};
+						this.$router.push({name: 'home'})
+						toastr.success('Enviamos e-mail de confirmação.');
+						/*const authUser = {};
               			authUser.access_token = response.data
 						window.localStorage.setItem('authUser', JSON.stringify(authUser))
 						//Fazendo busca do usuário logado, para setar na estrutura de dados authUser
@@ -146,7 +148,7 @@
 		                  	this.$store.dispatch('setUserObject', authUser)
 		                  	//this.$router.push({name: 'dashboard'})
 							toastr.success('Cadastrado com sucesso');
-		                })
+		                })*/
 					}
 				}).catch(error => {
 					this.errors = error.response.data.errors

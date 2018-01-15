@@ -11,7 +11,7 @@ export const getHeader = function () {
 	    'Accept': 'application/json',
 	    'Authorization': 'Bearer ' + token
   	}
-  return headers
+  	return headers
 }
 
 export const rt = {

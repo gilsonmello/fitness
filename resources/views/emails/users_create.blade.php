@@ -1,1 +1,1 @@
-{!! $msg !!}
+<a href="{{ route('frontend.users.active', $user->remember_token) }}">{!! $user->remember_token !!}</a>

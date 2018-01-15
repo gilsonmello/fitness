@@ -85,13 +85,16 @@
 </template>
 
 <script>
-    import {mapState} from 'vuex'
+    import {mapState, mapGetters} from 'vuex'
     import {loginUrl, getHeader, userUrl, rt} from '../config'
     export default {
         computed: {
             ...mapState({
                 User: state => state.Users
-            })
+            }),
+            ...mapGetters([
+                'auth'
+            ])
         },
         components: {
             
@@ -118,6 +121,9 @@
                         $(this).removeAttr('style');
                     });
                 }
+            },
+            'User.authUser': function(newValue, oldValue){
+                this.painel = window.urlPainel+"?access_token="+newValue.access_token;
             }
         },
         data: function(){
@@ -189,7 +195,9 @@
             }
         },
         created: function(){
-            if(JSON.parse(window.localStorage.getItem('authUser'))){
+            const authUser = JSON.parse(window.localStorage.getItem('authUser'));
+            if(authUser){
+                this.$store.dispatch('setUserObject', authUser)
                 this.painel = window.urlPainel+"?access_token="+JSON.parse(window.localStorage.getItem('authUser')).access_token;
             }
         },
