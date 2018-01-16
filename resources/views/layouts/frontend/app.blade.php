@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>Miranda Fitness</title>
+        <title>Máxima Saúde</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
         <meta name="_token" content="{{csrf_token()}}">
@@ -26,7 +26,7 @@
 
         <link rel="shortcut icon" type="image/png" href="/favicon.ico"/>
    </head>
-<body class="">
+<body>
     <!-- Conteúdo -->
     <div id="app">
         @yield('content')

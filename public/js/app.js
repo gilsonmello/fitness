@@ -11868,7 +11868,7 @@ return jQuery;
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return userUrl; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return getHeader; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return rt; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__bootstrap__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__bootstrap__ = __webpack_require__(7);
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 
@@ -11898,6 +11898,126 @@ var rt = {
 
 /***/ }),
 /* 7 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "enviroment", function() { return enviroment; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "host", function() { return host; });
+var enviroment = "local";
+var host = enviroment == "production" ? "http://pi.mirandafitness.com.br" : "http://localhost:8000";
+window.urlPainel = enviroment == "production" ? "http://www.painel.mirandafitness.com.br" : "http://localhost:8080";
+
+//Evento para escutar se foi excluído o localstorage
+window.addEventListener('storage', function (e) {
+    if (event.key == "authUser" && e.newValue == null) {
+        window.location.href = host;
+    }
+});
+function getParamsUrl() {
+    var s1 = location.search.substring(1, location.search.length).split('&'),
+        r = {},
+        s2,
+        i;
+    for (i = 0; i < s1.length; i += 1) {
+        s2 = s1[i].split('=');
+        r[decodeURIComponent(s2[0]).toLowerCase()] = decodeURIComponent(s2[1]);
+    }
+    return r;
+};
+
+window.QueryString = getParamsUrl();
+
+window._ = __webpack_require__(24);
+
+window.qs = __webpack_require__(26);
+
+/**
+ * We'll load jQuery and the Bootstrap jQuery plugin which provides support
+ * for JavaScript based Bootstrap features such as modals and tabs. This
+ * code may be modified to fit the specific needs of your application.
+ */
+
+try {
+    window.$ = window.jQuery = __webpack_require__(5);
+    __webpack_require__(29);
+    __webpack_require__(30);
+    __webpack_require__(31);
+    __webpack_require__(32);
+    //require('bootstrap-datepicker');
+    window.toastr = __webpack_require__(34);
+    __webpack_require__(14);
+    __webpack_require__(36);
+} catch (e) {}
+
+/**
+ * We'll load the axios HTTP library which allows us to easily issue requests
+ * to our Laravel back-end. This library automatically handles sending the
+ * CSRF token as a header based on the value of the "XSRF" token cookie.
+ */
+
+window.axios = __webpack_require__(38);
+
+window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+
+/**
+ * Next we will register the CSRF Token as a common header with Axios so that
+ * all outgoing HTTP requests automatically have it attached. This is just
+ * a simple convenience so we don't have to attach every token manually.
+ */
+
+var token = document.head.querySelector('meta[name="_token"]');
+
+if (token) {
+    window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+} else {
+    console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
+}
+
+window.getCookie = function (name) {
+    var cookies = window.document.cookie;
+    var prefix = name + "=";
+    var begin = cookies.indexOf("; " + prefix);
+    if (begin == -1) {
+        begin = cookies.indexOf(prefix);
+        if (begin != 0) {
+            return null;
+        }
+    } else {
+        begin += 2;
+    }
+    var end = cookies.indexOf(";", begin);
+    if (end == -1) {
+        end = cookies.length;
+    }
+    return unescape(cookies.substring(begin + prefix.length, end));
+};
+
+window.deleteCookie = function (name) {
+    if (getCookie(name)) {
+        document.cookie = name + "=" + "; expires=Thu, 01-Jan-70 00:00:01 GMT";
+        return true;
+    }
+    return false;
+};
+
+/**
+ * Echo exposes an expressive API for subscribing to channels and listening
+ * for events that are broadcast by Laravel. Echo and event broadcasting
+ * allows your team to easily build robust real-time web applications.
+ */
+
+// import Echo from 'laravel-echo'
+
+// window.Pusher = require('pusher-js');
+
+// window.Echo = new Echo({
+//     broadcaster: 'pusher',
+//     key: 'your-pusher-key'
+// });
+
+/***/ }),
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11998,7 +12118,7 @@ module.exports = defaults;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22198,11 +22318,11 @@ module.exports = Vue$3;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)))
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_router__ = __webpack_require__(20);
 
@@ -22254,126 +22374,6 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_
 		}],
 		linkExactActiveClass: 'active'
 }));
-
-/***/ }),
-/* 10 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "enviroment", function() { return enviroment; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "host", function() { return host; });
-var enviroment = "local";
-var host = enviroment == "production" ? "http://pi.mirandafitness.com.br" : "http://localhost:8000";
-window.urlPainel = enviroment == "production" ? "http://www.painel.mirandafitness.com.br" : "http://localhost:8080";
-
-//Evento para escutar se foi excluído o localstorage
-window.addEventListener('storage', function (e) {
-    if (event.key == "authUser" && e.newValue == null) {
-        window.location.href = host;
-    }
-});
-function getParamsUrl() {
-    var s1 = location.search.substring(1, location.search.length).split('&'),
-        r = {},
-        s2,
-        i;
-    for (i = 0; i < s1.length; i += 1) {
-        s2 = s1[i].split('=');
-        r[decodeURIComponent(s2[0]).toLowerCase()] = decodeURIComponent(s2[1]);
-    }
-    return r;
-};
-
-window.QueryString = getParamsUrl();
-
-window._ = __webpack_require__(24);
-
-window.qs = __webpack_require__(26);
-
-/**
- * We'll load jQuery and the Bootstrap jQuery plugin which provides support
- * for JavaScript based Bootstrap features such as modals and tabs. This
- * code may be modified to fit the specific needs of your application.
- */
-
-try {
-    window.$ = window.jQuery = __webpack_require__(5);
-    __webpack_require__(29);
-    __webpack_require__(30);
-    __webpack_require__(31);
-    __webpack_require__(32);
-    //require('bootstrap-datepicker');
-    window.toastr = __webpack_require__(34);
-    __webpack_require__(14);
-    __webpack_require__(36);
-} catch (e) {}
-
-/**
- * We'll load the axios HTTP library which allows us to easily issue requests
- * to our Laravel back-end. This library automatically handles sending the
- * CSRF token as a header based on the value of the "XSRF" token cookie.
- */
-
-window.axios = __webpack_require__(38);
-
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-
-/**
- * Next we will register the CSRF Token as a common header with Axios so that
- * all outgoing HTTP requests automatically have it attached. This is just
- * a simple convenience so we don't have to attach every token manually.
- */
-
-var token = document.head.querySelector('meta[name="_token"]');
-
-if (token) {
-    window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
-} else {
-    console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
-}
-
-window.getCookie = function (name) {
-    var cookies = window.document.cookie;
-    var prefix = name + "=";
-    var begin = cookies.indexOf("; " + prefix);
-    if (begin == -1) {
-        begin = cookies.indexOf(prefix);
-        if (begin != 0) {
-            return null;
-        }
-    } else {
-        begin += 2;
-    }
-    var end = cookies.indexOf(";", begin);
-    if (end == -1) {
-        end = cookies.length;
-    }
-    return unescape(cookies.substring(begin + prefix.length, end));
-};
-
-window.deleteCookie = function (name) {
-    if (getCookie(name)) {
-        document.cookie = name + "=" + "; expires=Thu, 01-Jan-70 00:00:01 GMT";
-        return true;
-    }
-    return false;
-};
-
-/**
- * Echo exposes an expressive API for subscribing to channels and listening
- * for events that are broadcast by Laravel. Echo and event broadcasting
- * allows your team to easily build robust real-time web applications.
- */
-
-// import Echo from 'laravel-echo'
-
-// window.Pusher = require('pusher-js');
-
-// window.Echo = new Echo({
-//     broadcaster: 'pusher',
-//     key: 'your-pusher-key'
-// });
 
 /***/ }),
 /* 11 */
@@ -31505,7 +31505,7 @@ module.exports = __webpack_require__(131);
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_resource__ = __webpack_require__(57);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_router__ = __webpack_require__(20);
@@ -31518,7 +31518,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_DatepickerComponent_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__components_DatepickerComponent_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_vuejs_datepicker__ = __webpack_require__(78);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_vuejs_datepicker___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_vuejs_datepicker__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__router__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__router__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__App_vue__ = __webpack_require__(113);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__App_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9__App_vue__);
 /**
@@ -31527,7 +31527,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-__webpack_require__(10);
+__webpack_require__(7);
 
 
 
@@ -56905,7 +56905,7 @@ module.exports = __webpack_require__(39);
 var utils = __webpack_require__(1);
 var bind = __webpack_require__(15);
 var Axios = __webpack_require__(40);
-var defaults = __webpack_require__(7);
+var defaults = __webpack_require__(8);
 
 /**
  * Create an instance of Axios
@@ -56961,7 +56961,7 @@ module.exports.default = axios;
 "use strict";
 
 
-var defaults = __webpack_require__(7);
+var defaults = __webpack_require__(8);
 var utils = __webpack_require__(1);
 var InterceptorManager = __webpack_require__(50);
 var dispatchRequest = __webpack_require__(51);
@@ -57679,7 +57679,7 @@ module.exports = InterceptorManager;
 var utils = __webpack_require__(1);
 var transformData = __webpack_require__(52);
 var isCancel = __webpack_require__(18);
-var defaults = __webpack_require__(7);
+var defaults = __webpack_require__(8);
 
 /**
  * Throws a `Cancel` if cancellation has been requested.
@@ -59508,7 +59508,7 @@ if (typeof window !== 'undefined' && window.Vue) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__modules_users_main__ = __webpack_require__(60);
@@ -60033,7 +60033,7 @@ module.exports = Component.exports
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__SliderComponent_vue__ = __webpack_require__(81);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__SliderComponent_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__SliderComponent_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__router__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__router__ = __webpack_require__(10);
 //
 //
 //
@@ -60409,6 +60409,12 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -60421,9 +60427,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 		}
 	})),
 	watch: {
-		$route: function $route(to, from) {
-			this.$nextTick(function () {});
-		}
+		$route: function $route(to, from) {}
 	},
 	data: function data() {
 		return {
@@ -60453,7 +60457,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 			var _this = this;
 
 			axios.interceptors.request.use(function (config) {
-				_this.user_load_create = true;
+				$(_this.$el).find('[type="load"]').removeClass('hide');
+				$(_this.$el).find('[type="submit"]').addClass('hide');
 				return config;
 			});
 			//Fazendo requisição para criar o usuário
@@ -60467,7 +60472,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 			})).then(function (response) {
 				if (response.status === 200) {
 					_this.$router.push({ name: 'home' });
-					toastr.success('Enviamos e-mail de confirmação.');
+					toastr.options.timeOut = 10000;
+					toastr.options.newestOnTop = true;
+					toastr.options.positionClass = 'toast-top-full-width';
+					toastr.success('Verifique sua caixa de e-mail', 'Enviamos e-mail de confirmação');
 					/*const authUser = {};
              			authUser.access_token = response.data
      window.localStorage.setItem('authUser', JSON.stringify(authUser))
@@ -60489,8 +60497,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                  })*/
 				}
 			}).catch(function (error) {
+				$(_this.$el).find('[type="load"]').addClass('hide');
+				$(_this.$el).find('[type="submit"]').removeClass('hide');
 				_this.errors = error.response.data.errors;
-				_this.user_load_create = false;
 			});
 		}
 	},
@@ -60499,7 +60508,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 		var _this2 = this;
 
 		var vm = this;
-		$(vm.$el).find('.datepicker').datepicker();
+
 		/*$(vm.$el).find('#birth_date').inputmask({
   	mask: '99/99/9999',
   	onBeforeWrite: function(event, buffer, caretPos, opts){
@@ -60776,7 +60785,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "selected"
     }
-  })], 1)])]), _vm._v(" "), _vm._m(0)])])
+  }), _vm._v(" "), (_vm.errors.supplier_id) ? _c('div', {
+    staticClass: "alert alert-danger"
+  }, _vm._l((_vm.errors.supplier_id), function(supplier_id) {
+    return _c('div', [_vm._v(_vm._s(supplier_id))])
+  })) : _vm._e()], 1)])]), _vm._v(" "), _vm._m(0)])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "row"
@@ -60785,6 +60798,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "form-group"
   }, [_c('button', {
+    staticClass: "hide btn btn-default pull-right",
+    attrs: {
+      "type": "load"
+    }
+  }, [_c('span', {
+    staticClass: "glyphicon glyphicon-refresh glyphicon-refresh-animate"
+  })]), _vm._v(" "), _c('button', {
     staticClass: "btn btn-primary pull-right",
     attrs: {
       "type": "submit"
@@ -60868,7 +60888,7 @@ if(false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)();
-exports.push([module.i, "\nform[data-v-123eef7a]{\n\twidth: 70%;\n\tmargin: 0 auto;\n}\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 /***/ }),
 /* 93 */
@@ -60880,6 +60900,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(4);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+//
+//
+//
 //
 //
 //
@@ -61030,13 +61053,16 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 			};
 
 			axios.interceptors.request.use(function (config) {
-				_this.login_load = true;
+				$(_this.$el).find('[type="load"]').removeClass('hide');
+				$(_this.$el).find('[type="submit"]').addClass('hide');
 				return config;
 			});
 
 			axios.post(__WEBPACK_IMPORTED_MODULE_0__config__["b" /* loginUrl */], qs.stringify(data)).then(function (response) {
 
 				if (response.status === 200) {
+					$(_this.$el).find('[type="load"]').addClass('hide');
+					$(_this.$el).find('[type="submit"]').removeClass('hide');
 					var authUser = {};
 					authUser.access_token = response.data.access_token;
 					authUser.refresh_token = response.data.refresh_token;
@@ -61054,18 +61080,18 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 					});
 				}
 			}).catch(function (error) {
-				_this.login_load = false;
+				$(_this.$el).find('[type="load"]').addClass('hide');
+				$(_this.$el).find('[type="submit"]').removeClass('hide');
 				_this.errors = {
 					credentials: 'Usuário ou Senha inválidos'
 				};
 			});
-			this.login_load = false;
 		},
 		create: function create() {
 			var _this2 = this;
 
 			axios.interceptors.request.use(function (config) {
-				_this2.login_load = true;
+
 				return config;
 			});
 
@@ -61090,7 +61116,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 					_this2.errors = [];
 					//Fazendo busca do usuário logado, para setar na estrutura de dados authUser
 					axios.get(__WEBPACK_IMPORTED_MODULE_0__config__["c" /* rt */].users.logged, { headers: Object(__WEBPACK_IMPORTED_MODULE_0__config__["a" /* getHeader */])() }).then(function (response) {
-						_this2.login_load = false;
+
 						authUser.email = response.data.email;
 						authUser.name = response.data.name;
 						window.localStorage.setItem('authUser', JSON.stringify(authUser));
@@ -61220,6 +61246,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "offset-sm-2 col-sm-10"
   }, [_c('button', {
+    staticClass: "hide btn btn-default",
+    attrs: {
+      "type": "load"
+    }
+  }, [_c('span', {
+    staticClass: "glyphicon glyphicon-refresh glyphicon-refresh-animate"
+  })]), _vm._v(" "), _c('button', {
     staticClass: "btn btn-primary",
     attrs: {
       "type": "submit"
@@ -61920,7 +61953,7 @@ if(false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)();
-exports.push([module.i, "\nbody{\n\tbackground-color: #fff;\n\tcolor: #000;\n}\n.page-header{\n\tcolor: #000;\n}\n.fade-enter-active, .fade-leave-active {\n  \ttransition-property: opacity;\n  \ttransition-duration: .25s;\n}\n.fade-enter-active {\n  \ttransition-delay: .25s;\n}\n#box{\n\tmargin-top: 70px\n}\n.fade-enter, .fade-leave-active {\n  \topacity: 0\n}\n.flexBox{\n\tdisplay: -webkit-box;\n\tdisplay: -ms-flexbox;\n\tdisplay: flex; \n\t-webkit-box-orient: horizontal; \n\t-webkit-box-direction: normal; \n\t    -ms-flex-flow: row wrap; \n\t        flex-flow: row wrap; \n\t-webkit-box-pack: center; \n\t    -ms-flex-pack: center; \n\t        justify-content: center;\n}\n.vdp-datepicker input{\n\twidth: 100%;\n}\n[v-cloak] {\n  \tdisplay: none;\n}\n.datepicker{\n\tbackground-color: #fff !important;\n}\n", ""]);
+exports.push([module.i, "\nbody{\n\tbackground-color: #fff;\n\tcolor: #000;\n}\n.page-header{\n\tcolor: #000;\n}\n.fade-enter-active, .fade-leave-active {\n  \ttransition-property: opacity;\n  \ttransition-duration: .25s;\n}\n.fade-enter-active {\n  \ttransition-delay: .25s;\n}\n#box{\n\tmargin-top: 70px\n}\n.fade-enter, .fade-leave-active {\n  \topacity: 0\n}\n.flexBox{\n\tdisplay: -webkit-box;\n\tdisplay: -ms-flexbox;\n\tdisplay: flex; \n\t-webkit-box-orient: horizontal; \n\t-webkit-box-direction: normal; \n\t    -ms-flex-flow: row wrap; \n\t        flex-flow: row wrap; \n\t-webkit-box-pack: center; \n\t    -ms-flex-pack: center; \n\t        justify-content: center;\n}\n.vdp-datepicker input{\n\twidth: 100%;\n}\n[v-cloak] {\n  \tdisplay: none;\n}\n.datepicker{\n\tbackground-color: #fff !important;\n}\n.glyphicon-refresh-animate {\n    -animation: spin .7s infinite linear;\n    -ms-animation: spin .7s infinite linear;\n    -webkit-animation: spinw .7s infinite linear;\n    -moz-animation: spinm .7s infinite linear;\n}\n@-webkit-keyframes spin {\nfrom { \n    \t-webkit-transform: scale(1) rotate(0deg); \n    \t        transform: scale(1) rotate(0deg);\n}\nto { \n    \t-webkit-transform: scale(1) rotate(360deg); \n    \t        transform: scale(1) rotate(360deg);\n}\n}\n@keyframes spin {\nfrom { \n    \t-webkit-transform: scale(1) rotate(0deg); \n    \t        transform: scale(1) rotate(0deg);\n}\nto { \n    \t-webkit-transform: scale(1) rotate(360deg); \n    \t        transform: scale(1) rotate(360deg);\n}\n}\n@-webkit-keyframes spinw {\nfrom { \n    \t-webkit-transform: rotate(0deg);\n}\nto { \n    \t-webkit-transform: rotate(360deg);\n}\n}\n", ""]);
 
 /***/ }),
 /* 116 */
@@ -61929,7 +61962,7 @@ exports.push([module.i, "\nbody{\n\tbackground-color: #fff;\n\tcolor: #000;\n}\n
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__config__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__bootstrap__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__bootstrap__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_HeaderComponent_vue__ = __webpack_require__(117);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_HeaderComponent_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__components_HeaderComponent_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_NewsletterComponent_vue__ = __webpack_require__(122);
@@ -61939,7 +61972,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_Load_vue__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_Load_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__components_Load_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_vuex__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__router__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__router__ = __webpack_require__(10);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 //
@@ -62247,29 +62280,29 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     components: {},
     watch: {
         $route: function $route(to, from) {
-            var paramsTo = to.params;
+            /*var paramsTo = to.params;
             var paramsFrom = from.params;
             var dropdownSubMenu = $('body').find('.dropdown-menu');
-
-            dropdownSubMenu.find('.dropdown-submenu a').each(function (i, v) {
-                if ($(this).attr('category-slug') != paramsTo.category) {
+             dropdownSubMenu.find('.dropdown-submenu a').each(function(i, v){
+                if($(this).attr('category-slug') != paramsTo.category){
                     $(this).find('span').addClass('fa-caret-down').removeClass('fa-caret-right');
                     $(this).find('ul').fadeOut('toggle');
                     $(this).find('.dropdown-submenu ul').fadeOut('toggle');
-                } else {
+                }else{
                     $(this).find('.sub-menu li > a').addClass('active');
                 }
             });
-
-            if (window.innerWidth <= 768) {
-                $('body').find('#myNavbar').fadeOut(500, function () {
+             if(window.innerWidth <= 768) {
+                $('body').find('#myNavbar').fadeOut(500, function(){
                     $(this).removeClass('in');
                     $(this).removeAttr('style');
                 });
-            }
+            }*/
         },
         'User.authUser': function UserAuthUser(newValue, oldValue) {
-            this.painel = window.urlPainel + "?access_token=" + newValue.access_token;
+            if (newValue) {
+                this.painel = window.urlPainel + "?access_token=" + newValue.access_token;
+            }
         }
     },
     data: function data() {
@@ -62418,9 +62451,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     })], 2) : _vm._e()
   }))])], 1), _vm._v(" "), _c('ul', {
     staticClass: "nav navbar-nav navbar-right"
-  }, [_vm._m(2), _vm._v(" "), (_vm.User.authUser !== null && _vm.User.authUser.access_token) ? _c('li', {
+  }, [(_vm.User.authUser !== null && _vm.User.authUser.access_token) ? _c('li', {
     staticClass: "dropdown"
-  }, [_vm._m(3), _vm._v(" "), _c('ul', {
+  }, [_vm._m(2), _vm._v(" "), _c('ul', {
     staticClass: "dropdown-menu"
   }, [_c('li', [_c('a', {
     attrs: {
@@ -62486,21 +62519,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("\n                        Modalidades "), _c('span', {
     staticClass: "caret"
   })])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('li', [_c('form', {
-    staticClass: "navbar-form navbar-left"
-  }, [_c('div', {
-    staticClass: "input-group"
-  }, [_c('div', {
-    staticClass: "input-group-btn"
-  }, [_c('button', {
-    staticClass: "btn btn-default",
-    attrs: {
-      "type": "submit"
-    }
-  }, [_c('i', {
-    staticClass: "glyphicon glyphicon-search"
-  })])])])])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('a', {
     staticClass: "dropdown-toggle",

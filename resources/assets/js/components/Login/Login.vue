@@ -17,6 +17,9 @@
 				  	</div>
 				  	<div class="form-group row">
 				      	<div class="offset-sm-2 col-sm-10">
+				      		<button class="hide btn btn-default" type="load">
+				      			<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
+				      		</button>
 				        	<button type="submit" class="btn btn-primary">Login</button>
 				      	</div>
 				    </div>
@@ -150,13 +153,16 @@
 		        };
 		        
 		        axios.interceptors.request.use(config => {
-		        	this.login_load = true;
+		        	$(this.$el).find('[type="load"]').removeClass('hide');
+		        	$(this.$el).find('[type="submit"]').addClass('hide');
 				  	return config;
 				});
 
 				axios.post(loginUrl, qs.stringify(data)).then(response => {
 					
 					if(response.status === 200){
+			        	$(this.$el).find('[type="load"]').addClass('hide');
+			        	$(this.$el).find('[type="submit"]').removeClass('hide');
 						const authUser = {};
               			authUser.access_token = response.data.access_token
               			authUser.refresh_token = response.data.refresh_token
@@ -175,17 +181,18 @@
 					}
 
 				}).catch((error) => {
-					this.login_load = false;
+					$(this.$el).find('[type="load"]').addClass('hide');
+		        	$(this.$el).find('[type="submit"]').removeClass('hide');
 					this.errors = {
 						credentials: 'Usuário ou Senha inválidos'
 					};
 				});
-				this.login_load = false;
+				
 			},
 			create: function(){
 
 				axios.interceptors.request.use(config => {
-		        	this.login_load = true;
+		        	
 				  	return config;
 				});
 				
@@ -210,7 +217,7 @@
 						this.errors = [];
 						//Fazendo busca do usuário logado, para setar na estrutura de dados authUser
 						axios.get(rt.users.logged, {headers: getHeader()}).then(response => {
-							this.login_load = false;
+							
 		                  	authUser.email = response.data.email;
 		                  	authUser.name = response.data.name;
 		                  	window.localStorage.setItem('authUser', JSON.stringify(authUser))
@@ -250,8 +257,4 @@
 </script>
 
 <style scoped>
-	form{
-		width: 70%;
-		margin: 0 auto;
-	}
 </style>

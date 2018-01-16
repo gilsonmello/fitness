@@ -40,10 +40,10 @@
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li >
+                    <!-- <li >
                         <form class="navbar-form navbar-left">
                             <div class="input-group">
-                                <!-- <input type="text" class="form-control" placeholder="Search"> -->
+                                <input type="text" class="form-control" placeholder="Search">
                                 <div class="input-group-btn">
                                     <button class="btn btn-default" type="submit">
                                         <i class="glyphicon glyphicon-search"></i>
@@ -51,7 +51,7 @@
                                 </div>
                             </div>
                         </form>
-                    </li>
+                    </li> -->
 
                     <li class="dropdown" v-if="User.authUser !== null && User.authUser.access_token">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">Área do cliente
@@ -101,7 +101,7 @@
         },
         watch: {
             $route: function(to, from){
-                var paramsTo = to.params;
+                /*var paramsTo = to.params;
                 var paramsFrom = from.params;
                 var dropdownSubMenu = $('body').find('.dropdown-menu');
 
@@ -120,10 +120,12 @@
                         $(this).removeClass('in');
                         $(this).removeAttr('style');
                     });
-                }
+                }*/
             },
-            'User.authUser': function(newValue, oldValue){
-                this.painel = window.urlPainel+"?access_token="+newValue.access_token;
+            'User.authUser': function(newValue, oldValue) {
+                if(newValue) {
+                    this.painel = window.urlPainel+"?access_token="+newValue.access_token;
+                }
             }
         },
         data: function(){

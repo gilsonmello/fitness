@@ -57,12 +57,18 @@
 		    		<div class="form-group">
 					    <label for="birth_date">Academia</label>
 					    <select2 :options="options" v-model="selected"></select2>
+					    <div class="alert alert-danger" v-if="errors.supplier_id">
+						  	<div v-for="supplier_id in errors.supplier_id">{{ supplier_id }}</div>
+						</div>
 				  	</div>
 		    	</div>
 		    </div>
 		    <div class="row"> 
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 				  	<div class="form-group">
+				  		<button class="hide btn btn-default pull-right" type="load">
+			      			<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
+			      		</button>
 			        	<button type="submit" class="btn btn-primary pull-right">Cadastrar</button>
 				    </div>
 			    </div>
@@ -84,7 +90,7 @@
         },
         watch: {
         	$route: function (to, from) {
-		      	this.$nextTick(() => {});
+		      	
 		    }
         },
 		data: function(){
@@ -115,7 +121,8 @@
 			},
 			create: function(){
 				axios.interceptors.request.use(config => {
-		        	this.user_load_create = true;
+		        	$(this.$el).find('[type="load"]').removeClass('hide');
+		        	$(this.$el).find('[type="submit"]').addClass('hide');
 				  	return config;
 				});
 				//Fazendo requisição para criar o usuário
@@ -129,7 +136,13 @@
 				})).then((response) => {
 					if(response.status === 200){
 						this.$router.push({name: 'home'})
-						toastr.success('Enviamos e-mail de confirmação.');
+						toastr.options.timeOut = 10000;
+						toastr.options.newestOnTop = true
+						toastr.options.positionClass = 'toast-top-full-width'
+						toastr.success(
+							'Verifique sua caixa de e-mail', 
+							'Enviamos e-mail de confirmação'
+						);
 						/*const authUser = {};
               			authUser.access_token = response.data
 						window.localStorage.setItem('authUser', JSON.stringify(authUser))
@@ -151,8 +164,9 @@
 		                })*/
 					}
 				}).catch(error => {
+					$(this.$el).find('[type="load"]').addClass('hide');
+		        	$(this.$el).find('[type="submit"]').removeClass('hide');
 					this.errors = error.response.data.errors
-					this.user_load_create = false;
 				})
 			}
 		},
@@ -161,7 +175,7 @@
 		},
 		activated: function(){
 	    	var vm = this;
-	    	$(vm.$el).find('.datepicker').datepicker();
+	    	
 			/*$(vm.$el).find('#birth_date').inputmask({
 				mask: '99/99/9999',
 				onBeforeWrite: function(event, buffer, caretPos, opts){
