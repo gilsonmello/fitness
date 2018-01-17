@@ -499,5 +499,10 @@ return [
 
     'hours' => 'Horas',
 
-    
+    'packages' => [
+        'create' => 'Criar Pacote',
+        'index' => 'Pacotes',
+        'edit' => 'Editar Pacote',
+        'delete' => 'Deletar Pacote',
+    ],    
 ];

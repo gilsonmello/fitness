@@ -47,6 +47,7 @@ mix.scripts([
     'public/bower_components/admin-lte/plugins/datatables/dataTables.bootstrap.min.js',
     'public/bower_components/external-plugins/sweetalert-master/dist/sweetalert.min.js',
     'public/bower_components/external-plugins/jquery-validate/jquery.validate.min.js',
+    
 
    
 
@@ -167,6 +168,7 @@ mix.styles([
     'public/bower_components/admin-lte/plugins/datatables/dataTables.bootstrap.css',
     'public/bower_components/external-plugins/sweetalert-master/dist/sweetalert.css',
     'public/bower_components/external-plugins/jquery-validate/jquery.validate.css',
+    
 
 ], 'public/backend/css/app.css');
 
@@ -189,6 +191,7 @@ mix.scripts([
     'public/bower_components/admin-lte/plugins/input-mask/jquery.inputmask.numeric.extensions.js',
     'public/bower_components/admin-lte/plugins/input-mask/jquery.inputmask.phone.extensions.js',
     'public/bower_components/admin-lte/plugins/input-mask/jquery.inputmask.regex.extensions.js',
+    'node_modules/jquery-maskmoney/dist/jquery.maskMoney.min.js',
 
     'public/bower_components/admin-lte/plugins/daterangepicker/daterangepicker.js',
     'public/bower_components/admin-lte/plugins/datepicker/bootstrap-datepicker.js',

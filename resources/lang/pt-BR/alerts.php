@@ -430,6 +430,21 @@ return [
         ],
     ],
 
+    'packages' => [
+        'create' => [
+            'success' => 'Pacote criado com sucesso.', 
+            'error' => 'Erro ao criar pacote.'
+        ],
+        'edit' => [
+            'success' => 'Pacote editado com sucesso.', 
+            'error' => 'Erro ao editar pacote.'
+        ],
+        'delete' => [
+            'error' => 'Erro ao deletar pacote.',
+            'success' => 'Pacote deletado com sucesso.',
+        ],
+    ],
+
 
     
 

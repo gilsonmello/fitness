@@ -520,14 +520,26 @@ $(function () {
     //Desabilitando todos os elementos com a classe desactive
     $('.desactive').hide();
 
+    $(".title-has-slug").on('keyup', function () {
+        var slug = convertToSlug(this.value);
+        $(".slug-from-title").val(slug);
+    });
+
     /*$('.number2').inputmask("regex", {
         regex: "/\-|\d/"
     });*/
 
     $('.number').inputmask("decimal");
-
-
+    
     $('.decimal').inputmask("decimal");
+
+    $(".money-br").maskMoney({
+        thousands: '.', 
+        decimal: ',', 
+        affixesStay: false, 
+        allowZero: true,
+        prefix: 'R$ ',
+    });
 
     $('.textarea').css({
         'width': '100%'
@@ -699,7 +711,10 @@ $(function () {
         return confirm("Tem certeza que deseja excluir esse item?");
     });
 
-    $('[data-toggle="tooltip"]').tooltip();
+    $('[data-toggle="tooltip"]').css({
+        'cursor': 'pointer'
+    }).tooltip();
+
 
     $('.answer-yes').css({
         'display': 'none'

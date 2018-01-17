@@ -24,6 +24,7 @@
     "bootstrap-datepicker": "^1.7.1",
     "bootstrap-social": "^5.1.1",
     "font-awesome": "^4.7.0",
+    "jquery-maskmoney": "^3.0.2",
     "jquery.inputmask": "^3.3.4",
     "marked": "^0.3.9",
     "select2": "^4.0.6-rc.1",

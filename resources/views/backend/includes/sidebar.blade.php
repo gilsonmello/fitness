@@ -48,12 +48,28 @@
                 </li>
                 <li class="treeview {{ active(['admin/evaluations']) }}">
                     <a href="#">
-                        <span>Avaliação Física</span>
+                        <span>{!! trans('strings.physical_evaluation') !!}</span>
                         <i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
                         <li class="{{ active('admin/evaluations') }}">
-                            <a href="{{ route('backend.evaluations.index') }}">{{ trans('strings.evaluations') }}</a>
+                            <a href="{{ route('backend.evaluations.index') }}">
+                                {{ trans('strings.evaluations') }}
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="treeview {{ active(['admin/packages']) }}">
+                    <a href="#">
+                        <span>{!! trans('strings.package') !!}</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li class="{{ active('admin/packages') }}">
+                            <a href="{{ route('backend.packages.index') }}">
+                                {{ trans('strings.packages') }}
+                            </a>
                         </li>
                     </ul>
                 </li>
@@ -114,7 +130,7 @@
                     </a>
                     <ul class="treeview-menu">
                         <li class="{{ active('admin/config') }}">
-                            <a href="{{route('backend.config.create')}}">Criar Botão Pagseguro</a>
+                            <a href="{{ route('backend.config.create') }}">Criar Botão Pagseguro</a>
                         </li>
                     </ul>
                 </li>

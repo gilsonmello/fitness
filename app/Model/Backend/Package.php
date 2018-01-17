@@ -4,10 +4,11 @@ namespace App\Model\Backend;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Services\Backend\Package\Traits\PackageAttributes;
 
 class Package extends Model
 {
-	use SoftDeletes;
+	use SoftDeletes, PackageAttributes;
 	
      /**
      * @var bool

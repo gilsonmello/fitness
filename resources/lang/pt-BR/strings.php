@@ -12,6 +12,9 @@ return [
       |
      */
     'card_birth_date' => 'Data de Nascimento',
+    'physical_evaluation' => 'Avaliação Física',
+    'package' => 'Pacote',
+    'packages' => 'Pacotes',
     'address_complement' => 'Complemento',
     'number' => 'Número',
     'parcels' => 'Parcelas',
