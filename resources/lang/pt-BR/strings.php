@@ -12,6 +12,10 @@ return [
       |
      */
     'card_birth_date' => 'Data de Nascimento',
+    'img_discount' => 'Imagem Desconto',
+    'begin_discount' => 'Inicio do Desconto',
+    'end_discount' => 'Fim do Desconto',
+    'value_discount' => 'Valor com Desconto',
     'physical_evaluation' => 'Avaliação Física',
     'package' => 'Pacote',
     'packages' => 'Pacotes',
@@ -30,6 +34,8 @@ return [
     'suppliers' => 'Fornecedores',
     'supplier' => 'Fornecedor',
     'available_date' => 'Data Disponível',
+    'meta_title' => 'Títulos buscados no google',
+    'meta_description' => 'Descrição buscadas no google',
     'diary' => 'Agenda',
     'diaries' => 'Agendas',
     'text' => 'Texto',  

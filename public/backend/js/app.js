@@ -16852,7 +16852,7 @@ $(function () {
         decimal: ',', 
         affixesStay: false, 
         allowZero: true,
-        'prefix': 'R$ ',
+        prefix: 'R$ ',
     });
 
     $('.textarea').css({
@@ -17241,6 +17241,9 @@ $(function () {
         '#send_img_analise_postural_posterior',
         '#tab_analise_postural_posterior'
     );
+
+
+    
 
     /**
      * Created by Junnyor on 03/08/2017.

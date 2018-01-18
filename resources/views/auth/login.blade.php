@@ -37,7 +37,7 @@
                 {{ csrf_field() }}
 
                 <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }} has-feedback">
-                    <input value="{{ old('email') }}" id="email" type="email" class="form-control" name="email" placeholder="{{ trans('strings.email') }}" required autofocus>
+                    <input value="{{ old('email') }}" id="email" type="email" autofocus="autofocus" class="form-control" name="email" placeholder="{{ trans('strings.email') }}" required="required">
                     <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                     @if ($errors->has('email'))
                         <span class="help-block">
@@ -58,7 +58,8 @@
                     <div class="col-xs-8">
                         <div class="checkbox icheck">
                             <label>
-                                <input type="checkbox" class="minimal" name="remember" {{ old('remember') ? 'checked' : '' }}> {{ trans('strings.remember_me') }}
+                                <input type="checkbox" class="minimal" name="remember" {{ old('remember') ? 'checked' : '' }}> 
+                                {{ trans('strings.remember_me') }}
                             </label>
                         </div>
                     </div>
@@ -70,14 +71,14 @@
                 </div>
             </form>
 
-            <div class="social-auth-links text-center">
-                {{-- <p>- OR -</p> --}}
+            {{--<div class="social-auth-links text-center">
+                 <p>- OR -</p> 
                 <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook-f"></i> {{ trans('strings.login_with_facebook') }}</a>
-                {{-- <a href="#" class="btn btn-block btn-social btn-google btn-flat">
+                 <a href="#" class="btn btn-block btn-social btn-google btn-flat">
                     <i class="fa fa-google-plus"></i> Sign in using
                     Google+</a> 
-                --}}
-            </div>
+                
+            </div>--}}
             <!-- /.social-auth-links -->
 
             <a href="{{ route('auth.password.request') }}">
@@ -100,6 +101,5 @@
  --}}
     <!-- AdminLTE App -->
     <script src="{{ mix ('backend/js/app.js') }}" type="text/javascript"></script>
-    
 </body>
 </html>
