@@ -32,7 +32,7 @@ class PackageController extends Controller
      */
     public function create()
     {
-        //
+        return view('backend.packages.create');
     }
 
     /**
@@ -43,7 +43,14 @@ class PackageController extends Controller
      */
     public function store(CreatePackageRequest $request)
     {
-        //
+        if($this->packageRepository->create($request)){
+            return redirect()->route('backend.packages.index')
+                ->withInput()
+                ->withFlashSuccess(trans('alerts.packages.create.success'));
+        }
+        return redirect()->route('backend.packages.create')
+                ->withInput()
+                ->withFlashSuccess(trans('alerts.packages.create.error'));
     }
 
     /**
@@ -78,7 +85,14 @@ class PackageController extends Controller
      */
     public function update(UpdatePackageRequest $request, $id)
     {
-        //
+        if($this->packageRepository->update($request, $id)){
+            return redirect()->route('backend.packages.index')
+                ->withInput()
+                ->withFlashSuccess(trans('alerts.packages.update.success'));
+        }
+        return redirect()->route('backend.packages.edit')
+                ->withInput()
+                ->withFlashSuccess(trans('alerts.packages.update.error'));
     }
 
     /**
@@ -89,6 +103,13 @@ class PackageController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if($this->packageRepository->destroy($id)){
+            return redirect()->route('backend.packages.index')
+                ->withInput()
+                ->withFlashSuccess(trans('alerts.packages.delete.success'));
+        }
+        return redirect()->route('backend.packages.index')
+                ->withInput()
+                ->withFlashSuccess(trans('alerts.packages.delete.error'));   
     }
 }

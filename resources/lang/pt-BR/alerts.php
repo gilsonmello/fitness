@@ -252,11 +252,6 @@ return [
     'packageexams' => [
         'addsuccess' => 'SAAP adicionado com sucesso.',
     ],
-    'packages' => [
-        'created' => 'Pacote de SAAP criado com sucesso.',
-        'deleted' => 'Pacote de SAAP excluído com sucesso',
-        'updated' => 'Pacote de SAAP atualizado com sucesso',
-    ],
     'packageteachers' => [
         'addsuccess' => 'Professor adicionado com sucesso.',
     ],

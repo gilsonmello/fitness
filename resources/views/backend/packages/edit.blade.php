@@ -23,7 +23,7 @@
 
 @section('content')
 
-{!! Form::model($package, ['route' => ['backend.packages.update', $package->id], 'class' => '', 'role' => 'form', 'method' => 'put']) !!}
+{!! Form::model($package, ['route' => ['backend.packages.update', $package->id], 'class' => '', 'role' => 'form', 'method' => 'put', 'files' => true]) !!}
 <div class="box box-primary">
     <div class="box-body">
         <div class="row">
@@ -96,12 +96,14 @@
             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                 <div class="form-group">
                     {!! Form::label('img', trans('strings.image').' *', ['class' => '', 'title' => 'Selecione a imagem para a capa do pacote', 'data-toggle' => 'tooltip', 'data-placement' => 'top']) !!}
-                    {!! Form::file('img', ['placeholder' => trans('strings.image')]) !!}
+                    {!! Form::file('img', ['placeholder' => trans('strings.image'), 'accept' => "image/*"]) !!}
                 </div>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                 <div class="form-group">
-                    <img src="/logo.jpg">
+                    <a href="{{ $package->img }}" target="_blank">
+                        <img src="{{ $package->img }}" class="img-responsive">
+                    </a>
                 </div>
             </div>
         </div>
@@ -110,12 +112,14 @@
             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                 <div class="form-group">
                     {!! Form::label('img_discount', trans('strings.img_discount').' *', ['class' => '', 'title' => 'Selecione a imagem para a capa do pacote, caso esteja em promoção', 'data-toggle' => 'tooltip', 'data-placement' => 'top']) !!}
-                    {!! Form::file('img_discount', ['placeholder' => trans('strings.img_discount')]) !!}
+                    {!! Form::file('img_discount', ['placeholder' => trans('strings.img_discount'), 'accept' => "image/*"]) !!}
                 </div>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                 <div class="form-group">
-                    <img src="/logo.jpg">
+                    <a href="{{ $package->img_discount }}" target="_blank">
+                        <img src="{{ $package->img_discount }}" class="img-responsive">
+                    </a>
                 </div>
             </div>
         </div> 

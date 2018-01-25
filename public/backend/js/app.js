@@ -17241,8 +17241,6 @@ $(function () {
         '#send_img_analise_postural_posterior',
         '#tab_analise_postural_posterior'
     );
-
-
     
 
     /**

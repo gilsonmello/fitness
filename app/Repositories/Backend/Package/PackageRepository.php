@@ -17,7 +17,9 @@ class PackageRepository
      */
     public function __construct()
     {
-        
+        if(!is_dir(public_path() . '/uploads/images/packages')){
+            mkdir(public_path() . '/uploads/images/packages');
+        }   
     }
 
     /**
@@ -40,12 +42,44 @@ class PackageRepository
      */
     public function create($request)
     {
-        $data = $request->all();
+        //dd($request->get('value'));
         $package = new Package;
+        $package->name = $request->get('name');
+        $package->slug = $request->get('slug');
+        $package->description = $request->get('description');
+        $package->validity = $request->get('validity');
+        $package->value = str_replace(',', '.', $request->get('value'));
+
+        $package->begin_discount = $request->get('begin_discount');
+        $package->end_discount = $request->get('end_discount');
+        $package->value_discount = $request->get('value_discount');
+        $package->is_active = !is_null($request->get('is_active')) ? $request->get('is_active') : 0;
+        $package->meta_title = $request->get('meta_title');
+        $package->meta_description = $request->get('meta_description');
+
+        $package->save();
+        $id = $package->id;
+        
+        if($request->hasFile('img')) {
+            $image = $request->file('img');
+            $name = 'img_'.$id.'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('/uploads/images/packages');
+            $image->move($destinationPath, $name);
+            $package->img = '/uploads/images/packages/'.$name;
+        }
+        
+        if($request->hasFile('img_discount')) {
+            $image = $request->file('img_discount');
+            $name = 'img_discount_'.$id.'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('/uploads/images/packages');
+            $image->move($destinationPath, $name);
+            $package->img_discount = '/uploads/images/packages/'.$name;
+        }
         
         if ($package->save()) {
             return true;
         }
+
         return false;
     }
 
@@ -54,7 +88,7 @@ class PackageRepository
      */
     public function all()
     {
-        return Package::all()->where('is_active', '=', 1);
+        return Package::all();
     }
 
     /**
@@ -79,10 +113,39 @@ class PackageRepository
      * @param $request
      * @return boolean
      */
-    public function update($id, $request)
+    public function update($request, $id)
     {
         $data = $request->all();
-        $package = $this->findOrThrowException($id);
+        $package = $this->find($id);
+        $package->name = $request->get('name');
+        $package->slug = $request->get('slug');
+        $package->description = $request->get('description');
+        $package->validity = $request->get('validity');
+        $package->value = $request->get('value');
+        
+        if($request->hasFile('img')) {
+            $image = $request->file('img');
+            $name = 'img_'.$id.'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('/uploads/images/packages');
+            $image->move($destinationPath, $name);
+            $package->img = '/uploads/images/packages/'.$name;
+        }
+        
+        if($request->hasFile('img_discount')) {
+            $image = $request->file('img_discount');
+            $name = 'img_discount_'.$id.'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('/uploads/images/packages');
+            $image->move($destinationPath, $name);
+            $package->img_discount = '/uploads/images/packages/'.$name;
+        }
+
+        $package->begin_discount = $request->get('begin_discount');
+        $package->end_discount = $request->get('end_discount');
+        $package->value_discount = $request->get('value_discount');
+        $package->is_active = $request->get('is_active');
+        $package->meta_title = $request->get('meta_title');
+        $package->meta_description = $request->get('meta_description');
+        
         if ($package->save()) {
             return true;
         }
@@ -97,7 +160,7 @@ class PackageRepository
      */
     public function destroy($id)
     {
-        $package = $this->findOrThrowException($id);
+        $package = $this->find($id);
         if ($package->delete()) {
             return true;
         }
