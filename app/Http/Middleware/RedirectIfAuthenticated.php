@@ -20,7 +20,7 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null, $params = null)
     {
         $url = $request->route()->uri();
-        if(strpos($url, 'admin/logout') !== FALSE){
+        if(strpos(route('auth.logout'), $url) !== FALSE){
             return $next($request);
         }
 

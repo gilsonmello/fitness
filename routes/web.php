@@ -61,7 +61,7 @@ Route::get('/admin/error', function(){
 Route::group(['namespace' => 'Backend'], function () {
 
 	//Rota para login administrativo
-	Route::group(['prefix' => 'admin'], function() {
+	Route::group(['prefix' => 'admin', 'middleware' => 'guest'], function() {
 		require(__DIR__ . "/Backend/AdminAuth.php");
 	});
 
@@ -74,6 +74,11 @@ Route::group(['namespace' => 'Backend'], function () {
 		//'redirect' => 'admin/error'
 
 		], function(){
+			
+			//Rota principal
+			Route::get('/', function() {
+
+			});
 
 			//Rota principal
 			Route::get('/dashboard', 'DashboardController@index')->name('backend.dashboard');
