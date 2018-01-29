@@ -13,6 +13,19 @@ use App\Repositories\Backend\Test\TestRepository;
  */
 class ReportController extends Controller
 {
+    /**
+     * @var AuthRepository
+     */
+    protected $authRepository;
+
+    /**
+     * @var TestRepository
+     */
+    protected $testRepository;
+
+    /**
+     * ReportController constructor.
+     */
     public function __construct(){
         $this->authRepository = new AuthRepository;
         $this->testRepository = new TestRepository;
@@ -24,6 +37,7 @@ class ReportController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function tests($id, Request $request){
+        $this->authorize('backend.reports.simple.tests');
         $user = $this->authRepository->find($id);
         return view('backend.reports.simple.tests', compact('user'));
     }
@@ -34,6 +48,7 @@ class ReportController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function evaluations($id, Request $request){
+        $this->authorize('backend.reports.simple.evaluations');
         $user = $this->authRepository->find($id);
         return view('backend.reports.simple.evaluations', compact('user'));
     }
@@ -45,6 +60,7 @@ class ReportController extends Controller
      */
     public function simple(Request $request)
     {
+        $this->authorize('backend.reports.simple.simple');
         //$request->session()->put('lastpage', $request->only('page')['page']);
         $f_submit = $request->input('f_submit', '');
         $name = getValueSession($request, 'Backend/ReportController@index:name', '', $f_submit, '');
@@ -65,6 +81,7 @@ class ReportController extends Controller
             'role_id' => ['op' => 'In', 'value' => $profile]
         ], ['evaluations' => 'NULL']);
 
+
         return view('backend.reports.simple.simple', compact(
             'roles', 'users', 'name', 'email', 'cpf', 'rg', 'profile'
         ));
@@ -77,6 +94,7 @@ class ReportController extends Controller
      */
     public function index(Request $request)
     {
+        $this->authorize('backend.reports.index');
         $request->session()->put('lastpage', $request->only('page')['page']);
         $f_submit = $request->input('f_submit', '');
         $name = getValueSession($request, 'Backend/ReportController@index:name', '', $f_submit, '');
@@ -109,7 +127,7 @@ class ReportController extends Controller
      */
     public function create()
     {
-        //
+        $this->authorize('backend.reports.create');
     }
 
     /**
@@ -120,7 +138,7 @@ class ReportController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->authorize('backend.reports.store');
     }
 
     /**

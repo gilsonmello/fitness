@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             'birth_date' => '1994-12-31',
             'cpf' => '073.011.215-20',
             'rg' => '13.610.029-56',
+            'is_active' => 1,
             'password' => bcrypt('jun10r'),
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s')
@@ -26,6 +27,7 @@ class DatabaseSeeder extends Seeder
         DB::table('users')->insert([
             'name' => 'Gabriele dos Santos Miranda',
             'email' => 'gabriele.miranda@mirandafitness.com.br',
+            'is_active' => 1,
             'password' => bcrypt('81625358'),
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s')
@@ -35,6 +37,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Usuário Teste',
             'email' => 'teste@teste.com',
             'password' => bcrypt('teste'),
+            'is_active' => 1,
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s')
         ]);
@@ -44,7 +47,7 @@ class DatabaseSeeder extends Seeder
 
         //Seed roles
         DB::table('roles')->insert([
-            'name' => 'adm',
+            'name' => 'admin',
             'label' => 'Administrador',
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s')
@@ -151,30 +154,18 @@ class DatabaseSeeder extends Seeder
         ]);
 
         //Seeds permissions
-        /*DB::table('permissions')->insert([
+        DB::table('permissions')->insert([
+            'id' => 1,
             'name' => 'backend.view',
-            'label' => 'Visualizar Backend',
+            'label' => 'Visualizar Área Administrativa',
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s')
         ]);
 
         DB::table('permissions')->insert([
-            'name' => 'backend.question_grupo.create',
-            'label' => 'Criar grupo de questões',
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s')
-        ]);
-
-        DB::table('permissions')->insert([
-            'name' => 'backend.question_group.index',
-            'label' => 'Listagem de Grupo de Questões',
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s')
-        ]);
-
-        DB::table('permissions')->insert([
-            'name' => 'backend.question_group.update',
-            'label' => 'Editar de Grupo de Questões',
+            'id' => 2,
+            'name' => 'backend.packages.index',
+            'label' => 'Listagem de Pacotes',
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s')
         ]);
@@ -182,32 +173,15 @@ class DatabaseSeeder extends Seeder
         //Seeds permission_role
         DB::table('permission_role')->insert([
             'permission_id' => 1,
-            'role_id' => 2,
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s')
+            'role_id' => 2
         ]);
 
         DB::table('permission_role')->insert([
             'permission_id' => 2,
-            'role_id' => 2,
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s')
+            'role_id' => 2
         ]);
 
-        DB::table('permission_role')->insert([
-            'permission_id' => 3,
-            'role_id' => 2,
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s')
-        ]);
-
-        DB::table('permission_role')->insert([
-            'permission_id' => 4,
-            'role_id' => 2,
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s')
-        ]);
-
+        /*
         DB::table('evaluations')->insert([
             'user_id' => 1,
             'is_active' => 1,

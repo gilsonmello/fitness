@@ -13,7 +13,7 @@ class CreateDiaryRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return $this->authorize('backend.diaries.store');
     }
 
     /**

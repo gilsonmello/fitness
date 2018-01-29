@@ -108,7 +108,47 @@ if (!function_exists('getValueSession')) {
 }
 
 if(!function_exists('active')){
-	function active($condition){
+
+    function active($condition){
+        $url = isset($_SERVER['REQUEST_URI']) && !empty($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : "";
+        $url = explode('/', $url);
+
+        //Prefixo para a aŕea administrativa
+        $prefix = isset($url[1]) ? $url[1] : '';
+
+        //Controller
+        $controller = isset($url[2]) ? $url[2] : '';
+
+        //Action
+        $action = isset($url[3]) ? $url[3] : '';
+
+        //Url a ser verificada
+        $verifyUrl = '';
+
+        if(!empty($prefix))
+            $verifyUrl .= $prefix;
+
+        if(!empty($controller))
+            $verifyUrl .= '/'.$controller;
+
+        if(!empty($action))
+            $verifyUrl .= '/'.$action;
+
+        if(is_string($condition)){
+            if(strpos($verifyUrl, $condition) !== FALSE){
+                return 'active';
+            }
+        }else if(is_array($condition)){
+            foreach($condition as $key => $value){
+                if(strpos($verifyUrl, $value) !== FALSE){
+                    return 'active';
+                }
+            }
+        }
+        return '';
+    }
+
+    /*function active($condition){
 
 		$url = isset($_SERVER['REQUEST_URI']) && !empty($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : "";
 		$url = explode('/', $url);
@@ -142,9 +182,9 @@ if(!function_exists('active')){
 			if(strpos($t, $condition) !== FALSE){
 				return "active";
 			}
-		}*/
+		}
 		return "";
-	}
+	}*/
 }
 
 if(!function_exists('string_replace')){

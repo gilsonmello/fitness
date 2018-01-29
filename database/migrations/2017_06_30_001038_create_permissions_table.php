@@ -26,25 +26,15 @@ class CreatePermissionsTable extends Migration
         Schema::create('permission_role', function (Blueprint $table) {
             $table->engine = "InnoDB";
             $table->increments('id');
-            
             $table->integer('permission_id')->unsigned();
-            
             $table->integer('role_id')->unsigned();
-            
-            $table->timestamps();
-            
-        });
-        
-        Schema::table('permission_role', function($table) {
             $table->foreign('permission_id')
-                    ->on('permissions')
-                    ->references('id');
-            
+                ->on('permissions')
+                ->references('id');
             $table->foreign('role_id')
-                    ->on('roles')
-                    ->references('id');
+                ->on('roles')
+                ->references('id');
         });
-        
     }
 
     /**

@@ -30,6 +30,13 @@ class LoginController extends Controller
     protected $redirectTo = '/admin';
 
     /**
+     * @return string
+     */
+    protected function redirectTo(){
+        return route('backend.dashboard');
+    }
+
+    /**
      * Create a new controller instance.
      *
      * @return void
@@ -44,7 +51,6 @@ class LoginController extends Controller
      */
     public function getLogout(Request $request)
     {
-
         Auth::guard()->logout();
         $request->session()->flush();
         $request->session()->regenerate();

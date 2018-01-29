@@ -4,11 +4,11 @@ namespace App\Model\Backend;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Services\Backend\Protocol\Traits\ProtocolAttributes;
+use App\Services\Backend\Protocol\Traits\PermissionAttributes;
 
 class Protocol extends Model
 {
-    use SoftDeletes, ProtocolAttributes;
+    use SoftDeletes, PermissionAttributes;
 
     /**
      * @var bool

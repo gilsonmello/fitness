@@ -44,12 +44,20 @@ return [
         'system' => 'Sistema?',
         'total' => 'Total de permissões',
         'users' => 'Usuários',
+        'tooltip' => [
+            'label' => 'Permissões',
+            'name' => 'Nome da Permissão'
+        ]
     ],
     'roles' => [
         'number_of_users' => 'Nº de Usuários',
         'permissions' => 'Permissões',
         'role' => 'Papel',
         'total' => 'Total de papéis',
+        'tooltip' => [
+            'label' => 'Tipo de Perfil',
+            'name' => 'Nome do Perfil'
+        ]
     ],
     'sections' => [
         'id' => 'ID',

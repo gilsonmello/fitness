@@ -168,7 +168,7 @@ mix.styles([
     'public/bower_components/admin-lte/plugins/datatables/dataTables.bootstrap.css',
     'public/bower_components/external-plugins/sweetalert-master/dist/sweetalert.css',
     'public/bower_components/external-plugins/jquery-validate/jquery.validate.css',
-    
+    'resources/assets/backend/css/main.css',
 
 ], 'public/backend/css/app.css');
 

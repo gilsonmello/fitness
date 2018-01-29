@@ -29,30 +29,30 @@
         </form>--}}
         <!-- Sidebar Menu -->
         <ul class="sidebar-menu">
-            <li class="{{ active('admin') }}">
+            <li class="{{ active('dashboard') }}">
                 <a href="{{ route('backend.dashboard') }}">
                     <span>Dashboard</span>
                 </a>
             </li>
-            @if (access()->hasPermission('backend.view') || auth()->user()->hasAnyRoles('adm'))
-                <li class="treeview {{ active(['admin/auth']) }}">
+            @can('backend.view')
+                <li class="treeview {{ active(['auth']) }}">
                     <a href="#">
                         <span>{{ trans('strings.users') }}</span>
                         <i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
-                        <li class="{{ active('admin/auth') }}">
+                        <li class="{{ active('auth') }}">
                             <a href="{{ route('backend.auth.index') }}">{{ trans('strings.users') }}</a>
                         </li>
                     </ul>
                 </li>
-                <li class="treeview {{ active(['admin/evaluations']) }}">
+                <li class="treeview {{ active(['evaluations']) }}">
                     <a href="#">
                         <span>{!! trans('strings.physical_evaluation') !!}</span>
                         <i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
-                        <li class="{{ active('admin/evaluations') }}">
+                        <li class="{{ active('evaluations') }}">
                             <a href="{{ route('backend.evaluations.index') }}">
                                 {{ trans('strings.evaluations') }}
                             </a>
@@ -60,13 +60,13 @@
                     </ul>
                 </li>
 
-                <li class="treeview {{ active(['admin/packages']) }}">
+                <li class="treeview {{ active(['packages']) }}">
                     <a href="#">
                         <span>{!! trans('strings.package') !!}</span>
                         <i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
-                        <li class="{{ active('admin/packages') }}">
+                        <li class="{{ active('packages') }}">
                             <a href="{{ route('backend.packages.index') }}">
                                 {{ trans('strings.packages') }}
                             </a>
@@ -74,48 +74,48 @@
                     </ul>
                 </li>
 
-                <li class="treeview {{ active(['admin/tests', 'admin/protocols', 'admin/additional_data']) }}">
+                <li class="treeview {{ active(['tests', 'protocols', 'additional_data']) }}">
                     <a href="#">
                         <span>Testes</span>
                         <i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
-                        <li class="{{ active('admin/tests') }}">
+                        <li class="{{ active('tests') }}">
                             <a href="{{ route('backend.tests.index') }}">{{ trans('strings.tests') }}</a>
                         </li>
-                        <li class="{{ active('admin/protocols') }}">
+                        <li class="{{ active('protocols') }}">
                             <a href="{{ route('backend.protocols.index') }}">{{  trans('strings.protocols') }}</a>
                         </li>
-                        <li class="{{ active('admin/additional_data') }}">
+                        <li class="{{ active('additional_data') }}">
                             <a href="{{ route('backend.additional_data.index') }}">Dados Adicionais</a>
                         </li>
                     </ul>
                 </li>
 
-                <li class="treeview {{ active(['admin/reports']) }}">
+                <li class="treeview {{ active(['reports']) }}">
                     <a href="#">
                         <span>Relatórios</span>
                         <i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
-                        <li class="{{ active(['admin/reports/simple', 'admin/reports/tests', 'admin/reports/evaluations']) }}">
+                        <li class="{{ active(['reports/simple', 'reports/tests', 'reports/evaluations']) }}">
                             <a href="{{route('backend.reports.simple')}}">{{ trans('menus.simple') }}</a>
                         </li>
                     </ul>
                 </li>
 
-                <li class="treeview {{ active(['admin/diaries', 'admin/diary_hours']) }}">
+                <li class="treeview {{ active(['diaries', 'diary_hours']) }}">
                     <a href="#">
                         <span>{{ trans('strings.diary') }}</span>
                         <i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
-                        <li class="{{ active(['admin/diaries']) }}">
+                        <li class="{{ active(['diaries']) }}">
                             <a href="{{route('backend.diaries.index')}}">
                                 {{ trans('menus.diary') }}
                             </a>
                         </li>
-                        <li class="{{ active(['admin/diary_hour']) }}">
+                        <li class="{{ active(['diary_hour']) }}">
                             <a href="{{route('backend.diary_hours.index')}}">
                                 {{ trans('menus.hours') }}
                             </a>
@@ -123,18 +123,34 @@
                     </ul>
                 </li>
 
-                <li class="treeview {{ active(['admin/config']) }}">
+                <li class="treeview {{ active(['config']) }}">
                     <a href="#">
                         <span>Pagseguro</span>
                         <i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
-                        <li class="{{ active('admin/config') }}">
+                        <li class="{{ active('config') }}">
                             <a href="{{ route('backend.config.create') }}">Criar Botão Pagseguro</a>
                         </li>
                     </ul>
                 </li>
-            @endif
+
+                <li class="header">Configurações do Sistema</li>
+                <li class="treeview {{ active(['roles', 'permissions']) }}">
+                    <a href="#">
+                        <span>Níveis de Acesso</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li class="{{ active('roles') }}">
+                            <a href="{{ route('backend.roles.index') }}">Perfis de Acesso</a>
+                        </li>
+                        <li class="{{ active('permissions') }}">
+                            <a href="{{ route('backend.permissions.index') }}">Permissões de Acesso</a>
+                        </li>
+                    </ul>
+                </li>
+            @endcan
         </ul><!-- /.sidebar-menu -->
     </section>
     <!-- /.sidebar -->

@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Backend\Package;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Gate;
 
 class UpdatePackageRequest extends FormRequest
 {
@@ -13,7 +14,7 @@ class UpdatePackageRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return Gate::check('backend.packages.update');
     }
 
     /**
@@ -24,8 +25,8 @@ class UpdatePackageRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
-            'slug' => 'required',
+            'name' => 'required|unique:packages,name,'.$this->name,
+            'slug' => 'required|unique:packages,slug,'.$this->slug,
             'img' => isset($this->img) ? 'required|image|mimes:jpg,jpeg,png,gif' : '',
             'img_discount' => 'image|mimes:jpg,jpeg,png,gif',
             'validity' => 'required|regex:/^[0-9]/',
@@ -40,10 +41,10 @@ class UpdatePackageRequest extends FormRequest
     public function messages()
     {
         return [
-            /*'cpf.min' => 'Informe o CPF com 11 números',*/
             'name.required' => 'O campo Nome é obrigatório',
-            /*'role_id.required' => 'O campo Perfil é obrigatório',*/
+            'name.unique' => 'O Nome informado ja existe',
             'slug.required' => 'O campo Slug é obrigatório',
+            'slug.unique' => 'O Slug informado ja existe',
             'img.required' => 'O campo Imagem é obrigatório',
             'img.image' => 'O campo Imagem só pode ser selecionado imagem',
             'img.mimes' => 'O campo Imagem só pode ser selecionado imagem',

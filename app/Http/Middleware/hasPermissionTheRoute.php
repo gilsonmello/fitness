@@ -7,6 +7,7 @@ use App\Services\Access\Traits\AccessParams;
 use App\Model\Backend\User;
 use App\Model\Backend\Permission;
 use Auth;
+use Illuminate\Support\Facades\Gate;
 
 class hasPermissionTheRoute
 {
@@ -22,16 +23,19 @@ class hasPermissionTheRoute
      */
     public function handle($request, Closure $next, $params = null)
     {
+        if(!Auth::guest()) {
+            Gate::authorize('backend.view');
+        }
+
         if(Auth::guest()) {
             return redirect()->route('auth.login');
         }
-        if(Auth::user()->hasAnyRoles('adm')){
-            return $next($request);
-        }
+
+        /*
         $assets = $this->getAssets($request, $params);
         
         if (!access()->canMultiple($assets['permissions'], $assets['needsAll']))
-            return $this->getRedirectMethodAndGo($request, $params);
+            return $this->getRedirectMethodAndGo($request, $params);*/
 
         return $next($request);
     }

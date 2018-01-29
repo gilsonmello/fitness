@@ -12,7 +12,7 @@
                 <a href="{{ route('backend.dashboard') }}"><i class="fa fa-dashboard"></i> {{ trans('strings.dashboard') }}</a>
             </li>
             <li>
-                <a href="{{ route('backend.packages.index') }}">{{ trans('menus.questions.index') }}</a>
+                <a href="{{ route('backend.packages.index') }}">{{ trans('menus.packages.index') }}</a>
             </li>
             <li class="active">{{ trans('menus.packages.edit') }}</li>
         </ol>
@@ -42,7 +42,7 @@
             <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
                 <div class="form-group">
                     {!! Form::label('is_active', trans('strings.is_active').'*', ['style' => 'display: block']) !!}
-                    {!! Form::checkbox('is_active', 1, $package->is_active == 1 ? true : false,['class' => 'form-control flat-red', 'placeholder' => trans('strings.title')]) !!}
+                    {!! Form::checkbox('is_active', 1, $package->is_active == 1 ? true : false, ['class' => 'form-control flat-red', 'placeholder' => trans('strings.title')]) !!}
                 </div>
             </div>
         </div>

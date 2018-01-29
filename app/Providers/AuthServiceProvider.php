@@ -3,9 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-use App\Model\Backend\User;
+use App\User;
 use App\Model\Backend\Permission;
 use Auth;
 use Laravel\Passport\Passport;
@@ -30,23 +29,26 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
         Passport::routes();
+        //$gate->abilities();
 
 
-        /*Gate::define('edit-auth', function($user, $id) {
+        /*$gate->define('edit-auth', function($user, $id) {
             return $user->id == $id;
         });*/
 
-        /*$permissions = Permission::with('roles')->get();
+        $permissions = Permission::where('is_active', '=', 1)->get();
+
         foreach($permissions as $permission){
             $gate->define($permission->name, function(User $user) use ($permission){
                 return $user->hasPermission($permission);
             });
         }
-        $gate->before(function(User $user, $permission){
-            if($user->hasAnyRoles('adm')){
-                return true;
-            }
-        });*/
 
+        $gate->before(function(User $user, $permission){
+           if($user->hasAnyRoles('admin')){
+               return true;
+           }
+           return false;
+        });
     }
 }

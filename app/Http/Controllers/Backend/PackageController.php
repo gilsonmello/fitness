@@ -7,9 +7,22 @@ use App\Http\Controllers\Controller;
 use App\Repositories\Backend\Package\PackageRepository;
 use App\Http\Requests\Backend\Package\CreatePackageRequest;
 use App\Http\Requests\Backend\Package\UpdatePackageRequest;
+use Illuminate\Support\Facades\Gate;
 
+/**
+ * Class PackageController
+ * @package App\Http\Controllers\Backend
+ */
 class PackageController extends Controller
 {
+    /**
+     * @var PackageRepository
+     */
+    protected $packageRepository;
+
+    /**
+     * PackageController constructor.
+     */
     public function __construct(){
         $this->packageRepository = new PackageRepository;
     }
@@ -21,6 +34,7 @@ class PackageController extends Controller
      */
     public function index()
     {
+        $this->authorize('backend.packages.index');
         $packages = $this->packageRepository->all();
         return view('backend.packages.index', compact('packages'));
     }
@@ -32,6 +46,7 @@ class PackageController extends Controller
      */
     public function create()
     {
+        $this->authorize('backend.packages.create');
         return view('backend.packages.create');
     }
 
@@ -61,17 +76,19 @@ class PackageController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('backend.packages.show');
     }
 
     /**
      * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \App\Exceptions\GeneralException
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function edit($id)
     {
+        $this->authorize('backend.packages.edit');
         $package = $this->packageRepository->find($id);
         return view('backend.packages.edit', compact('package'));
     }
@@ -103,6 +120,7 @@ class PackageController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('backend.packages.destroy');
         if($this->packageRepository->destroy($id)){
             return redirect()->route('backend.packages.index')
                 ->withInput()

@@ -7,7 +7,7 @@
  */
 
 namespace App\Repositories\Backend\Auth;
-use App\Model\Backend\User;
+use App\User;
 use App\Model\Backend\Role;
 
 
@@ -58,6 +58,7 @@ class AuthRepository{
                 }   
             }
         }
+
         return $user->orderBy($order_by, $sort)->get();
     }
 

@@ -17,7 +17,7 @@ class CreatePackagesTable extends Migration
             $table->engine = "InnoDB";
             $table->increments('id');
             $table->string('name');
-            $table->string('slug');
+            $table->string('slug')->unique();
             $table->longText('description')->nullable();
             $table->integer('validity');
             $table->decimal('value');

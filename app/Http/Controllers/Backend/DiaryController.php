@@ -26,6 +26,7 @@ class DiaryController extends Controller
      */
     public function index(Request $request)
     {
+        $this->authorize('backend.diaries.index');
         $diaries = $this->diaryRepository->getPaginated();
         //dd($diaries);
         return view('backend.diaries.index', compact('diaries'));
@@ -38,6 +39,7 @@ class DiaryController extends Controller
      */
     public function create()
     {
+        $this->authorize('backend.diaries.create');
         $suppliers = $this->diaryRepository->getSuppliers();
         return view('backend.diaries.create', compact('suppliers'));
     }
@@ -50,7 +52,6 @@ class DiaryController extends Controller
      */
     public function store(CreateDiaryRequest $request)
     {
-        
         if($this->diaryRepository->create($request)){
             return redirect()->route('backend.diaries.index')
                 ->withFlashSuccess(trans('alerts.diaries.create.success'));
@@ -69,7 +70,8 @@ class DiaryController extends Controller
      */
     public function show($id)
     {
-        //
+
+        $this->authorize('backend.diaries.show');
     }
 
     /**
@@ -80,6 +82,7 @@ class DiaryController extends Controller
      */
     public function edit($id)
     {
+        $this->authorize('backend.diaries.edit');
         $diary = $this->diaryRepository->find($id);
         $suppliers = $this->diaryRepository->getSuppliers();
 
@@ -113,6 +116,7 @@ class DiaryController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('backend.diaries.destroy');
         if($this->diaryRepository->destroy($id)){
             return redirect()->route('backend.diaries.index')
                 ->withFlashSuccess(trans('alerts.diaries.delete.success'));

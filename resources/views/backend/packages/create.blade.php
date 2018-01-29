@@ -46,7 +46,7 @@
             <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
                 <div class="form-group">
                     {!! Form::label('is_active', trans('strings.is_active').'*', ['style' => 'display: block']) !!}
-                    {!! Form::checkbox('is_active', 1, old('is_active') == 1 ? true : false, ['class' => 'form-control flat-red', 'placeholder' => trans('strings.title')]) !!}
+                    {!! Form::checkbox('is_active', 1, true, ['class' => 'form-control flat-red', 'placeholder' => trans('strings.title')]) !!}
                 </div>
             </div>
         </div>
@@ -139,6 +139,6 @@
         </div>
     </div>
 </div>
-    <div class="clearfix"></div>
+<div class="clearfix"></div>
 {!! Form::close() !!}
 @endsection

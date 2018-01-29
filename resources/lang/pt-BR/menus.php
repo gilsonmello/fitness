@@ -22,7 +22,6 @@ return [
     ],
     'content' => "Conteúdo",
     'reference' => "Cadastros",
-    'reports' => "Relatórios",
     'site' => "Site",
     'active_users' => 'Usuários Ativos',
     'active_userstudents' => 'Alunos Ativos',
@@ -59,7 +58,6 @@ return [
     'courses' => 'Cursos',
     'course-questions' => 'Avaliação',
     'modules' => 'Disciplinas',
-    'enrollments' => 'Matrículas',
     'enrollment' => 'Matrícula',
     'lessons' => 'Aulas',
     'create_module' => 'Criar Disciplina',
@@ -122,7 +120,6 @@ return [
     'video_management' => 'Gerenciamento de Vídeos',
     'all_videos' => 'Todos os Vídeos',
     'create_video' => 'Novo Vídeo',
-    'edit_video' => 'Editar Vídeo',
     'user_students' => 'Alunos',
     'user_representatives' => 'Representantes',
     'representativecommissions' => 'Comissões',
@@ -160,7 +157,6 @@ return [
     'create_userteachers' => 'Adicionar novo professor',
     'userteacher_management' => 'Gerenciamento de Professores',
     'create_userrepresentative' => 'Adicionar novo representante',
-    'userrepresentative_management' => 'Gerenciamento de Representantes',
     'coursealerts' => 'Quadro de avisos',
     'all_coursealerts' => 'Todos itens de quadro de avisos',
     'create_coursealert' => 'Criar novo item',
@@ -218,7 +214,6 @@ return [
     'create_groupquestion' => 'Criar nova Questão',
     'groupquestion_management' => "Gerenciamento de Questões do Grupo",
     'add_question' => "Adicionar questão existente",
-    'packages' => "Pacotes de SAAP",
     'all_packages' => "Todos os Pacotes de SAAP",
     'edit_package' => 'Editar Pacote de SAAP',
     'create_package' => 'Criar novo Pacote de SAAP',
@@ -437,8 +432,6 @@ return [
         'edit' => 'Editar Matrícula'
     ],
 
-    'add_userrepresentatives_coupon' => 'Adicionar Cupom',
-
     'ipacs' => [
         'create' => 'Criar IPAC',
     ],
@@ -504,5 +497,25 @@ return [
         'index' => 'Pacotes',
         'edit' => 'Editar Pacote',
         'delete' => 'Deletar Pacote',
-    ],    
+    ],
+
+    'permissions' => [
+        'create' => 'Criar Permissão',
+        'index' => 'Permissões',
+        'edit' => 'Editar Permissão',
+        'delete' => 'Deletar Permissão',
+    ],
+
+    'roles' => [
+        'create' => 'Criar Perfil',
+        'index' => 'Perfis',
+        'edit' => 'Editar Perfil',
+        'delete' => 'Deletar Perfil',
+        'role' => 'Perfil',
+        'total' => 'Total de Perfis',
+        'tooltip' => [
+            'label' => 'Rótulo do Perfil',
+            'name' => 'Nome do Perfil'
+        ]
+    ],
 ];

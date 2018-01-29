@@ -54,11 +54,6 @@ return [
         'updated' => 'Permissão atualizada com sucesso.',
         'deleted' => 'Permissão deletada com sucesso.'
     ],
-    'roles' => [
-        'created' => 'O papel foi criado com sucesso.',
-        'updated' => 'O papel foi atualizado com sucesso.',
-        'deleted' => 'O papel foi excluído com sucesso.'
-    ],
     'sections' => [
         'created' => 'Seção criada com sucesso.',
         'updated' => 'Seção atualizada com sucesso.',
@@ -440,6 +435,20 @@ return [
         ],
     ],
 
+    'roles' => [
+        'create' => [
+            'success' => 'Perfil criado com sucesso.',
+            'error' => 'Erro ao criar Perfil.'
+        ],
+        'edit' => [
+            'success' => 'Perfil editado com sucesso.',
+            'error' => 'Erro ao editar Perfil.'
+        ],
+        'delete' => [
+            'error' => 'Erro ao deletar Perfil.',
+            'success' => 'Perfil deletado com sucesso.',
+        ],
+    ],
 
     
 

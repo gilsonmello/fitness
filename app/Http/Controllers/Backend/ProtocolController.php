@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Repositories\Backend\Protocol\ProtocolRepository;
+use App\Repositories\Backend\Protocol\PermissionRepository;
 use App\Http\Requests\Backend\Protocol\CreateProtocolRequest;
 use App\Http\Requests\Backend\Protocol\UpdateProtocolRequest;
 
@@ -18,7 +18,7 @@ class ProtocolController extends Controller
      * ProtocolController constructor.
      */
     public function __construct(){
-        $this->protocolRepository = new ProtocolRepository;
+        $this->protocolRepository = new PermissionRepository;
     }
 
     /**

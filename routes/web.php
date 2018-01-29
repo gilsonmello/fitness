@@ -68,15 +68,15 @@ Route::group(['namespace' => 'Backend'], function () {
 	Route::group([
 		'prefix' => 'admin',
 		'middleware' => 'access.route',
-		'role' => ['admin'],
-		'permission' => 'backend.view',
-		'with' => ['flash_danger', 'You do not have access to do that.'],
-		'redirect' => 'admin/error'
+		//'role' => ['admin'],
+		//'permission' => 'backend.view',
+		//'with' => ['flash_danger', 'You do not have access to do that.'],
+		//'redirect' => 'admin/error'
 
 		], function(){
 
 			//Rota principal
-			Route::get('/', 'DashboardController@index')->name('backend.dashboard');
+			Route::get('/dashboard', 'DashboardController@index')->name('backend.dashboard');
 
 			//Rotas para as notícias
 			require_once __DIR__.'/Backend/News.php';
@@ -116,6 +116,12 @@ Route::group(['namespace' => 'Backend'], function () {
 
 			//Rotas para pacotes
 			require_once __DIR__.'/Backend/Package.php';
+
+			//Rotas para permissões
+            require_once __DIR__.'/Backend/Permission.php';
+
+            //Rotas para perfis
+            require_once __DIR__.'/Backend/Role.php';
 
 	});
 });

@@ -12,6 +12,9 @@ return [
       |
      */
     'card_birth_date' => 'Data de Nascimento',
+    'permissions' => 'Permissões',
+    'label' => 'Rótulo',
+    'roles' => 'Perfis',
     'img_discount' => 'Imagem Desconto',
     'begin_discount' => 'Inicio do Desconto',
     'end_discount' => 'Fim do Desconto',
