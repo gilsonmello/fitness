@@ -20,3 +20,4 @@ Route::resource('roles', 'RoleController', [
         'destroy' => 'backend.roles.destroy',
     ]
 ]);
+Route::get('roles/paginate', 'RoleController@paginate')->name('backend.roles.paginate');

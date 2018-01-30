@@ -62,7 +62,7 @@
     <div class="col-xs-12 col-md-12 col-sm-12 col-lg-12">
         <div class="box">
             <!-- /.box-header -->
-            <div class="box-body">
+            <div class="box-body" id="content">
                 <table cellspacing="0" class="table table-bordered table-hover data-table">
                     <thead>
                         <tr>
@@ -99,6 +99,19 @@
                         @endforelse
                     </tbody>
                 </table>
+
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+                        <div class="pull-left">
+                            <br>
+                            <label>{{ trans('menus.roles.total') }}.: {!! $roles->total() !!}</label>
+                        </div>
+                        <div class="pull-right">
+                            {!! $roles->render() !!}
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>

@@ -79,7 +79,11 @@ class RoleRepository
     public function getPaginated($per_page = NULL, $name = '', $label = '', $order_by = 'id', $sort = 'asc')
     {
         if (!is_null($per_page)) {
-            return Role::orderBy($order_by, $sort)->paginate($per_page);
+            return Role::orderBy($order_by, $sort)
+                ->where('is_active', '=', 1)
+                ->where('name', 'like', '%'.$name.'%')
+                ->where('label', 'like', '%'.$label.'%')
+                ->paginate($per_page);
         }
         return Role::where('is_active', '=', 1)
             ->where('name', 'like', '%'.$name.'%')

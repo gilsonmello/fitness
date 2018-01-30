@@ -512,6 +512,60 @@ function openModalWithFields(params){
 
 $(function () {
 
+    var App = function(){
+        this.init();
+    };
+
+    App.prototype.init = function(){
+        this._tooltip();
+        this._buttonDelete();
+    };
+
+    App.prototype._tooltip = function(){
+        $('[data-toggle="tooltip"]').css({
+            'cursor': 'pointer'
+        }).tooltip();
+    }
+
+    App.prototype._buttonDelete = function(){
+        $('[data-method]').append(function(){
+            var method;
+            if($(this).attr('data-method') != undefined || $(this).attr('data-method') != ""){
+                method = $(this).attr('data-method');
+            }else{
+                method = "POST";
+            }
+            var typeAlert = $(this).attr('data-alert');
+            var message = $(this).attr('data-message');
+            var name = null;
+            switch (typeAlert) {
+                case 'send_email':
+                    name = "send_email";
+                    break;
+                case 'released_for_certification':
+                    name = "released_for_certification";
+                    break;
+                default:
+                    name = "delete_item";
+                    break;
+            }
+            return "\n" +
+                "<form action='" + $(this).attr('href') + "' method='POST' data-message='" + message + "' name='" + name + "' style='display:none'>\n" +
+                "   <input type='hidden' name='_method' value='" + $(this).attr('data-method') + "'>\n" +
+                "   <input type='hidden' name='_token' value='" + $('meta[name="_token"]').attr('content') + "'>\n" +
+                "</form>\n"
+        })
+        .removeAttr('href')
+        .attr('style', 'cursor:pointer;')
+        .attr('onclick', '$(this).find("form").submit();');
+        /*
+            Generic are you sure dialog
+         */
+        $('form[name=delete_item]').submit(function () {
+            return confirm("Tem certeza que deseja excluir esse item?");
+        });
+    }
+
     //Método para validar o CPF
     $.validator.addMethod("isCPF", function(value, element) {
         return validateCPF(value);
@@ -530,13 +584,13 @@ $(function () {
     });*/
 
     $('.number').inputmask("decimal");
-    
+
     $('.decimal').inputmask("decimal");
 
     $(".money-br").maskMoney({
-        thousands: '.', 
-        decimal: ',', 
-        affixesStay: false, 
+        thousands: '.',
+        decimal: ',',
+        affixesStay: false,
         allowZero: true,
         prefix: 'R$ ',
     });
@@ -668,54 +722,48 @@ $(function () {
         disableFocus: true
     });
 
-
     $.fn.dataTable.ext.errMode = 'none';
 
-    $('[data-method]').append(function(){
 
-            var method;
+    /*$('[data-method]').append(function(){
+        var method;
+        if($(this).attr('data-method') != undefined || $(this).attr('data-method') != ""){
+            method = $(this).attr('data-method');
+        }else{
+            method = "POST";
+        }
+        var typeAlert = $(this).attr('data-alert');
+        var message = $(this).attr('data-message');
+        var name = null;
+        switch (typeAlert) {
+            case 'send_email':
+                name = "send_email";
+                break;
+            case 'released_for_certification':
+                name = "released_for_certification";
+                break;
+            default:
+                name = "delete_item";
+                break;
+        }
+        return "\n" +
+            "<form action='" + $(this).attr('href') + "' method='POST' data-message='" + message + "' name='" + name + "' style='display:none'>\n" +
+            "   <input type='hidden' name='_method' value='" + $(this).attr('data-method') + "'>\n" +
+            "   <input type='hidden' name='_token' value='" + $('meta[name="_token"]').attr('content') + "'>\n" +
+            "</form>\n"
+    })
+    .removeAttr('href')
+    .attr('style', 'cursor:pointer;')
+    .attr('onclick', '$(this).find("form").submit();');
 
-            if($(this).attr('data-method') != undefined || $(this).attr('data-method') != ""){
-                method = $(this).attr('data-method');
-            }else{
-                method = "POST";
-            }
-            var typeAlert = $(this).attr('data-alert');
-            var message = $(this).attr('data-message');
-            var name = null;
-            switch (typeAlert) {
-                case 'send_email':
-                    name = "send_email";
-                    break;
-                case 'released_for_certification':
-                    name = "released_for_certification";
-                    break;
-                default:
-                    name = "delete_item";
-                    break;
-            }
-            return "\n" +
-                "<form action='" + $(this).attr('href') + "' method='POST' data-message='" + message + "' name='" + name + "' style='display:none'>\n" +
-                "   <input type='hidden' name='_method' value='" + $(this).attr('data-method') + "'>\n" +
-                "   <input type='hidden' name='_token' value='" + $('meta[name="_token"]').attr('content') + "'>\n" +
-                "</form>\n"
-        })
-        .removeAttr('href')
-        .attr('style', 'cursor:pointer;')
-        .attr('onclick', '$(this).find("form").submit();');
 
-    /*
      Generic are you sure dialog
-     */
+
     $('form[name=delete_item]').submit(function () {
         return confirm("Tem certeza que deseja excluir esse item?");
-    });
+    });*/
 
-    $('[data-toggle="tooltip"]').css({
-        'cursor': 'pointer'
-    }).tooltip();
-
-
+    
     $('.answer-yes').css({
         'display': 'none'
     });
@@ -725,6 +773,76 @@ $(function () {
     });
 
     var table = $('.data-table').DataTable({
+        rowReorder: {
+            selector: 'td:nth-child(2)'
+        },
+        paging: false,
+        lengthChange: false,
+        searching: true,
+        ordering: true,
+        info: false,
+        lengthMenu: [10, 20, 50],
+        autoWidth: true,
+        responsive: true,
+        scroll: true,
+        scrollX: true,
+        scrollCollapse: true,
+        language: {
+            search: "Pesquisar",
+            zeroRecords: "Não foram encontrados registros",
+            processing: "Processando...",
+            thousands: ",",
+            lengthMenu: "Listando _MENU_ registros",
+            emptyTable: "Não há registros disponíveis",
+            info: false
+        }
+    });
+
+
+
+    $('body').on('click', '.pagination a', function(e) {
+        e.preventDefault();
+        var url = $(this).attr('href');
+        getData(url);
+        window.history.pushState("", "", url);
+    });
+
+    function getData(url){
+        $.ajax({
+            method: 'get',
+            url: url,
+            data: {},
+            beforeSend: function(){
+                $('#content').append('<img style="position: absolute; left: 0; top: 0; z-index: 100000;" src="/img/loading2.gif" />');
+            },
+            success: function(data){
+                $('#content').html(data);
+                $('#content').find('table').DataTable({
+                    paging: false,
+                    info: false,
+                    autoWidth: true,
+                    responsive: true,
+                    scroll: true,
+                    scrollX: true,
+                    scrollCollapse: true,
+                    language: {
+                        search: "Pesquisar",
+                        zeroRecords: "Não foram encontrados registros",
+                        processing: "Processando...",
+                        thousands: ",",
+                        lengthMenu: "Listando _MENU_ registros",
+                        emptyTable: "Não há registros disponíveis",
+                        info: ''
+                    }
+                });
+            },
+            error: function(error){
+
+            }
+        });
+    }
+
+    /*var table = $('.data-table').DataTable({
         rowReorder: {
             selector: 'td:nth-child(2)'
         },
@@ -754,7 +872,7 @@ $(function () {
             emptyTable: "Não há registros disponíveis",
             info: "Mostrando de _START_ até _END_ no total de _TOTAL_ registros"
         }
-    });
+    });*/
 
     function submitFormWithSweetAlertAndAjax(id){
         form = $('#'+id);
@@ -927,7 +1045,7 @@ $(function () {
         '#send_img_analise_postural_posterior',
         '#tab_analise_postural_posterior'
     );
-    
+
 
     /**
      * Created by Junnyor on 03/08/2017.
@@ -973,4 +1091,5 @@ $(function () {
             });
         }, false);
     }*/
+    window.App = new App;
 });
