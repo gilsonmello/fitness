@@ -497,6 +497,11 @@ return [
         'index' => 'Pacotes',
         'edit' => 'Editar Pacote',
         'delete' => 'Deletar Pacote',
+        'total' => 'Total de Pacotes',
+        'tooltip' => [
+            'label' => 'Rótulo do Pacote',
+            'name' => 'Nome do Pacote'
+        ]
     ],
 
     'permissions' => [
@@ -518,4 +523,7 @@ return [
             'name' => 'Nome do Perfil'
         ]
     ],
+    'auth' => [
+        'total' => 'Total de Usuários'
+    ]
 ];

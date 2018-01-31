@@ -25,8 +25,8 @@ class UpdatePackageRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:packages,name,'.$this->name,
-            'slug' => 'required|unique:packages,slug,'.$this->slug,
+            'name' => 'required|unique:packages,name,'.$this->id.',id',
+            'slug' => 'required|unique:packages,slug,'.$this->id.',id',
             'img' => isset($this->img) ? 'required|image|mimes:jpg,jpeg,png,gif' : '',
             'img_discount' => 'image|mimes:jpg,jpeg,png,gif',
             'validity' => 'required|regex:/^[0-9]/',

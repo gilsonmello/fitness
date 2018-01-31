@@ -37,13 +37,19 @@ class AuthController extends Controller
         }
         $profile = array_map('intval', $profile);
         $roles = $this->authRepository->roles();
-        $users = $this->authRepository->getPaginated(NULL, [
+        $users = $this->authRepository->getPaginated(1, [
             'name' => ['op' => 'like', 'value' => '%'.$name.'%'],
             'email' => ['op' => 'like', 'value' => '%'.$email.'%'],
             'cpf' => ['op' => '=', 'value' => $cpf],
             'rg' => ['op' => '=', 'value' => $rg],
             'role_id' => ['op' => 'In', 'value' => $profile]
         ], ['roles' => 'client']);
+
+        if($request->ajax()){
+            return view('backend.auth.paginate', compact(
+                'users'
+            ));
+        }
 
         return view('backend.auth.index', compact(
             'roles', 'users', 'name', 'email', 'cpf', 'rg', 'profile'

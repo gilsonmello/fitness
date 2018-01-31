@@ -21,8 +21,6 @@
 @extends('layouts.backend.app')
 
 @section('content')
-
-
     <div class="pull-right" style="margin-bottom:10px">
         <a href="{{ route('backend.auth.create') }}" class="btn btn-primary btn-xs">
             {{ trans('menus.users.create') }}
@@ -93,8 +91,8 @@
         <div class="col-xs-12">
             <div class="box">
                 <!-- /.box-header -->
-                <div class="box-body">
-                    <table id="example2" cellspacing="0" class="table table-bordered table-hover data-table">
+                <div class="box-body content-to-be-update">
+                    <table cellspacing="0" class="table table-bordered table-hover data-table">
                         <thead>
                             <tr>
                                 <th>{!! trans('strings.name') !!}</th>
@@ -124,6 +122,17 @@
                             </tr>
                         </tfoot>
                     </table>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+                            <div class="pull-left">
+                                <br>
+                                <label>{{ trans('menus.auth.total') }}.: {!! $users->total() !!}</label>
+                            </div>
+                            <div class="pull-right">
+                                {!! $users->render() !!}
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

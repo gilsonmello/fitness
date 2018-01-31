@@ -28,9 +28,7 @@ class AuthRepository{
     public function getPaginated($per_page = NULL, $params = [], $whereHas = [], $order_by = 'users.id', $sort = 'asc')
     {
         $user = User::where('users.is_active', '=', 1);
-        if (!is_null($per_page)) {
-            return $user->orderBy($order_by, $sort)->paginate($per_page);
-        }
+
         //
         if(!is_null($params) && count($params) > 0){
             $user->where(function($query) use ($params){
@@ -57,6 +55,10 @@ class AuthRepository{
                     });
                 }   
             }
+        }
+
+        if (!is_null($per_page)) {
+            return $user->orderBy($order_by, $sort)->paginate($per_page);
         }
 
         return $user->orderBy($order_by, $sort)->get();

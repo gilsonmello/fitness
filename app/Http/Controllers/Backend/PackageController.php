@@ -32,11 +32,27 @@ class PackageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $this->authorize('backend.packages.index');
-        $packages = $this->packageRepository->all();
-        return view('backend.packages.index', compact('packages'));
+        $f_submit = $request->input('f_submit', '');
+
+        $name = getValueSession($request, 'Backend/PackageController@index:name', '', $f_submit, '');
+        $slug = getValueSession($request, 'Backend/PackageController@index:slug', '', $f_submit, '');
+        $packages = $this->packageRepository
+            ->getPaginated(config('app.per_page'), $name, $slug);
+        if($request->ajax()){
+            return view('backend.packages.paginate', compact(
+                'packages',
+                'name',
+                'slug'
+            ));
+        }
+        return view('backend.packages.index', compact(
+            'packages',
+            'name',
+            'slug'
+        ));
     }
 
     /**

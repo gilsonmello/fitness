@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Repositories\Backend\Protocol\PermissionRepository;
+use App\Repositories\Backend\Protocol\ProtocolRepository;
 use App\Http\Requests\Backend\Protocol\CreateProtocolRequest;
 use App\Http\Requests\Backend\Protocol\UpdateProtocolRequest;
 
@@ -18,7 +18,7 @@ class ProtocolController extends Controller
      * ProtocolController constructor.
      */
     public function __construct(){
-        $this->protocolRepository = new PermissionRepository;
+        $this->protocolRepository = new ProtocolRepository;
     }
 
     /**
@@ -27,6 +27,7 @@ class ProtocolController extends Controller
      */
     public function index(Request $request){
         //$request->session()->put('lastpage', $request->only('page')['page']);
+        $this->authorize('backend.protocols.index');
 
         $f_submit = $request->input('f_submit', '');
 
@@ -41,6 +42,7 @@ class ProtocolController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create(){
+        $this->authorize('backend.protocols.create');
         $measures = $this->protocolRepository->getMeasures('name');
         return view('backend.protocols.create', compact('typeTests', 'measures'));
     }
@@ -62,7 +64,8 @@ class ProtocolController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @throws \App\Exceptions\GeneralException
      */
-    public function edit($id){
+    public function edit($id) {
+        $this->authorize('backend.protocols.edit');
         $protocol = $this->protocolRepository->findOrThrowException($id);
         $measures = $this->protocolRepository->getMeasures('name');
         return view('backend.protocols.edit', compact('protocol', 'measures'));
@@ -85,6 +88,7 @@ class ProtocolController extends Controller
     }
 
     public function destroy($id){
+        $this->authorize('backend.protocols.destroy');
         if($this->protocolRepository->destroy($id)){
             return redirect()->route('backend.protocols.index')
                 ->withFlashSuccess(trans('alerts.protocols.deleted'));

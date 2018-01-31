@@ -26,6 +26,7 @@
 {!! Form::model($package, ['route' => ['backend.packages.update', $package->id], 'class' => '', 'role' => 'form', 'method' => 'put', 'files' => true]) !!}
 <div class="box box-primary">
     <div class="box-body">
+        {!! Form::hidden('id', $package->id) !!}
         <div class="row">
             <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5">
                 <div class="form-group">

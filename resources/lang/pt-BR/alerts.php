@@ -414,6 +414,10 @@ return [
             'success' => 'Horário para a agenda editada com sucesso.', 
             'error' => 'Erro ao editar horário para a agenda.'
         ],
+        'update' => [
+            'success' => 'Horário para a agenda editada com sucesso.', 
+            'error' => 'Erro ao editar horário para a agenda.'
+        ],
         'delete' => [
             'error' => 'Erro ao deletadar horário da agenda.',
             'success' => 'Horário da agenda deletado com sucesso.',
@@ -426,6 +430,10 @@ return [
             'error' => 'Erro ao criar pacote.'
         ],
         'edit' => [
+            'success' => 'Pacote editado com sucesso.', 
+            'error' => 'Erro ao editar pacote.'
+        ],
+        'update' => [
             'success' => 'Pacote editado com sucesso.', 
             'error' => 'Erro ao editar pacote.'
         ],

@@ -62,7 +62,7 @@
     <div class="col-xs-12 col-md-12 col-sm-12 col-lg-12">
         <div class="box">
             <!-- /.box-header -->
-            <div class="box-body" id="content">
+            <div class="box-body content-to-be-update">
                 <table cellspacing="0" class="table table-bordered table-hover data-table">
                     <thead>
                         <tr>

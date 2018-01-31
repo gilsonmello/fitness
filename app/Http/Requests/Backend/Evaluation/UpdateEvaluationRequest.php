@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Backend\Evaluation;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Gate;
 
 class UpdateEvaluationRequest extends FormRequest
 {
@@ -13,7 +14,7 @@ class UpdateEvaluationRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return Gate::check('backend.evaluations.store');
     }
 
     /**

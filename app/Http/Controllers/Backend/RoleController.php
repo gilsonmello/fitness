@@ -37,7 +37,7 @@ class RoleController extends Controller
         $f_submit = $request->input('f_submit', '');
         $name = getValueSession($request, 'RoleController@index:name', '', $f_submit, '');
         $label = getValueSession($request, 'RoleController@index:label', '', $f_submit, '');
-        $roles = $this->roleRepository->getPaginated(2, $name, $label);
+        $roles = $this->roleRepository->getPaginated(config('app.per_page'), $name, $label);
 
         if($request->ajax()){
             return view('backend.roles.paginate', compact(

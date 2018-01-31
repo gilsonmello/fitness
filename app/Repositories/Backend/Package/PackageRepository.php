@@ -98,12 +98,18 @@ class PackageRepository
      * @param string $sort
      * @return mixed
      */
-    public function getPaginated($per_page = NULL, $title = '', $formula, $order_by = 'id', $sort = 'asc')
+    public function getPaginated($per_page = NULL, $name = '', $slug = '', $order_by = 'id', $sort = 'asc')
     {
         if (!is_null($per_page)) {
-            return Package::orderBy($order_by, $sort)->paginate($per_page);
+            return Package::where('is_active', '=', 1)
+                ->where('name', 'LIKE', '%'.$name.'%')
+                ->where('slug', 'LIKE', '%'.$slug.'%')
+                ->orderBy($order_by, $sort)
+                ->paginate($per_page);
         }
         return Package::where('is_active', '=', 1)
+            ->where('name', 'LIKE', '%'.$name.'%')
+            ->where('slug', 'LIKE', '%'.$slug.'%')
             ->orderBy($order_by, $sort)
             ->get();
     }

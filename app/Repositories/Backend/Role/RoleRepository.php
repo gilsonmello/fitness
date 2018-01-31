@@ -55,7 +55,9 @@ class RoleRepository
      */
     public function all()
     {
-        return Role::all()->where('is_active', '=', 1);
+        return Role::where('name', '<>', 'admin')
+            ->where('is_active', '=', 1)
+            ->get();
     }
 
     /**
@@ -80,6 +82,7 @@ class RoleRepository
     {
         if (!is_null($per_page)) {
             return Role::orderBy($order_by, $sort)
+                ->where('name', '<>', 'admin')
                 ->where('is_active', '=', 1)
                 ->where('name', 'like', '%'.$name.'%')
                 ->where('label', 'like', '%'.$label.'%')

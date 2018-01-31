@@ -799,25 +799,20 @@ $(function () {
     });
 
 
-
     $('body').on('click', '.pagination a', function(e) {
+        var elementToBeUpdate = $('.content-to-be-update');
+        var btn = $(this);
         e.preventDefault();
-        var url = $(this).attr('href');
-        getData(url);
-        window.history.pushState("", "", url);
-    });
-
-    function getData(url){
         $.ajax({
             method: 'get',
-            url: url,
+            url: btn.attr('href'),
             data: {},
             beforeSend: function(){
-                $('#content').append('<img style="position: absolute; left: 0; top: 0; z-index: 100000;" src="/img/loading2.gif" />');
+                elementToBeUpdate.append('<img style="position: absolute; left: 0; top: 0; z-index: 100000;" src="/img/loading2.gif" />');
             },
             success: function(data){
-                $('#content').html(data);
-                $('#content').find('table').DataTable({
+                elementToBeUpdate.html(data);
+                elementToBeUpdate.find('table.data-table').DataTable({
                     paging: false,
                     info: false,
                     autoWidth: true,
@@ -835,11 +830,17 @@ $(function () {
                         info: ''
                     }
                 });
+                console.log(btn);
+                window.history.pushState("", "", btn.attr('href'));
             },
             error: function(error){
 
             }
         });
+    });
+
+    function getData(url){
+        
     }
 
     /*var table = $('.data-table').DataTable({

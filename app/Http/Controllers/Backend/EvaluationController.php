@@ -47,7 +47,8 @@ class EvaluationController extends Controller
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function create(){
+    public function create(){        
+        $this->authorize('backend.evaluations.create');
         $users = $this->userRepository->allClients();
         return view('backend.evaluations.create', compact('users'));
     }
@@ -58,6 +59,7 @@ class EvaluationController extends Controller
      * @throws \App\Exceptions\GeneralException
      */
     public function destroy($id){
+        $this->authorize('backend.evaluations.destroy');
         if($this->evaluationRepository->destroy($id)){
             return redirect()
                 ->route('backend.evaluations.index')
@@ -107,6 +109,7 @@ class EvaluationController extends Controller
      * @throws \App\Exceptions\GeneralException
      */
     public function edit($id){
+        $this->authorize('backend.evaluations.edit');
         $evaluation = $this->evaluationRepository->findOrThrowException($id);
         $users = $this->userRepository->allClients();
         return view('backend.evaluations.edit', compact('evaluation', 'users'));
@@ -117,6 +120,7 @@ class EvaluationController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(Request $request){
+        $this->authorize('backend.evaluations.index');
         $evaluations = $this->evaluationRepository->all();
         return view('backend.evaluations.index', compact('evaluations'));
     }
@@ -127,6 +131,7 @@ class EvaluationController extends Controller
      * @return json
      */
     public function updateAnthropometries($id, Request $request){
+        $this->authorize('backend.evaluations.updateAnthropometries');
         if($this->evaluationRepository->updateAnthropometries($id, $request)){
             return die(json_encode("true"));
         }
@@ -138,6 +143,7 @@ class EvaluationController extends Controller
      * @param UpdateBioempedanciaRequest $request
      */
     public function updateBioempedancia($id, UpdateBioempedanciaRequest $request){
+        $this->authorize('backend.evaluations.updateBioempedancia');
         if($this->evaluationRepository->updateBioempedancia($id, $request)){
             return die(json_encode("true"));
         }
@@ -150,6 +156,7 @@ class EvaluationController extends Controller
      * @return boolean
      */
     public function updateParq($id, UpdateParqRequest $request){
+        $this->authorize('backend.evaluations.updateParq');
         if($this->evaluationRepository->updateParq($id, $request)){
             return die(json_encode("true"));
         }
@@ -162,6 +169,7 @@ class EvaluationController extends Controller
      * @return boolean
      */
     public function updatePregrasCutaneas($id, UpdatePregrasCutaneaRequest $request){
+        $this->authorize('backend.evaluations.updatePregrasCutaneas');
         if($this->evaluationRepository->updatePregrasCutaneas($id, $request)){
             return die(json_encode("true"));
         }
@@ -173,6 +181,7 @@ class EvaluationController extends Controller
      * @param UpdateAnalisePosturalAnteriorRequest $request
      */
     public function updateAnalisePosturalAnterior($id, UpdateAnalisePosturalAnteriorRequest $request){
+        $this->authorize('backend.evaluations.updateAnalisePosturalAnterior');
         if($this->evaluationRepository->updateAnalisePosturalAnterior($id, $request)){
             return die(json_encode('true'));
         }
@@ -184,6 +193,7 @@ class EvaluationController extends Controller
      * @param UpdateAnalisePosturalLateralEsquerdaRequest $request
      */
     public function updateAnalisePosturalLateralEsquerda($id, UpdateAnalisePosturalLateralEsquerdaRequest $request){
+        $this->authorize('backend.evaluations.updateAnalisePosturalLateralEsquerda');
         if($this->evaluationRepository->updateAnalisePosturalLateralEsquerda($id, $request)){
             return die(json_encode('true'));
         }
@@ -195,6 +205,7 @@ class EvaluationController extends Controller
      * @param UpdateAnalisePosturalLateralEsquerdaRequest $request
      */
     public function updateAnalisePosturalLateralDireita($id, UpdateAnalisePosturalLateralEsquerdaRequest $request){
+        $this->authorize('backend.evaluations.updateAnalisePosturalLateralDireita');
         if($this->evaluationRepository->updateAnalisePosturalLateralDireita($id, $request)){
             return die(json_encode('true'));
         }
@@ -206,6 +217,7 @@ class EvaluationController extends Controller
      * @param UpdateAnalisePosturalPosterior $request
      */
     public function updateAnalisePosturalPosterior($id, UpdateAnalisePosturalPosterior $request){
+        $this->authorize('backend.evaluations.updateAnalisePosturalPosterior');
         if($this->evaluationRepository->updateAnalisePosturalPosterior($id, $request)){
             return die(json_encode('true'));
         }
@@ -282,6 +294,7 @@ class EvaluationController extends Controller
      * @return json
      */
     public function updateRiscoCoronario($id, UpdateRiscoCoronarioRequest $request){
+        $this->authorize('backend.evaluations.updateRiscoCoronario');
         if($this->evaluationRepository->updateRiscoCoronario($id, $request)){
             return die(json_encode('true'));
         }

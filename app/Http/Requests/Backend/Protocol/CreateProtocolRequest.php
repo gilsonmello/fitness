@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Backend\Protocol;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Gate;
 
 class CreateProtocolRequest extends FormRequest
 {
@@ -13,7 +14,7 @@ class CreateProtocolRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return Gate::check('backend.protocols.store');
     }
 
     /**
@@ -27,6 +28,20 @@ class CreateProtocolRequest extends FormRequest
             'name' => 'required',
             'formula' => 'required',
             'measure_id' => 'required'
+        ];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'name.required' => 'O campo Nome é obrigatório',
+            'formula.required' => 'O campo Formula é obrigatório',
+            'measure_id.required' => 'O campo Medida é obrigatório',
         ];
     }
 }

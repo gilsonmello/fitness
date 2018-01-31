@@ -77,7 +77,7 @@ Route::group(['namespace' => 'Backend'], function () {
 			
 			//Rota principal
 			Route::get('/', function() {
-
+				return redirect()->route('backend.dashboard');
 			});
 
 			//Rota principal
