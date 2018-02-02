@@ -124,7 +124,6 @@ return [
     'user_representatives' => 'Representantes',
     'representativecommissions' => 'Comissões',
     'user_teachers' => 'Professores',
-    'tags' => 'Tags',
     'faq_category_management' => 'Gerenciamento de Categorias FAQ',
     'faq_management' => 'Gerenciamento de FAQ',
     'config' => 'Configurações',
@@ -521,6 +520,30 @@ return [
         'tooltip' => [
             'label' => 'Rótulo do Perfil',
             'name' => 'Nome do Perfil'
+        ]
+    ],
+    'categories' => [
+        'create' => 'Criar Categoria',
+        'index' => 'Categorias',
+        'edit' => 'Editar Categoria',
+        'delete' => 'Deletar Categoria',
+        'total' => 'Total de Categorias',
+        'tooltip' => [
+            'label' => 'Rótulo do Categoria',
+            'name' => 'Nome da Categoria',            
+            'slug' => 'Slug da Categoria'
+        ]
+    ],
+    'tags' => [
+        'create' => 'Criar Tag',
+        'index' => 'Tags',
+        'edit' => 'Editar Tag',
+        'delete' => 'Deletar Tag',
+        'total' => 'Total de Tags',
+        'tooltip' => [
+            'label' => 'Rótulo da Tag',
+            'name' => 'Nome da Tag',            
+            'slug' => 'Slug da Tag'
         ]
     ],
     'auth' => [

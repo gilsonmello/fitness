@@ -128,6 +128,12 @@ Route::group(['namespace' => 'Backend'], function () {
             //Rotas para perfis
             require_once __DIR__.'/Backend/Role.php';
 
+            //Rotas para categorias
+            require_once __DIR__.'/Backend/Category.php';
+
+            //Rotas para tags
+            require_once __DIR__.'/Backend/Tag.php';
+
 	});
 });
 

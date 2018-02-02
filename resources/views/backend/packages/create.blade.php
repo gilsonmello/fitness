@@ -45,8 +45,24 @@
             </div>
             <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
                 <div class="form-group">
-                    {!! Form::label('is_active', trans('strings.is_active').'*', ['style' => 'display: block']) !!}
+                    {!! Form::label('is_active', trans('strings.is_active').' *', ['style' => 'display: block']) !!}
                     {!! Form::checkbox('is_active', 1, true, ['class' => 'form-control flat-red', 'placeholder' => trans('strings.title')]) !!}
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="form-group">
+                    {!! Form::label('category_id[]', trans('strings.categories').' *', ['class' => '']) !!}
+                    {!! Form::select('category_id[]', $categories, NULL, 
+                        [
+                            'style' => 'width: 100%;', 
+                            'class' => 'select2', 
+                            'multiple' => 'multiple',
+                            'data-placeholder' => trans('strings.categories')
+                        ]) 
+                    !!}
                 </div>
             </div>
         </div>
@@ -63,13 +79,13 @@
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
                 <div class="form-group">
-                    {!! Form::label('validity', trans('strings.validity').'*', ['class' => '', 'title' => 'Informe a validade em número de dias', 'data-toggle' => 'tooltip', 'data-placement' => 'top']) !!}
+                    {!! Form::label('validity', trans('strings.validity').' *', ['class' => '', 'title' => 'Informe a validade em número de dias', 'data-toggle' => 'tooltip', 'data-placement' => 'top']) !!}
                     {!! Form::text('validity', old('validity'), ['class' => 'form-control number', 'placeholder' => trans('strings.validity')]) !!}
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
                 <div class="form-group">
-                    {!! Form::label('value', trans('strings.value').'*', ['class' => '', 'title' => 'Preço do Pacote', 'data-toggle' => 'tooltip', 'data-placement' => 'top']) !!}
+                    {!! Form::label('value', trans('strings.value').' *', ['class' => '', 'title' => 'Preço do Pacote', 'data-toggle' => 'tooltip', 'data-placement' => 'top']) !!}
                     {!! Form::text('value', old('value'), ['class' => 'form-control money-br', 'placeholder' => trans('strings.value')]) !!}
                 </div>
             </div>

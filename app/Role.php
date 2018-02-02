@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Model\Backend;
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Services\Backend\Tag\Traits\TagAttributes;
+use App\Services\Backend\Role\Traits\RoleAttributes;
 
-class Tag extends Model
+class Role extends Model
 {
-    use SoftDeletes, TagAttributes;
+    use SoftDeletes, RoleAttributes;
 
     /**
      * @var bool
@@ -20,7 +20,7 @@ class Tag extends Model
      *
      * @var string
      */
-    protected $table = 'tags';
+    protected $table = 'roles';
 
     /**
      * The attributes that are not mass assignable.
@@ -28,4 +28,12 @@ class Tag extends Model
      * @var array
      */
     protected $guarded = ['id'];
+
+    public function permissions(){
+        return $this->belongsToMany(\App\Permission::class);
+    }
+
+    public function users(){
+        return $this->belongsToMany(\App\User::class);
+    }
 }

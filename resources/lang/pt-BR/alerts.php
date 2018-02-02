@@ -443,6 +443,25 @@ return [
         ],
     ],
 
+    'categories' => [
+        'create' => [
+            'success' => 'Categoria criada com sucesso.', 
+            'error' => 'Erro ao criar categoria.'
+        ],
+        'edit' => [
+            'success' => 'Categoria editada com sucesso.', 
+            'error' => 'Erro ao editar categoria.'
+        ],
+        'update' => [
+            'success' => 'Categoria editada com sucesso.', 
+            'error' => 'Erro ao editar categoria.'
+        ],
+        'delete' => [
+            'error' => 'Erro ao deletar categoria.',
+            'success' => 'Categoria deletada com sucesso.',
+        ],
+    ],
+
     'roles' => [
         'create' => [
             'success' => 'Perfil criado com sucesso.',
@@ -455,6 +474,21 @@ return [
         'delete' => [
             'error' => 'Erro ao deletar Perfil.',
             'success' => 'Perfil deletado com sucesso.',
+        ],
+    ],
+
+    'tags' => [
+        'create' => [
+            'success' => 'Tag criada com sucesso.',
+            'error' => 'Erro ao criar Tag.'
+        ],
+        'edit' => [
+            'success' => 'Tag editada com sucesso.',
+            'error' => 'Erro ao editar Tag.'
+        ],
+        'delete' => [
+            'error' => 'Erro ao deletar Perfil.',
+            'success' => 'Tag deletada com sucesso.',
         ],
     ],
 

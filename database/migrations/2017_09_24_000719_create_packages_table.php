@@ -49,9 +49,9 @@ class CreatePackagesTable extends Migration
         Schema::create('categories_has_packages', function (Blueprint $table) {
             $table->engine = "InnoDB";
             $table->increments('id');
-            $table->integer('categorie_id')->unsigned();
+            $table->integer('category_id')->unsigned();
             $table->integer('package_id')->unsigned();
-            $table->foreign('categorie_id')
+            $table->foreign('category_id')
                 ->on('categories')
                 ->references('id');
             $table->foreign('package_id')

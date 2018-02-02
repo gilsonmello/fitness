@@ -29,7 +29,7 @@ class Package extends Model
     protected $guarded = ['id'];
 
     public function categories(){
-        return $this->belongsToMany(\App\Model\API\Category::class, 'categories_has_packages', 'package_id', 'categorie_id');
+        return $this->belongsToMany(\App\Model\API\Category::class, 'categories_has_packages', 'package_id', 'category_id');
     }
 
 }

@@ -42,7 +42,49 @@
                     </a>
                     <ul class="treeview-menu">
                         <li class="{{ active('auth') }}">
-                            <a href="{{ route('backend.auth.index') }}">{{ trans('strings.users') }}</a>
+                            <a href="{{ route('backend.auth.index') }}">
+                                <i class="fa fa-circle-o"></i>
+                                {{ trans('strings.users') }}
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="treeview {{ active(['categories', 'packages', 'tags', 'diaries', 'diary_hour']) }}">
+                    <a href="#">
+                        <i class="fa fa-edit"></i>
+                        <span>{{ trans('strings.register') }}</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li class="{{ active('categories') }}">
+                            <a href="{{ route('backend.categories.index') }}">
+                                <i class="fa fa-circle-o"></i>
+                                {{ trans('strings.categories') }}
+                            </a>
+                        </li>
+                        <li class="{{ active('packages') }}">
+                            <a href="{{ route('backend.packages.index') }}">
+                                <i class="fa fa-circle-o"></i>
+                                {{ trans('strings.packages') }}
+                            </a>
+                        </li>
+                        <li class="{{ active('tags') }}">
+                            <a href="{{ route('backend.tags.index') }}">
+                                <i class="fa fa-circle-o"></i>
+                                {{ trans('strings.tags') }}
+                            </a>
+                        </li>
+                        <li class="{{ active('diaries') }}">
+                            <a href="{{route('backend.diaries.index')}}">
+                                <i class="fa fa-circle-o"></i>
+                                {{ trans('menus.diary') }}
+                            </a>
+                        </li>
+                        <li class="{{ active('diary_hour') }}">
+                            <a href="{{route('backend.diary_hours.index')}}">
+                                <i class="fa fa-circle-o"></i>
+                                {{ trans('menus.hours') }}
+                            </a>
                         </li>
                     </ul>
                 </li>
@@ -54,21 +96,8 @@
                     <ul class="treeview-menu">
                         <li class="{{ active('evaluations') }}">
                             <a href="{{ route('backend.evaluations.index') }}">
+                                <i class="fa fa-circle-o"></i>
                                 {{ trans('strings.evaluations') }}
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-
-                <li class="treeview {{ active(['packages']) }}">
-                    <a href="#">
-                        <span>{!! trans('strings.package') !!}</span>
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li class="{{ active('packages') }}">
-                            <a href="{{ route('backend.packages.index') }}">
-                                {{ trans('strings.packages') }}
                             </a>
                         </li>
                     </ul>
@@ -100,25 +129,6 @@
                     <ul class="treeview-menu">
                         <li class="{{ active(['reports/simple', 'reports/tests', 'reports/evaluations']) }}">
                             <a href="{{route('backend.reports.simple')}}">{{ trans('menus.simple') }}</a>
-                        </li>
-                    </ul>
-                </li>
-
-                <li class="treeview {{ active(['diaries', 'diary_hours']) }}">
-                    <a href="#">
-                        <span>{{ trans('strings.diary') }}</span>
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li class="{{ active(['diaries']) }}">
-                            <a href="{{route('backend.diaries.index')}}">
-                                {{ trans('menus.diary') }}
-                            </a>
-                        </li>
-                        <li class="{{ active(['diary_hour']) }}">
-                            <a href="{{route('backend.diary_hours.index')}}">
-                                {{ trans('menus.hours') }}
-                            </a>
                         </li>
                     </ul>
                 </li>

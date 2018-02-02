@@ -63,7 +63,11 @@ class PackageController extends Controller
     public function create()
     {
         $this->authorize('backend.packages.create');
-        return view('backend.packages.create');
+        $categories = $this->packageRepository
+            ->allCategories()
+            ->pluck('name', 'id')
+            ->all();
+        return view('backend.packages.create', compact('categories'));
     }
 
     /**
@@ -106,7 +110,11 @@ class PackageController extends Controller
     {
         $this->authorize('backend.packages.edit');
         $package = $this->packageRepository->find($id);
-        return view('backend.packages.edit', compact('package'));
+        $categories = $this->packageRepository
+            ->allCategories()
+            ->pluck('name', 'id')
+            ->all();
+        return view('backend.packages.edit', compact('package', 'categories'));
     }
 
     /**

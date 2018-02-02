@@ -75,6 +75,12 @@
             $('.select2').css({
                 'width': '100%'
             });
+            const sidebar = $('.main-sidebar')[0];
+            if(sidebar.clientHeight > 550){
+                $('.content-wrapper').css({
+                    'min-height': sidebar.clientHeight
+                });
+            }
         });
     </script>
 

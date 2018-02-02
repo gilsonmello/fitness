@@ -45,17 +45,17 @@ class PackagesTableSeeder extends Seeder
         ]);
 
         DB::table('categories_has_packages')->insert([
-            'categorie_id' => 1,
+            'category_id' => 1,
             'package_id' => 1,
         ]);
 
         DB::table('categories_has_packages')->insert([
-            'categorie_id' => 2,
+            'category_id' => 2,
             'package_id' => 2,
         ]);
 
         DB::table('categories_has_packages')->insert([
-            'categorie_id' => 3,
+            'category_id' => 3,
             'package_id' => 3,
         ]);
 

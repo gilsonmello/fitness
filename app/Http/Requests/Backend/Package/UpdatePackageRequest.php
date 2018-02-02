@@ -30,6 +30,7 @@ class UpdatePackageRequest extends FormRequest
             'img' => isset($this->img) ? 'required|image|mimes:jpg,jpeg,png,gif' : '',
             'img_discount' => 'image|mimes:jpg,jpeg,png,gif',
             'validity' => 'required|regex:/^[0-9]/',
+            'category_id'  => 'required|array|min:1',
         ];
     }
 
@@ -52,6 +53,7 @@ class UpdatePackageRequest extends FormRequest
             'img_discount.mimes' => 'O campo Imagem só pode ser selecionado imagem',
             'validity.required' => 'O campo Validade é obrigatório',
             'validity.regex' => 'O campo Validade só pode ser números',
+            'category_id.required' => 'O campo Categoria é obrigatório',
         ];
     }
 }

@@ -47,6 +47,22 @@
                 </div>
             </div>
         </div>
+        <hr>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="form-group">
+                    {!! Form::label('category_id[]', trans('strings.categories').' *', ['class' => '']) !!}
+                    {!! Form::select('category_id[]', $categories, $package->categories->pluck('id')->all(), 
+                        [
+                            'style' => 'width: 100%;', 
+                            'class' => 'select2', 
+                            'multiple' => 'multiple',
+                            'data-placeholder' => trans('strings.categories')
+                        ]) 
+                    !!}
+                </div>
+            </div>
+        </div>
         <hr> 
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">

@@ -12,6 +12,9 @@ return [
       |
      */
     'card_birth_date' => 'Data de Nascimento',
+    'register' => 'Cadastro',
+    'tags' => 'Tags',
+    'categories' => 'Categorias',
     'permissions' => 'Permissões',
     'label' => 'Rótulo',
     'roles' => 'Perfis',

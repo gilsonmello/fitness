@@ -4,13 +4,13 @@ namespace App\Model\Backend;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Services\Backend\Package\Traits\PackageAttributes;
+use App\Services\Backend\Category\Traits\CategoryAttributes;
 
-class Package extends Model
+class Category extends Model
 {
-	use SoftDeletes, PackageAttributes;
-	
-     /**
+    use SoftDeletes, CategoryAttributes;
+
+    /**
      * @var bool
      */
     public $timestamps = true;
@@ -20,7 +20,7 @@ class Package extends Model
      *
      * @var string
      */
-    protected $table = 'packages';
+    protected $table = 'categories';
 
     /**
      * The attributes that are not mass assignable.
@@ -32,7 +32,7 @@ class Package extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function categories(){
-        return $this->belongsToMany(\App\Model\Backend\Category::class, 'categories_has_packages', 'package_id', 'category_id');
+    public function packages(){
+        return $this->belongsToMany(\App\Model\Frontend\Package::class, 'categories_has_packages', 'category_id', 'package_id');
     }
 }

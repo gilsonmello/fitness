@@ -31,6 +31,7 @@ class CreatePackageRequest extends FormRequest
             'img_discount' => 'image|mimes:jpg,jpeg,png,gif',
             'validity' => 'required|regex:/^[0-9]/',
             'value' => 'required',
+            'category_id'  => 'required|array|min:1',
         ];
     }
 
@@ -53,7 +54,8 @@ class CreatePackageRequest extends FormRequest
             'img_discount.mimes' => 'O campo Imagem só pode ser selecionado imagem',
             'validity.required' => 'O campo Validade é obrigatório',
             'validity.regex' => 'O campo Validade só pode ser números',
-            'value.required' => 'O campo Valor é obrigatório'
+            'value.required' => 'O campo Valor é obrigatório',
+            'category_id.required' => 'O campo Categoria é obrigatório',
 
         ];
     }

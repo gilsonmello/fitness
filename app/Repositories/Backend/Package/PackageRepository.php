@@ -4,6 +4,7 @@ namespace App\Repositories\Backend\Package;
 use App\Model\Backend\Protocol;
 use App\Exceptions\GeneralException;
 use App\Model\Backend\Package;
+use App\Model\Backend\Category;
 
 /**
  * Class PackageRepository
@@ -77,6 +78,9 @@ class PackageRepository
         }
         
         if ($package->save()) {
+            if($request->has('category_id')){
+                $package->categories()->attch($request->get('category_id'));
+            }
             return true;
         }
 
@@ -89,6 +93,15 @@ class PackageRepository
     public function all()
     {
         return Package::all();
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
+    public function allCategories()
+    {
+        return Category::where('is_active', '=', 1)
+            ->get();
     }
 
     /**
@@ -153,6 +166,9 @@ class PackageRepository
         $package->meta_description = $request->get('meta_description');
         
         if ($package->save()) {
+            if($request->has('category_id')){
+                $package->categories()->sync($request->get('category_id'));
+            }
             return true;
         }
         return false;
@@ -168,6 +184,9 @@ class PackageRepository
     {
         $package = $this->find($id);
         if ($package->delete()) {
+            if($request->has('category_id')){
+                $package->categories()->detach($request->get('category_id'));
+            }
             return true;
         }
         throw new GeneralException("There was a problem deleting this parq. Please try again.");
