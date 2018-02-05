@@ -14,7 +14,7 @@ class UpdatePackageRequest extends FormRequest
      */
     public function authorize()
     {
-        return Gate::check('backend.packages.update');
+        return Gate::check('backend.packages.edit');
     }
 
     /**
@@ -31,6 +31,7 @@ class UpdatePackageRequest extends FormRequest
             'img_discount' => 'image|mimes:jpg,jpeg,png,gif',
             'validity' => 'required|regex:/^[0-9]/',
             'category_id'  => 'required|array|min:1',
+            'description'  => 'required',
         ];
     }
 
@@ -54,6 +55,7 @@ class UpdatePackageRequest extends FormRequest
             'validity.required' => 'O campo Validade é obrigatório',
             'validity.regex' => 'O campo Validade só pode ser números',
             'category_id.required' => 'O campo Categoria é obrigatório',
+            'description.required' => 'O campo Descrição é obrigatório',
         ];
     }
 }

@@ -5,6 +5,7 @@ use App\Model\Backend\Protocol;
 use App\Exceptions\GeneralException;
 use App\Model\Backend\Package;
 use App\Model\Backend\Category;
+use App\Model\Backend\Tag;
 
 /**
  * Class PackageRepository
@@ -14,7 +15,7 @@ class PackageRepository
 {
 
     /**
-     * ProtocolRepository constructor.
+     * PackageRepository constructor.
      */
     public function __construct()
     {
@@ -79,7 +80,10 @@ class PackageRepository
         
         if ($package->save()) {
             if($request->has('category_id')){
-                $package->categories()->attch($request->get('category_id'));
+                $package->categories()->attach($request->get('category_id'));
+            }
+            if($request->has('tag_id')){
+                $package->tags()->attach($request->get('tag_id'));
             }
             return true;
         }
@@ -101,6 +105,15 @@ class PackageRepository
     public function allCategories()
     {
         return Category::where('is_active', '=', 1)
+            ->get();
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
+    public function allTags()
+    {
+        return Tag::where('is_active', '=', 1)
             ->get();
     }
 
@@ -128,7 +141,7 @@ class PackageRepository
     }
 
     /**
-     * Função para atualizar parq
+     * Função para atualizar pacote
      * @param $request
      * @return boolean
      */
@@ -169,13 +182,16 @@ class PackageRepository
             if($request->has('category_id')){
                 $package->categories()->sync($request->get('category_id'));
             }
+            if($request->has('tag_id')){
+                $package->tags()->sync($request->get('tag_id'));
+            }
             return true;
         }
         return false;
     }
 
     /**
-     * Função para deletar parq
+     * Função para deletar pacote
      * @param int $id
      * @return boolean
      * @throws GeneralException
@@ -187,8 +203,11 @@ class PackageRepository
             if($request->has('category_id')){
                 $package->categories()->detach($request->get('category_id'));
             }
+            if($request->has('tag_id')){
+                $package->tags()->detach($request->get('tag_id'));
+            }
             return true;
         }
-        throw new GeneralException("There was a problem deleting this parq. Please try again.");
+        return false;
     }
 }

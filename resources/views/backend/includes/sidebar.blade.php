@@ -49,61 +49,99 @@
                         </li>
                     </ul>
                 </li>
-                <li class="treeview {{ active(['categories', 'packages', 'tags', 'diaries', 'diary_hour']) }}">
+                <li class="treeview {{ active(['protocols', 'additional_data', 'categories', 'packages', 'tags', 'diaries', 'diary_hour', 'evaluations']) }}">
                     <a href="#">
                         <i class="fa fa-edit"></i>
                         <span>{{ trans('strings.register') }}</span>
                         <i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
-                        <li class="{{ active('categories') }}">
-                            <a href="{{ route('backend.categories.index') }}">
-                                <i class="fa fa-circle-o"></i>
-                                {{ trans('strings.categories') }}
-                            </a>
-                        </li>
-                        <li class="{{ active('packages') }}">
-                            <a href="{{ route('backend.packages.index') }}">
-                                <i class="fa fa-circle-o"></i>
-                                {{ trans('strings.packages') }}
-                            </a>
-                        </li>
-                        <li class="{{ active('tags') }}">
-                            <a href="{{ route('backend.tags.index') }}">
-                                <i class="fa fa-circle-o"></i>
-                                {{ trans('strings.tags') }}
-                            </a>
-                        </li>
-                        <li class="{{ active('diaries') }}">
-                            <a href="{{route('backend.diaries.index')}}">
-                                <i class="fa fa-circle-o"></i>
-                                {{ trans('menus.diary') }}
-                            </a>
-                        </li>
-                        <li class="{{ active('diary_hour') }}">
-                            <a href="{{route('backend.diary_hours.index')}}">
-                                <i class="fa fa-circle-o"></i>
-                                {{ trans('menus.hours') }}
-                            </a>
-                        </li>
+
+                        @can('backend.categories.index')
+                            <li class="{{ active('categories') }}">
+                                <a href="{{ route('backend.categories.index') }}">
+                                    <i class="fa fa-circle-o"></i>
+                                    {{ trans('strings.categories') }}
+                                </a>
+                            </li>
+                        @endcan
+
+                        @can('backend.packages.index')
+                            <li class="{{ active('packages') }}">
+                                <a href="{{ route('backend.packages.index') }}">
+                                    <i class="fa fa-circle-o"></i>
+                                    {{ trans('strings.packages') }}
+                                </a>
+                            </li>
+                        @endcan
+
+                        @can('backend.tags.index')
+                            <li class="{{ active('tags') }}">
+                                <a href="{{ route('backend.tags.index') }}">
+                                    <i class="fa fa-circle-o"></i>
+                                    {{ trans('strings.tags') }}
+                                </a>
+                            </li>
+                        @endcan
+
+                        @can('backend.diaries.index')
+                            <li class="{{ active('diaries') }}">
+                                <a href="{{route('backend.diaries.index')}}">
+                                    <i class="fa fa-circle-o"></i>
+                                    {{ trans('menus.diary') }}
+                                </a>
+                            </li>
+                        @endcan
+
+                        @can('backend.diary_hours.index')
+                            <li class="{{ active('diary_hour') }}">
+                                <a href="{{route('backend.diary_hours.index')}}">
+                                    <i class="fa fa-circle-o"></i>
+                                    {{ trans('menus.hours') }}
+                                </a>
+                            </li>
+                        @endcan
+
+
+                        @can('backend.evaluations.index')
+                            <li class="{{ active('evaluations') }}">
+                                <a href="{{ route('backend.evaluations.index') }}">
+                                    <i class="fa fa-circle-o"></i>
+                                    {{ trans('strings.evaluations') }}
+                                </a>
+                            </li>
+                        @endcan
+
+                        @can('backend.protocols.index')
+                            <li class="{{ active('protocols') }}">
+                                <a href="{{ route('backend.protocols.index') }}">
+                                    <i class="fa fa-circle-o"></i>
+                                    {{  trans('strings.protocols') }}
+                                </a>
+                            </li>
+                        @endcan
+
+                        @can('backend.additional_data.index')
+                            <li class="{{ active('additional_data') }}">
+                                <a href="{{ route('backend.additional_data.index') }}">
+                                    <i class="fa fa-circle-o"></i>
+                                    Dados Adicionais
+                                </a>
+                            </li>
+                        @endcan
                     </ul>
                 </li>
-                <li class="treeview {{ active(['evaluations']) }}">
+                
+                {{-- <li class="treeview {{ active(['evaluations']) }}">
                     <a href="#">
                         <span>{!! trans('strings.physical_evaluation') !!}</span>
                         <i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
-                        <li class="{{ active('evaluations') }}">
-                            <a href="{{ route('backend.evaluations.index') }}">
-                                <i class="fa fa-circle-o"></i>
-                                {{ trans('strings.evaluations') }}
-                            </a>
-                        </li>
                     </ul>
-                </li>
+                </li> --}}
 
-                <li class="treeview {{ active(['tests', 'protocols', 'additional_data']) }}">
+                <li class="treeview {{ active(['tests']) }}">
                     <a href="#">
                         <span>Testes</span>
                         <i class="fa fa-angle-left pull-right"></i>
@@ -112,12 +150,12 @@
                         <li class="{{ active('tests') }}">
                             <a href="{{ route('backend.tests.index') }}">{{ trans('strings.tests') }}</a>
                         </li>
-                        <li class="{{ active('protocols') }}">
+                        {{-- <li class="{{ active('protocols') }}">
                             <a href="{{ route('backend.protocols.index') }}">{{  trans('strings.protocols') }}</a>
                         </li>
                         <li class="{{ active('additional_data') }}">
                             <a href="{{ route('backend.additional_data.index') }}">Dados Adicionais</a>
-                        </li>
+                        </li> --}}
                     </ul>
                 </li>
 

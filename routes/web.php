@@ -80,6 +80,12 @@ Route::group(['namespace' => 'Backend'], function () {
 				return redirect()->route('backend.dashboard');
 			});
 
+			Route::get('/auth/{id}/edit', 'Auth\AuthController@edit')->name('backend.auth.edit');
+			
+			Route::get('/auth/{id}/profile', 'Auth\AuthController@profile')->name('backend.auth.profile');
+
+			Route::get('/auth/find/email_exists', 'Auth\AuthController@emailExists');
+
 			//Rota principal
 			Route::get('/dashboard', 'DashboardController@index')->name('backend.dashboard');
 

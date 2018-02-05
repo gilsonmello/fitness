@@ -59,7 +59,7 @@ class TagRepository
      */
     public function all()
     {
-        return Package::all();
+        return Tag::all();
     }
 
     /**
@@ -71,18 +71,18 @@ class TagRepository
      */
     public function getPaginated($per_page = NULL, $name = '', $description = '', $order_by = 'id', $sort = 'asc')
     {
-        if (!is_null($per_page)) {
-            return Tag::where('is_active', '=', 1)
-                ->where('name', 'LIKE', '%'.$name.'%')
-                ->where('description', 'LIKE', '%'.$description.'%')
-                ->orderBy($order_by, $sort)
-                ->paginate($per_page);
+        $tags = Tag::where('is_active', '=', 1);
+        
+        if(!empty($name)){
+            $tags->where('name', 'LIKE', '%'.$name.'%');
         }
-        return Tag::where('is_active', '=', 1)
-            ->where('name', 'LIKE', '%'.$name.'%')
-            ->where('description', 'LIKE', '%'.$description.'%')
-            ->orderBy($order_by, $sort)
-            ->get();
+        
+        if(!empty($description)){
+            $tags->where('description', 'LIKE', '%'.$description.'%');
+        }
+
+        return $tags->orderBy($order_by, $sort)
+            ->paginate($per_page);
     }
 
     /**

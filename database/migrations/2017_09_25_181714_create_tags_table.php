@@ -22,6 +22,19 @@ class CreateTagsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
+
+        Schema::create('tags_has_packages', function (Blueprint $table) {
+            $table->engine = "InnoDB";
+            $table->increments('id');
+            $table->integer('tag_id')->unsigned();
+            $table->integer('package_id')->unsigned();
+            $table->foreign('tag_id')
+                ->on('tags')
+                ->references('id');
+            $table->foreign('package_id')
+                ->on('packages')
+                ->references('id');
+        });
     }
 
     /**
@@ -31,6 +44,7 @@ class CreateTagsTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('tags_has_packages');
         Schema::dropIfExists('tags');
     }
 }

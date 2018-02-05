@@ -33,7 +33,7 @@
         <div class="row">
             <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5">
                 <div class="form-group">
-                    {!! Form::label('name', trans('strings.name').' *', ['class' => '']) !!}
+                    {!! Form::label('name', trans('strings.name').' *', ['class' => '', 'data-html' => true, 'title' => '* -> Campo Obrigatório', 'data-toggle' => 'tooltip', 'data-placement' => 'top']) !!}
                     {!! Form::text('name', old('name'), ['class' => 'form-control title-has-slug', 'placeholder' => trans('strings.name')]) !!}
                 </div>
             </div>
@@ -52,15 +52,28 @@
         </div>
         <hr>
         <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                 <div class="form-group">
                     {!! Form::label('category_id[]', trans('strings.categories').' *', ['class' => '']) !!}
-                    {!! Form::select('category_id[]', $categories, NULL, 
+                    {!! Form::select('category_id[]', $categories, old('category_id'), 
                         [
                             'style' => 'width: 100%;', 
                             'class' => 'select2', 
                             'multiple' => 'multiple',
                             'data-placeholder' => trans('strings.categories')
+                        ]) 
+                    !!}
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                <div class="form-group">
+                    {!! Form::label('tag_id[]', trans('strings.tags'), ['class' => '']) !!}
+                    {!! Form::select('tag_id[]', $tags, old('tag_id'), 
+                        [
+                            'style' => 'width: 100%;', 
+                            'class' => 'select2', 
+                            'multiple' => 'multiple',
+                            'data-placeholder' => trans('strings.tags')
                         ]) 
                     !!}
                 </div>
@@ -94,19 +107,19 @@
         <div class="row">
             <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
                 <div class="form-group">
-                    {!! Form::label('begin_discount', trans('strings.begin_discount').' *', ['class' => '', 'title' => trans('strings.begin_discount'), 'data-toggle' => 'tooltip', 'data-placement' => 'top']) !!}
+                    {!! Form::label('begin_discount', trans('strings.begin_discount'), ['class' => '', 'title' => trans('strings.begin_discount'), 'data-toggle' => 'tooltip', 'data-placement' => 'top']) !!}
                     {!! Form::text('begin_discount', format(old('begin_discount'), 'd/m/Y H:i'), ['class' => 'form-control datepicker', 'placeholder' => trans('strings.begin_discount')]) !!}
                 </div>
             </div>
             <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
                 <div class="form-group">
-                    {!! Form::label('end_discount', trans('strings.end_discount').' *', ['class' => '', 'title' => trans('strings.end_discount'), 'data-toggle' => 'tooltip', 'data-placement' => 'top']) !!}
+                    {!! Form::label('end_discount', trans('strings.end_discount'), ['class' => '', 'title' => trans('strings.end_discount'), 'data-toggle' => 'tooltip', 'data-placement' => 'top']) !!}
                     {!! Form::text('end_discount', format(old('end_discount'), 'd/m/Y H:i'), ['class' => 'form-control datepicker', 'placeholder' => trans('strings.end_discount')]) !!}
                 </div>
             </div>
             <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
                 <div class="form-group">
-                    {!! Form::label('value_discount', trans('strings.value_discount').' *', ['class' => '', 'title' => trans('strings.value_discount'), 'data-toggle' => 'tooltip', 'data-placement' => 'top']) !!}
+                    {!! Form::label('value_discount', trans('strings.value_discount'), ['class' => '', 'title' => trans('strings.value_discount'), 'data-toggle' => 'tooltip', 'data-placement' => 'top']) !!}
                     {!! Form::text('value_discount', format(old('value_discount'), 'd/m/Y H:i'), ['class' => 'form-control money-br', 'placeholder' => trans('strings.value_discount')]) !!}
                 </div>
             </div>
@@ -121,7 +134,7 @@
             </div>
             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                 <div class="form-group">
-                    {!! Form::label('img_discount', trans('strings.img_discount').' *', ['class' => '', 'title' => 'Selecione a imagem para a capa do pacote, caso esteja em promoção', 'data-toggle' => 'tooltip', 'data-placement' => 'top']) !!}
+                    {!! Form::label('img_discount', trans('strings.img_discount'), ['class' => '', 'title' => 'Selecione a imagem para a capa do pacote, caso esteja em promoção', 'data-toggle' => 'tooltip', 'data-placement' => 'top']) !!}
                     {!! Form::file('img_discount', ['placeholder' => trans('strings.img_discount'), 'accept' => "image/*"]) !!}
                 </div>
             </div>
@@ -130,13 +143,13 @@
         <div class="row">
             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                 <div class="form-group">
-                    {!! Form::label('meta_title', trans('strings.meta_title').' *', ['class' => '', 'title' => trans('strings.meta_title'), 'data-toggle' => 'tooltip', 'data-placement' => 'top']) !!}
+                    {!! Form::label('meta_title', trans('strings.meta_title'), ['class' => '', 'title' => trans('strings.meta_title'), 'data-toggle' => 'tooltip', 'data-placement' => 'top']) !!}
                     {!! Form::textarea('meta_title', old('meta_title'), ['class' => 'form-control textarea', 'placeholder' => trans('strings.meta_title')]) !!}
                 </div>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                 <div class="form-group">
-                    {!! Form::label('meta_description', trans('strings.meta_description').' *', ['class' => '', 'title' => trans('strings.meta_description'), 'data-toggle' => 'tooltip', 'data-placement' => 'top']) !!}
+                    {!! Form::label('meta_description', trans('strings.meta_description'), ['class' => '', 'title' => trans('strings.meta_description'), 'data-toggle' => 'tooltip', 'data-placement' => 'top']) !!}
                     {!! Form::textarea('meta_description', old('meta_description'), ['class' => 'form-control textarea', 'placeholder' => trans('strings.meta_description')]) !!}
                 </div>
             </div>

@@ -37,7 +37,7 @@ class AuthController extends Controller
         }
         $profile = array_map('intval', $profile);
         $roles = $this->authRepository->roles();
-        $users = $this->authRepository->getPaginated(1, [
+        $users = $this->authRepository->getPaginated(config('app.per_page'), [
             'name' => ['op' => 'like', 'value' => '%'.$name.'%'],
             'email' => ['op' => 'like', 'value' => '%'.$email.'%'],
             'cpf' => ['op' => '=', 'value' => $cpf],
@@ -60,9 +60,22 @@ class AuthController extends Controller
      * @param $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
+    public function profile($id){
+        $id = (int) $id;
+        $this->authorize('backend.auth.profile', (int) $id);
+        $auth = User::find($id);
+        $roles = $this->authRepository->roles();
+        $suppliers = $this->supplierRepository->all()->pluck('name', 'id')->all();
+        return view('backend.auth.edit', compact('auth', 'roles', 'suppliers'));
+    }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function edit($id){
-        /*$id = (int) $id;
-        $this->authorize('edit-auth', (int) $id);*/
+        $id = (int) $id;
+        $this->authorize('backend.auth.edit');
         $auth = User::find($id);
         $roles = $this->authRepository->roles();
         $suppliers = $this->supplierRepository->all()->pluck('name', 'id')->all();
@@ -107,7 +120,7 @@ class AuthController extends Controller
      */
     public function emailExists(){
         $user_id = isset($_GET['user_id']) ? $_GET['user_id'] : null;
-        return die(json_encode(emailExists($_GET['email'], $user_id)));
+        return response()->json(emailExists($_GET['email'], $user_id), 200);
     }
 
     /**

@@ -14,7 +14,7 @@ class CreatePackageRequest extends FormRequest
      */
     public function authorize()
     {
-        return Gate::check('backend.packages.store');
+        return Gate::check('backend.packages.create');
     }
 
     /**
@@ -32,6 +32,7 @@ class CreatePackageRequest extends FormRequest
             'validity' => 'required|regex:/^[0-9]/',
             'value' => 'required',
             'category_id'  => 'required|array|min:1',
+            'description'  => 'required',
         ];
     }
 
@@ -56,6 +57,7 @@ class CreatePackageRequest extends FormRequest
             'validity.regex' => 'O campo Validade só pode ser números',
             'value.required' => 'O campo Valor é obrigatório',
             'category_id.required' => 'O campo Categoria é obrigatório',
+            'description.required' => 'O campo Descrição é obrigatório',
 
         ];
     }

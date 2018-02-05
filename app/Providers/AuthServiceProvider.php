@@ -32,9 +32,9 @@ class AuthServiceProvider extends ServiceProvider
         //$gate->abilities();
 
 
-        /*$gate->define('edit-auth', function($user, $id) {
+        $gate->define('backend.auth.profile', function($user, $id) {
             return $user->id == $id;
-        });*/
+        });
 
         $permissions = Permission::where('is_active', '=', 1)->get();
 
@@ -45,10 +45,9 @@ class AuthServiceProvider extends ServiceProvider
         }
 
         $gate->before(function(User $user, $permission){
-           if($user->hasAnyRoles('admin')){
+            if($user->hasAnyRoles('admin')){
                return true;
-           }
-           return false;
+            }
         });
     }
 }

@@ -21,11 +21,6 @@
 
 	Route::get('/password/register', 'Auth\RegisterController@showRegistrationForm')->name('auth.register');
 
-	Route::get('/auth/{id}/edit', 'Auth\AuthController@edit')->name('backend.auth.edit');
-
-
-	Route::get('/auth/find/email_exists', 'Auth\AuthController@emailExists');
-
 	//Route::put('/auth/{id}/update', 'Auth\AuthController@update')->name('backend.auth.update');
 
 	// Route::group(['middleware' => 'guest'], function () {

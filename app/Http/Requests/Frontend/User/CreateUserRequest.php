@@ -31,7 +31,7 @@ class CreateUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|min:10|regex:/^([\pL\s\ ]+)$/u',
+            'name' => 'required|min:10|unique:packages,name|regex:/^([\pL\s\ ]+)$/u',
             'email' => 'required|email',
             'password' => 'required|min:6',
             'confirm_password' => 'required|min:6|same:password',
@@ -53,6 +53,7 @@ class CreateUserRequest extends FormRequest
             'name.required' => 'O campo nome é obrigatório',
             'name.min' => 'Informe o nome com no mínimo 11 letras',
             'name.regex' => 'Informe o nome somente com letras',
+            'name.unique' => 'O Nome informado ja existe',
             'role_id.required' => 'O campo perfil é obrigatório',
             'confirm_password.required' => 'O campo Confirme a senha é obrigatório',
             'confirm_password.same' => 'O campo Confirme a senha deverá ser igual a senha',

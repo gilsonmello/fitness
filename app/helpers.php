@@ -94,13 +94,14 @@ if (!function_exists('getValueSession')) {
 
 		$value = $request->input($name, $test);
 
+
 		if (($submit != '1') && ($value === $test)) {
 			$value = $request->session()->get($name, $test);
 		}
-		if ($value === '') {
+		if ($value === '' || $value === null) {
 			$value = $default;
 		}
-
+		
 		$request->session()->put($name, $value);
 		
 		return $value;

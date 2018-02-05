@@ -67,7 +67,11 @@ class PackageController extends Controller
             ->allCategories()
             ->pluck('name', 'id')
             ->all();
-        return view('backend.packages.create', compact('categories'));
+        $tags = $this->packageRepository
+            ->allTags()
+            ->pluck('name', 'id')
+            ->all();
+        return view('backend.packages.create', compact('categories', 'tags'));
     }
 
     /**
@@ -114,7 +118,11 @@ class PackageController extends Controller
             ->allCategories()
             ->pluck('name', 'id')
             ->all();
-        return view('backend.packages.edit', compact('package', 'categories'));
+        $tags = $this->packageRepository
+            ->allTags()
+            ->pluck('name', 'id')
+            ->all();
+        return view('backend.packages.edit', compact('package', 'categories', 'tags'));
     }
 
     /**

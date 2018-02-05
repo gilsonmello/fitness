@@ -35,4 +35,11 @@ class Package extends Model
     public function categories(){
         return $this->belongsToMany(\App\Model\Backend\Category::class, 'categories_has_packages', 'package_id', 'category_id');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function tags(){
+        return $this->belongsToMany(\App\Model\Backend\Tag::class, 'tags_has_packages', 'package_id', 'tag_id');
+    }
 }
