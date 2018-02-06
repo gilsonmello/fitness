@@ -42,4 +42,11 @@ class Permission extends Model
     public function rolesOfUser(){
         return $this->belongsToMany(\App\Model\Backend\Role::class);
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function module(){
+        return $this->hasMany(\App\PermissionModule::class, 'permission_module_id');
+    }
 }

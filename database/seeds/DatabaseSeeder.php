@@ -153,9 +153,22 @@ class DatabaseSeeder extends Seeder
             'updated_at' => date('Y-m-d H:i:s')
         ]);
 
+        DB::table('permission_modules')->insert([
+            'name' => 'Área administrativa',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ]);
+
+        DB::table('permission_modules')->insert([
+            'name' => 'Pacotes',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ]);
+
         //Seeds permissions
         DB::table('permissions')->insert([
             'id' => 1,
+            'permission_module_id' => 1,
             'name' => 'backend.view',
             'label' => 'Visualizar Área Administrativa',
             'created_at' => date('Y-m-d H:i:s'),
@@ -165,7 +178,34 @@ class DatabaseSeeder extends Seeder
         DB::table('permissions')->insert([
             'id' => 2,
             'name' => 'backend.packages.index',
+            'permission_module_id' => 2,
             'label' => 'Listagem de Pacotes',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ]);
+
+        DB::table('permissions')->insert([
+            'id' => 3,
+            'name' => 'backend.packages.create',
+            'permission_module_id' => 2,
+            'label' => 'Criar Pacotes',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ]);
+
+        DB::table('permissions')->insert([
+            'id' => 4,
+            'name' => 'backend.packages.edit',
+            'permission_module_id' => 2,
+            'label' => 'Editar Pacotes',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ]);
+
+        DB::table('permissions')->insert([
+            'name' => 'backend.packages.destroy',
+            'permission_module_id' => 2,
+            'label' => 'Deletar Pacotes',
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s')
         ]);

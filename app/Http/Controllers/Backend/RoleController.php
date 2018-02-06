@@ -61,9 +61,10 @@ class RoleController extends Controller
     public function create()
     {
         $this->authorize('backend.roles.create');
-        $permissions = $this->roleRepository->getPermissions();
+        //$permissions = $this->roleRepository->getPermissions();
+        $permissionModules = $this->roleRepository->getPermissionModules();
 
-        return view('backend.roles.create', compact('permissions'));
+        return view('backend.roles.create', compact('permissionModules'));
     }
 
     /**

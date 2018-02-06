@@ -55,12 +55,28 @@
                 <div class="col-xs-12 col-md-12 col-lg-12 col-sm-12">
                     {!! Form::label('permission_id[]', trans('strings.permissions').' *', ['class' => '']) !!}
                 </div>
-                @foreach($permissions as $key => $value)
-                    <div class="col-xs-12 col-md-4 col-lg-4 col-sm-4">
-                        <label class="cursor-pointer">
-                            <input type="checkbox" name="permission_id[]" value="{!! $value->id !!}">
-                            {!! $value->label !!}
-                        </label>
+                @foreach($permissionModules as $key => $value)
+                    <div class="col-xs-12 col-md-6 col-lg-6 col-sm-6">
+                        <h4>{{ $value->name }}</h4>
+                        @forelse($value->permissions as $permission)
+                            <div class="row">
+                                <div class="col-xs-12 col-md-12 col-lg-12 col-sm-12">
+                                    @php
+                                        $old = is_array(old('permission_id'));
+                                        $checked = false;
+                                        if($old) {
+                                            $checked = in_array($permission->id, old('permission_id'));
+                                        }
+                                    @endphp
+                                    <label style="font-weight: normal;" class="cursor-pointer">
+                                        {!! Form::checkbox('permission_id[]', $permission->id, $checked, ['class' => 'flat-red']) !!}
+                                        {!! $permission->label !!}
+                                    </label>
+                                </div>
+                            </div>
+                        @empty
+
+                    @endforelse
                     </div>
                 @endforeach
             </div>

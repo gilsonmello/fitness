@@ -2,6 +2,7 @@
 namespace App\Repositories\Backend\Role;
 
 use App\Model\Backend\Protocol;
+use App\PermissionModule;
 use App\Model\Backend\Role;
 use App\Model\Backend\Permission;
 use App\Exceptions\GeneralException;
@@ -68,6 +69,14 @@ class RoleRepository
         return Permission::where('is_active', '=', 1)
             ->where('name', '<>', 'admin')
             ->get();
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
+    public function getPermissionModules()
+    {
+        return PermissionModule::all();
     }
 
     /**

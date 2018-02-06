@@ -19,8 +19,12 @@ class CreatePermissionsTable extends Migration
             $table->string('name');
             $table->string('label');
             $table->boolean('is_active')->default(1);
+            $table->integer('permission_module_id')->unsigned();
             $table->timestamps();
             $table->softDeletes();
+            $table->foreign('permission_module_id')
+                ->on('permission_modules')
+                ->references('id');
         });
         
         Schema::create('permission_role', function (Blueprint $table) {
