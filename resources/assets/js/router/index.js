@@ -53,6 +53,18 @@ export default new Router({
 	        path: '/contactus',
 	        props: true,
 	        component: require('../components/ContactUs.vue')
+	    },
+	    {
+	        name: 'cart',
+	        path: '/cart',
+	        props: true,
+	        component: require('../components/Cart/index.vue')
+	    },
+	    {
+	        name: 'cart.show_item',
+	        path: '/cart/show_item/:id',
+	        props: true,
+	        component: require('../components/Cart/show_item.vue')
 	    }
   	],
     linkExactActiveClass: 'active'

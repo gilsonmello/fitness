@@ -35,27 +35,22 @@
                 </a>
             </li>
             @can('backend.view')
-                <li class="treeview {{ active(['auth']) }}">
-                    <a href="#">
-                        <span>{{ trans('strings.users') }}</span>
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li class="{{ active('auth') }}">
-                            <a href="{{ route('backend.auth.index') }}">
-                                <i class="fa fa-circle-o"></i>
-                                {{ trans('strings.users') }}
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="treeview {{ active(['protocols', 'additional_data', 'categories', 'packages', 'tags', 'diaries', 'diary_hour', 'evaluations']) }}">
+                <li class="treeview {{ active(['protocols', 'additional_data', 'categories', 'packages', 'tags', 'diaries', 'diary_hour', 'evaluations', 'auth', 'tests']) }}">
                     <a href="#">
                         <i class="fa fa-edit"></i>
-                        <span>{{ trans('strings.register') }}</span>
+                        <span>{{ trans('strings.registers') }}</span>
                         <i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
+
+                        @can('backend.auth.index')
+                            <li class="{{ active('auth') }}">
+                                <a href="{{ route('backend.auth.index') }}">
+                                    <i class="fa fa-circle-o"></i>
+                                    {{ trans('strings.users') }}
+                                </a>
+                            </li>
+                        @endcan
 
                         @can('backend.categories.index')
                             <li class="{{ active('categories') }}">
@@ -112,6 +107,15 @@
                             </li>
                         @endcan
 
+                        @can('backend.tests.index')
+                            <li class="{{ active('tests') }}">
+                                <a href="{{ route('backend.tests.index') }}">
+                                    <i class="fa fa-circle-o"></i>
+                                    {{ trans('strings.tests') }}
+                                </a>
+                            </li>
+                        @endcan
+
                         @can('backend.protocols.index')
                             <li class="{{ active('protocols') }}">
                                 <a href="{{ route('backend.protocols.index') }}">
@@ -125,7 +129,7 @@
                             <li class="{{ active('additional_data') }}">
                                 <a href="{{ route('backend.additional_data.index') }}">
                                     <i class="fa fa-circle-o"></i>
-                                    Dados Adicionais
+                                    {{ trans('strings.additional_data') }}
                                 </a>
                             </li>
                         @endcan
@@ -140,24 +144,6 @@
                     <ul class="treeview-menu">
                     </ul>
                 </li> --}}
-
-                <li class="treeview {{ active(['tests']) }}">
-                    <a href="#">
-                        <span>Testes</span>
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li class="{{ active('tests') }}">
-                            <a href="{{ route('backend.tests.index') }}">{{ trans('strings.tests') }}</a>
-                        </li>
-                        {{-- <li class="{{ active('protocols') }}">
-                            <a href="{{ route('backend.protocols.index') }}">{{  trans('strings.protocols') }}</a>
-                        </li>
-                        <li class="{{ active('additional_data') }}">
-                            <a href="{{ route('backend.additional_data.index') }}">Dados Adicionais</a>
-                        </li> --}}
-                    </ul>
-                </li>
 
                 <li class="treeview {{ active(['reports']) }}">
                     <a href="#">

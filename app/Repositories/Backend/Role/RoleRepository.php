@@ -76,7 +76,7 @@ class RoleRepository
      */
     public function getPermissionModules()
     {
-        return PermissionModule::all();
+        return PermissionModule::orderBy('name', 'asc')->get();
     }
 
     /**

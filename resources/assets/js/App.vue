@@ -1,19 +1,19 @@
 <template>
 	
-	<main v-if="!loading">
+	<main>
 		<header-component></header-component>
+        
         <transition name="fade" mode="out-in">
             <keep-alive>
-                <router-view :key="key"></router-view>
+                <router-view v-if="!loading"></router-view>
+				<load-component v-else style=" position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"></load-component>
             </keep-alive>
         </transition>
+        
 		<newsletter-component></newsletter-component>
 		<footer-component></footer-component>
 	</main>
 
-	<main v-else>
-		<load-component style=" position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"></load-component>
-	</main>
 
 </template>
 
@@ -47,6 +47,9 @@
 					$('#access_painel').attr('href', window.urlPainel+"?access_token="+authUser.access_token);
 				}
 
+			},
+			loading: function(newValue, oldValue) {
+				
 			}
 		},	
 		components: {
@@ -68,7 +71,7 @@
 	  		const userObj = JSON.parse(window.localStorage.getItem('authUser'));
 	  		this.$store.dispatch('setUserObject', userObj);
 	  	},
-	    mounted() {
+	    mounted: function() {
 			router.onReady(() => {
 				if(QueryString.access_token){
 				    axios.get(host+'/users/logged', {
@@ -86,12 +89,13 @@
 				        window.history.pushState({url: "/"}, '', '/#/');
 				    })
 				}
+				this.loading = false
 	    	})
 
 	        //window.console.log('Component mounted.')
 	        router.beforeEach((to, from, next) => {
 	        	this.loading = true
-	        	setTimeout(() => {
+	        	//setTimeout(() => {
 					const authUser = JSON.parse(window.localStorage.getItem('authUser'));
 				    if(to.meta.requiresAuth == true){
 				        if(authUser){
@@ -111,16 +115,18 @@
 				        next();
 				    }
 
-			    }, 500)
+			    //}, 500)
 
                 // $('.body').addClass('fade-enter-active');
                 // $('.body').removeClass('fade-leave-active');
 
             })
             router.afterEach((to, from) => {
-            	this.loading = false
+            	//setTimeout(() => {
+            		this.loading = false
+            	//}, 100);
 			})
-			this.loading = false
+			
 	    },
         updated: function(createElement){
     	 	

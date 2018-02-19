@@ -47,11 +47,39 @@
             </div>
         </div>
         <hr>
-        <div class="row">
+        <div class="row permissions">
             <div class="col-xs-12 col-md-12 col-lg-12 col-sm-12">
-                {!! Form::label('permission_id[]', trans('strings.permissions').' *', ['class' => '']) !!}
-            </div>
-            @foreach($permissions as $key => $value)
+                {!! Form::label('permission_id[]', trans('strings.permissions'), ['class' => '']) !!}
+                &nbsp;&nbsp;|&nbsp;&nbsp;
+                <label class="cursor-pointer">
+                    {{ trans('strings.check_all') }}
+                    {!! Form::checkbox('all', '1', false, ['class' => '', 'id' => 'check-all']) !!}
+                </label>
+            </div>            
+            @foreach($permissionModules as $key => $value)
+                <div class="col-xs-12 col-md-6 col-lg-6 col-sm-6">
+                    <h4>{{ $value->name }}</h4>
+                    @forelse($value->permissions as $permission)
+                        <div class="row">
+                            <div class="col-xs-12 col-md-12 col-lg-12 col-sm-12">
+                                @php
+                                    $checked = false;
+                                    if(is_array($role->permissions->pluck('id')->all())) {
+                                        $checked = in_array($permission->id, $role->permissions->pluck('id')->all());
+                                    }
+                                @endphp
+                                <label style="font-weight: normal;" class="cursor-pointer">
+                                    {!! Form::checkbox('permission_id[]', $permission->id, $checked, ['class' => 'flat-red']) !!}
+                                    {!! $permission->label !!}
+                                </label>
+                            </div>
+                        </div>
+                    @empty
+
+                    @endforelse
+                </div>
+            @endforeach
+            {{-- @foreach($permissions as $key => $value)
                 <div class="col-xs-12 col-md-4 col-lg-4 col-sm-4">
                     <label class="cursor-pointer">
                         @if($role->permissions->contains('id', $value->id))
@@ -62,7 +90,7 @@
                         {!! $value->label !!}
                     </label>
                 </div>
-            @endforeach
+            @endforeach --}}
         </div>
     </div>
     <div class="box-footer">

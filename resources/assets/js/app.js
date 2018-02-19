@@ -192,10 +192,10 @@ var authOptions = {
 });
 
 router.afterEach((to, from) => {
-    var height = $('[role="main"]').prop('scrollHeight');
-    $('body').animate({
-        scrollTop: height
-    },  500);
+    var height = $('main').prop('scrollHeight');
+    $('html, body').animate({
+        scrollTop: 0
+    },  300);
 });
 
 /*router.beforeEach((to, from, next) => {

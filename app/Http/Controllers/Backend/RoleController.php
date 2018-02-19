@@ -105,8 +105,9 @@ class RoleController extends Controller
     {
         $this->authorize('backend.roles.edit');
         $role = $this->roleRepository->find($id);
-        $permissions = $this->roleRepository->getPermissions();
-        return view('backend.roles.edit', compact('role', 'permissions'));
+        //$permissions = $this->roleRepository->getPermissions();
+        $permissionModules = $this->roleRepository->getPermissionModules();
+        return view('backend.roles.edit', compact('role', 'permissionModules'));
     }
 
     /**

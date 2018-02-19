@@ -76,7 +76,7 @@ if(!function_exists('emailExists')) {
 			}
 		}
 		//Verificando se o e-mail já existe
-		return \App\Model\Backend\User::where('email', '=', $param)->get()->isEmpty() == FALSE ? FALSE : TRUE;
+		return \App\User::where('email', '=', $param)->get()->isEmpty() == FALSE ? FALSE : TRUE;
 	}
 }
 

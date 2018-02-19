@@ -37,14 +37,14 @@ class UserController extends Controller
         return response()->json('true', 200);
     }
 
-    public function active(Request $request, $token){
+    public function active(Request $request, $token = null){
         
         if(!empty($token) && isset($token)){
             $user = User::where('remember_token', '=', $token)->get()->first();
-            if($user->is_active == 1){
-                return redirect()->route('frontend.index');
-            }
             if($user){
+                if($user->is_active == 1){
+                    return redirect()->route('frontend.index');
+                }
                 $user->is_active = 1;
                 $user->ip_address = $request->server('REMOTE_ADDR');
                 if($user->save()){
@@ -53,11 +53,11 @@ class UserController extends Controller
                     return redirect()->route('frontend.index', ['access_token' => $token]);
                 }
             }else{
-                abort('Conta não encontrada', 400);
+                abort(400, 'Conta não encontrada');
             }
         }
          
-        return abort('Token inválido', 400);
+        return abort(400, 'Token inválido');
     }
 
 

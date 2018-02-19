@@ -11,7 +11,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-       //Seeds users
+        //Seeds users
         DB::table('users')->insert([
             'name' => 'Gilson de Melo',
             'email' => 'gilson@mirandafitness.com.br',
@@ -45,76 +45,7 @@ class DatabaseSeeder extends Seeder
         //$this->call(UsersTableSeeder::class);
 
 
-        //Seed roles
-        DB::table('roles')->insert([
-            'name' => 'admin',
-            'label' => 'Administrador',
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s')
-        ]);
-
-        DB::table('roles')->insert([
-            'name' => 'client',
-            'label' => 'Cliente',
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s')
-        ]);
-
-        /*
-        DB::table('roles')->insert([
-            'name' => 'edit',
-            'label' => 'Editor',
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s')
-        ]);
-
-        DB::table('roles')->insert([
-            'name' => 'publish',
-            'label' => 'Publicador',
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s')
-        ]);*/
-
-        //Seed role_user
-        DB::table('role_user')->insert([
-            'user_id' => 1,
-            'role_id' => 1,
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s')
-        ]);
-
-        DB::table('role_user')->insert([
-            'user_id' => 2,
-            'role_id' => 1,
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s')
-        ]);
         
-        DB::table('role_user')->insert([
-            'user_id' => 3,
-            'role_id' => 2,
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s')
-        ]);
-       /* DB::table('role_user')->insert([
-            'user_id' => 1,
-            'role_id' => 2,
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s')
-        ]);
-
-        DB::table('role_user')->insert([
-            'user_id' => 2,
-            'role_id' => 3,
-            'created_at' => date('Y-m-d H:i:s')
-        ]);
-
-        DB::table('role_user')->insert([
-            'user_id' => 2,
-            'role_id' => 4,
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s')
-        ]);*/
 
         //Seed news
         DB::table('news')->insert([
@@ -153,73 +84,7 @@ class DatabaseSeeder extends Seeder
             'updated_at' => date('Y-m-d H:i:s')
         ]);
 
-        DB::table('permission_modules')->insert([
-            'name' => 'Área administrativa',
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s')
-        ]);
-
-        DB::table('permission_modules')->insert([
-            'name' => 'Pacotes',
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s')
-        ]);
-
-        //Seeds permissions
-        DB::table('permissions')->insert([
-            'id' => 1,
-            'permission_module_id' => 1,
-            'name' => 'backend.view',
-            'label' => 'Visualizar Área Administrativa',
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s')
-        ]);
-
-        DB::table('permissions')->insert([
-            'id' => 2,
-            'name' => 'backend.packages.index',
-            'permission_module_id' => 2,
-            'label' => 'Listagem de Pacotes',
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s')
-        ]);
-
-        DB::table('permissions')->insert([
-            'id' => 3,
-            'name' => 'backend.packages.create',
-            'permission_module_id' => 2,
-            'label' => 'Criar Pacotes',
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s')
-        ]);
-
-        DB::table('permissions')->insert([
-            'id' => 4,
-            'name' => 'backend.packages.edit',
-            'permission_module_id' => 2,
-            'label' => 'Editar Pacotes',
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s')
-        ]);
-
-        DB::table('permissions')->insert([
-            'name' => 'backend.packages.destroy',
-            'permission_module_id' => 2,
-            'label' => 'Deletar Pacotes',
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s')
-        ]);
-
-        //Seeds permission_role
-        DB::table('permission_role')->insert([
-            'permission_id' => 1,
-            'role_id' => 2
-        ]);
-
-        DB::table('permission_role')->insert([
-            'permission_id' => 2,
-            'role_id' => 2
-        ]);
+        
 
         /*
         DB::table('evaluations')->insert([
@@ -478,6 +343,8 @@ class DatabaseSeeder extends Seeder
             'updated_at' => date('Y-m-d H:i:s')
         ]);
 
+        $this->call(RolesTableSeeder::class);
+        $this->call(PermissionsTableSeeder::class);
         $this->call(StatusPaymentTableSeeder::class);
         $this->call(SuppliersTableSeeder::class);
         $this->call(CategoriesTableSeeder::class);

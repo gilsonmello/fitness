@@ -78,6 +78,12 @@
                             <span class="glyphicon glyphicon-log-in"></span> Login
                         </router-link>
                     </li>
+
+                    <li>
+                        <router-link :to="{ name: 'cart' }">
+                            <span class="glyphicon glyphicon-shopping-cart"></span> Carrinho
+                        </router-link>
+                    </li>
                 </ul>
             </div>
         </div>

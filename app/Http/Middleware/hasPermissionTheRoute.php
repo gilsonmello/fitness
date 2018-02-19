@@ -4,11 +4,11 @@ namespace App\Http\Middleware;
 
 use Closure;
 //use App\Services\Access\Traits\AccessParams;
-use App\Model\Backend\User;
-use App\Model\Backend\Permission;
+//use App\Model\Backend\User;
+//use App\Model\Backend\Permission;
 use Auth;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Auth\Access\AuthorizationException;
+//use Illuminate\Auth\Access\AuthorizationException;
 
 class hasPermissionTheRoute
 {

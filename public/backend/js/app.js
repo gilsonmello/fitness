@@ -17024,6 +17024,24 @@ $(function () {
         }
     });
 
+    //Flat red color scheme for iCheck
+    $('#check-all').iCheck({
+        checkboxClass: 'icheckbox_flat-green',
+        radioClass: 'iradio_flat-green'
+    }).on('ifChanged', function(e){
+        const field = $(this)[0];        
+        if(field.checked){
+            $('.permissions input[type="checkbox"].flat-red, input[type="radio"].flat-red').each(function(i, val){
+                $(this)[0].checked = true;
+            });
+        }else{
+            $('.permissions input[type="checkbox"].flat-red, input[type="radio"].flat-red').each(function(i, val){
+                $(this)[0].checked = false;
+            });
+        }
+        $('.permissions input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck('update');
+    });
+
     //Colorpicker
     $(".my-colorpicker1").colorpicker();
     //color picker with addon
@@ -17111,7 +17129,6 @@ $(function () {
             info: false
         }
     });
-
 
 
     $('body').on('click', '.pagination a', function(e) {

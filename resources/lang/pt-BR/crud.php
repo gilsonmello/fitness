@@ -480,4 +480,48 @@ return [
     'partnerorderpayments' => [
         'total' => 'Pagamento(s)'
     ],
+
+
+    'evaluations' => [
+        'create' => 'Criar Avaliação',
+        'edit' => 'Editar Avaliação',
+        'destroy' => 'Deletar Avaliação',
+        'index' => 'Avaliações'
+    ],
+
+    'protocols' => [
+        'create' => 'Criar Protocolo',
+        'edit' => 'Editar Protocolo',
+        'destroy' => 'Deletar Protocolo',
+        'index' => 'Protocolos'
+    ],
+
+    'tags' => [
+        'create' => 'Criar Tag',
+        'edit' => 'Editar Tag',
+        'destroy' => 'Deletar Tag',
+        'index' => 'Tags'
+    ],
+
+    'categories' => [
+        'create' => 'Criar Categoria',
+        'edit' => 'Editar Categoria',
+        'destroy' => 'Deletar Categoria',
+        'index' => 'Categorias'
+    ],
+
+    'tests' => [
+        'create' => 'Criar Teste',
+        'edit' => 'Editar Teste',
+        'destroy' => 'Deletar Teste',
+        'index' => 'Testes'
+    ],
+
+    'roles' => [
+        'create' => 'Criar Perfil',
+        'edit' => 'Editar Perfil',
+        'destroy' => 'Deletar Perfil',
+        'index' => 'Perfis'
+    ],
+
 ];

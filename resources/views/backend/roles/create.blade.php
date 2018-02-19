@@ -45,15 +45,20 @@
                 </div>
                 <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
                     <div class="form-group">
-                        {!! Form::label('is_active', trans('strings.is_active').'*', ['style' => 'display: block']) !!}
+                        {!! Form::label('is_active', trans('strings.is_active').' *', ['style' => 'display: block']) !!}
                         {!! Form::checkbox('is_active', 1, true, ['class' => 'form-control flat-red', 'placeholder' => trans('strings.title')]) !!}
                     </div>
                 </div>
             </div>
             <hr>
-            <div class="row">
+            <div class="row permissions">
                 <div class="col-xs-12 col-md-12 col-lg-12 col-sm-12">
-                    {!! Form::label('permission_id[]', trans('strings.permissions').' *', ['class' => '']) !!}
+                    {!! Form::label('permission_id[]', trans('strings.permissions'), ['class' => '']) !!}
+                    &nbsp;&nbsp;|&nbsp;&nbsp;
+                    <label class="cursor-pointer">
+                        {{ trans('strings.check_all') }}
+                        {!! Form::checkbox('all', '1', false, ['class' => '', 'id' => 'check-all']) !!}
+                    </label>
                 </div>
                 @foreach($permissionModules as $key => $value)
                     <div class="col-xs-12 col-md-6 col-lg-6 col-sm-6">
@@ -62,9 +67,8 @@
                             <div class="row">
                                 <div class="col-xs-12 col-md-12 col-lg-12 col-sm-12">
                                     @php
-                                        $old = is_array(old('permission_id'));
                                         $checked = false;
-                                        if($old) {
+                                        if(is_array(old('permission_id'))) {
                                             $checked = in_array($permission->id, old('permission_id'));
                                         }
                                     @endphp
@@ -76,7 +80,7 @@
                             </div>
                         @empty
 
-                    @endforelse
+                        @endforelse
                     </div>
                 @endforeach
             </div>
